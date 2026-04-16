@@ -13,65 +13,146 @@
 
 ## 核心分類
 
-1. **建築法規制度**
-   - 台灣建築技術規則
-   - 施工標準
-   - 消防安全規範
-   - 無障礙設計要求
-   - 環境保護規範
+### 1️⃣ [Design & Planning](Design%20&%20Planning/) 設計規劃
 
-2. **設計規劃**
-   - 建築設計原理
-   - 城市規劃
-   - 現場分析
-   - 概念設計
-   - 草圖設計
-   - 設計發展
+**5 個技能模組（4A+1B）**
 
-3. **技術知識**
-   - 結構系統
-   - 機電給排水（MEP）
-   - 施工材料
-   - 建築技術
-   - 可持續設計
-   - 能源效率
+- **設計理論/**
+  - [concept-design](Design%20&%20Planning/設計理論/concept-design/) (A 類通用)
+  - [design-theory](Design%20&%20Planning/設計理論/design-theory/) (A 類通用)
+  - [building-typology](Design%20&%20Planning/設計理論/building-typology/) (A 類通用)
+  - [spatial-planning](Design%20&%20Planning/設計理論/spatial-planning/) (B 類適配)
+- **建築基礎/**
+  - [architect-foundations](Design%20&%20Planning/建築基礎/architect-foundations/) (A 類通用)
 
-4. **專案管理**
-   - 專案規劃
-   - 預算管理
-   - 時程管理
-   - 客戶關係
-   - 團隊協調
-   - 品質管制
+---
 
-5. **專業實務**
-   - 契約法
-   - 專業倫理
-   - 保險與責任
-   - 商業發展
-   - 繼續教育
-   - 專業執照
+### 2️⃣ [Technical Knowledge](Technical%20Knowledge/) 技術知識
 
-6. **施工材料**
-   - 施工方法
-   - 材料選擇
-   - 品質管制
-   - 安全標準
-   - 環境考量
-   - 維護與修繕
+**4 個技能模組（1A+3B）**
 
-7. **專門領域**
-   - 試圖與修復
-   - 歷史建築保存
-   - 醫療建築
-   - 教育設施
-   - 居住空間設計
-   - 商業建築
-   - 公共建築
+- **材料設備/**
+  - [material-selection](Technical%20Knowledge/材料設備/material-selection/) (A 類通用)
+  - [building-envelope](Technical%20Knowledge/材料設備/building-envelope/) (B 類適配)
+- **結構系統/**
+  - [structural-systems](Technical%20Knowledge/結構系統/structural-systems/) (B 類適配)
+- **機電系統/**
+  - [building-services](Technical%20Knowledge/機電系統/building-services/) (B 類適配)
 
-## 技能整合概念
+---
 
-本知識庫已整合參考repo中的技能模組概念，各分類中均包含相應的專業技能模組，使建築師能更系統地掌握專業技能。
+### 3️⃣ [性能](性能/) Performance
+
+**4 個技能模組（4B）**
+
+- **光環境設計/**
+  - [daylighting-design](性能/光環境設計/daylighting-design/) (B 類適配)
+- **聲環境設計/**
+  - [acoustic-design](性能/聲環境設計/acoustic-design/) (B 類適配)
+- **永續建築/**
+  - [building-sustainability](性能/永續建築/building-sustainability/) (B 類適配)
+- **計算工具/**
+  - [architect-calculator](性能/計算工具/architect-calculator/) (B 類適配)
+
+---
+
+### 4️⃣ [Building Codes & Regulations](Building%20Codes%20&%20Regulations/) 建築法規制度
+
+**5 個技能模組（5C）**
+
+- **建築法規/**
+  - [taiwan-building-codes](Building%20Codes%20&%20Regulations/建築法規/taiwan-building-codes/) (C 類台灣法規)
+- **消防安全/**
+  - [taiwan-fire-safety](Building%20Codes%20&%20Regulations/消防安全/taiwan-fire-safety/) (C 類台灣法規)
+- **無障礙設計/**
+  - [taiwan-accessibility](Building%20Codes%20&%20Regulations/無障礙設計/taiwan-accessibility/) (C 類台灣法規)
+- **施工文件/**
+  - [taiwan-construction-docs](Building%20Codes%20&%20Regulations/施工文件/taiwan-construction-docs/) (C 類台灣法規)
+- **容積計算/**
+  - [taiwan-programming](Building%20Codes%20&%20Regulations/容積計算/taiwan-programming/) (C 類台灣法規)
+
+---
+
+### 5️⃣ [Project Management](Project%20Management/) 專案管理
+
+- 專案規劃/
+- 預算管理/
+- 時程管理/
+- 客戶關係/
+- 團隊協調/
+- 品質管制/
+
+> 待擴充
+
+---
+
+### 6️⃣ [Professional Practice](Professional%20Practice/) 專業實務
+
+- 契約法/
+- 專業倫理/
+- 保險與責任/
+- 商業發展/
+- 繼續教育/
+- 專業執照/
+
+> 待擴充
+
+---
+
+### 7️⃣ [Construction Materials](Construction%20Materials/) 施工材料
+
+- 施工方法/
+- 材料選擇/
+- 品質管制/
+- 安全標準/
+- 環境考量/
+- 維護與修繕/
+
+> 待擴充
+
+---
+
+### 8️⃣ [Specialized Fields](Specialized%20Fields/) 專門領域
+
+- 試圖與修復/
+- 歷史建築保存/
+- 醫療建築/
+- 教育設施/
+- 居住空間設計/
+- 商業建築/
+- 公共建築/
+
+> 待擴充
+
+---
+
+## 技能分類說明
+
+| 分類 | 數量 | 特徵 | 適用對象 |
+|-----|-|-|-|
+| **A 類通用技能** | 5 個 | 國際通用標準，無需台灣適配 | AI + 人類直接使用 |
+| **B 類適配技能** | 8 個 | 國際規範→台灣適配，保留 TODO 注記 | 國際→台灣雙向支援 |
+| **C 類台灣法規技能** | 5 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
+
+---
+
+## 文件架構說明
+
+### 技能文件雙語結構
+
+每個技能包含兩個文件：
+
+1. **skill.md**（AI 用，英文）
+   - 使用英文專業技術術語
+   - 定義核心能力與 AI 操作指南
+   - 支援 AI 精確調動與理解
+
+2. **domain.md**（人類用，繁體中文）
+   - 使用繁體中文專業術語
+   - 說明技能用途與學習重點
+   - 支援人類學習與知識內化
+
+---
 
 ## 使用方式
 

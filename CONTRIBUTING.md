@@ -24,6 +24,72 @@
 - 檔案名稱使用小寫與連字號（例如：`building-permit-process.md`）
 - 在檔案名稱中包含相關關鍵字以便於搜尋
 
+## 技能模組架構
+
+### 技能分類
+
+| 分類 | 特徵 | 數量 | 位置 |
+|-----|------|-----|-|-|
+| **A 類通用技能** | 國際通用標準，無需台灣適配 | 5 個 | Design & Planning、Technical Knowledge |
+| **B 類適配技能** | 國際規範→台灣適配，保留 TODO 注記 | 8 個 | Design & Planning、Technical Knowledge、性能 |
+| **C 類台灣法規技能** | 完全台灣法規，MCP 工具對接 | 5 個 | Building Codes & Regulations |
+
+### 雙語言架構
+
+每個技能包含兩個文件：
+
+1. **skill.md（AI 用，英文）**
+   - 使用英文專業技術術語
+   - 定義核心能力與 AI 操作指南
+   - 支援 AI 精確調動與理解
+
+2. **domain.md（人類用，繁體中文）**
+   - 使用繁體中文專業術語
+   - 說明技能用途與學習重點
+   - 支援人類學習與知識內化
+
+### 技能目錄結構
+
+```
+Design & Planning/
+├── 設計理論/
+│   ├── concept-design/
+│   │   ├── skill.md              # AI 英文
+│   │   └── domain.md             # 人類繁體中文
+└── 建築基礎/
+
+Technical Knowledge/
+├── 材料設備/
+├── 結構系統/
+└── 機電系統/
+
+性能/
+├── 光環境設計/
+├── 聲環境設計/
+├── 永續建築/
+└── 計算工具/
+
+Building Codes & Regulations/
+├── 建築法規/
+├── 消防安全/
+├── 無障礙設計/
+├── 施工文件/
+└── 容積計算/
+```
+
+### 8 大分類架構
+
+| 分類 | 技能數 | 說明 |
+|-----|-|-|-|
+| Design & Planning | 5 | 設計理論、建築基礎 |
+| Technical Knowledge | 4 | 材料設備、結構系統、機電系統 |
+| 性能 | 4 | 光環境、聲環境、永續建築、計算工具 |
+| Building Codes & Regulations | 5 | 台灣建築法規 5 項 |
+| Project Management | 0 | 待擴充 |
+| Professional Practice | 0 | 待擴充 |
+| Construction Materials | 0 | 待擴充 |
+| Specialized Fields | 0 | 待擴充 |
+
 ## 文件結構
 
 每個文件應包含：
