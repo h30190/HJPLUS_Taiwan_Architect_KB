@@ -60,16 +60,25 @@
 
 **5 個技能模組（5C）**
 
-- **建築法規/**
-  - [taiwan-building-codes](建築法規/建築法規/taiwan-building-codes/) (C 類台灣法規)
 - **消防安全/**
   - [taiwan-fire-safety](建築法規/消防安全/taiwan-fire-safety/) (C 類台灣法規)
 - **無障礙設計/**
   - [taiwan-accessibility](建築法規/無障礙設計/taiwan-accessibility/) (C 類台灣法規)
-- **施工文件/**
-  - [taiwan-construction-docs](建築法規/施工文件/taiwan-construction-docs/) (C 類台灣法規)
-- **容積計算/**
-  - [taiwan-programming](建築法規/容積計算/taiwan-programming/) (C 類台灣法規)
+- **施工文件與驗收/**
+  - [taiwan-construction-docs](建築法規/施工文件與驗收/taiwan-construction-docs/) (C 類台灣法規)
+- **容積率與建蔽率計算/**
+  - [taiwan-programming](建築法規/容積率與建蔽率計算/taiwan-programming/) (C 類台灣法規)
+
+**9 個待建立目錄**
+
+- 建築技術規則/
+- 建築法/
+- 都市計畫法/
+- 建築材料與構造/
+- 耐震與結構安全/
+- 節能與環境/
+- 住宅與公寓大廈管理/
+- 其他特定領域/
 
 ---
 

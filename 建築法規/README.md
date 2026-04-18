@@ -4,12 +4,6 @@
 
 ## 技能模組總覽（5 個：5C）
 
-### 建築法規
-
-| 技能名稱 | 類型 | skill.md (AI) | domain.md (人類) |
-|---------|---|-----|-----|-|-|
-| [taiwan-building-codes](建築法規/taiwan-building-codes/) | C 類台灣法規 | ✅ | ✅ |
-
 ### 消防安全
 
 | 技能名稱 | 類型 | skill.md (AI) | domain.md (人類) |
@@ -22,17 +16,17 @@
 |---------|---|-----|-----|-|-|
 | [taiwan-accessibility](無障礙設計/taiwan-accessibility/) | C 類台灣法規 | ✅ | ✅ |
 
-### 施工文件
+### 施工文件與驗收
 
 | 技能名稱 | 類型 | skill.md (AI) | domain.md (人類) |
 |---------|---|-----|-----|-|-|
-| [taiwan-construction-docs](施工文件/taiwan-construction-docs/) | C 類台灣法規 | ✅ | ✅ |
+| [taiwan-construction-docs](施工文件與驗收/taiwan-construction-docs/) | C 類台灣法規 | ✅ | ✅ |
 
-### 容積計算
+### 容積率與建蔽率計算
 
 | 技能名稱 | 類型 | skill.md (AI) | domain.md (人類) |
 |---------|---|-----|-----|-|-|
-| [taiwan-programming](容積計算/taiwan-programming/) | C 類台灣法規 | ✅ | ✅ |
+| [taiwan-programming](容積率與建蔽率計算/taiwan-programming/) | C 類台灣法規 | ✅ | ✅ |
 
 ---
 
@@ -54,7 +48,7 @@
 ## 原始資料結構（已整併）
 
 **整併前**：Skills/04_法規/01_建築法規/、02_消防安全/、03_無障礙設計/、04_施工文件/、05_容積計算/  
-**整併後**：Building Codes & Regulations/建築法規/、消防安全/、無障礙設計/、施工文件/、容積計算/
+**整併後**：Building Codes & Regulations/建築技術規則/、消防安全/、無障礙設計/、施工文件與驗收/、容積率與建蔽率計算/
 
 ---
 
@@ -62,3 +56,22 @@
 
 - **[總索引](../README.md)**：查看完整 8 大分類架構
 - **[taiwan-building-code MCP](https://law.moj.gov.tw/)**：台灣建築法規官方查詢
+
+---
+
+## 新增目錄
+
+以下為最近建立的子資料夾，供未來放置對應的技能與文件：
+
+- 建築技術規則/
+- 都市計畫法/
+- 無障礙設計/
+- 建築材料與構造/
+- 耐震與結構安全/
+- 節能與環境/
+- 住宅與公寓大廈管理/
+- 施工文件與驗收/
+- 容積率與建蔽率計算/
+- 其他特定領域/
+
+---
