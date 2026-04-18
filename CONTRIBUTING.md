@@ -51,44 +51,61 @@
 ### 技能目錄結構
 
 ```
-Design & Planning/
+建築設計與規劃/
 ├── 設計理論/
 │   ├── concept-design/
 │   │   ├── skill.md              # AI 英文
 │   │   └── domain.md             # 人類繁體中文
+│   ├── design-theory/
+│   ├── building-typology/
+│   └── spatial-planning/
 └── 建築基礎/
+    └── architect-foundations/
 
-Technical Knowledge/
+專業複委託/
 ├── 材料設備/
+│   ├── material-selection/
+│   └── building-envelope/
 ├── 結構系統/
+│   └── structural-systems/
 └── 機電系統/
+    └── building-services/
 
-性能/
+建築性能/
 ├── 光環境設計/
-├── 聲環境設計/
+│   └── daylighting-design/
+├── 音環境設計/
+│   └── acoustic-design/
 ├── 永續建築/
+│   └── building-sustainability/
 └── 計算工具/
+    └── architect-calculator/
 
-Building Codes & Regulations/
+建築法規/
 ├── 建築法規/
+│   └── taiwan-building-codes/
 ├── 消防安全/
+│   └── taiwan-fire-safety/
 ├── 無障礙設計/
+│   └── taiwan-accessibility/
 ├── 施工文件/
+│   └── taiwan-construction-docs/
 └── 容積計算/
+    └── taiwan-programming/
 ```
 
 ### 8 大分類架構
 
 | 分類 | 技能數 | 說明 |
 |-----|-|-|-|
-| Design & Planning | 5 | 設計理論、建築基礎 |
-| Technical Knowledge | 4 | 材料設備、結構系統、機電系統 |
-| 性能 | 4 | 光環境、聲環境、永續建築、計算工具 |
-| Building Codes & Regulations | 5 | 台灣建築法規 5 項 |
-| Project Management | 0 | 待擴充 |
-| Professional Practice | 0 | 待擴充 |
-| Construction Materials | 0 | 待擴充 |
-| Specialized Fields | 0 | 待擴充 |
+| 建築設計與規劃 | 5 | 設計理論、建築基礎 |
+| 專業複委託 | 4 | 材料設備、結構系統、機電系統 |
+| 建築性能 | 4 | 光環境、音環境、永續建築、計算工具 |
+| 建築法規 | 5 | 台灣建築法規 5 項 |
+| 專案管理 | 0 | 待擴充 |
+| 經營管理 | 0 | 待擴充 |
+| 建築施工與材料 | 0 | 待擴充 |
+| 建築執照 | 0 | 待擴充 |
 
 ## 文件結構
 

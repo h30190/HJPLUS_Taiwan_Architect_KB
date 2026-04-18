@@ -13,67 +13,67 @@
 
 ## 核心分類
 
-### 1️⃣ [Design & Planning](Design%20&%20Planning/) 設計規劃
+### 1️⃣ [建築設計與規劃](建築設計與規劃/) Design & Planning
 
 **5 個技能模組（4A+1B）**
 
 - **設計理論/**
-  - [concept-design](Design%20&%20Planning/設計理論/concept-design/) (A 類通用)
-  - [design-theory](Design%20&%20Planning/設計理論/design-theory/) (A 類通用)
-  - [building-typology](Design%20&%20Planning/設計理論/building-typology/) (A 類通用)
-  - [spatial-planning](Design%20&%20Planning/設計理論/spatial-planning/) (B 類適配)
+  - [concept-design](建築設計與規劃/設計理論/concept-design/) (A 類通用)
+  - [design-theory](建築設計與規劃/設計理論/design-theory/) (A 類通用)
+  - [building-typology](建築設計與規劃/設計理論/building-typology/) (A 類通用)
+  - [spatial-planning](建築設計與規劃/設計理論/spatial-planning/) (B 類適配)
 - **建築基礎/**
-  - [architect-foundations](Design%20&%20Planning/建築基礎/architect-foundations/) (A 類通用)
+  - [architect-foundations](建築設計與規劃/建築基礎/architect-foundations/) (A 類通用)
 
 ---
 
-### 2️⃣ [Technical Knowledge](Technical%20Knowledge/) 技術知識
+### 2️⃣ [專業複委託](專業複委託/) Technical Knowledge
 
 **4 個技能模組（1A+3B）**
 
 - **材料設備/**
-  - [material-selection](Technical%20Knowledge/材料設備/material-selection/) (A 類通用)
-  - [building-envelope](Technical%20Knowledge/材料設備/building-envelope/) (B 類適配)
+  - [material-selection](專業複委託/材料設備/material-selection/) (A 類通用)
+  - [building-envelope](專業複委託/材料設備/building-envelope/) (B 類適配)
 - **結構系統/**
-  - [structural-systems](Technical%20Knowledge/結構系統/structural-systems/) (B 類適配)
+  - [structural-systems](專業複委託/結構系統/structural-systems/) (B 類適配)
 - **機電系統/**
-  - [building-services](Technical%20Knowledge/機電系統/building-services/) (B 類適配)
+  - [building-services](專業複委託/機電系統/building-services/) (B 類適配)
 
 ---
 
-### 3️⃣ [性能](性能/) Performance
+### 3️⃣ [建築性能](建築性能/) Performance
 
 **4 個技能模組（4B）**
 
 - **光環境設計/**
-  - [daylighting-design](性能/光環境設計/daylighting-design/) (B 類適配)
-- **聲環境設計/**
-  - [acoustic-design](性能/聲環境設計/acoustic-design/) (B 類適配)
+  - [daylighting-design](建築性能/光環境設計/daylighting-design/) (B 類適配)
+- **音環境設計/**
+  - [acoustic-design](建築性能/音環境設計/acoustic-design/) (B 類適配)
 - **永續建築/**
-  - [building-sustainability](性能/永續建築/building-sustainability/) (B 類適配)
+  - [building-sustainability](建築性能/永續建築/building-sustainability/) (B 類適配)
 - **計算工具/**
-  - [architect-calculator](性能/計算工具/architect-calculator/) (B 類適配)
+  - [architect-calculator](建築性能/計算工具/architect-calculator/) (B 類適配)
 
 ---
 
-### 4️⃣ [Building Codes & Regulations](Building%20Codes%20&%20Regulations/) 建築法規制度
+### 4️⃣ [建築法規](建築法規/) Building Codes & Regulations
 
 **5 個技能模組（5C）**
 
 - **建築法規/**
-  - [taiwan-building-codes](Building%20Codes%20&%20Regulations/建築法規/taiwan-building-codes/) (C 類台灣法規)
+  - [taiwan-building-codes](建築法規/建築法規/taiwan-building-codes/) (C 類台灣法規)
 - **消防安全/**
-  - [taiwan-fire-safety](Building%20Codes%20&%20Regulations/消防安全/taiwan-fire-safety/) (C 類台灣法規)
+  - [taiwan-fire-safety](建築法規/消防安全/taiwan-fire-safety/) (C 類台灣法規)
 - **無障礙設計/**
-  - [taiwan-accessibility](Building%20Codes%20&%20Regulations/無障礙設計/taiwan-accessibility/) (C 類台灣法規)
+  - [taiwan-accessibility](建築法規/無障礙設計/taiwan-accessibility/) (C 類台灣法規)
 - **施工文件/**
-  - [taiwan-construction-docs](Building%20Codes%20&%20Regulations/施工文件/taiwan-construction-docs/) (C 類台灣法規)
+  - [taiwan-construction-docs](建築法規/施工文件/taiwan-construction-docs/) (C 類台灣法規)
 - **容積計算/**
-  - [taiwan-programming](Building%20Codes%20&%20Regulations/容積計算/taiwan-programming/) (C 類台灣法規)
+  - [taiwan-programming](建築法規/容積計算/taiwan-programming/) (C 類台灣法規)
 
 ---
 
-### 5️⃣ [Project Management](Project%20Management/) 專案管理
+### 5️⃣ [專案管理](專案管理/) Project Management
 
 - 專案規劃/
 - 預算管理/
@@ -86,7 +86,7 @@
 
 ---
 
-### 6️⃣ [Professional Practice](Professional%20Practice/) 專業實務
+### 6️⃣ [經營管理](經營管理/) Professional Practice
 
 - 契約法/
 - 專業倫理/
@@ -99,7 +99,7 @@
 
 ---
 
-### 7️⃣ [Construction Materials](Construction%20Materials/) 施工材料
+### 7️⃣ [建築施工與材料](建築施工與材料/) Construction Materials
 
 - 施工方法/
 - 材料選擇/
@@ -112,7 +112,7 @@
 
 ---
 
-### 8️⃣ [Specialized Fields](Specialized%20Fields/) 專門領域
+### 8️⃣ [建築執照](建築執照/) Specialized Fields
 
 - 試圖與修復/
 - 歷史建築保存/
