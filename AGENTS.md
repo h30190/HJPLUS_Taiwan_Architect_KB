@@ -1,169 +1,165 @@
 # HJPLUS Taiwan Architect KB - Agent Instructions
 
 ## Overview
-
-This is a knowledge base for architects working in Taiwan, containing architectural skills organized into 8 main categories. Each skill has dual-language documentation: **skill.md** (English for AI) and **domain.md** (Traditional Chinese for humans).
+Knowledge base for Taiwan architects with dual-language skill documentation (skill.md for AI in English, domain.md for humans in Traditional Chinese).
 
 ## Project Structure
-
 ```
-├── Design & Planning/           (5 skills: 4A+1B)
-├── Technical Knowledge/         (4 skills: 1A+3B)
-├── 性能/                       (4 skills: 4B)
-├── Building Codes & Regulations/ (5 skills: 5C)
-├── Project Management/          (0 skills - future)
-├── Professional Practice/       (0 skills - future)
-├── Construction Materials/      (0 skills - future)
-└── Specialized Fields/          (0 skills - future)
+建築設計與規劃/     (5 skills: concept-design, design-theory, building-typology, spatial-planning, architect-foundations)
+專業複委託/          (4 skills: material-selection, building-envelope, structural-systems, building-services)
+建築性能/            (4 skills: daylighting-design, acoustic-design, building-sustainability, architect-calculator)
+建築法規/            (5 C-class skills with MCP tool integration)
+專案管理/            (future)
+經營管理/            (future)
+建築施工與材料/      (future)
+建築執照/            (future)
 ```
 
-### Skill Classification
+## Build / Lint / Test Commands
+This is a documentation-only repository. No build/lint/test commands apply.
 
-| Class | Count | Description |
-|-------|-------|-------------|
-| A | 5 | General international standards |
-| B | 8 | International → Taiwan adaptation (with TODOs) |
-| C | 5 | Taiwan-specific regulations with MCP tools |
+## Skill Classification
+| Class | Description | Files |
+|-------|-------------|-------|
+| A | International standards (no Taiwan adaptation) | skill.md, domain.md |
+| B | International → Taiwan adaptation | skill.md with `<!-- TODO: Taiwan adaptation -->`, domain.md |
+| C | Taiwan-specific with MCP tools | skill.md, domain.md, MCP tool calls |
 
-## File Format Guidelines
+## File Format Requirements
 
-### skill.md (AI Documentation)
-- **Language**: English
-- **Frontmatter**: Required (name, description, user-invocable)
-- **Style**: Technical, precise, actionable
-- **Content**: Core capabilities, AI operation guide, technical specifications
-- **Example frontmatter**:
+### skill.md (AI-facing, English)
+**Required frontmatter:**
 ```yaml
 ---
-name: concept-design
-description: Parti development, massing studies, spatial organization strategies
+name: skill-id-hyphenated
+description: "Functional summary starting with 'This skill should be used when...'"
 user-invocable: true
 ---
 ```
+**Content sections:**
+- H1 `# Skill Title`
+- Overview paragraph (trigger scenarios + invocation context)
+- `## Section X:` headers with technical specifications
+- Tables for parameters/thresholds/classifications
+- Code blocks for TypeScript interfaces or formulas
+- Horizontal rules `---` between major sections
 
-### domain.md (Human Documentation)
-- **Language**: Traditional Chinese (繁體中文)
-- **Style**: Natural, explanatory, learnable
-- **Content**: Usage context, learning objectives, practical applications
-- **No frontmatter required**
+### domain.md (Human-facing, Traditional Chinese)
+**No frontmatter.**
+- H1 `# 技能標題`
+- Natural explanatory text
+- 使用情境、學習目標、實務應用
+- References to official Taiwan codes/standards
 
-### Naming Conventions
-- **Directories**: Chinese for categories (設計理論，材料設備), English for skills (concept-design, structural-systems)
-- **Files**: snake_case (skill.md, domain.md, concept-design.md)
-- **Skills**: Lowercase with hyphens (building-envelope, taiwan-building-codes)
-- **References**: Use relative links with proper space encoding
+## Naming Conventions
+| Item | Format | Example |
+|------|--------|---------|
+| Top-level category | Traditional Chinese | `建築設計與規劃/` |
+| Subcategory | Traditional Chinese | `設計理論/` |
+| Skill directory | lowercase-hyphenated | `concept-design/` |
+| Files inside skill | snake_case | `skill.md`, `domain.md` |
+| Frontmatter name | lowercase-hyphenated | `name: building-envelope` |
 
 ## Code Style Guidelines
 
-### Markdown Formatting
-- Use `#` for H1 (once per file), `##` for H2 sections, `###` for H3 subsections
-- Use tables for structured data with proper alignment
-- Use code blocks for technical specifications: \`\`\`yaml
-- Use bullet points with `-` for lists
-- Use checkboxes `- [ ]` for task lists
-- Use horizontal rules `---` to separate major sections
+### Markdown Structure
+- One `# H1` per file (skill title)
+- Use `##` for major sections, `###` for subsections
+- Tables for all structured data (align columns)
+- Code blocks with language hint: \`\`\`yaml, \`\`\`typescript
+- Bullets use `-`, checkboxes use `- [ ]`
+- Horizontal rule `---` between major sections only
 
-### Language & Localization
-- **skill.md**: International English, technical terminology
-- **domain.md**: Traditional Chinese, natural language
-- **B-class skills**: Add `<!-- TODO: Taiwan adaptation needed -->` where norms differ
-- **C-class skills**: Use Taiwan Building Code official terminology
+### Language Rules
+| File | Language | Terminology |
+|------|----------|-------------|
+| skill.md | English | International technical terms |
+| domain.md | Traditional Chinese | 台灣專業術語 |
+| Frontmatter | English | Required in skill.md only |
 
-### Link Format
+### B-Class Adaptation Marker
+Add `<!-- TODO: Taiwan adaptation needed -->` before US/international spec blocks that differ from Taiwan codes.
+
+### C-Class MCP Integration
+Include MCP tool call examples with official Taiwan Building Code URLs:
+- `taiwan-building-code_search_building_code(query: "活載重")`
+- `taiwan-building-code_search_building_interpretations(query: "採光")`
+- `pcc-downloader_download_specification(chapter, keyword, format)`
+
+### Internal Links
 ```markdown
-[Link Name](Design%20&%20Planning/設計理論/concept-design/)
+[Parent Category](建築設計與規劃/)
+[Sibling Skill](../design-theory/)
 ```
-- Always encode spaces as `%20`
-- Use relative paths from the same directory level
+- Always use relative paths
+- Encode spaces as `%20` for paths with spaces (rare in current structure)
 
-### Error Handling Documentation
-- Include fallback procedures in `skill.md`
-- Use `<thinking>` blocks for AI chain-of-thought
-- Document Taiwan code references with official URLs for C-class skills
-
-## Development Workflow
-
-### Creating a New Skill
-1. Determine skill classification (A/B/C)
-2. Create directory: `Category/Subcategory/skill-name/`
-3. Write `skill.md` with frontmatter and English content
+## Creating a New Skill
+1. Choose category/subcategory directory
+2. Create `Category/Subcategory/skill-name/`
+3. Write `skill.md` with frontmatter + English technical content
 4. Write `domain.md` with Traditional Chinese content
-5. Add to category `README.md` table
-6. Update ROOT `README.md` if adding new category
+5. Update `Category/Subcategory/README.md` table
+6. Update root `README.md` skill count
 
-### Updating Existing Content
-- Maintain backward compatibility in skill names
-- Preserve TODO markers for B-class adaptations
-- Reference Taiwan Building Code for C-class skills
-- Keep both `skill.md` and `domain.md` in sync
+## Editing Existing Skills
+- Never delete existing `skill.md` or `domain.md` without replacement
+- Keep frontmatter intact in `skill.md`
+- Sync changes between skill.md and domain.md
+- Preserve `<!-- TODO -->` markers in B-class skills
 
-### MCP Tool Usage
-- **taiwan-building-code_search_building_code**: Search Taiwan Building Code articles
-- **taiwan-building-code_search_building_interpretations**: Search official interpretations
-- **pcc-downloader_***: Download construction specifications
-- Always provide official URLs for verification
+## MCP Tool Usage for C-Class Skills
+```python
+# Taiwan Building Code search
+taiwan-building-code_search_building_code(query="防火區劃", limit=10)
 
-## Quality Standards
+# Official interpretations
+taiwan-building-code_search_building_interpretations(query="避難設施")
 
-### skill.md Requirements
-- ✅ Frontmatter with name, description, user-invocable
-- ✅ Comprehensive technical content
-- ✅ Clear AI operation guidelines
-- ✅ Structured sections with H2/H3 headers
-- ✅ Tables for specifications/parameters
+# Construction specs
+pcc-downloader_download_specification(chapter="09", keyword="09910", format="pdf")
+```
 
-### domain.md Requirements
-- ✅ Traditional Chinese language
-- ✅ Usage context explanation
-- ✅ Learning objectives
-- ✅ References and resources
-
-### Documentation Checklist
-- [ ] skill.md has proper frontmatter
-- [ ] skill.md is in English with technical terms
+## Validation Checklist
+Before committing:
+- [ ] skill.md has valid frontmatter (name, description, user-invocable)
+- [ ] skill.md is in English with technical precision
 - [ ] domain.md is in Traditional Chinese
-- [ ] Files are linked in parent README.md
-- [ ] B-class skills have TODO markers
-- [ ] C-class skills reference official sources
-- [ ] No secrets or credentials in files
+- [ ] B-class skills have `<!-- TODO -->` markers
+- [ ] C-class skills have MCP tool examples
+- [ ] Internal links are relative and work
+- [ ] No secrets/credentials in files
 
-## Common Tasks
+## Common Patterns
 
-### Add a New Skill
-```bash
-# 1. Create directory structure
-mkdir -p "Category/Subcategory/new-skill/"
-
-# 2. Create skill.md with frontmatter
-# 3. Create domain.md with Chinese content
-# 4. Update Category/Subcategory/README.md
-# 5. Update ROOT README.md if adding new category
+### Parameter Interface (skill.md)
+```typescript
+interface SkillParams {
+  buildingType: string;
+  floorCount: number;
+  area: number;
+}
 ```
 
-### Search Taiwan Building Code
-```python
-# Use taiwan-building-code_search_building_code MCP tool
-query = "活載重"  # Live load
-# Returns official law articles
+### Table Format (technical specs)
+```markdown
+| Condition | Threshold | Reference |
+|-----------|-----------|-----------|
+| 樓地板面積 | ≧100 m² | 建築技術規則第 97 條 |
 ```
 
-### Download Construction Specifications
-```python
-# Use pcc-downloader tools
-chapter = "09"  # Chapter code
-keyword = "09910"  # Specification code
-```
+### Code Example (calculation)
+\`\`\`
+防火區劃面積 = 樓地板面積 / 防火牆數量
+最大面積 ≦ 2000 m² (設置火灑水時)
+\`\`\`
 
-## Contribution Rules
-
-1. **Follow existing structure**: Match the pattern of existing skills in same category
-2. **Maintain dual language**: Always update both skill.md and domain.md
-3. **Classify correctly**: A (general), B (adapted), C (Taiwan-specific)
-4. **Use TODO markers**: Document adaptation gaps in B-class skills
-5. **Reference sources**: Link to Taiwan Building Code for C-class skills
-6. **Test links**: Verify all relative links work
-7. **Keep it clean**: No secrets, credentials, or personal data
+## Prohibited
+- Do not add frontmatter to domain.md
+- Do not use Simplified Chinese in any file
+- Do not hardcode absolute paths
+- Do not commit secrets, credentials, or personal data
+- Do not remove TODO markers without completing the adaptation
 
 ## License
-
-MIT License - see LICENSE file for details.
+MIT License — see LICENSE file.
