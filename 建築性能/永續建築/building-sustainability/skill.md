@@ -1,3 +1,9 @@
+---
+name: building-sustainability
+description: "This skill should be used when designing green building and sustainable architecture, integrating environmental assessment, energy efficiency, and resource circularity."
+user-invocable: true
+---
+
 # Building Sustainability Skill
 
 ## Overview

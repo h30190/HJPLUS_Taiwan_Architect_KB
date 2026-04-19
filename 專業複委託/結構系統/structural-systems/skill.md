@@ -1,3 +1,9 @@
+---
+name: structural-systems
+description: "This skill should be used when designing and analyzing building structural systems, including seismic design, structural system selection, and load calculation."
+user-invocable: true
+---
+
 # Structural Systems Skill
 
 ## Overview

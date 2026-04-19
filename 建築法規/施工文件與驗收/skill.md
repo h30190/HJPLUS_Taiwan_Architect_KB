@@ -1,3 +1,9 @@
+---
+name: taiwan-construction-docs
+description: "This skill should be used when creating construction documents, specifications, and inspection documents for Taiwan building projects."
+user-invocable: true
+---
+
 # Taiwan Construction Docs Skill
 
 ## Overview

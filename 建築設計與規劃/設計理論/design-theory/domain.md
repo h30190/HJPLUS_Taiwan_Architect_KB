@@ -1,12 +1,3 @@
----
-title: "設計理論"
-skill-name: "design-theory"
-相關法規: "無"
-難度: "初級"
-閱讀時間: "15 分鐘"
-相關技能: ["concept-design", "building-typology"]
----
-
 # 設計理論
 
 ## 為什麼重要？

@@ -1,3 +1,9 @@
+---
+name: taiwan-fire-safety
+description: "This skill should be used when designing fire safety systems, checking fire compartments, and planning evacuation facilities for Taiwan buildings."
+user-invocable: true
+---
+
 # Taiwan Fire Safety Skill
 
 ## Overview

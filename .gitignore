@@ -4,6 +4,13 @@ node_modules/
 *.log
 .env
 *~
+.env
+opencode.json
+opencode.jsonc
 
 # Skills-Architects reference repo (not tracked)
 Skills-Architects/ 
+
+# OpenCode skills (can be committed if needed)
+# Uncomment to ignore:
+# .opencode/ 

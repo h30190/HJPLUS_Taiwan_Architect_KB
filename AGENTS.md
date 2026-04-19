@@ -9,10 +9,11 @@ Knowledge base for Taiwan architects with dual-language skill documentation (ski
 專業複委託/          (4 skills: material-selection, building-envelope, structural-systems, building-services)
 建築性能/            (4 skills: daylighting-design, acoustic-design, building-sustainability, architect-calculator)
 建築法規/            (5 C-class skills with MCP tool integration)
-專案管理/            (future)
-經營管理/            (future)
+專案管理/            (18 skills: project management subcategories)
+經營管理/            (14 skills: professional practice subcategories)
 建築施工與材料/      (future)
 建築執照/            (future)
+.opencode/skills/     (maintenance skills: validate-commit - OpenCode compatible)
 ```
 
 ## Build / Lint / Test Commands
@@ -162,4 +163,10 @@ interface SkillParams {
 - Do not remove TODO markers without completing the adaptation
 
 ## License
-MIT License — see LICENSE file.
+
+| Content Type | License |
+|--|--|
+| **Documentation** (`.md` files) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en) |
+| **Code** (`.sh`, `.py`, `.js`, `.ts`, etc.) | [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0) |
+
+See [LICENSE](LICENSE) and [LICENSE-CODE](LICENSE-CODE) for full text.

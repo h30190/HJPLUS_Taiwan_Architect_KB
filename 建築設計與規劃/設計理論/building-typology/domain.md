@@ -1,12 +1,3 @@
----
-title: "建築類型學"
-skill-name: "building-typology"
-相關法規: "無"
-難度: "初級"
-閱讀時間: "15 分鐘"
-相關技能: ["spatial-planning", "structual-systems"]
----
-
 # 建築類型學
 
 ## 為什麼重要？

@@ -1,12 +1,3 @@
----
-title: "材料選擇"
-skill-name: "material-selection"
-相關法規: "無"
-難度: "初級"
-閱讀時間: "15 分鐘"
-相關技能: ["building-envelope", "building-services"]
----
-
 # 材料選擇
 
 ## 為什麼重要？

@@ -1,12 +1,3 @@
----
-title: "概念設計"
-skill-name: "concept-design"
-相關法規: "無"
-難度: "初級"
-閱讀時間: "15 分鐘"
-相關技能: ["design-theory", "spatial-planning", "building-typology"]
----
-
 # 概念設計
 
 ## 為什麼重要？

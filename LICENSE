@@ -1,21 +1,73 @@
-MIT License
+# 分層授權條款（Dual-Licensing）
 
-Copyright (c) 2026 徐灝
+本知識庫採用**分層授權**模式：內容（Documentation）與腳本（Code）分別適用不同的授權條款。
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+## 📄 內容授權（Documentation）
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+本知識庫的所有**文字內容**（包含所有 `.md` 文件、技術規範、說明文件、domain.md、skill.md 與相關文件）
+採用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-Hant) 授權。
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+```
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+```
+
+### 允許：
+- 複製、分佈與傳輸本作品
+- 重混、轉換本作品並建立衍生著作
+- 非商業性使用
+
+### 禁止：
+- 任何商業性使用
+- 移除或變更版權聲明與授權條款
+
+### 使用者必須：
+- **姓名標示（BY）** — 使用時必須註明來源（作者名稱、授權條款連結與原始作品出處）
+- **相同方式分享（SA）** — 若改作或建立衍生著作，必須以**相同的 CC BY-NC-SA 4.0 授權條款**散布
+
+---
+
+## 💻 腳本授權（Code）
+
+本知識庫的所有**腳本程式碼**（包含所有 `.sh`、`.py`、`.js`、`.ts`、`.rb`、`.mjs` 等程式碼檔案）
+採用 [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0) 授權。
+
+### 允許：
+- 複製、分佈與傳輸本腳本
+- 修改本腳本並建立衍生作品
+- 非商業性使用
+
+### 禁止：
+- 任何商業性使用
+
+### 使用者必須：
+- **姓名標示** — 分佈時必須包含本授權條款
+- **保留版權聲明** — 維持所有必需的通知（Required Notice）
+
+---
+
+## 關鍵區別
+
+| | 內容（.md）| 腳本（.sh/.py/.js）|
+|--|--|--|
+| 授權條款 | CC BY-NC-SA 4.0 | PolyForm Noncommercial 1.0.0 |
+| 非商業使用 | ✅ 允許 | ✅ 允許 |
+| 修改與分佈 | ✅ 允許 | ✅ 允許 |
+| **相同方式分享** | ✅ 必須 | ❌ 無此限制 |
+| **商業使用** | ❌ 禁止 | ❌ 禁止 |
+
+---
+
+## 授權條款不可撤銷
+
+> 所有以創用 CC 或 PolyForm 授權釋出的內容，其授權均**不可撤銷**。一旦發布，授權條款持續生效至著作權消滅為止。
+
+---
+
+## 商業授權
+
+如需商業用途或特殊授權，請聯繫：
+[contact@hplus.com.tw](mailto:contact@hplus.com.tw)
+
+---
+
+Copyright (c) 2026 徐灝 (Hao Hsu) — HJPLUS Taiwan Architect Knowledge Base

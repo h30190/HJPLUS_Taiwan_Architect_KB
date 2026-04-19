@@ -1,12 +1,3 @@
----
-title: "空間規劃"
-skill-name: "spatial-planning"
-相關法規: "無"
-難度: "初級"
-閱讀時間: "15 分鐘"
-相關技能: ["concept-design", "building-typology"]
----
-
 # 空間規劃
 
 ## 為什麼重要？
