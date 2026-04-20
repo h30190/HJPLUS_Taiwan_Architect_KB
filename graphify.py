@@ -293,7 +293,7 @@ class KnowledgeGraphBuilder:
                 if len(rel_parts) == 0:
                     continue
 
-                # Check if this directory already has skill or domain files
+ # Check if this directory already has skill or domain files
                 full_dir_path = self.raw_dir / dir_path
                 has_skill_or_domain = any(
                     f.name in ['skill.md', 'SKILL.md', 'domain.md']
@@ -312,13 +312,47 @@ class KnowledgeGraphBuilder:
                             label=dir_name,
                             node_type='empty_dir',
                             category=rel_parts[0] if len(rel_parts) > 1 else '',
-                            subcategory=rel_parts[1] if len(rel_parts) > 2 else '',
+                            intermediate=rel_parts[1] if len(rel_parts) > 2 else '',
+                            subcategory=rel_parts[2] if len(rel_parts) > 3 else '',
                             skill_name=rel_parts[-2] if len(rel_parts) > 2 else rel_parts[0],
                             file_path=dir_path
                         )
                         node.description = '(Empty directory)'
                         self.nodes.append(node)
                         self.node_map[node_id] = node
+        
+        # Connect empty directories to category hierarchy
+        if self.include_empty:
+            for dir_path in sorted(all_dirs):
+                rel_parts = dir_path.replace('\\', '/').split('/')
+                if len(rel_parts) == 0:
+                    continue
+                    
+                # Check if this directory already has skill or domain files
+                full_dir_path = self.raw_dir / dir_path
+                has_skill_or_domain = any(
+                    f.name in ['skill.md', 'SKILL.md', 'domain.md']
+                    for f in full_dir_path.iterdir()
+                    if f.is_file()
+                )
+                
+                if not has_skill_or_domain:
+                    dir_name = rel_parts[-1]
+                    path_slug = '-'.join(rel_parts).replace('/', '-').replace('\\', '-')
+                    node_id = f"dir-{path_slug}"
+                    
+                    # Connect to category hierarchy
+                    if len(rel_parts) > 1:
+                        category_name = rel_parts[0]
+                        cat_node_id = f"category-{category_name}"
+                        if cat_node_id in self.node_map and node_id in self.node_map:
+                            self.edges.append(Edge(cat_node_id, node_id, 'contains', ''))
+                    
+                    if len(rel_parts) > 2:
+                        intermediate_name = rel_parts[1]
+                        inter_node_id = f"intermediate-{category_name}-{intermediate_name}"
+                        if inter_node_id in self.node_map and node_id in self.node_map:
+                            self.edges.append(Edge(inter_node_id, node_id, 'contains', ''))
 
     def add_keyword_edges(self):
         """Add semantic edges between skill and domain across subcategories in same category."""
@@ -445,6 +479,47 @@ class KnowledgeGraphBuilder:
         .legend-color {{ width: 15px; height: 15px; border-radius: 50%; }}
         #search {{ padding: 10px; background: #fff; border-bottom: 1px solid #ddd; }}
         #search input {{ padding: 8px 12px; width: 300px; border: 1px solid #ddd; border-radius: 4px; }}
+        #toggle-container {{
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            gap: 10px;
+        }}
+        #physics-label {{
+            font-size: 14px;
+            color: #333;
+            min-width: 80px;
+        }}
+        .switch {{
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }}
+        .switch input {{ opacity: 0; width: 0; height: 0; }}
+        .slider {{
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 24px;
+        }}
+        .slider:before {{
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }}
+        input:checked + .slider {{ background-color: #4ECDC4; }}
+        input:checked + .slider:before {{ transform: translateX(26px); }}
         #side-panel {{
             width: 350px;
             background: #fff;
@@ -466,6 +541,13 @@ class KnowledgeGraphBuilder:
 </head>
 <body>
     <div id="left-panel">
+        <div id="toggle-container">
+            <span id="physics-label">Physics: ON</span>
+            <label class="switch">
+                <input type="checkbox" id="physics-switch" checked onchange="togglePhysics()">
+                <span class="slider"></span>
+            </label>
+        </div>
         <div id="search">
             <input type="text" id="searchInput" placeholder="搜尋知識圖譜..." oninput="searchNodes(this.value)">
         </div>
@@ -533,6 +615,12 @@ class KnowledgeGraphBuilder:
                 n.shade = !filteredIds || filteredIds.includes(n.id);
             }});
             nodes.update(nodes.get());
+        }}
+        function togglePhysics() {{
+            var isOn = document.getElementById('physics-switch').checked;
+            var label = document.getElementById('physics-label');
+            label.textContent = isOn ? 'Physics: ON' : 'Physics: OFF';
+            network.setOptions({{ physics: {{ enabled: isOn }} }});
         }}
         network.on('click', function(params) {{
             if (params.nodes.length > 0) {{
