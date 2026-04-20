@@ -14,4 +14,8 @@ Skills-Architects/
 
 # OpenCode skills (can be committed if needed)
 # Uncomment to ignore:
-.opencode/ 
+.opencode/
+
+# AI Knowledge Base
+# wiki/ and outputs/ are local only
+outputs/ 
