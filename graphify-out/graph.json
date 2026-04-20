@@ -1533,13 +1533,13 @@
     "total_nodes": 116,
     "total_edges": 164,
     "communities": [
-      "建築執照",
-      "專業複委託",
-      "建築性能",
       "建築設計與規劃",
+      "專業複委託",
+      "Other",
+      "建築執照",
       "Skills-Architects",
-      "Other"
+      "建築性能"
     ],
-    "generated_at": "2026-04-20 04:41 UTC"
+    "generated_at": "2026-04-20 04:42 UTC"
   }
 }
