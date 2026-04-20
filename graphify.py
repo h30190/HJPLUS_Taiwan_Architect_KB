@@ -57,11 +57,12 @@ def parse_frontmatter(content):
 # Node and Edge Definitions
 # ============================================================
 class Node:
-    def __init__(self, node_id, label, node_type, category=None, subcategory=None, skill_name=None, file_path=None, frontmatter=None):
+    def __init__(self, node_id, label, node_type, category=None, intermediate=None, subcategory=None, skill_name=None, file_path=None, frontmatter=None):
         self.id = node_id
         self.label = label
-        self.type = node_type  # 'category', 'subcategory', 'domain', 'skill', 'empty_dir'
+        self.type = node_type  # 'category', 'intermediate', 'subcategory', 'domain', 'skill', 'empty_dir'
         self.category = category
+        self.intermediate = intermediate
         self.subcategory = subcategory
         self.skill_name = skill_name
         self.community = None
@@ -77,6 +78,8 @@ class Node:
         }
         if self.category:
             d['category'] = self.category
+        if self.intermediate:
+            d['intermediate'] = self.intermediate
         if self.subcategory:
             d['subcategory'] = self.subcategory
         if self.description:
@@ -214,9 +217,7 @@ class KnowledgeGraphBuilder:
             self.nodes.append(node)
             self.node_map[node_id] = node
 
-            # Create category and subcategory nodes (for visualization)
-            # Subcategory is the directory containing skill/domain (parts[2]), not parts[1]
-            # This ensures the hierarchy is: category -> subcategory -> domain/skill
+        # Create category, intermediate and subcategory nodes (for visualization)
             if len(parts) > 1:
                 category_name = parts[0]
                 cat_node_id = f"category-{category_name}"
@@ -231,18 +232,37 @@ class KnowledgeGraphBuilder:
 
             if len(parts) > 2:
                 category_name = parts[0]
-                # Use parts[2] as subcategory (the directory containing skill/domain)
-                subcategory = parts[2] if len(parts) > 2 else parts[-1]
-                subcat_node_id = f"subcategory-{category_name}-{subcategory}"
+                intermediate_name = parts[1]
+                intermediate_node_id = f"intermediate-{category_name}-{intermediate_name}"
+                if intermediate_node_id not in self.node_map:
+                    intermediate_node = Node(
+                        node_id=intermediate_node_id,
+                        label=intermediate_name,
+                        node_type='intermediate',
+                        category=category_name
+                    )
+                    self.nodes.append(intermediate_node)
+                    self.node_map[intermediate_node_id] = intermediate_node
+                self.edges.append(Edge(cat_node_id, intermediate_node_id, 'contains', ''))
+
+            if len(parts) > 3:
+                category_name = parts[0]
+                intermediate_name = parts[1]
+                subcategory_name = parts[2]
+                subcat_node_id = f"subcategory-{category_name}-{intermediate_name}-{subcategory_name}"
                 if subcat_node_id not in self.node_map:
                     subcat_node = Node(
                         node_id=subcat_node_id,
-                        label=subcategory,
+                        label=subcategory_name,
                         node_type='subcategory',
-                        category=category_name
+                        category=category_name,
+                        intermediate=intermediate_name
                     )
                     self.nodes.append(subcat_node)
                     self.node_map[subcat_node_id] = subcat_node
+                intermediate_node_id = f"intermediate-{category_name}-{intermediate_name}"
+                if intermediate_node_id in self.node_map:
+                    self.edges.append(Edge(intermediate_node_id, subcat_node_id, 'contains', ''))
 
             # Add skill <-> domain relationship (same directory)
             if len(parts) >= 3:
@@ -257,12 +277,12 @@ class KnowledgeGraphBuilder:
                     if skill_id in self.node_map:
                         self.edges.append(Edge(node_id, skill_id, 'derived_from', str(rel_path)))
 
-          # Add subcategory -> domain/skill relationship (hierarchy)
-            if len(parts) > 2:
+         # Add subcategory -> domain/skill relationship (hierarchy)
+            if len(parts) > 3:
                 category_name = parts[0]
-                # Use parts[2] as subcategory_name (matching the subcategory node ID)
+                intermediate_name = parts[1]
                 subcategory_name = parts[2]
-                subcat_node_id = f"subcategory-{category_name}-{subcategory_name}"
+                subcat_node_id = f"subcategory-{category_name}-{intermediate_name}-{subcategory_name}"
                 if subcat_node_id in self.node_map:
                     self.edges.append(Edge(subcat_node_id, node_id, 'contains', str(rel_path)))
 
@@ -328,12 +348,12 @@ class KnowledgeGraphBuilder:
                         degree[skill.id] += 1
                         degree[domain.id] += 1
 
-        # Add edges from category nodes to subcategory nodes (hierarchy)
+    # Add edges from category nodes to subcategory nodes (hierarchy)
         for cat_id, cat_node in self.node_map.items():
             if cat_node.type == 'category':
-                subcat_nodes = [n for n in self.nodes if n.type == 'subcategory' and n.category == cat_node.label]
-                for subcat_node in subcat_nodes:
-                    self.edges.append(Edge(cat_id, subcat_node.id, 'contains', ''))
+                intermediate_nodes = [n for n in self.nodes if n.type == 'intermediate' and n.category == cat_node.label]
+                for inter_node in intermediate_nodes:
+                    self.edges.append(Edge(cat_id, inter_node.id, 'contains', ''))
 
     def assign_communities(self):
         """Assign communities based on category."""
@@ -374,12 +394,13 @@ class KnowledgeGraphBuilder:
                 'arrows': 'to' if e.type == 'derived_from' else '',
                 'color': {'color': '#F00' if e.type == 'derived_from' else '#888'},
                 'width': 1.5 if e.type == 'derived_from' else 1.0
-            })
+           })
 
         nodes_data = []
         for n in self.nodes:
             color_map = {
                 'category': '#FF6B6B',
+                'intermediate': '#FFB347',
                 'subcategory': '#4ECDC4',
                 'domain': '#45B7D1',
                 'skill': '#96CEB4',
@@ -389,6 +410,7 @@ class KnowledgeGraphBuilder:
             # Size based on type (hierarchy level), not just degree
             base_size = {
                 'category': 30,
+                'intermediate': 26,
                 'subcategory': 22,
                 'domain': 14,
                 'skill': 14,
@@ -399,7 +421,7 @@ class KnowledgeGraphBuilder:
                 'id': n.id,
                 'label': n.label,
                 'color': {'background': color_map.get(n.type, '#999'), 'highlight': color_map.get(n.type, '#999')},
-                'font': {'size': 12 if n.type == 'category' else 11 if n.type == 'subcategory' else 10},
+                'font': {'size': 12 if n.type == 'category' else 11 if n.type == 'intermediate' else 10},
                 'shape': 'dot',
                 'size': base_size,
                 'title': n.description[:100] if n.description else f'{n.type} ({n.label})',
@@ -447,12 +469,13 @@ class KnowledgeGraphBuilder:
         <div id="search">
             <input type="text" id="searchInput" placeholder="搜尋知識圖譜..." oninput="searchNodes(this.value)">
         </div>
-        <div id="legend">
+<div id="legend">
             <div class="legend-item"><div class="legend-color" style="background:#FF6B6B"></div>類別 (Category)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#FFB347"></div>中間層 (Intermediate)</div>
             <div class="legend-item"><div class="legend-color" style="background:#4ECDC4"></div>子類別 (Subcategory)</div>
             <div class="legend-item"><div class="legend-color" style="background:#45B7D1"></div>領域知識 (Domain)</div>
             <div class="legend-item"><div class="legend-color" style="background:#96CEB4"></div>技能萃取 (Skill)</div>
-            <div class="legend-item"><div class="legend-color" style="background:#ddd"></div>空資料夾 (Empty)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#DDDDDD"></div>空資料夾 (Empty)</div>
         </div>
         <div id="mynetwork"></div>
     </div>
