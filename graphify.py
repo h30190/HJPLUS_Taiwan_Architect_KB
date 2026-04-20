@@ -112,7 +112,8 @@ class KnowledgeGraphBuilder:
         self.nodes = []
         self.edges = []
         self.node_map = {}  # id -> Node
-        self.exclude_dirs = exclude_dirs or []
+        # Convert exclude_dirs to tuples for proper comparison
+        self.exclude_dirs = tuple(tuple(d) for d in (exclude_dirs or []))
         self.include_empty = include_empty
 
     def build(self):
@@ -160,7 +161,7 @@ class KnowledgeGraphBuilder:
 
         for md_file in sorted(self.raw_dir.rglob('*.md')):
             rel_path = md_file.relative_to(self.raw_dir)
-            parts = list(rel_path.parts)
+            parts = tuple(rel_path.parts)
 
             # Check if directory is excluded
             if any(parts[:i] in self.exclude_dirs for i in range(1, len(parts) + 1)):
@@ -371,20 +372,28 @@ class KnowledgeGraphBuilder:
                 'category': '#FF6B6B',
                 'subcategory': '#4ECDC4',
                 'domain': '#45B7D1',
-                'skill': '#96CEB4'
+                'skill': '#96CEB4',
+                'empty_dir': '#DDDDDD'
             }
-            degree = degree_map.get(n.id, 0)
-            # Size based on degree (like Obsidian: more connections = bigger node)
-            size = min(25, 8 + degree * 2)
+            
+            # Size based on type (hierarchy level), not just degree
+            base_size = {
+                'category': 30,
+                'subcategory': 22,
+                'domain': 14,
+                'skill': 14,
+                'empty_dir': 10
+            }.get(n.type, 12)
             
             nodes_data.append({
                 'id': n.id,
                 'label': n.label,
                 'color': {'background': color_map.get(n.type, '#999'), 'highlight': color_map.get(n.type, '#999')},
-                'font': {'size': 11 if n.type in ('category', 'subcategory') else 10},
+                'font': {'size': 12 if n.type == 'category' else 11 if n.type == 'subcategory' else 10},
                 'shape': 'dot',
-                'size': size,
-                'title': n.description[:100] if n.description else f'{n.type} (connections: {degree})'
+                'size': base_size,
+                'title': n.description[:100] if n.description else f'{n.type} ({n.label})',
+                'frontmatter': n.frontmatter
             })
 
         html = f'''<!DOCTYPE html>
