@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: graphify
+        name: Graphify Knowledge Graph
+        entry: python scripts/run_graphify.py
+        language: system
+        files: '(raw/|graphify\.py)'
+        description: "自動重新生成知識圖譜（僅在 raw/ 或 graphify.py 變更時執行）"
