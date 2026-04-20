@@ -4,7 +4,12 @@
       "id": "skill-Skills-Architects-skills-accessibility-design",
       "label": "accessibility-design",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\accessibility-design\\SKILL.md",
+      "frontmatter": {
+        "name": "accessibility-design",
+        "description": ">"
+      }
     },
     {
       "id": "category-Skills-Architects",
@@ -20,109 +25,205 @@
       "id": "skill-Skills-Architects-skills-acoustic-design",
       "label": "acoustic-design",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\acoustic-design\\SKILL.md",
+      "frontmatter": {
+        "name": "acoustic-design",
+        "description": ">",
+        "Acoustic design for buildings": "sound insulation between spaces (airborne and"
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-architect-calculator",
       "label": "architect-calculator",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\architect-calculator\\SKILL.md",
+      "frontmatter": {
+        "name": "architect-calculator",
+        "description": ">",
+        "Seven Python-based architectural calculators for common design computations": ""
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-architect-foundations",
       "label": "architect-foundations",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\architect-foundations\\SKILL.md",
+      "frontmatter": {
+        "name": "architect-foundations",
+        "description": ">",
+        "user-invocable": false
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-building-codes",
       "label": "building-codes",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\building-codes\\SKILL.md",
+      "frontmatter": {
+        "name": "building-codes",
+        "description": ">"
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-building-envelope",
       "label": "building-envelope",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\building-envelope\\SKILL.md",
+      "frontmatter": {
+        "name": "building-envelope",
+        "description": ">",
+        "Building envelope design": "wall systems (masonry, timber, steel, CLT, curtain"
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-building-programming",
       "label": "building-programming",
       "type": "skill",
-      "description": ">-"
+      "description": ">-",
+      "file_path": "Skills-Architects\\skills\\building-programming\\SKILL.md",
+      "frontmatter": {
+        "name": "building-programming",
+        "description": ">-"
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-building-services",
       "label": "building-services",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\building-services\\SKILL.md",
+      "frontmatter": {
+        "name": "building-services",
+        "description": ">"
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-building-sustainability",
       "label": "building-sustainability",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\building-sustainability\\SKILL.md",
+      "frontmatter": {
+        "name": "building-sustainability",
+        "description": ">",
+        "Building sustainability frameworks and certification systems": "LEED BD+C v4.1,"
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-building-typology",
       "label": "building-typology",
       "type": "skill",
-      "description": ">-"
+      "description": ">-",
+      "file_path": "Skills-Architects\\skills\\building-typology\\SKILL.md",
+      "frontmatter": {
+        "name": "building-typology",
+        "description": ">-"
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-concept-design",
       "label": "concept-design",
       "type": "skill",
-      "description": "Parti development, massing studies, spatial organization strategies, design concept generation, and concept-to-form translation methodologies"
+      "description": "Parti development, massing studies, spatial organization strategies, design concept generation, and concept-to-form translation methodologies",
+      "file_path": "Skills-Architects\\skills\\concept-design\\SKILL.md",
+      "frontmatter": {
+        "name": "concept-design",
+        "description": "Parti development, massing studies, spatial organization strategies, design concept generation, and concept-to-form translation methodologies",
+        "user-invocable": true
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-construction-documentation",
       "label": "construction-documentation",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\construction-documentation\\SKILL.md",
+      "frontmatter": {
+        "name": "construction-documentation",
+        "description": ">"
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-daylighting-design",
       "label": "daylighting-design",
       "type": "skill",
-      "description": "Natural daylighting strategies, solar geometry, glare control, artificial lighting integration, and visual comfort for architectural design"
+      "description": "Natural daylighting strategies, solar geometry, glare control, artificial lighting integration, and visual comfort for architectural design",
+      "file_path": "Skills-Architects\\skills\\daylighting-design\\SKILL.md",
+      "frontmatter": {
+        "name": "daylighting-design",
+        "description": "Natural daylighting strategies, solar geometry, glare control, artificial lighting integration, and visual comfort for architectural design",
+        "user-invocable": true
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-design-theory",
       "label": "design-theory",
       "type": "skill",
-      "description": "Architectural movements, design philosophy, critical theory, precedent analysis, and compositional principles for informed design reasoning"
+      "description": "Architectural movements, design philosophy, critical theory, precedent analysis, and compositional principles for informed design reasoning",
+      "file_path": "Skills-Architects\\skills\\design-theory\\SKILL.md",
+      "frontmatter": {
+        "name": "design-theory",
+        "description": "Architectural movements, design philosophy, critical theory, precedent analysis, and compositional principles for informed design reasoning",
+        "user-invocable": true
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-fire-life-safety",
       "label": "fire-life-safety",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\fire-life-safety\\SKILL.md",
+      "frontmatter": {
+        "name": "fire-life-safety",
+        "description": ">"
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-material-selection",
       "label": "material-selection",
       "type": "skill",
-      "description": "Architectural material properties, durability, sustainability, specification, detailing, life-cycle assessment, and material palettes for building design"
+      "description": "Architectural material properties, durability, sustainability, specification, detailing, life-cycle assessment, and material palettes for building design",
+      "file_path": "Skills-Architects\\skills\\material-selection\\SKILL.md",
+      "frontmatter": {
+        "name": "material-selection",
+        "description": "Architectural material properties, durability, sustainability, specification, detailing, life-cycle assessment, and material palettes for building design",
+        "user-invocable": true
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-spatial-planning",
       "label": "spatial-planning",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\spatial-planning\\SKILL.md",
+      "frontmatter": {
+        "name": "spatial-planning",
+        "description": ">",
+        "Spatial planning for buildings": "floor plan layout and archetypes, circulation"
+      }
     },
     {
       "id": "skill-Skills-Architects-skills-structural-systems",
       "label": "structural-systems",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "Skills-Architects\\skills\\structural-systems\\SKILL.md",
+      "frontmatter": {
+        "name": "structural-systems",
+        "description": ">"
+      }
     },
     {
       "id": "domain-專業複委託-材料設備-building-envelope",
       "label": "domain",
       "type": "domain",
-      "description": "## 定義"
+      "description": "## 定義",
+      "file_path": "專業複委託\\材料設備\\building-envelope\\domain.md"
     },
     {
       "id": "category-專業複委託",
@@ -138,25 +239,39 @@
       "id": "skill-專業複委託-材料設備-building-envelope",
       "label": "building-envelope",
       "type": "skill",
-      "description": "This skill should be used when designing and analyzing building envelope systems, including wall assemblies, roofs, glazing, thermal performance, and waterproofing."
+      "description": "This skill should be used when designing and analyzing building envelope systems, including wall assemblies, roofs, glazing, thermal performance, and waterproofing.",
+      "file_path": "專業複委託\\材料設備\\building-envelope\\skill.md",
+      "frontmatter": {
+        "name": "building-envelope",
+        "description": "This skill should be used when designing and analyzing building envelope systems, including wall assemblies, roofs, glazing, thermal performance, and waterproofing.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-專業複委託-材料設備-material-selection",
       "label": "domain",
       "type": "domain",
-      "description": "## 為什麼重要？"
+      "description": "## 為什麼重要？",
+      "file_path": "專業複委託\\材料設備\\material-selection\\domain.md"
     },
     {
       "id": "skill-專業複委託-材料設備-material-selection",
       "label": "material-selection",
       "type": "skill",
-      "description": "Architectural material properties, durability, sustainability, specification, detailing, life-cycle assessment, and material palettes for building design"
+      "description": "Architectural material properties, durability, sustainability, specification, detailing, life-cycle assessment, and material palettes for building design",
+      "file_path": "專業複委託\\材料設備\\material-selection\\skill.md",
+      "frontmatter": {
+        "name": "material-selection",
+        "description": "Architectural material properties, durability, sustainability, specification, detailing, life-cycle assessment, and material palettes for building design",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-專業複委託-機電系統-building-services",
       "label": "domain",
       "type": "domain",
-      "description": "## 定義"
+      "description": "## 定義",
+      "file_path": "專業複委託\\機電系統\\building-services\\domain.md"
     },
     {
       "id": "subcategory-專業複委託-機電系統",
@@ -167,13 +282,20 @@
       "id": "skill-專業複委託-機電系統-building-services",
       "label": "building-services",
       "type": "skill",
-      "description": "This skill should be used when designing building MEP systems including HVAC, plumbing, electrical, fire protection, and system integration."
+      "description": "This skill should be used when designing building MEP systems including HVAC, plumbing, electrical, fire protection, and system integration.",
+      "file_path": "專業複委託\\機電系統\\building-services\\skill.md",
+      "frontmatter": {
+        "name": "building-services",
+        "description": "This skill should be used when designing building MEP systems including HVAC, plumbing, electrical, fire protection, and system integration.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-專業複委託-結構系統-structural-systems",
       "label": "domain",
       "type": "domain",
-      "description": "## 定義"
+      "description": "## 定義",
+      "file_path": "專業複委託\\結構系統\\structural-systems\\domain.md"
     },
     {
       "id": "subcategory-專業複委託-結構系統",
@@ -184,13 +306,20 @@
       "id": "skill-專業複委託-結構系統-structural-systems",
       "label": "structural-systems",
       "type": "skill",
-      "description": "This skill should be used when designing and analyzing building structural systems, including seismic design, structural system selection, and load calculation."
+      "description": "This skill should be used when designing and analyzing building structural systems, including seismic design, structural system selection, and load calculation.",
+      "file_path": "專業複委託\\結構系統\\structural-systems\\skill.md",
+      "frontmatter": {
+        "name": "structural-systems",
+        "description": "This skill should be used when designing and analyzing building structural systems, including seismic design, structural system selection, and load calculation.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-使用執照-審核標準",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\使用執照\\審核標準\\domain.md"
     },
     {
       "id": "category-建築執照",
@@ -206,49 +335,77 @@
       "id": "skill-建築執照-使用執照-審核標準",
       "label": "building-permit-review-standards",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan.",
+      "file_path": "建築執照\\使用執照\\審核標準\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-review-standards",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-使用執照-申請文件",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\使用執照\\申請文件\\domain.md"
     },
     {
       "id": "skill-建築執照-使用執照-申請文件",
       "label": "building-permit-application-documents",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan.",
+      "file_path": "建築執照\\使用執照\\申請文件\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-application-documents",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-使用執照-申辦流程",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\使用執照\\申辦流程\\domain.md"
     },
     {
       "id": "skill-建築執照-使用執照-申辦流程",
       "label": "building-permit-application-process",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan.",
+      "file_path": "建築執照\\使用執照\\申辦流程\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-application-process",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-使用執照-相關法規",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\使用執照\\相關法規\\domain.md"
     },
     {
       "id": "skill-建築執照-使用執照-相關法規",
       "label": "building-permit-related-regulations",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan.",
+      "file_path": "建築執照\\使用執照\\相關法規\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-related-regulations",
+        "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-建造執照-審核標準",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\建造執照\\審核標準\\domain.md"
     },
     {
       "id": "subcategory-建築執照-建造執照",
@@ -259,49 +416,77 @@
       "id": "skill-建築執照-建造執照-審核標準",
       "label": "building-permit-review-standards",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan.",
+      "file_path": "建築執照\\建造執照\\審核標準\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-review-standards",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-建造執照-申請文件",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\建造執照\\申請文件\\domain.md"
     },
     {
       "id": "skill-建築執照-建造執照-申請文件",
       "label": "building-permit-application-documents",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan.",
+      "file_path": "建築執照\\建造執照\\申請文件\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-application-documents",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-建造執照-申辦流程",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\建造執照\\申辦流程\\domain.md"
     },
     {
       "id": "skill-建築執照-建造執照-申辦流程",
       "label": "building-permit-application-process",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan.",
+      "file_path": "建築執照\\建造執照\\申辦流程\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-application-process",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-建造執照-相關法規",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\建造執照\\相關法規\\domain.md"
     },
     {
       "id": "skill-建築執照-建造執照-相關法規",
       "label": "building-permit-related-regulations",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan.",
+      "file_path": "建築執照\\建造執照\\相關法規\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-related-regulations",
+        "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-拆除執照-審核標準",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\拆除執照\\審核標準\\domain.md"
     },
     {
       "id": "subcategory-建築執照-拆除執照",
@@ -312,49 +497,77 @@
       "id": "skill-建築執照-拆除執照-審核標準",
       "label": "building-permit-review-standards",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan.",
+      "file_path": "建築執照\\拆除執照\\審核標準\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-review-standards",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-拆除執照-申請文件",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\拆除執照\\申請文件\\domain.md"
     },
     {
       "id": "skill-建築執照-拆除執照-申請文件",
       "label": "building-permit-application-documents",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan.",
+      "file_path": "建築執照\\拆除執照\\申請文件\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-application-documents",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-拆除執照-申辦流程",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\拆除執照\\申辦流程\\domain.md"
     },
     {
       "id": "skill-建築執照-拆除執照-申辦流程",
       "label": "building-permit-application-process",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan.",
+      "file_path": "建築執照\\拆除執照\\申辦流程\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-application-process",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-拆除執照-相關法規",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\拆除執照\\相關法規\\domain.md"
     },
     {
       "id": "skill-建築執照-拆除執照-相關法規",
       "label": "building-permit-related-regulations",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan.",
+      "file_path": "建築執照\\拆除執照\\相關法規\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-related-regulations",
+        "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-雜項執照-審核標準",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\雜項執照\\審核標準\\domain.md"
     },
     {
       "id": "subcategory-建築執照-雜項執照",
@@ -365,49 +578,77 @@
       "id": "skill-建築執照-雜項執照-審核標準",
       "label": "building-permit-review-standards",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan.",
+      "file_path": "建築執照\\雜項執照\\審核標準\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-review-standards",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-雜項執照-申請文件",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\雜項執照\\申請文件\\domain.md"
     },
     {
       "id": "skill-建築執照-雜項執照-申請文件",
       "label": "building-permit-application-documents",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan.",
+      "file_path": "建築執照\\雜項執照\\申請文件\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-application-documents",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application documents and requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-雜項執照-申辦流程",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\雜項執照\\申辦流程\\domain.md"
     },
     {
       "id": "skill-建築執照-雜項執照-申辦流程",
       "label": "building-permit-application-process",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan.",
+      "file_path": "建築執照\\雜項執照\\申辦流程\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-application-process",
+        "description": "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築執照-雜項執照-相關法規",
       "label": "domain",
       "type": "domain",
-      "description": "## 使用情境"
+      "description": "## 使用情境",
+      "file_path": "建築執照\\雜項執照\\相關法規\\domain.md"
     },
     {
       "id": "skill-建築執照-雜項執照-相關法規",
       "label": "building-permit-related-regulations",
       "type": "skill",
-      "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan."
+      "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan.",
+      "file_path": "建築執照\\雜項執照\\相關法規\\skill.md",
+      "frontmatter": {
+        "name": "building-permit-related-regulations",
+        "description": "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築性能-LEED-leed",
       "label": "domain",
       "type": "domain",
-      "description": "## 什麼是LEED"
+      "description": "## 什麼是LEED",
+      "file_path": "建築性能\\LEED\\leed\\domain.md"
     },
     {
       "id": "category-建築性能",
@@ -423,13 +664,20 @@
       "id": "skill-建築性能-LEED-leed",
       "label": "leed",
       "type": "skill",
-      "description": "This skill should be used when applying for LEED (Leadership in Energy and Environmental Design) certification or designing green buildings according to USGBC standards."
+      "description": "This skill should be used when applying for LEED (Leadership in Energy and Environmental Design) certification or designing green buildings according to USGBC standards.",
+      "file_path": "建築性能\\LEED\\leed\\skill.md",
+      "frontmatter": {
+        "name": "leed",
+        "description": "This skill should be used when applying for LEED (Leadership in Energy and Environmental Design) certification or designing green buildings according to USGBC standards.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築性能-低碳建築-low-carbon-buildings",
       "label": "domain",
       "type": "domain",
-      "description": "## 什麼是低碳建築標示"
+      "description": "## 什麼是低碳建築標示",
+      "file_path": "建築性能\\低碳建築\\low-carbon-buildings\\domain.md"
     },
     {
       "id": "subcategory-建築性能-低碳建築",
@@ -440,13 +688,20 @@
       "id": "skill-建築性能-低碳建築-low-carbon-buildings",
       "label": "low-carbon-buildings",
       "type": "skill",
-      "description": "This skill should be used when applying for Taiwan Low Embodied Carbon Building Label (低碳建築標示/LEBR) or calculating embodied carbon in construction."
+      "description": "This skill should be used when applying for Taiwan Low Embodied Carbon Building Label (低碳建築標示/LEBR) or calculating embodied carbon in construction.",
+      "file_path": "建築性能\\低碳建築\\low-carbon-buildings\\skill.md",
+      "frontmatter": {
+        "name": "low-carbon-buildings",
+        "description": "This skill should be used when applying for Taiwan Low Embodied Carbon Building Label (低碳建築標示/LEBR) or calculating embodied carbon in construction.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築性能-健康建築-well-building",
       "label": "domain",
       "type": "domain",
-      "description": "## 什麼是WELL認證"
+      "description": "## 什麼是WELL認證",
+      "file_path": "建築性能\\健康建築\\well-building\\domain.md"
     },
     {
       "id": "subcategory-建築性能-健康建築",
@@ -457,13 +712,20 @@
       "id": "skill-建築性能-健康建築-well-building",
       "label": "well-building",
       "type": "skill",
-      "description": "This skill should be used when designing for WELL Building Certification or improving indoor health environment based on IWBI standards."
+      "description": "This skill should be used when designing for WELL Building Certification or improving indoor health environment based on IWBI standards.",
+      "file_path": "建築性能\\健康建築\\well-building\\skill.md",
+      "frontmatter": {
+        "name": "well-building",
+        "description": "This skill should be used when designing for WELL Building Certification or improving indoor health environment based on IWBI standards.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築性能-光環境設計-daylighting-design",
       "label": "domain",
       "type": "domain",
-      "description": "## 定義"
+      "description": "## 定義",
+      "file_path": "建築性能\\光環境設計\\daylighting-design\\domain.md"
     },
     {
       "id": "subcategory-建築性能-光環境設計",
@@ -474,13 +736,20 @@
       "id": "skill-建築性能-光環境設計-daylighting-design",
       "label": "daylighting-design",
       "type": "skill",
-      "description": "This skill should be used when designing and analyzing daylighting systems, optimizing natural light utilization, and evaluating visual comfort."
+      "description": "This skill should be used when designing and analyzing daylighting systems, optimizing natural light utilization, and evaluating visual comfort.",
+      "file_path": "建築性能\\光環境設計\\daylighting-design\\skill.md",
+      "frontmatter": {
+        "name": "daylighting-design",
+        "description": "This skill should be used when designing and analyzing daylighting systems, optimizing natural light utilization, and evaluating visual comfort.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築性能-室內環境-indoor-environment",
       "label": "domain",
       "type": "domain",
-      "description": "## 什麼是室內環境品質"
+      "description": "## 什麼是室內環境品質",
+      "file_path": "建築性能\\室內環境\\indoor-environment\\domain.md"
     },
     {
       "id": "subcategory-建築性能-室內環境",
@@ -491,13 +760,20 @@
       "id": "skill-建築性能-室內環境-indoor-environment",
       "label": "indoor-environment",
       "type": "skill",
-      "description": "This skill should be used when designing indoor environmental quality including daylighting, ventilation, acoustic comfort, and air quality."
+      "description": "This skill should be used when designing indoor environmental quality including daylighting, ventilation, acoustic comfort, and air quality.",
+      "file_path": "建築性能\\室內環境\\indoor-environment\\skill.md",
+      "frontmatter": {
+        "name": "indoor-environment",
+        "description": "This skill should be used when designing indoor environmental quality including daylighting, ventilation, acoustic comfort, and air quality.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築性能-建築能效-building-energy-rating",
       "label": "domain",
       "type": "domain",
-      "description": "## 什麼是建築能效標示"
+      "description": "## 什麼是建築能效標示",
+      "file_path": "建築性能\\建築能效\\building-energy-rating\\domain.md"
     },
     {
       "id": "subcategory-建築性能-建築能效",
@@ -508,13 +784,20 @@
       "id": "skill-建築性能-建築能效-building-energy-rating",
       "label": "building-energy-rating",
       "type": "skill",
-      "description": "This skill should be used when applying for Taiwan Building Energy Efficiency Label (建築能效標示) or calculating building energy performance."
+      "description": "This skill should be used when applying for Taiwan Building Energy Efficiency Label (建築能效標示) or calculating building energy performance.",
+      "file_path": "建築性能\\建築能效\\building-energy-rating\\skill.md",
+      "frontmatter": {
+        "name": "building-energy-rating",
+        "description": "This skill should be used when applying for Taiwan Building Energy Efficiency Label (建築能效標示) or calculating building energy performance.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築性能-智慧建築-smart-building-label",
       "label": "domain",
       "type": "domain",
-      "description": "## 什麼是智慧建築標章"
+      "description": "## 什麼是智慧建築標章",
+      "file_path": "建築性能\\智慧建築\\smart-building-label\\domain.md"
     },
     {
       "id": "subcategory-建築性能-智慧建築",
@@ -525,13 +808,20 @@
       "id": "skill-建築性能-智慧建築-smart-building-label",
       "label": "smart-building-label",
       "type": "skill",
-      "description": "This skill should be used when applying for Taiwan Smart Building Label (智慧建築標章) or designing intelligent building systems."
+      "description": "This skill should be used when applying for Taiwan Smart Building Label (智慧建築標章) or designing intelligent building systems.",
+      "file_path": "建築性能\\智慧建築\\smart-building-label\\skill.md",
+      "frontmatter": {
+        "name": "smart-building-label",
+        "description": "This skill should be used when applying for Taiwan Smart Building Label (智慧建築標章) or designing intelligent building systems.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築性能-永續建築-building-sustainability",
       "label": "domain",
       "type": "domain",
-      "description": "## 定義"
+      "description": "## 定義",
+      "file_path": "建築性能\\永續建築\\building-sustainability\\domain.md"
     },
     {
       "id": "subcategory-建築性能-永續建築",
@@ -542,13 +832,20 @@
       "id": "skill-建築性能-永續建築-building-sustainability",
       "label": "building-sustainability",
       "type": "skill",
-      "description": "This skill should be used when designing green building and sustainable architecture, integrating environmental assessment, energy efficiency, and resource circularity."
+      "description": "This skill should be used when designing green building and sustainable architecture, integrating environmental assessment, energy efficiency, and resource circularity.",
+      "file_path": "建築性能\\永續建築\\building-sustainability\\skill.md",
+      "frontmatter": {
+        "name": "building-sustainability",
+        "description": "This skill should be used when designing green building and sustainable architecture, integrating environmental assessment, energy efficiency, and resource circularity.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築性能-綠建築標章-green-building-label",
       "label": "domain",
       "type": "domain",
-      "description": "## 什麼是綠建築標章"
+      "description": "## 什麼是綠建築標章",
+      "file_path": "建築性能\\綠建築標章\\green-building-label\\domain.md"
     },
     {
       "id": "subcategory-建築性能-綠建築標章",
@@ -559,13 +856,20 @@
       "id": "skill-建築性能-綠建築標章-green-building-label",
       "label": "green-building-label",
       "type": "skill",
-      "description": "This skill should be used when applying for Taiwan Green Building Label (綠建築標章) or Candidate Green Building Certificate (候選綠建築證書) through the EEWH system."
+      "description": "This skill should be used when applying for Taiwan Green Building Label (綠建築標章) or Candidate Green Building Certificate (候選綠建築證書) through the EEWH system.",
+      "file_path": "建築性能\\綠建築標章\\green-building-label\\skill.md",
+      "frontmatter": {
+        "name": "green-building-label",
+        "description": "This skill should be used when applying for Taiwan Green Building Label (綠建築標章) or Candidate Green Building Certificate (候選綠建築證書) through the EEWH system.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築性能-計算工具-architect-calculator",
       "label": "domain",
       "type": "domain",
-      "description": "## 定義"
+      "description": "## 定義",
+      "file_path": "建築性能\\計算工具\\architect-calculator\\domain.md"
     },
     {
       "id": "subcategory-建築性能-計算工具",
@@ -576,13 +880,20 @@
       "id": "skill-建築性能-計算工具-architect-calculator",
       "label": "architect-calculator",
       "type": "skill",
-      "description": "This skill should be used when performing architect calculations including floor area analysis, structural estimation, MEP load calculation, and cost estimation."
+      "description": "This skill should be used when performing architect calculations including floor area analysis, structural estimation, MEP load calculation, and cost estimation.",
+      "file_path": "建築性能\\計算工具\\architect-calculator\\skill.md",
+      "frontmatter": {
+        "name": "architect-calculator",
+        "description": "This skill should be used when performing architect calculations including floor area analysis, structural estimation, MEP load calculation, and cost estimation.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築性能-音環境設計-acoustic-design",
       "label": "domain",
       "type": "domain",
-      "description": "## 定義"
+      "description": "## 定義",
+      "file_path": "建築性能\\音環境設計\\acoustic-design\\domain.md"
     },
     {
       "id": "subcategory-建築性能-音環境設計",
@@ -593,13 +904,20 @@
       "id": "skill-建築性能-音環境設計-acoustic-design",
       "label": "acoustic-design",
       "type": "skill",
-      "description": "This skill should be used when designing architectural acoustics, including room acoustics, noise control, and sound insulation."
+      "description": "This skill should be used when designing architectural acoustics, including room acoustics, noise control, and sound insulation.",
+      "file_path": "建築性能\\音環境設計\\acoustic-design\\skill.md",
+      "frontmatter": {
+        "name": "acoustic-design",
+        "description": "This skill should be used when designing architectural acoustics, including room acoustics, noise control, and sound insulation.",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築設計與規劃-建築基礎-architect-foundations",
       "label": "domain",
       "type": "domain",
-      "description": "## 為什麼重要？"
+      "description": "## 為什麼重要？",
+      "file_path": "建築設計與規劃\\建築基礎\\architect-foundations\\domain.md"
     },
     {
       "id": "category-建築設計與規劃",
@@ -615,13 +933,20 @@
       "id": "skill-建築設計與規劃-建築基礎-architect-foundations",
       "label": "architect-foundations",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "建築設計與規劃\\建築基礎\\architect-foundations\\skill.md",
+      "frontmatter": {
+        "name": "architect-foundations",
+        "description": ">",
+        "user-invocable": false
+      }
     },
     {
       "id": "domain-建築設計與規劃-設計理論-building-typology",
       "label": "domain",
       "type": "domain",
-      "description": "## 為什麼重要？"
+      "description": "## 為什麼重要？",
+      "file_path": "建築設計與規劃\\設計理論\\building-typology\\domain.md"
     },
     {
       "id": "subcategory-建築設計與規劃-設計理論",
@@ -632,43 +957,69 @@
       "id": "skill-建築設計與規劃-設計理論-building-typology",
       "label": "building-typology",
       "type": "skill",
-      "description": ">-"
+      "description": ">-",
+      "file_path": "建築設計與規劃\\設計理論\\building-typology\\skill.md",
+      "frontmatter": {
+        "name": "building-typology",
+        "description": ">-"
+      }
     },
     {
       "id": "domain-建築設計與規劃-設計理論-concept-design",
       "label": "domain",
       "type": "domain",
-      "description": "## 為什麼重要？"
+      "description": "## 為什麼重要？",
+      "file_path": "建築設計與規劃\\設計理論\\concept-design\\domain.md"
     },
     {
       "id": "skill-建築設計與規劃-設計理論-concept-design",
       "label": "concept-design",
       "type": "skill",
-      "description": "Parti development, massing studies, spatial organization strategies, design concept generation, and concept-to-form translation methodologies"
+      "description": "Parti development, massing studies, spatial organization strategies, design concept generation, and concept-to-form translation methodologies",
+      "file_path": "建築設計與規劃\\設計理論\\concept-design\\skill.md",
+      "frontmatter": {
+        "name": "concept-design",
+        "description": "Parti development, massing studies, spatial organization strategies, design concept generation, and concept-to-form translation methodologies",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築設計與規劃-設計理論-design-theory",
       "label": "domain",
       "type": "domain",
-      "description": "## 為什麼重要？"
+      "description": "## 為什麼重要？",
+      "file_path": "建築設計與規劃\\設計理論\\design-theory\\domain.md"
     },
     {
       "id": "skill-建築設計與規劃-設計理論-design-theory",
       "label": "design-theory",
       "type": "skill",
-      "description": "Architectural movements, design philosophy, critical theory, precedent analysis, and compositional principles for informed design reasoning"
+      "description": "Architectural movements, design philosophy, critical theory, precedent analysis, and compositional principles for informed design reasoning",
+      "file_path": "建築設計與規劃\\設計理論\\design-theory\\skill.md",
+      "frontmatter": {
+        "name": "design-theory",
+        "description": "Architectural movements, design philosophy, critical theory, precedent analysis, and compositional principles for informed design reasoning",
+        "user-invocable": true
+      }
     },
     {
       "id": "domain-建築設計與規劃-設計理論-spatial-planning",
       "label": "domain",
       "type": "domain",
-      "description": "## 為什麼重要？"
+      "description": "## 為什麼重要？",
+      "file_path": "建築設計與規劃\\設計理論\\spatial-planning\\domain.md"
     },
     {
       "id": "skill-建築設計與規劃-設計理論-spatial-planning",
       "label": "spatial-planning",
       "type": "skill",
-      "description": ">"
+      "description": ">",
+      "file_path": "建築設計與規劃\\設計理論\\spatial-planning\\skill.md",
+      "frontmatter": {
+        "name": "spatial-planning",
+        "description": ">",
+        "Spatial planning for buildings": "floor plan layout and archetypes, circulation"
+      }
     }
   ],
   "edges": [
@@ -1533,13 +1884,13 @@
     "total_nodes": 116,
     "total_edges": 164,
     "communities": [
-      "建築設計與規劃",
-      "專業複委託",
-      "Other",
       "建築執照",
       "Skills-Architects",
-      "建築性能"
+      "建築設計與規劃",
+      "建築性能",
+      "專業複委託",
+      "Other"
     ],
-    "generated_at": "2026-04-20 04:42 UTC"
+    "generated_at": "2026-04-20 04:57 UTC"
   }
 }

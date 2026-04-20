@@ -57,15 +57,17 @@ def parse_frontmatter(content):
 # Node and Edge Definitions
 # ============================================================
 class Node:
-    def __init__(self, node_id, label, node_type, category=None, subcategory=None, skill_name=None):
+    def __init__(self, node_id, label, node_type, category=None, subcategory=None, skill_name=None, file_path=None, frontmatter=None):
         self.id = node_id
         self.label = label
-        self.type = node_type  # 'category', 'subcategory', 'domain', 'skill'
+        self.type = node_type  # 'category', 'subcategory', 'domain', 'skill', 'empty_dir'
         self.category = category
         self.subcategory = subcategory
         self.skill_name = skill_name
         self.community = None
         self.description = ''
+        self.file_path = file_path or ''
+        self.frontmatter = frontmatter or {}
 
     def to_dict(self):
         d = {
@@ -75,6 +77,10 @@ class Node:
         }
         if self.description:
             d['description'] = self.description
+        if self.file_path:
+            d['file_path'] = self.file_path
+        if self.frontmatter:
+            d['frontmatter'] = {k: v for k, v in self.frontmatter.items() if v is not None}
         return d
 
 
@@ -100,12 +106,14 @@ class Edge:
 # Graph Builder
 # ============================================================
 class KnowledgeGraphBuilder:
-    def __init__(self, raw_dir, output_dir):
+    def __init__(self, raw_dir, output_dir, exclude_dirs=None, include_empty=False):
         self.raw_dir = Path(raw_dir)
         self.output_dir = Path(output_dir)
         self.nodes = []
         self.edges = []
         self.node_map = {}  # id -> Node
+        self.exclude_dirs = exclude_dirs or []
+        self.include_empty = include_empty
 
     def build(self):
         """Main build pipeline."""
@@ -141,9 +149,22 @@ class KnowledgeGraphBuilder:
 
     def scan_files(self):
         """Scan all markdown files in raw_dir."""
+        # Collect all directories first if include_empty is True
+        all_dirs = set()
+        if self.include_empty:
+            for dir_path in self.raw_dir.rglob('*'):
+                if dir_path.is_dir():
+                    rel_path = dir_path.relative_to(self.raw_dir)
+                    if not any(rel_path.parts[:i] in self.exclude_dirs for i in range(1, len(rel_path.parts) + 1)):
+                        all_dirs.add(str(rel_path))
+
         for md_file in sorted(self.raw_dir.rglob('*.md')):
             rel_path = md_file.relative_to(self.raw_dir)
             parts = list(rel_path.parts)
+
+            # Check if directory is excluded
+            if any(parts[:i] in self.exclude_dirs for i in range(1, len(parts) + 1)):
+                continue
 
             # Parse frontmatter
             content = md_file.read_text(encoding='utf-8', errors='ignore')
@@ -180,7 +201,9 @@ class KnowledgeGraphBuilder:
                 node_type='skill' if is_skill else 'domain',
                 category=parts[0] if len(parts) > 1 else '',
                 subcategory=parts[1] if len(parts) > 2 else '',
-                skill_name=parts[-2] if len(parts) > 2 else parts[0]
+                skill_name=parts[-2] if len(parts) > 2 else parts[0],
+                file_path=str(rel_path),
+                frontmatter=fm
             )
             node.description = description
             self.nodes.append(node)
@@ -225,6 +248,40 @@ class KnowledgeGraphBuilder:
                     skill_id = f"skill-{path_slug}"
                     if skill_id in self.node_map:
                         self.edges.append(Edge(node_id, skill_id, 'derived_from', str(rel_path)))
+
+        # Create nodes for empty directories if include_empty is True
+        if self.include_empty:
+            for dir_path in sorted(all_dirs):
+                rel_parts = dir_path.replace('\\', '/').split('/')
+                if len(rel_parts) == 0:
+                    continue
+
+                # Check if this directory already has skill or domain files
+                full_dir_path = self.raw_dir / dir_path
+                has_skill_or_domain = any(
+                    f.name in ['skill.md', 'SKILL.md', 'domain.md']
+                    for f in full_dir_path.iterdir()
+                    if f.is_file()
+                )
+
+                if not has_skill_or_domain:
+                    dir_name = rel_parts[-1]
+                    path_slug = '-'.join(rel_parts).replace('/', '-').replace('\\', '-')
+                    node_id = f"dir-{path_slug}"
+
+                    if node_id not in self.node_map:
+                        node = Node(
+                            node_id=node_id,
+                            label=dir_name,
+                            node_type='empty_dir',
+                            category=rel_parts[0] if len(rel_parts) > 1 else '',
+                            subcategory=rel_parts[1] if len(rel_parts) > 2 else '',
+                            skill_name=rel_parts[-2] if len(rel_parts) > 2 else rel_parts[0],
+                            file_path=dir_path
+                        )
+                        node.description = '(Empty directory)'
+                        self.nodes.append(node)
+                        self.node_map[node_id] = node
 
     def add_keyword_edges(self):
         """Add semantic edges between skill and domain in same category."""
@@ -339,26 +396,58 @@ class KnowledgeGraphBuilder:
     <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-        body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }}
-        #mynetwork {{ width: 100%; height: 90vh; border: 1px solid #ddd; }}
-        #legend {{ padding: 10px; background: #f5f5f5; display: flex; gap: 20px; flex-wrap: wrap; }}
+        body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; height: 100vh; overflow: hidden; }}
+        #left-panel {{ flex: 1; display: flex; flex-direction: column; }}
+        #mynetwork {{ width: 100%; height: 100%; border: none; }}
+        #legend {{ padding: 10px; background: #f5f5f5; display: flex; gap: 20px; flex-wrap: wrap; border-bottom: 1px solid #ddd; }}
         .legend-item {{ display: flex; align-items: center; gap: 5px; }}
         .legend-color {{ width: 15px; height: 15px; border-radius: 50%; }}
         #search {{ padding: 10px; background: #fff; border-bottom: 1px solid #ddd; }}
         #search input {{ padding: 8px 12px; width: 300px; border: 1px solid #ddd; border-radius: 4px; }}
+        #side-panel {{
+            width: 350px;
+            background: #fff;
+            border-left: 1px solid #ddd;
+            overflow-y: auto;
+            padding: 20px;
+            display: none;
+        }}
+        #side-panel.active {{ display: block; }}
+        #side-panel h2 {{ margin-bottom: 10px; font-size: 18px; color: #333; }}
+        #side-panel .label {{ margin-bottom: 5px; }}
+        #side-panel .label strong {{ display: inline-block; width: 80px; color: #666; }}
+        #side-panel pre {{ background: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 12px; }}
+        #side-panel .close-btn {{ position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 20px; color: #999; }}
+        #side-panel .close-btn:hover {{ color: #333; }}
+        #side-panel .open-link {{ display: inline-block; margin-top: 10px; padding: 5px 10px; background: #4ECDC4; color: white; text-decoration: none; border-radius: 4px; }}
+        #side-panel .open-link:hover {{ background: #3db5ab; }}
     </style>
 </head>
 <body>
-    <div id="search">
-        <input type="text" id="searchInput" placeholder="搜尋知識圖譜..." oninput="searchNodes(this.value)">
+    <div id="left-panel">
+        <div id="search">
+            <input type="text" id="searchInput" placeholder="搜尋知識圖譜..." oninput="searchNodes(this.value)">
+        </div>
+        <div id="legend">
+            <div class="legend-item"><div class="legend-color" style="background:#FF6B6B"></div>類別 (Category)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#4ECDC4"></div>子類別 (Subcategory)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#45B7D1"></div>領域知識 (Domain)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#96CEB4"></div>技能萃取 (Skill)</div>
+            <div class="legend-item"><div class="legend-color" style="background:#ddd"></div>空資料夾 (Empty)</div>
+        </div>
+        <div id="mynetwork"></div>
     </div>
-    <div id="legend">
-        <div class="legend-item"><div class="legend-color" style="background:#FF6B6B"></div>類別 (Category)</div>
-        <div class="legend-item"><div class="legend-color" style="background:#4ECDC4"></div>子類別 (Subcategory)</div>
-        <div class="legend-item"><div class="legend-color" style="background:#45B7D1"></div>領域知識 (Domain)</div>
-        <div class="legend-item"><div class="legend-color" style="background:#96CEB4"></div>技能萃取 (Skill)</div>
+    <div id="side-panel">
+        <span class="close-btn" onclick="closeSidePanel()">&times;</span>
+        <h2 id="panel-title"></h2>
+        <div class="label"><strong>類型：</strong><span id="panel-type"></span></div>
+        <div class="label" id="panel-desc-row"><strong>描述：</strong><span id="panel-description"></span></div>
+        <div id="panel-frontmatter-row" style="margin-top: 15px;">
+            <strong>Frontmatter：</strong>
+            <pre id="panel-frontmatter"></pre>
+        </div>
+        <div class="label" id="panel-file-row" style="margin-top: 15px;"><strong>文件：</strong><span id="panel-file-path"></span></div>
     </div>
-    <div id="mynetwork"></div>
     <script>
         var nodes = new vis.DataSet({json.dumps(nodes_data)});
         var edges = new vis.DataSet({json.dumps(edges_data)});
@@ -402,6 +491,32 @@ class KnowledgeGraphBuilder:
                 n.shade = !filteredIds || filteredIds.includes(n.id);
             }});
             nodes.update(nodes.get());
+        }}
+        network.on('click', function(params) {{
+            if (params.nodes.length > 0) {{
+                var nodeId = params.nodes[0];
+                var nodeData = nodes.get(nodeId);
+                showSidePanel(nodeData);
+            }} else {{
+                closeSidePanel();
+            }}
+        }});
+        function showSidePanel(nodeData) {{
+            document.getElementById('panel-title').textContent = nodeData.label;
+            document.getElementById('panel-type').textContent = nodeData.type;
+            document.getElementById('panel-description').textContent = nodeData.title || '';
+            document.getElementById('panel-description').parentElement.parentElement.style.display = (nodeData.title || '').trim() ? 'block' : 'none';
+            var frontmatter = nodeData.frontmatter || {{}};
+            var fmText = Object.keys(frontmatter).length > 0 ? JSON.stringify(frontmatter, null, 2) : '(無 frontmatter)';
+            document.getElementById('panel-frontmatter').textContent = fmText;
+            document.getElementById('panel-frontmatter-row').style.display = Object.keys(frontmatter).length > 0 ? 'block' : 'none';
+            var filePath = nodeData.file_path || '';
+            document.getElementById('panel-file-path').textContent = filePath || '(無文件)';
+            document.getElementById('panel-file-row').style.display = filePath ? 'block' : 'none';
+            document.getElementById('side-panel').classList.add('active');
+        }}
+        function closeSidePanel() {{
+            document.getElementById('side-panel').classList.remove('active');
         }}
     </script>
 </body>
@@ -502,12 +617,16 @@ def main():
 Examples:
   python graphify.py ./raw -o ./graphify-out
   python graphify.py ./my-docs
+  python graphify.py ./raw -o ./graphify-out --exclude Skills-Architects
+  python graphify.py ./raw -o ./graphify-out --include-empty
 '''
     )
     parser.add_argument('raw_dir', help='Path to folder containing markdown files')
     parser.add_argument('-o', '--output', default='./graphify-out', help='Output directory (default: ./graphify-out)')
     parser.add_argument('--no-visual', action='store_true', help='Skip generating graph.html')
     parser.add_argument('--json-only', action='store_true', help='Only generate graph.json')
+    parser.add_argument('--exclude', nargs='+', help='Exclude specific directories')
+    parser.add_argument('--include-empty', action='store_true', help='Include empty directories')
 
     args = parser.parse_args()
 
@@ -516,7 +635,12 @@ Examples:
         print(f'Error: {raw_path} does not exist')
         sys.exit(1)
 
-    builder = KnowledgeGraphBuilder(str(raw_path), args.output)
+    builder = KnowledgeGraphBuilder(
+        str(raw_path),
+        args.output,
+        exclude_dirs=[e.split('/') for e in args.exclude] if args.exclude else [],
+        include_empty=args.include_empty
+    )
     builder.build()
 
     if args.json_only:
