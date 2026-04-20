@@ -75,6 +75,10 @@ class Node:
             'label': self.label,
             'type': self.type
         }
+        if self.category:
+            d['category'] = self.category
+        if self.subcategory:
+            d['subcategory'] = self.subcategory
         if self.description:
             d['description'] = self.description
         if self.file_path:
@@ -211,6 +215,8 @@ class KnowledgeGraphBuilder:
             self.node_map[node_id] = node
 
             # Create category and subcategory nodes (for visualization)
+            # Subcategory is the directory containing skill/domain (parts[2]), not parts[1]
+            # This ensures the hierarchy is: category -> subcategory -> domain/skill
             if len(parts) > 1:
                 category_name = parts[0]
                 cat_node_id = f"category-{category_name}"
@@ -225,7 +231,8 @@ class KnowledgeGraphBuilder:
 
             if len(parts) > 2:
                 category_name = parts[0]
-                subcategory = parts[1]
+                # Use parts[2] as subcategory (the directory containing skill/domain)
+                subcategory = parts[2] if len(parts) > 2 else parts[-1]
                 subcat_node_id = f"subcategory-{category_name}-{subcategory}"
                 if subcat_node_id not in self.node_map:
                     subcat_node = Node(
@@ -249,6 +256,15 @@ class KnowledgeGraphBuilder:
                     skill_id = f"skill-{path_slug}"
                     if skill_id in self.node_map:
                         self.edges.append(Edge(node_id, skill_id, 'derived_from', str(rel_path)))
+
+          # Add subcategory -> domain/skill relationship (hierarchy)
+            if len(parts) > 2:
+                category_name = parts[0]
+                # Use parts[2] as subcategory_name (matching the subcategory node ID)
+                subcategory_name = parts[2]
+                subcat_node_id = f"subcategory-{category_name}-{subcategory_name}"
+                if subcat_node_id in self.node_map:
+                    self.edges.append(Edge(subcat_node_id, node_id, 'contains', str(rel_path)))
 
         # Create nodes for empty directories if include_empty is True
         if self.include_empty:
@@ -285,7 +301,7 @@ class KnowledgeGraphBuilder:
                         self.node_map[node_id] = node
 
     def add_keyword_edges(self):
-        """Add semantic edges between skill and domain in same category."""
+        """Add semantic edges between skill and domain across subcategories in same category."""
         # Group by category
         category_nodes = defaultdict(list)
         for n in self.nodes:
@@ -294,7 +310,7 @@ class KnowledgeGraphBuilder:
 
         # Track degree to limit edges per node
         degree = defaultdict(int)
-        MAX_EDGES_PER_NODE = 4
+        MAX_EDGES_PER_NODE = 3
 
         for category, nodes in category_nodes.items():
             skills = [n for n in nodes if n.type == 'skill']
@@ -312,18 +328,12 @@ class KnowledgeGraphBuilder:
                         degree[skill.id] += 1
                         degree[domain.id] += 1
 
-        # Add edges from category nodes to representative nodes
+        # Add edges from category nodes to subcategory nodes (hierarchy)
         for cat_id, cat_node in self.node_map.items():
             if cat_node.type == 'category':
-                cat_nodes = [n for n in self.nodes if n.type in ('domain', 'skill') and n.category == cat_node.label]
-                connections = 0
-                for n in cat_nodes:
-                    if connections >= 3 or degree[n.id] >= 4:
-                        break
-                    self.edges.append(Edge(cat_id, n.id, 'semantic_related'))
-                    degree[cat_id] += 1
-                    degree[n.id] += 1
-                    connections += 1
+                subcat_nodes = [n for n in self.nodes if n.type == 'subcategory' and n.category == cat_node.label]
+                for subcat_node in subcat_nodes:
+                    self.edges.append(Edge(cat_id, subcat_node.id, 'contains', ''))
 
     def assign_communities(self):
         """Assign communities based on category."""
