@@ -1,4 +1,5 @@
 # .gitignore
+
 node_modules/
 .DS_Store
 *.log
@@ -13,4 +14,4 @@ Skills-Architects/
 
 # OpenCode skills (can be committed if needed)
 # Uncomment to ignore:
-# .opencode/ 
+.opencode/ 
