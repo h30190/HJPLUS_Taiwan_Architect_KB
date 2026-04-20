@@ -315,44 +315,11 @@ class KnowledgeGraphBuilder:
                             intermediate=rel_parts[1] if len(rel_parts) > 2 else '',
                             subcategory=rel_parts[2] if len(rel_parts) > 3 else '',
                             skill_name=rel_parts[-2] if len(rel_parts) > 2 else rel_parts[0],
-                            file_path=dir_path
+            file_path=dir_path
                         )
                         node.description = '(Empty directory)'
                         self.nodes.append(node)
                         self.node_map[node_id] = node
-        
-        # Connect empty directories to category hierarchy
-        if self.include_empty:
-            for dir_path in sorted(all_dirs):
-                rel_parts = dir_path.replace('\\', '/').split('/')
-                if len(rel_parts) == 0:
-                    continue
-                    
-                # Check if this directory already has skill or domain files
-                full_dir_path = self.raw_dir / dir_path
-                has_skill_or_domain = any(
-                    f.name in ['skill.md', 'SKILL.md', 'domain.md']
-                    for f in full_dir_path.iterdir()
-                    if f.is_file()
-                )
-                
-                if not has_skill_or_domain:
-                    dir_name = rel_parts[-1]
-                    path_slug = '-'.join(rel_parts).replace('/', '-').replace('\\', '-')
-                    node_id = f"dir-{path_slug}"
-                    
-                    # Connect to category hierarchy
-                    if len(rel_parts) > 1:
-                        category_name = rel_parts[0]
-                        cat_node_id = f"category-{category_name}"
-                        if cat_node_id in self.node_map and node_id in self.node_map:
-                            self.edges.append(Edge(cat_node_id, node_id, 'contains', ''))
-                    
-                    if len(rel_parts) > 2:
-                        intermediate_name = rel_parts[1]
-                        inter_node_id = f"intermediate-{category_name}-{intermediate_name}"
-                        if inter_node_id in self.node_map and node_id in self.node_map:
-                            self.edges.append(Edge(inter_node_id, node_id, 'contains', ''))
 
     def add_keyword_edges(self):
         """Add semantic edges between skill and domain across subcategories in same category."""
@@ -477,9 +444,7 @@ class KnowledgeGraphBuilder:
         #legend {{ padding: 10px; background: #f5f5f5; display: flex; gap: 20px; flex-wrap: wrap; border-bottom: 1px solid #ddd; }}
         .legend-item {{ display: flex; align-items: center; gap: 5px; }}
         .legend-color {{ width: 15px; height: 15px; border-radius: 50%; }}
-        #search {{ padding: 10px; background: #fff; border-bottom: 1px solid #ddd; }}
-        #search input {{ padding: 8px 12px; width: 300px; border: 1px solid #ddd; border-radius: 4px; }}
-        #toggle-container {{
+        #search {{
             display: flex;
             align-items: center;
             padding: 10px;
@@ -487,10 +452,15 @@ class KnowledgeGraphBuilder:
             border-bottom: 1px solid #ddd;
             gap: 10px;
         }}
+        #search input {{
+            padding: 8px 12px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }}
         #physics-label {{
             font-size: 14px;
             color: #333;
-            min-width: 80px;
         }}
         .switch {{
             position: relative;
@@ -537,19 +507,17 @@ class KnowledgeGraphBuilder:
         #side-panel .close-btn:hover {{ color: #333; }}
         #side-panel .open-link {{ display: inline-block; margin-top: 10px; padding: 5px 10px; background: #4ECDC4; color: white; text-decoration: none; border-radius: 4px; }}
         #side-panel .open-link:hover {{ background: #3db5ab; }}
-    </style>
+   </style>
 </head>
 <body>
     <div id="left-panel">
-        <div id="toggle-container">
+        <div id="search">
+            <input type="text" id="searchInput" placeholder="搜尋知識圖譜..." oninput="searchNodes(this.value)">
             <span id="physics-label">Physics: ON</span>
             <label class="switch">
                 <input type="checkbox" id="physics-switch" checked onchange="togglePhysics()">
                 <span class="slider"></span>
             </label>
-        </div>
-        <div id="search">
-            <input type="text" id="searchInput" placeholder="搜尋知識圖譜..." oninput="searchNodes(this.value)">
         </div>
 <div id="legend">
             <div class="legend-item"><div class="legend-color" style="background:#FF6B6B"></div>類別 (Category)</div>
