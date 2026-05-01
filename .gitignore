@@ -8,6 +8,7 @@ node_modules/
 .env
 opencode.json
 opencode.jsonc
+AGENT.md
 
 # Skills-Architects reference repo (not tracked)
 Skills-Architects/ 
