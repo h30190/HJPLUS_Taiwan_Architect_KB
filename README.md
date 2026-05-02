@@ -62,6 +62,7 @@
 
 - **消防安全/**
   - [taiwan-fire-safety](建築法規/消防安全/taiwan-fire-safety/) (C 類台灣法規)
+  - [smoke-exhaust-review](建築法規/消防安全/smoke-exhaust-review/) (C 類台灣法規)
 - **無障礙設計/**
   - [taiwan-accessibility](建築法規/無障礙設計/taiwan-accessibility/) (C 類台灣法規)
 - **施工文件與驗收/**
