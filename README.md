@@ -1,20 +1,13 @@
 # HJPLUS 台灣建築師技能知識庫
 
 <div align="center">
-
-<table>
-  <tr>
-    <td><b>Code</b></td>
-    <td><a href="LICENSE-CODE"><img src="https://img.shields.io/badge/PolyForm_NC_1.0-gray?style=flat-square" alt="PolyForm NC 1.0"></a></td>
-    <td><b>Content</b></td>
-    <td><a href="LICENSE"><img src="https://img.shields.io/badge/CC_BY--NC--SA_4.0-blue?style=flat-square" alt="CC BY-NC-SA 4.0"></a></td>
-    <td><b>Brand</b></td>
-    <td><img src="https://img.shields.io/badge/HJPLUS.DESIGN-white?style=flat-square&color=888" alt="HJPLUS.DESIGN"></td>
-    <td><b>youtube</b></td>
-    <td><a href="https://www.youtube.com/watch?v=SVQ4Y1NpnrA"><img src="https://img.shields.io/badge/video-red?style=flat-square" alt="YouTube"></a></td>
-  </tr>
-</table>
-
+  <a href="LICENSE-CODE">
+    <img src="https://img.shields.io/badge/Code-PolyForm%20NC%201.0-blue" alt="Code License"></a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/Content-CC%20BY--NC--SA%204.0-lightgrey" alt="Content License"></a>
+  <img src="https://img.shields.io/badge/brand-HJPLUS.DESIGN-black" alt="HJPLUS.DESIGN">
+  <a href="https://www.youtube.com/watch?v=SVQ4Y1NpnrA">
+    <img src="https://img.shields.io/badge/youtube-video-crimson" alt="YouTube Video"></a>
 </div>
 
 ---
