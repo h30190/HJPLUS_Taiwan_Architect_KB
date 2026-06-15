@@ -1,4 +1,4 @@
-# HJPLUS 台灣AEC(建築x工程x營造)產業技能知識庫
+# 台灣AEC(建築x工程x營造)產業技能開源知識庫
 
 <div align="center">
   <a href="LICENSE-CODE">
