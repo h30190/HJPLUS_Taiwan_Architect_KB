@@ -2,7 +2,7 @@
 name: concrete-general-requirements
 description: "This skill should be used when an architect needs to verify PDF-backed common concrete detailing rules such as concrete cover, reinforcement terminology, minimum spacing references, development-length clauses, and splice clauses in Taiwan's concrete structure design code."
 user-invocable: true
-license: CC-BY-NC-SA-4.0
+license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
 metadata:
   audience: architects

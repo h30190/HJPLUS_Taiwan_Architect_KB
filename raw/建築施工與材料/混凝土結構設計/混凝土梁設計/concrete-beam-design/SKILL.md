@@ -2,7 +2,7 @@
 name: concrete-beam-design
 description: "This skill should be used when an architect or structural designer needs to verify PDF-backed concrete beam requirements such as minimum beam depth, T-beam effective flange width, minimum shear reinforcement, and the governing clause locations for beam detailing in Taiwan's concrete structure design code."
 user-invocable: true
-license: CC-BY-NC-SA-4.0
+license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
 metadata:
   audience: architects

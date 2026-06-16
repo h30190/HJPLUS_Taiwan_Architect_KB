@@ -2,7 +2,7 @@
 name: concrete-column-design
 description: "This skill should be used when an architect or structural designer needs to verify PDF-backed concrete column requirements such as longitudinal reinforcement ratio, minimum longitudinal-bar count, minimum shear reinforcement, and column splice rules in Taiwan's concrete structure design code."
 user-invocable: true
-license: CC-BY-NC-SA-4.0
+license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
 metadata:
   audience: architects
