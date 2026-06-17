@@ -8,7 +8,7 @@
 
 | 技能名稱 | 類型 | skill.md (AI) | domain.md (人類) |
 |---------|---|-----|-----|
-| [smoke-exhaust-review](smoke-exhaust-review/) | C 類台灣法規 | ✅ | ✅ |
+| [smoke-exhaust-review](排煙窗法規檢討/smoke-exhaust-review/) | C 類台灣法規 | ✅ | ✅ |
 
 ---
 

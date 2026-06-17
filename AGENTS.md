@@ -57,14 +57,49 @@ user-invocable: true
 |------|--------|---------|
 | Top-level category | Traditional Chinese | `建築設計與規劃/` |
 | Subcategory | Traditional Chinese | `設計理論/` |
-| **Knowledge Entry** | **Traditional Chinese** | **`排煙窗法規檢討/`** |
-| **AI Skill Directory** | **lowercase-hyphenated** | **`smoke-exhaust-review/`** |
-| Files inside skill | SKILL.md (uppercase), domain.md | `SKILL.md`, `domain.md` |
+| **Knowledge Entry** (outer) | **Traditional Chinese** | **`排煙窗法規檢討/`** |
+| **AI Skill Directory** (inner) | **lowercase-hyphenated** | **`smoke-exhaust-review/`** |
+| Files placement | domain.md in Knowledge Entry dir, SKILL.md in AI Skill dir | see tree below |
 | Frontmatter name | lowercase-hyphenated | `name: building-envelope` |
 
 **CRITICAL**: The AI Skill directory name **MUST** exactly match the `name` field in SKILL.md frontmatter. This is a hard requirement of the Agent Skills standard (Claude Code, OpenCode).
 
-**Two-layer structure**: The outer directory (for human navigation) should be in Traditional Chinese. The inner directory (containing SKILL.md) **MUST** be in lowercase-hyphenated English.
+### Three-Layer Directory Structure
+
+The actual hierarchy has **three layers** (not two):
+
+```text
+子類別/                              ← e.g. 消防安全/
+├── README.md                        ← 子類別索引（列出旗下 Knowledge Entries）
+│
+└── 知識條目中文/                     ← Knowledge Entry (outer, Chinese)
+    ├── domain.md                    ← 人類閱讀文件 (Traditional Chinese)
+    └── skill-english-hyphenated/    ← AI Skill Directory (inner, lowercase-hyphenated)
+        ├── SKILL.md                 ← AI 指令 (English, `name` MUST match this dir name)
+        ├── assets/                  ← AI 用附件（可選）
+        ├── references/              ← AI 用參考（可選）
+        └── scripts/                 ← AI 用腳本（可選）
+```
+
+**Key placement rules:**
+- `domain.md` lives in the **Chinese** Knowledge Entry directory (one level up from SKILL.md)
+- `SKILL.md` lives in the **English** AI Skill directory (inside the Chinese dir)
+
+✅ Correct:
+```
+消防安全/排煙窗法規檢討/smoke-exhaust-review/SKILL.md
+消防安全/排煙窗法規檢討/domain.md
+```
+
+❌ Wrong — domain.md in English dir:
+```
+消防安全/smoke-exhaust-review/domain.md  ← must be in a Chinese parent dir
+```
+
+❌ Wrong — SKILL.md in Chinese dir without English subdirectory:
+```
+消防安全/排煙窗法規檢討/SKILL.md  ← must be in an English-named subdirectory
+```
 
 **English translation, NOT pinyin**: The inner AI Skill directory names must be English translations of the concept, never Chinese pinyin.
 
@@ -114,6 +149,18 @@ Include MCP tool call examples with official Taiwan Building Code URLs:
 5. Write `domain.md` in the Chinese directory with Traditional Chinese content.
 6. Update `Category/Subcategory/README.md` table
 7. Update root `README.md` skill count
+
+### Important: Understand the Three Layers
+
+When step 2 says "rename the outer directory", this outer directory becomes the **Knowledge Entry** (Chinese). Inside it, step 3 creates the **AI Skill Directory** (English). These two live **inside** a subcategory:
+
+```text
+Category/Subcategory/          ← already exists or chosen in step 1
+  Chinese-Knowledge-Entry/     ← renamed from 知識樣板/ (step 2)
+    domain.md                  ← human doc here (step 5)
+    english-skill-name/        ← created inside (step 3)
+      SKILL.md                 ← AI skill here (step 4)
+```
 
 ## Editing Existing Skills
 - Never delete existing `SKILL.md` or `domain.md` without replacement
