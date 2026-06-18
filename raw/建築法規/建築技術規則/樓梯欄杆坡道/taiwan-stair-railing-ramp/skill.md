@@ -119,6 +119,11 @@ side (90 − 10 = 80 >= 75). The real test is always "clear width after handrail
 - General spatial / circulation planning → `spatial-planning`
   (`raw/建築設計與規劃/設計理論/`).
 
+## MCP Tool Examples
+
+- `taiwan-building-code_search_building_interpretations(query: "樓梯寬度 第33條", limit: 5)`
+- `taiwan-building-code_search_building_code(query: "樓梯", limit: 10)`
+
 ## Source
 
 - 建築技術規則建築設計施工編 §33 — 全國法規資料庫
