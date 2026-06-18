@@ -22,7 +22,7 @@
 
 > 感謝所有貢獻者！此區塊記錄近期已合併的 PR。
 
-- **2026-06-18** 🏛️ 新增文化資產保存法分類與修復工程程序等技能
+- **2026-06-18** 🏛️ 新增文化資產保存法分類（4 個 C 類技能）([#15](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/15))
 - **2026-06-17** 🏗️ 新增混凝土結構設計分類（5 個 C 類技能）([#9](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/9))
 - **2026-06-17** ♿ 新增無障礙出入口門淨寬實務陷阱技能 ([#12](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/12))
 - **2026-05-17** ✨ 新增公共工程分類（公開招標、公開閱覽） ([#4](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/4))
@@ -167,7 +167,7 @@
 | **混凝土結構設計/** | [concrete-general-requirements](建築施工與材料/混凝土結構設計/混凝土通用規定/concrete-general-requirements/) | C 類台灣法規 |
 | | [concrete-column-design](建築施工與材料/混凝土結構設計/混凝土柱設計/concrete-column-design/) | C 類台灣法規 |
 | | [concrete-beam-design](建築施工與材料/混凝土結構設計/混凝土梁設計/concrete-beam-design/) | C 類台灣法規 |
-| | [concrete-slab-design](建築施工與材料/混凝土結構設計/混凝土版設計/concrete-slab-design/) | C 類台灣法規 |
+| | [concrete-slab-design](建築施工與材料/混凝土結構設計/混凝土板設計/concrete-slab-design/) | C 類台灣法規 |
 | | [concrete-wall-design](建築施工與材料/混凝土結構設計/混凝土牆設計/concrete-wall-design/) | C 類台灣法規 |
 
 ---
