@@ -63,6 +63,7 @@
 - [Agisoft Metashape](基地掃描與實景建模工具/AgisoftMetashape/)
 - [Pix4D](基地掃描與實景建模工具/Pix4D/)
 - [Notion](團隊協作與知識管理工具/Notion/)
+- [Obsidian](團隊協作與知識管理工具/Obsidian/)
 - [Teams](團隊協作與知識管理工具/Teams/)
 - [Slack](團隊協作與知識管理工具/Slack/)
 - [Google Drive](團隊協作與知識管理工具/GoogleDrive/)
