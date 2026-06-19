@@ -1,7 +1,11 @@
 ---
 name: archicad-documentation
 description: "This skill should be used when architects need to produce plans, sections, elevations, details, schedules, layouts, issue sets, and PDF or DWG publications from an Archicad model."
-user-invocable: true
+license: CC-BY-SA-4.0
+compatibility: claude-code,opencode,agent-skills
+metadata:
+  audience: architects
+  region: taiwan
 ---
 
 # Archicad Documentation

@@ -1,7 +1,11 @@
 ---
 name: archicad-ifc-coordination
 description: "This skill should be used when architects need to exchange Archicad models through IFC, coordinate consultant models, map classifications and properties, and troubleshoot BIM interoperability issues."
-user-invocable: true
+license: CC-BY-SA-4.0
+compatibility: claude-code,opencode,agent-skills
+metadata:
+  audience: architects
+  region: taiwan
 ---
 
 # Archicad IFC Coordination

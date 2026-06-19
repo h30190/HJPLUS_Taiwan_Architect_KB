@@ -1,7 +1,11 @@
 ---
 name: archicad-basic-workflow
 description: "This skill should be used when architects need to understand Archicad project setup, BIM modeling workflow, view organization, drawing production, and publishing processes."
-user-invocable: true
+license: CC-BY-SA-4.0
+compatibility: claude-code,opencode,agent-skills
+metadata:
+  audience: architects
+  region: taiwan
 ---
 
 # Archicad Basic Workflow
