@@ -83,6 +83,12 @@
   .evidence .evidence-card h3{color:#fff}
   .evidence .evidence-card p{color:rgba(255,255,255,0.6)}
 
+  /* ── video embed ── */
+  .video-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin-top:12px;background:#000}
+  .video-embed iframe{position:absolute;inset:0;width:100%;height:100%}
+  .video-meta{font-size:0.8125rem;color:rgba(255,255,255,0.4);margin-top:6px}
+  .video-meta strong{color:rgba(255,255,255,0.7)}
+
   /* ── contributors ── */
   .contributors{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
   .contributor{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#f0f0f0;border-radius:20px;font-size:0.875rem;font-weight:500;color:#333;text-decoration:none}
@@ -271,7 +277,10 @@
       <div class="evidence-card">
         <h3>小聚與活動</h3>
         <p>不定期舉辦知識庫共寫工作坊、法規討論小聚。跟社群一起把知識補完。</p>
-        <p style="margin-top:8px;font-size:0.8125rem;color:#bbb">（近期活動資訊請關注 GitHub Discussion）</p>
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/SVQ4Y1NpnrA" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="video-meta">2026-05-13 · <strong>台灣 AI 建築師技能知識庫小聚 #1</strong>（下周 #2 上線後補上）</p>
       </div>
       <div class="evidence-card">
         <h3>貢獻者</h3>
