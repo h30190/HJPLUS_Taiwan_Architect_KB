@@ -73,6 +73,11 @@ This project follows the `index.md` convention from Google's
 [Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
 to support progressive discovery for AI agents.
 
+**When exploring a directory, always read `index.md` first** (not `README.md`).
+`index.md` is the agent entry point — it lists available skills and subdirectories
+so you can discover content without scanning every file. `README.md` is for human
+readers browsing GitHub and may be stale or incomplete.
+
 ### When to add index.md
 
 | Condition | index.md? |
