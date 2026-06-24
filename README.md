@@ -10,7 +10,7 @@
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/Content-CC%20BY--SA%204.0-lightgrey" alt="Content License"></a>
   <img src="https://img.shields.io/badge/brand-HJPLUS.DESIGN-black" alt="HJPLUS.DESIGN">
-  <a href="https://www.youtube.com/watch?v=SVQ4Y1NpnrA">
+  <a href="https://www.youtube.com/watch?v=dug5qyJuXJo">
     <img src="https://img.shields.io/badge/youtube-video-crimson" alt="YouTube Video"></a>
   <a href="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/">
     <img src="https://img.shields.io/badge/%F0%9F%8C%90-live%20site-2ea44f" alt="Live Site"></a>

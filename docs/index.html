@@ -229,6 +229,7 @@
     <p class="lead hero-lead">人寫筆記，AI 陪跑新人。知識越用越厚，不會退休就帶走。</p>
     <p class="lead hero-stats" style="margin-top:24px;font-size:0.8125rem;color:rgba(255,255,255,0.35)">
       目前已累積 <span class="h-counter" data-to="82">0</span> 次 commit、
+      <span class="h-counter" data-to="11">0</span> 個 PR 已合併、
       <span class="h-counter" data-to="10">0</span> 大分類、
       <span class="h-counter" data-to="39">0</span><span class="h-plus">+</span> 技能模組，
       由 <span class="h-counter" data-to="8">0</span> 位貢獻者共同維護。
@@ -327,9 +328,9 @@
         <h3>小聚與活動</h3>
         <p>不定期舉辦知識庫共寫工作坊、法規討論小聚。跟社群一起把知識補完。</p>
         <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/SVQ4Y1NpnrA" frameborder="0" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/dug5qyJuXJo" frameborder="0" allowfullscreen></iframe>
         </div>
-        <p class="video-meta">2026-05-13 · <strong>台灣 AEC 知識庫小聚 #1</strong>（下周 #2 上線後補上）</p>
+        <p class="video-meta">2026-06-24 · <strong>台灣 AEC 知識庫小聚 #2</strong></p>
       </div>
       <div class="evidence-card">
         <h3>貢獻者</h3>
@@ -409,6 +410,7 @@
 
     <div class="cta-stats">
       <div class="cta-stat"><div class="num" data-to="82">82</div><div class="label">commits</div></div>
+      <div class="cta-stat"><div class="num" data-to="11">11</div><div class="label">merged PRs</div></div>
       <div class="cta-stat"><div class="num" data-to="8">8</div><div class="label">contributors</div></div>
       <div class="cta-stat"><div class="num" data-to="39">39<span style="font-size:1.5rem;font-weight:800;color:#fff">+</span></div><div class="label">skills</div></div>
     </div>
@@ -453,13 +455,14 @@
   function apply(stats) {
     // hero counters (data-to)
     var h = document.querySelectorAll('.hero-stats .h-counter');
-    var hVals = [stats.c, stats.cat, stats.s, stats.con];
+    var hVals = [stats.c, stats.pr || 0, stats.cat, stats.s, stats.con];
     for (var i = 0; i < h.length; i++) h[i].dataset.to = hVals[i];
     // CTA stat nums (data-to)
     var c = document.querySelectorAll('.cta-stat .num');
     if (c[0]) c[0].dataset.to = stats.c;
-    if (c[1]) c[1].dataset.to = stats.con;
-    if (c[2]) c[2].dataset.to = stats.s;
+    if (c[1]) c[1].dataset.to = stats.pr || 0;
+    if (c[2]) c[2].dataset.to = stats.con;
+    if (c[3]) c[3].dataset.to = stats.s;
     // contributor list
     if (stats.conList) {
       var cl = document.getElementById('contribList');
@@ -495,10 +498,11 @@
       }),
       fetch(BASE + '/git/trees/main?recursive=1').then(function(r) { return r.json(); }).then(function(d) {
         return d.tree ? d.tree.filter(function(i) { return i.path.endsWith('SKILL.md'); }).length : 39;
-      })
+      }),
+      fetch('https://api.github.com/search/issues?q=repo:h30190/HJPLUS_Taiwan_Architect_KB+type:pr+is:merged').then(function(r) { return r.json(); }).then(function(d) { return d.total_count || 11; })
     ]);
   }).then(function(a) {
-    var stats = { c: a[0], con: a[1].count, cat: a[2], s: a[3], conList: a[1].names };
+    var stats = { c: a[0], con: a[1].count, cat: a[2], s: a[3], pr: a[4], conList: a[1].names };
     sessionStorage.setItem('gh-stats', JSON.stringify(stats));
     apply(stats);
   }).catch(function() { /* keep hardcoded */ });
