@@ -25,6 +25,9 @@
 <details>
 <summary>點開查看近期已合併的 PR（感謝所有貢獻者！）</summary>
 
+- **2026-06-26** 📜 新增地方自治法規分類（台中市宜居建築設施設置及回饋辦法）([#22](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/22) by @Archwiz-boss)
+- **2026-06-25** 🏗️ 新增公共工程品質資料庫技能 ([#19](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/19) by @yen-shi-lun)
+- **2026-06-25** 📋 新增新北市建造執照申請文件清單 ([#21](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/21) by @HarrisLee-CH)
 - **2026-06-19** 🧰 新增設計軟體與工具分類（Archicad 4 個技能模組）([#14](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/14))
 - **2026-06-19** 🪜 新增樓梯欄杆坡道技能（建技規 §33 樓梯寬度）([#11](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/11))
 - **2026-06-19** 📐 新增容積免計實務陷阱技能 ([#10](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/10))
@@ -95,7 +98,7 @@
 
 ### 4️⃣ [建築法規](建築法規/) Building Codes & Regulations
 
-**16 個技能模組（16C）**
+**17 個技能模組（17C）**
 
 - **消防安全/**
   - [taiwan-fire-safety](建築法規/消防安全/taiwan-fire-safety/) (C 類台灣法規)
@@ -118,6 +121,8 @@
   - [heritage-incentives-compensation](建築法規/文化資產保存法/文化資產獎勵與補償/heritage-incentives-compensation/) (C 類台灣法規)
 - **建築技術規則/**
   - [taiwan-stair-railing-ramp](建築法規/建築技術規則/樓梯欄杆坡道/taiwan-stair-railing-ramp/) (C 類台灣法規) — §33 樓梯寬度
+- **地方自治法規/**
+  - [taichung-livable-building-incentive](建築法規/地方自治法規/台中市/宜居建築設施設置及回饋辦法/taichung-livable-building-incentive/) (C 類台灣法規) — 台中市宜居建築設施設置及回饋辦法
 - **建築法規查詢系統/**
   - 目錄建立完成（尚無技能內容）
 
@@ -200,14 +205,15 @@
 
 ### 9️⃣ [公共工程](公共工程/) Public Engineering
 
-**2 個技能模組（2C）**
+**3 個技能模組（3C）**
 
 | 分類 | 技能 | 類別 |
 |--|--|--|
 | **公開招標/** | [public-bidding](公共工程/公開招標/public-bidding/) | C 類台灣法規 |
 | **公開閱覽/** | [public-review](公共工程/公開閱覽/public-review/) | C 類台灣法規 |
+| **品質資料庫/** | [public-works-quality-library](公共工程/公共工程品質資料庫/public-works-quality-library/) | C 類台灣法規 |
 
-> 基於政府採購法，涵蓋建築師承接公共工程的招標與閱覽程序
+> 基於政府採購法，涵蓋建築師承接公共工程的招標、閱覽程序與品質資料庫查核
 
 ---
 
@@ -234,7 +240,7 @@
 |-----|-|-|-|
 | **A 類通用技能** | 9 個 | 國際通用標準，無需台灣適配 | AI + 人類直接使用 |
 | **B 類適配技能** | 8 個 | 國際規範→台灣適配，保留 TODO 注記 | 國際→台灣雙向支援 |
-| **C 類台灣法規技能** | 22 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
+| **C 類台灣法規技能** | 24 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
 
 ---
 
