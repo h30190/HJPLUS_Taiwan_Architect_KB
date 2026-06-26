@@ -1,0 +1,56 @@
+name: 活動公告
+description: 提議或公告一場 AEC 知識庫相關小聚／工作坊
+title: "[活動] "
+labels: [event]
+body:
+  - type: input
+    id: date
+    attributes:
+      label: 📅 日期時間
+      placeholder: e.g. 2026-06-24 (三) 20:00-21:00
+    validations:
+      required: true
+
+  - type: dropdown
+    id: format
+    attributes:
+      label: 📍 形式
+      options:
+        - 線上
+        - 實體
+        - 線上 + 實體
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: 地點（實體場次填寫）
+      placeholder: e.g. 台北市大安區…／Google Meet
+    validations:
+      required: false
+
+  - type: input
+    id: signup
+    attributes:
+      label: 🔗 報名連結
+      placeholder: https://forms.gle/…
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 說明
+      description: 簡單介紹這次活動主題、適合誰參加、需要準備什麼
+      placeholder: 這次小聚會一起 review 最近新增的法規分類…
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 確認
+      options:
+        - label: 我確認活動內容與 AEC 知識庫相關
+          required: true

@@ -1,0 +1,37 @@
+name: Close past events
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # daily 10:00 TST
+  workflow_dispatch:       # manual trigger
+
+jobs:
+  close-past:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Close past event issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue list --label event --state open --json number,title,body --jq '.[]' |
+            while read -r issue; do
+              num=$(echo "$issue" | jq -r '.number')
+              body=$(echo "$issue" | jq -r '.body // ""')
+              # extract date after 📅
+              date_line=$(echo "$body" | grep -m1 '📅')
+              value=$(echo "$date_line" | sed 's/.*[：:)]//' | xargs)
+              # try to grab a YYYY-MM-DD from the value
+              date_only=$(echo "$value" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
+              if [ -z "$date_only" ]; then
+                echo "  ⏭️  #$num — no date found, skip"
+                continue
+              fi
+              if [ "$date_only" \< "$(date +%Y-%m-%d)" ]; then
+                echo "  🗑️  #$num — past ($date_only), closing"
+                gh issue close "$num" --comment "活動日期已過，自動關閉。"
+              else
+                echo "  ✅ #$num — upcoming ($date_only), keep open"
+              fi
+            done

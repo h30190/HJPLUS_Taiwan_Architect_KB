@@ -41,5 +41,5 @@
 
 ## 相關資源
 
-- **[總索引](../README.md)**：查看完整 8 大分類架構
+- **[總索引](../README.md)**：查看完整 10 大分類架構
 - **[Skills-Architects](../Skills-Architects/)**：國際技能模組參考

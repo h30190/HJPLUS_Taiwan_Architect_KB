@@ -73,6 +73,8 @@
 5. **填寫 `SKILL.md`**：在英文資料夾內填寫 `SKILL.md`（英文指令與 Frontmatter）。
    - `SKILL.md` 的 `name` 必須與資料夾名稱**完全一致**。
 6. **刪除不需要的子資料夾**：如果技能不需要 `scripts/`、`assets/` 或 `references/`，直接刪掉即可。
+7. **更新父層 `index.md`**：如果上層目錄有 `index.md`，在 `## Skills` 下新增一筆新技能的連結。
+   如果上層目錄還沒有 `index.md` 但已包含多個子條目，請依照 [OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) 格式建立一份。
 
 ### SKILL.md 的 Frontmatter 規則
 
