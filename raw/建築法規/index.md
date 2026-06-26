@@ -7,6 +7,7 @@
 * [容積率與建蔽率計算](容積率與建蔽率計算/容積免計實務陷阱/floor-area-exemption-pitfalls/SKILL.md) - Floor-area-ratio (FAR) exemption review and finished clear dimension compliance
 * [無障礙設計](無障礙設計/無障礙出入口門淨寬實務陷阱/accessible-door-clear-width/SKILL.md) - Accessible-route door/opening clear-width compliance and nominal-vs-effective dimension gap
 * [文化資產保存法](文化資產保存法/) - Cultural heritage preservation: investigation, restoration design, adaptive reuse, tax incentives, TDR, and supervision reports
+* [地方自治法規](地方自治法規/台中市/宜居建築設施設置及回饋辦法/taichung-livable-building-incentive/SKILL.md) - Taichung City's incentivized livable building facility regulation: vertical greening, shading walls, multi-level terraces, FAR exemptions, and feedback deposit
 * [都市計畫法](都市計畫法/) - 都市計畫法規（籌備中）
 * [耐震與結構安全](耐震與結構安全/) - 耐震與結構安全法規（籌備中）
 * [節能與環境](節能與環境/) - 節能與環境法規（籌備中）

@@ -1,7 +1,11 @@
 ---
 name: taichung-livable-building-incentive
 description: "Use this skill when working with Taichung City's municipal regulation on incentivized livable building facilities (宜居建築), including vertical greening, shading walls, multi-level terraces, floor area exemptions, design review thresholds, maintenance obligations, and feedback deposit mechanisms."
-user-invocable: true
+license: CC-BY-SA-4.0
+compatibility: claude-code,opencode,agent-skills
+metadata:
+  audience: architects
+  region: taiwan
 ---
 
 # Taichung Livable Building Incentive Regulations
