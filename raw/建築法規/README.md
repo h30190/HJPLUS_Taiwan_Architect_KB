@@ -6,7 +6,7 @@
 
 - [消防安全](消防安全/) — taiwan-fire-safety、smoke-exhaust-review（2 技能）
 - [無障礙設計](無障礙設計/) — taiwan-accessibility、accessible-door-clear-width（2 技能）
-- [容積率與建蔽率計算](容積率與建蔽率計算/) — taiwan-programming、floor-area-exemption-pitfalls（2 技能）
+- [容積率與建蔽率計算](容積率與建蔽率計算/) — taiwan-programming、floor-area-exemption-pitfalls、balcony-lobby-far-recalculation（3 技能）
 - [文化資產保存法](文化資產保存法/) — 9 個技能（調查、修復設計、監造、容移、稅賦減免等）
 - [建築技術規則](建築技術規則/) — taiwan-stair-railing-ramp（§33 樓梯寬度）
 
