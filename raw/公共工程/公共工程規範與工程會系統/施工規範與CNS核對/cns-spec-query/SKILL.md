@@ -17,7 +17,7 @@ This skill outlines the process of querying and verifying Chinese National Stand
 1. **Identify Specification Chapters:** Check the project drawings or requirements to find the target PCC specification chapters (e.g., Chapter 09910 for Painting).
 2. **Search CNS Standards:** Use the CNS Online Service to verify that the cited CNS standards are active and represent the latest editions.
 3. **Download PCC Specifications:** Access the PCC official portal or use integration tools to fetch the required XML/PDF specification templates.
-4. **Coordinate Drawings & Specifications:** Ensure the descriptions of materials and testing methods on the design drawings align with the updated CNS and PCC standards.
+4. **Coordinate Drawings & Specifications:** Ensure the testing methods and performance values on the design drawings are not inferior to the minimum requirements of the cited CNS standards. Once verified, populate these correct standards and values into the corresponding sections of the project's construction specifications to maintain alignment.
 
 ## Requirements & Constraints
 - Region: Taiwan (ROC)

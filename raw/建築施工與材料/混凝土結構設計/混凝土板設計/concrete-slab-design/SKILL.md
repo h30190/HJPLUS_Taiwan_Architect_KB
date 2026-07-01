@@ -15,7 +15,7 @@ metadata:
 
 ## Overview
 
-Design requirements for reinforced concrete slabs in Taiwan, limited here to items directly verified against the uploaded PDF: minimum slab thickness, minimum flexural steel, and shrinkage/temperature reinforcement rules. Slab-step, opening, and splice details are preserved only as chapter references unless directly transcribed from the source. For cover and splice fundamentals, see [concrete-general-requirements](../混凝土通用規定/concrete-general-requirements/).
+Design requirements for reinforced concrete slabs in Taiwan, limited here to items directly verified against the uploaded PDF: minimum slab thickness, minimum flexural steel, and shrinkage/temperature reinforcement rules. Slab-step, opening, and splice details are preserved only as chapter references unless directly transcribed from the source. For cover and splice fundamentals, see [concrete-general-requirements](../../混凝土通用規定/concrete-general-requirements/).
 
 ---
 
@@ -174,5 +174,5 @@ taiwan-building-code_search_building_interpretations(query="版 高低差 搭接
 
 ## Additional Resources
 
-- General requirements (cover, development length, lap splice fundamentals): [concrete-general-requirements](../混凝土通用規定/concrete-general-requirements/)
-- Beam design (connected to slab as T-beam): [concrete-beam-design](../混凝土梁設計/concrete-beam-design/)
+- General requirements (cover, development length, lap splice fundamentals): [concrete-general-requirements](../../混凝土通用規定/concrete-general-requirements/)
+- Beam design (connected to slab as T-beam): [concrete-beam-design](../../混凝土梁設計/concrete-beam-design/)

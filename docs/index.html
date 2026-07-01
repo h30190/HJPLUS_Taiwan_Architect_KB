@@ -16,6 +16,7 @@
   /* ── reset ── */
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   html{font-size:16px;scroll-behavior:smooth;scroll-snap-type:y mandatory;line-height:1.6}
+  @media(min-width:1024px){html{font-size:19.2px}}  /* desktop: 1.2× */
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",sans-serif;color:#1a1a1a;background:#fff;-webkit-font-smoothing:antialiased}
 
   /* ── snap sections ── */
@@ -77,6 +78,15 @@
   .loop-step::before{content:"0" counter(step);position:absolute;top:12px;right:16px;font-size:2.5rem;font-weight:800;color:rgba(255,255,255,0.12);line-height:1}
   .loop-step h3{font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);margin-bottom:6px}
   .loop-step p{font-size:0.9375rem;color:rgba(255,255,255,0.9);margin:0;line-height:1.6}
+
+  /* ── quick-start ── */
+  .start-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:32px}
+  .start-card{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:28px 24px}
+  .start-card .start-icon{font-size:1.75rem;margin-bottom:10px}
+  .start-card h3{color:#fff;font-size:1rem;margin-bottom:8px}
+  .start-card p{font-size:0.875rem;color:rgba(255,255,255,0.6);margin:0;line-height:1.7}
+  .start-card .start-code{background:rgba(0,0,0,0.3);border-radius:6px;padding:10px 14px;font-family:"SF Mono","Cascadia Code","Noto Sans Mono",monospace;font-size:0.8125rem;color:rgba(255,255,255,0.75);margin-top:14px;word-break:break-all;line-height:1.6}
+  .start-card code{background:rgba(255,255,255,0.12);padding:1px 6px;border-radius:3px;font-size:0.8125rem;color:rgba(255,255,255,0.8)}
 
   /* ── for-who ── */
   .who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:32px}
@@ -396,13 +406,43 @@
   </div>
 </section>
 
+<!-- ═══ 快速開始 ═══ -->
+<section class="loop kg-wrap" id="sec-start">
+  <div class="container">
+    <h2>三分鐘開始使用</h2>
+    <p class="lead" style="color:rgba(255,255,255,0.7)">不用安裝，不用註冊。三條路，選一條。</p>
+    <div class="start-grid">
+      <div class="start-card">
+        <div class="start-icon">⌨️</div>
+        <h3>終端機 AI</h3>
+        <p>把儲存庫網址交給支援 skills 的 AI agent（Claude Code、OpenCode、Cursor 等），AI 會自動載入技能模組，在對話中直接回答你的法規或實務問題。</p>
+        <div class="start-code">git clone https://github.com/h30190/HJPLUS_Taiwan_Architect_KB.git</div>
+        <p style="font-size:0.8125rem;color:rgba(255,255,255,0.4);margin-top:8px">然後把目錄路徑餵給 agent，或使用 OpenCode 自動發現。</p>
+      </div>
+      <div class="start-card">
+        <div class="start-icon">🌐</div>
+        <h3>網頁版 AI</h3>
+        <p>在 Claude.ai、ChatGPT 等網頁版 AI 中貼上這個 repo 連結，或把 domain.md 內容當成 project knowledge 匯入。AI 就能根據知識庫內容回答你的問題。</p>
+        <div class="start-code">https://github.com/h30190/HJPLUS_Taiwan_Architect_KB</div>
+        <p style="font-size:0.8125rem;color:rgba(255,255,255,0.4);margin-top:8px">支援上傳文件功能的平台，也可以直接拖入 domain.md 檔案。</p>
+      </div>
+      <div class="start-card">
+        <div class="start-icon">🔧</div>
+        <h3>Clone 發展</h3>
+        <p>git clone 下來，瀏覽 <code>raw/</code> 目錄下的分類內容。想新增技能或修正錯誤，直接改完發 PR。改一個錯字也算貢獻。</p>
+        <div class="start-code">git clone https://github.com/h30190/HJPLUS_Taiwan_Architect_KB.git<br>cd HJPLUS_Taiwan_Architect_KB/raw</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ CTA（含近期活動） ═══ -->
 <section class="cta" id="sec-cta">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="container">
     <div id="eventList">
-      <div class="event-empty">讀取中…</div>
+      <div class="event-card" style="border-color:rgba(255,255,255,0.06)"><div class="event-info"><div class="event-meta" style="color:rgba(255,255,255,0.2);font-size:0.9375rem;margin:0">讀取中…</div></div></div>
     </div>
 
     <h2 style="margin-top:48px">你已經看到這裡了。</h2>
@@ -515,6 +555,7 @@ const sections = [
   { id: 'sec-benefit', label: '好處' },
   { id: 'sec-evidence',label: '證據' },
   { id: 'sec-arch',    label: '架構' },
+  { id: 'sec-start',  label: '開始' },
   { id: 'sec-cta',     label: '行動' },
 ];
 
@@ -531,8 +572,8 @@ sections.forEach(s => {
 const dots = dotNav.querySelectorAll('a');
 const allSnap = document.querySelectorAll('section[id]');
 
-const darkSections = ['sec-hero','sec-loop','sec-evidence','sec-cta'];
-const sectionOrder = ['sec-hero','sec-pain','sec-loop','sec-benefit','sec-evidence','sec-arch','sec-cta'];
+const darkSections = ['sec-hero','sec-loop','sec-evidence','sec-start','sec-cta'];
+const sectionOrder = ['sec-hero','sec-pain','sec-loop','sec-benefit','sec-evidence','sec-arch','sec-start','sec-cta'];
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -641,14 +682,14 @@ setTimeout(() => {
     .then(function(r) { return r.json(); })
     .then(function(issues) {
       if (!Array.isArray(issues) || issues.length === 0) {
-        list.innerHTML = '<div class="event-empty">目前沒有排定的活動。想辦一場？<br>到 <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/issues/new/choose">GitHub Issues</a> 開一張活動公告</div>';
+        list.innerHTML = '<div class="event-card" style="border-color:rgba(255,255,255,0.08)"><div class="event-info"><div class="event-meta" style="color:rgba(255,255,255,0.3);font-size:0.9375rem;margin:0">活動資訊尚未公布，敬請持續關注。</div></div></div>';
         return;
       }
       sessionStorage.setItem('gh-events', JSON.stringify(issues));
       render(issues);
     })
     .catch(function() {
-      list.innerHTML = '<div class="event-empty">目前沒有排定的活動。</div>';
+      list.innerHTML = '<div class="event-card" style="border-color:rgba(255,255,255,0.08)"><div class="event-info"><div class="event-meta" style="color:rgba(255,255,255,0.3);font-size:0.9375rem;margin:0">活動資訊尚未公布，敬請持續關注。</div></div></div>';
     });
 
   function render(issues) {
@@ -695,9 +736,7 @@ setTimeout(() => {
         (link ? '<div class="event-action"><a class="btn btn-primary" href="' + link + '" target="_blank" style="font-size:0.875rem;padding:10px 24px">報名</a></div>' : '') +
         '</div>';
     });
-    // add "提議活動" link at bottom
-    html += '<div style="text-align:right;margin-top:12px"><a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/issues/new/choose" style="color:#999;font-size:0.8125rem;text-decoration:none">＋ 提議一場活動</a></div>';
-    list.innerHTML = html;
+    list.innerHTML = html || '<div class="event-card" style="border-color:rgba(255,255,255,0.08)"><div class="event-info"><div class="event-meta" style="color:rgba(255,255,255,0.3);font-size:0.9375rem;margin:0">活動資訊尚未公布，敬請持續關注。</div></div></div>';
   }
 })();
 

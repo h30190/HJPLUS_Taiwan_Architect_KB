@@ -25,6 +25,9 @@
 <details>
 <summary>點開查看近期已合併的 PR（感謝所有貢獻者！）</summary>
 
+- **2026-06-26** 📜 新增地方自治法規分類（台中市宜居建築設施設置及回饋辦法）([#22](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/22) by @Archwiz-boss)
+- **2026-06-25** 🏗️ 新增公共工程品質資料庫技能 ([#19](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/19) by @yen-shi-lun)
+- **2026-06-25** 📋 新增新北市建造執照申請文件清單 ([#21](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/21) by @HarrisLee-CH)
 - **2026-06-19** 🧰 新增設計軟體與工具分類（Archicad 4 個技能模組）([#14](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/14))
 - **2026-06-19** 🪜 新增樓梯欄杆坡道技能（建技規 §33 樓梯寬度）([#11](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/11))
 - **2026-06-19** 📐 新增容積免計實務陷阱技能 ([#10](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/10))
@@ -50,191 +53,48 @@
 
 ## 核心分類
 
-### 1️⃣ [建築設計與規劃](建築設計與規劃/) Design & Planning
+所有的知識庫內容位於 `raw/` 目錄下，依主題分為 10 大分類：
 
-**5 個技能模組（4A+1B）**
+### 🏛️ [建築法規](raw/建築法規/) Building Codes & Regulations
+建築技術規則、消防安全、無障礙設計、文化資產保存法等台灣法規技能
 
-- **設計理論/**
-  - [concept-design](建築設計與規劃/設計理論/concept-design/) (A 類通用)
-  - [design-theory](建築設計與規劃/設計理論/design-theory/) (A 類通用)
-  - [building-typology](建築設計與規劃/設計理論/building-typology/) (A 類通用)
-  - [spatial-planning](建築設計與規劃/設計理論/spatial-planning/) (B 類適配)
-- **建築基礎/**
-  - [architect-foundations](建築設計與規劃/建築基礎/architect-foundations/) (A 類通用)
+### 📋 [建築執照](raw/建築執照/) Building Permits
+建造、使用、拆除、雜項等各類建築執照申辦技能
 
----
+### 📊 [建築性能](raw/建築性能/) Building Performance
+綠建築、智慧建築、建築能效、音環境、光環境等性能評估技能
 
-### 2️⃣ [專業複委託](專業複委託/) Technical Knowledge
+### 🎨 [建築設計與規劃](raw/建築設計與規劃/) Design & Planning
+設計理論、建築基礎、案件類型
 
-**4 個技能模組（1A+3B）**
+### 🔩 [專業複委託](raw/專業複委託/) Technical Knowledge
+結構系統、機電系統、材料設備等複委託專業
 
-- **材料設備/**
-  - [material-selection](專業複委託/材料設備/material-selection/) (A 類通用)
-  - [building-envelope](專業複委託/材料設備/building-envelope/) (B 類適配)
-- **結構系統/**
-  - [structural-systems](專業複委託/結構系統/structural-systems/) (B 類適配)
-- **機電系統/**
-  - [building-services](專業複委託/機電系統/building-services/) (B 類適配)
+### 🏗️ [建築施工與材料](raw/建築施工與材料/) Construction & Materials
+混凝土結構設計、施工方法、材料選擇等
 
----
+### 📄 [公共工程](raw/公共工程/) Public Engineering
+公開招標、公開閱覽等政府採購技能
 
-### 3️⃣ [建築性能](建築性能/) Performance
+### 📐 [專案管理](raw/專案管理/) Project Management
+時程、預算、風險、契約、溝通等專案管理技能
 
-**4 個技能模組（4B）**
+### 💼 [經營管理](raw/經營管理/) Professional Practice
+事務所營運、專業行銷、財務管理、專業倫理等
 
-- **光環境設計/**
-  - [daylighting-design](建築性能/光環境設計/daylighting-design/) (B 類適配)
-- **音環境設計/**
-  - [acoustic-design](建築性能/音環境設計/acoustic-design/) (B 類適配)
-- **永續建築/**
-  - [building-sustainability](建築性能/永續建築/building-sustainability/) (B 類適配)
-- **計算工具/**
-  - [architect-calculator](建築性能/計算工具/architect-calculator/) (B 類適配)
+### 🖥️ [設計軟體與工具](raw/設計軟體與工具/) Design Software & Tools
+Archicad、Revit 等 BIM 及設計工具技能
 
----
-
-### 4️⃣ [建築法規](建築法規/) Building Codes & Regulations
-
-**16 個技能模組（16C）**
-
-- **消防安全/**
-  - [taiwan-fire-safety](建築法規/消防安全/taiwan-fire-safety/) (C 類台灣法規)
-  - [smoke-exhaust-review](建築法規/消防安全/排煙窗法規檢討/smoke-exhaust-review/) (C 類台灣法規)
-- **無障礙設計/**
-  - [taiwan-accessibility](建築法規/無障礙設計/taiwan-accessibility/) (C 類台灣法規)
-  - [accessible-door-clear-width](建築法規/無障礙設計/無障礙出入口門淨寬實務陷阱/accessible-door-clear-width/) (C 類台灣法規)
-- **容積率與建蔽率計算/**
-  - [taiwan-programming](建築法規/容積率與建蔽率計算/taiwan-programming/) (C 類台灣法規)
-  - [floor-area-exemption-pitfalls](建築法規/容積率與建蔽率計算/容積免計實務陷阱/floor-area-exemption-pitfalls/) (C 類台灣法規)
-- **文化資產保存法/**
-  - [cultural-heritage-items](建築法規/文化資產保存法/文化資產項目/cultural-heritage-items/) (C 類台灣法規)
-  - [heritage-investigation](建築法規/文化資產保存法/調查研究/heritage-investigation/) (C 類台灣法規)
-  - [heritage-restoration-design](建築法規/文化資產保存法/修復設計/heritage-restoration-design/) (C 類台灣法規)
-  - [heritage-supervision-report](建築法規/文化資產保存法/監造與工作報告/heritage-supervision-report/) (C 類台灣法規)
-  - [adaptive-reuse-response-plan](建築法規/文化資產保存法/修復再利用因應計畫/adaptive-reuse-response-plan/) (C 類台灣法規)
-  - [heritage-tdr](建築法規/文化資產保存法/容積移轉/heritage-tdr/) (C 類台灣法規)
-  - [heritage-tax-exemption](建築法規/文化資產保存法/稅賦減免/heritage-tax-exemption/) (C 類台灣法規)
-  - [heritage-restoration-phases](建築法規/文化資產保存法/修復工程程序/heritage-restoration-phases/) (C 類台灣法規)
-  - [heritage-incentives-compensation](建築法規/文化資產保存法/文化資產獎勵與補償/heritage-incentives-compensation/) (C 類台灣法規)
-- **建築技術規則/**
-  - [taiwan-stair-railing-ramp](建築法規/建築技術規則/樓梯欄杆坡道/taiwan-stair-railing-ramp/) (C 類台灣法規) — §33 樓梯寬度
-- **建築法規查詢系統/**
-  - 目錄建立完成（尚無技能內容）
-
-**7 個待建立目錄**
-
-- 施工文件與驗收/
-- 都市計畫法/
-- 建築材料與構造/
-- 耐震與結構安全/
-- 節能與環境/
-- 住宅與公寓大廈管理/
-- 其他特定領域/
-
----
-
-### 5️⃣ [專案管理](專案管理/) Project Management
-
-**8 個技能模組（8C）**
-
-| 分類 | 技能 | 類別 |
-|--|--|--|
-| **專案規劃/** | [專案規劃](專案管理/專案規劃/) | C 類台灣法規 |
-| **時程管理/** | [時程管理](專案管理/時程管理/) | C 類台灣法規 |
-| **預算管理/** | [預算管理](專案管理/預算管理/) | C 類台灣法規 |
-| **風險管理/** | [風險管理](專案管理/風險管理/) | C 類台灣法規 |
-| **品質管理/** | [品質管制](專案管理/品質管制/) \| [品保品管](專案管理/品保品管/) | C 類台灣法規 |
-| **客戶與團隊/** | [客戶關係](專案管理/客戶關係/) \| [團隊協調](專案管理/團隊協調/) | C 類台灣法規 |
-| **溝通與利害人/** | [溝通管理](專案管理/溝通管理/) \| [利害關係人管理](專案管理/利害關係人管理/) | C 類台灣法規 |
-| **契約與採購/** | [契約管理](專案管理/契約管理/) \| [採購管理](專案管理/採購管理/) | C 類台灣法規 |
-| **法遵與合規/** | [法遵管理](專案管理/法遵管理/) \| [爭議處理](專案管理/爭議處理/) | C 類台灣法規 |
-| **安全與環境/** | [安全管理](專案管理/安全管理/) \| [環境管理](專案管理/環境管理/) | C 類台灣法規 |
-| **資訊與證照/** | [資訊管理](專案管理/資訊管理/) \| [證照管理](專案管理/證照管理/) | C 類台灣法規 |
-
----
-
-### 6️⃣ [經營管理](經營管理/) Professional Practice
-
-**11 個模組（6B+4C+1B）**
-
-| 分類 | 技能 | 類別 |
-|--|--|--|
-| **契約與倫理/** | [契約法](經營管理/契約法/) \| [專業倫理](經營管理/專業倫理/) | B 類適配 |
-| **保險與責任/** | [保險與責任](經營管理/保險與責任/) | B 類法規 |
-| **專業行銷/** | [專業行銷](經營管理/專業行銷/) | B 類行銷 |
-| **酬金與財務/** | [專業服務費](經營管理/專業服務費/) \| [專業財務管理](經營管理/專業財務管理/) \| [業務承接](經營管理/業務承接/) | C 類台灣法規 |
-| **事務所與創業/** | [事務所營運](經營管理/事務所營運/) \| [創業指南](經營管理/創業指南/) | C 類台灣法規 |
-| **證照與進修/** | [專業執照](經營管理/專業執照/) \| [繼續教育](經營管理/繼續教育/) | C 類台灣法規 |
-| **商業與全球/** | [商業發展](經營管理/商業發展/) \| [爭議調處](經營管理/爭議調處/) \| [跨國執業](經營管理/跨國執業/) | B 類適配 |
-
----
-
-### 7️⃣ [建築施工與材料](建築施工與材料/) Construction Materials
-
-**5 個技能模組（5C）**
-
-| 分類 | 技能 | 類別 |
-|--|--|--|
-| **混凝土結構設計/** | [concrete-general-requirements](建築施工與材料/混凝土結構設計/混凝土通用規定/concrete-general-requirements/) | C 類台灣法規 |
-| | [concrete-column-design](建築施工與材料/混凝土結構設計/混凝土柱設計/concrete-column-design/) | C 類台灣法規 |
-| | [concrete-beam-design](建築施工與材料/混凝土結構設計/混凝土梁設計/concrete-beam-design/) | C 類台灣法規 |
-| | [concrete-slab-design](建築施工與材料/混凝土結構設計/混凝土板設計/concrete-slab-design/) | C 類台灣法規 |
-| | [concrete-wall-design](建築施工與材料/混凝土結構設計/混凝土牆設計/concrete-wall-design/) | C 類台灣法規 |
-
----
-
-### 8️⃣ [建築執照](建築執照/) Building Permits
-
-**4 種執照類型 × 4 個子分類**
-
-| 執照類型 | 申請文件 | 申辦流程 | 相關法規 | 審核標準 |
-|---------|:--------:|:--------:|:--------:|:--------:|
-| **建造執照/** | ✅ | ✅ | ✅ | ✅ |
-| **雜項執照/** | ✅ | ✅ | ✅ | ✅ |
-| **使用執照/** | ✅ | ✅ | ✅ | ✅ |
-| **拆除執照/** | ✅ | ✅ | ✅ | ✅ |
-
-> 基於建築法第 28 條：建造、雜項、使用、拆除四種執照
-
----
-
-### 9️⃣ [公共工程](公共工程/) Public Engineering
-
-**2 個技能模組（2C）**
-
-| 分類 | 技能 | 類別 |
-|--|--|--|
-| **公開招標/** | [public-bidding](公共工程/公開招標/public-bidding/) | C 類台灣法規 |
-| **公開閱覽/** | [public-review](公共工程/公開閱覽/public-review/) | C 類台灣法規 |
-
-> 基於政府採購法，涵蓋建築師承接公共工程的招標與閱覽程序
-
----
-
-### 🔟 [設計軟體與工具](設計軟體與工具/) Design Software & Tools
-
-> 💡 此分類由 [Archwiz-boss](https://github.com/Archwiz-boss) 貢獻基礎目錄架構與首批技能
-
-**4 個技能模組（4A）**
-
-| 子分類 | 技能 | 類別 |
-|--------|------|------|
-| **BIM 工具/** | [Archicad 基礎工作流程](設計軟體與工具/BIM工具/Archicad/archicad-basic-workflow/) | A 類通用 |
-| | [Archicad 圖面與文件產出](設計軟體與工具/BIM工具/Archicad/archicad-documentation/) | A 類通用 |
-| | [Archicad IFC 協調](設計軟體與工具/BIM工具/Archicad/archicad-ifc-coordination/) | A 類通用 |
-| | [Archicad 樣板設定](設計軟體與工具/BIM工具/Archicad/archicad-template-setup/) | A 類通用 |
-
-**70+ 個軟體目錄入口**（含 AutoCAD、Revit、Rhino、SketchUp、Blender、Unreal Engine 等，歡迎貢獻技能內容）
+> 每個分類點進去可查看該分類下完整的技能清單與說明。
 
 ---
 
 ## 技能分類說明
 
-| 分類 | 數量 | 特徵 | 適用對象 |
-|-----|-|-|-|
+<!-- COUNT:summary -->
 | **A 類通用技能** | 9 個 | 國際通用標準，無需台灣適配 | AI + 人類直接使用 |
-| **B 類適配技能** | 8 個 | 國際規範→台灣適配，保留 TODO 注記 | 國際→台灣雙向支援 |
-| **C 類台灣法規技能** | 22 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
+| **B 類適配技能** | 15 個 | 國際規範→台灣適配，保留 TODO 注記 | 國際→台灣雙向支援 |
+| **C 類台灣法規技能** | 40 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
 
 ---
 

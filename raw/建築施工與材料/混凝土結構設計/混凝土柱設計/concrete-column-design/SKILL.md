@@ -15,7 +15,7 @@ metadata:
 
 ## Overview
 
-Design requirements for reinforced concrete columns in Taiwan, limited here to items directly verified against the uploaded PDF: longitudinal reinforcement ratio, minimum longitudinal-bar count, minimum shear reinforcement, and column splice rules. Seismic confinement details that were not fully transcribed remain chapter references only. For cover and splice fundamentals, see [concrete-general-requirements](../混凝土通用規定/concrete-general-requirements/).
+Design requirements for reinforced concrete columns in Taiwan, limited here to items directly verified against the uploaded PDF: longitudinal reinforcement ratio, minimum longitudinal-bar count, minimum shear reinforcement, and column splice rules. Seismic confinement details that were not fully transcribed remain chapter references only. For cover and splice fundamentals, see [concrete-general-requirements](../../混凝土通用規定/concrete-general-requirements/).
 
 ---
 
@@ -175,5 +175,5 @@ taiwan-building-code_search_building_interpretations(query="柱 繫筋 圍束 �
 
 ## Additional Resources
 
-- General requirements (cover, development length): [concrete-general-requirements](../混凝土通用規定/concrete-general-requirements/)
-- Beam design: [concrete-beam-design](../混凝土梁設計/concrete-beam-design/)
+- General requirements (cover, development length): [concrete-general-requirements](../../混凝土通用規定/concrete-general-requirements/)
+- Beam design: [concrete-beam-design](../../混凝土梁設計/concrete-beam-design/)

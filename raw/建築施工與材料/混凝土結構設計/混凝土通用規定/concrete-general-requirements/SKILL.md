@@ -178,7 +178,7 @@ taiwan-building-code_search_building_interpretations(query="保護層 不足 修
 
 ## Additional Resources
 
-- For beam-specific design checks: [concrete-beam-design](../混凝土梁設計/concrete-beam-design/)
-- For column-specific design checks: [concrete-column-design](../混凝土柱設計/concrete-column-design/)
-- For slab-specific design checks: [concrete-slab-design](../混凝土版設計/concrete-slab-design/)
-- For wall-specific design checks: [concrete-wall-design](../混凝土牆設計/concrete-wall-design/)
+- For beam-specific design checks: [concrete-beam-design](../../混凝土梁設計/concrete-beam-design/)
+- For column-specific design checks: [concrete-column-design](../../混凝土柱設計/concrete-column-design/)
+- For slab-specific design checks: [concrete-slab-design](../../混凝土板設計/concrete-slab-design/)
+- For wall-specific design checks: [concrete-wall-design](../../混凝土牆設計/concrete-wall-design/)

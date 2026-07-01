@@ -6,6 +6,7 @@
 
 * [Public Bidding (公開招標)](公開招標/public-bidding/SKILL.md) - Guidance on Taiwan's public open bidding procedures under the Government Procurement Act, including bid preparation, evaluation criteria, threshold amounts, and compliance requirements.
 * [Public Review (公開閱覽)](公開閱覽/public-review/SKILL.md) - Understanding Taiwan's public review procedures for government procurement, including how to review tender documents, provide professional feedback, and evaluate project opportunities before formal bidding.
+* [Public Works Quality Library (公共工程品質資料庫)](公共工程品質資料庫/public-works-quality-library/SKILL.md) - Taiwan public works quality management references, supervision forms, traffic maintenance, occupational safety, PCIC specifications, and inspection checklists.
 * [CNS and Specification Query (施工規範與CNS核對)](公共工程規範與工程會系統/施工規範與CNS核對/cns-spec-query/SKILL.md) - How to query Public Construction Commission (PCC) guide specifications and verify CNS standards on design drawings.
 
 ## Planned
