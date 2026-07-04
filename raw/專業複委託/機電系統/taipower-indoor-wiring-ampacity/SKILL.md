@@ -1,7 +1,6 @@
 ---
 name: taipower-indoor-wiring-ampacity
 description: "This skill should be used when calculating or verifying the allowable ampacity (current-carrying capacity) of indoor electrical wiring and conduit fill limits according to the Taipower Indoor Wiring Regulations (屋內線路裝置規則)."
-user-invocable: true
 ---
 
 # Taipower Indoor Wiring Ampacity & Conduit Fill

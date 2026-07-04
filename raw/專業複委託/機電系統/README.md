@@ -6,7 +6,7 @@
 
 ### 機電與給排水設施
 
-| 技能名稱 | 類型 | skill.md (AI) | domain.md (人類) |
+| 技能名稱 | 類型 | SKILL.md (AI) | domain.md (人類) |
 |---------|---|-----|-----|
 | [building-services](building-services/) | B 類適配 | ✅ | ✅ |
 | [taiwan-water-meter-installation](taiwan-water-meter-installation/) | C 類台灣法規 | ✅ | ✅ |

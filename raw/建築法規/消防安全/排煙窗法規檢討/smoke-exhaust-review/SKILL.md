@@ -1,7 +1,6 @@
 ---
 name: smoke-exhaust-review
 description: "This skill should be used when evaluating smoke exhaust compliance for buildings in Taiwan, including windowless floor determination, smoke compartment partitioning, smoke exhaust window effective area calculations, and supplementary code checks per Taiwan Building Technical Regulations §100-102 and Fire Safety Equipment Standards §28."
-user-invocable: true
 ---
 
 # Smoke Exhaust Compliance Review

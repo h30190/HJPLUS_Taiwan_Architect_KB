@@ -1,7 +1,6 @@
 ---
 name: taipower-substation-review-docs
 description: "This skill should be used when preparing or verifying the required document checklists for Taipower (Taiwan Power Company) substation room design review and indoor wiring design review."
-user-invocable: true
 ---
 
 # Taipower Substation Room & Indoor Wiring Review Documents
