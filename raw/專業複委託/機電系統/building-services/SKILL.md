@@ -1,7 +1,6 @@
 ---
 name: building-services
 description: "This skill should be used when designing building MEP systems including HVAC, plumbing, electrical, fire protection, and system integration."
-user-invocable: true
 ---
 
 # Building Services Skill

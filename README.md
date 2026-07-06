@@ -25,6 +25,9 @@
 <details>
 <summary>點開查看近期已合併的 PR（感謝所有貢獻者！）</summary>
 
+- **2026-07-04** 📐 新增陽臺梯廳回計容積計算技能（§162 陽臺 10%、梯廳 10%、合計 15%）([#27](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/27) by @Archwiz-boss)
+- **2026-07-04** ♿ 新增無障礙電梯機道尺寸對應表技能（三菱、永大、崇友三品牌 P8–P13）([#25](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/25) by @7alexhuang-ux)
+- **2026-07-04** 🔌 新增自來水、台電與發電機消防等 5 項機電相關技能 ([#24](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/24) by @SEven777-a)
 - **2026-06-26** 📜 新增地方自治法規分類（台中市宜居建築設施設置及回饋辦法）([#22](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/22) by @Archwiz-boss)
 - **2026-06-25** 🏗️ 新增公共工程品質資料庫技能 ([#19](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/19) by @yen-shi-lun)
 - **2026-06-25** 📋 新增新北市建造執照申請文件清單 ([#21](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/21) by @HarrisLee-CH)
@@ -94,7 +97,7 @@ Archicad、Revit 等 BIM 及設計工具技能
 <!-- COUNT:summary -->
 | **A 類通用技能** | 9 個 | 國際通用標準，無需台灣適配 | AI + 人類直接使用 |
 | **B 類適配技能** | 15 個 | 國際規範→台灣適配，保留 TODO 注記 | 國際→台灣雙向支援 |
-| **C 類台灣法規技能** | 40 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
+| **C 類台灣法規技能** | 46 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
 
 ---
 
