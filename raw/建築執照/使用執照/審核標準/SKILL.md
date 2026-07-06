@@ -1,6 +1,6 @@
 ---
-name: building-permit-review-standards
-description: "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan."
+name: building-permit-review-standards-occupancy
+description: "This skill should be used when architects or construction professionals need to understand the review criteria and compliance requirements for occupancy permits (使用執照) in Taiwan."
 user-invocable: true
 ---
 # 建築執照審核標準

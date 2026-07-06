@@ -1,6 +1,6 @@
 ---
-name: building-permit-application-process
-description: "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan."
+name: building-permit-application-process-misc
+description: "This skill should be used when architects or construction professionals need to understand the application procedures for miscellaneous work permits (雜項執照) in Taiwan."
 user-invocable: true
 ---
 # 建築執照申辦流程

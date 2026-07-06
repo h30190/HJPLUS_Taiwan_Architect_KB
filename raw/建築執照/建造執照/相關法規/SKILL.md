@@ -1,6 +1,6 @@
 ---
-name: building-permit-related-regulations
-description: "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan."
+name: building-permit-related-regulations-construction
+description: "This skill should be used when architects or construction professionals need to understand the regulatory framework for construction permits (建造執照) in Taiwan."
 user-invocable: true
 ---
 # 建築執照相關法規
