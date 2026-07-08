@@ -13,10 +13,10 @@
 | [taipower-substation-review-docs](taipower-substation-review-docs/) | C 類台灣法規 | ✅ | ✅ |
 | [taipower-indoor-wiring-ampacity](taipower-indoor-wiring-ampacity/) | C 類台灣法規 | ✅ | ✅ |
 | [taiwan-plumbing-design-codes](taiwan-plumbing-design-codes/) | C 類台灣法規 | ✅ | ✅ |
-| [taiwan-telecom-design-codes](taiwan-telecom-design-codes/) | C 類台灣法規 | ✅ | ✅ |
-
+| [taiwan-telecom-design-codes](taiwan-telecom-design-codes/) | C 類台灣法
+規 | ✅ | ✅ |
+| [American-ASHRAE-Air-Conditioning](American-ASHRAE-Air-Conditioning/) | A 類適配 | ✅ | ✅ |
 ---
-
 ## 相關資源
 
 - **[總索引](../../README.md)**
