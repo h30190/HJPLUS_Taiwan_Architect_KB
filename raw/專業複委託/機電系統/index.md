@@ -8,3 +8,7 @@
 * [taiwan-plumbing-design-codes](taiwan-plumbing-design-codes/SKILL.md) - This skill should be used when verifying indoor plumbing designs in Taiwan, including water tank capacities, pipe sizing, trap seals, drainage slopes, and ventilation pipes.
 * [taiwan-telecom-design-codes](taiwan-telecom-design-codes/SKILL.md) - This skill should be used when checking indoor/outdoor telecommunication equipment setups, including telecom room sizes, lead-in conduits, shafts, and distribution boxes.
 * [taiwan-water-meter-installation](taiwan-water-meter-installation/SKILL.md) - This skill should be used when planning, designing, or reviewing the water meter installation locations, types, and configurations for buildings in Taiwan.
+* [ASHRAE-Fundamentals](ashrae-fundamentals-code/SKILL.md) - HVAC fundamentals including psychrometrics, load calculations, heat transfer, fluid flow, and weather data.
+* [ASHRAE-HVAC-Systems-and-Equipment](ashrae-hvac-systems-and-equipment/SKILL.md) - HVAC system selection, equipment design, chillers, boilers, air distribution, and control systems.
+* [ASHRAE-HVAC-Applications](ashrae-hvac-applications/SKILL.md) - HVAC design practices for offices, hospitals, schools, laboratories, data centers, and specialized buildings.
+* [ASHRAE-Refrigeration](ashrae-refrigeration/SKILL.md) - Refrigeration system design, cold storage, food preservation, refrigerants, and industrial refrigeration.
