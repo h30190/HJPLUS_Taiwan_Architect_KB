@@ -1,76 +1,188 @@
 ---
-name: building-services
-description: "This skill should be used when designing building MEP systems including HVAC, plumbing, electrical, fire protection, and system integration."
+name: american-ashrae-fundamentals
+description: "This skill should be used when performing HVAC engineering analysis based on the ASHRAE Handbook—Fundamentals, including psychrometrics, load calculations, heat transfer, fluid mechanics, thermal comfort, ventilation, and energy analysis."
+language: en
+category: Building Services
+subcategory: HVAC
+author: ASHRAE
+version: 1.0
 ---
 
-# Building Services Skill
+# American ASHRAE Fundamentals
 
 ## Overview
-專業建築機電系統設計技能，涵蓋空調、給排水、電氣、弱電、消防等系統整合。
 
-## Capabilities
-- 空調系統負載計算
-- 管線規劃與整合
-- 設備空間配置
-- 機電負載估算
-- 系統整合協調
+Professional HVAC engineering knowledge based on the **ASHRAE Handbook—Fundamentals**.
 
-## Parameters
-```typescript
-interface BuildingServicesParams {
-  // 建築條件
-  buildingType: string;
-  floorArea: number;
-  roomSchedule: Room[];
-  
-  // 空調系統
-  hvacSystem: 'VRF' | 'AHU' | 'FCU' | 'Chiller' | 'DistrictCooling';
-  coolingLoad: number; // W
-  heatingLoad: number; // W
-  
-  // 給排水
-  plumbingFixtures: Fixture[];
-  waterDemand: number; // Liter/day
-  sewageSystem: string;
-  
-  // 電氣系統
-  electricalLoad: number; // kVA
-  powerDistribution: string;
-  emergencyPower: boolean;
-  
-  // 弱電系統
-  lowVoltageSystems: string[]; // 網路、監控、防火警報
-  
-  // 消防系統
-  fireProtection: FireSystem[];
-  
-  // TODO: 台灣機電法規參數
-  taiwanCodes: {
-    fireCode: string; // TODO: 各類場所消防安全設備設置標準
-    elecCode: string; // TODO: 用戶用電設備規程
-    plumbingCode: string; // TODO: 建筑技術設備編
-  };
-}
-```
+Applicable to:
 
-## Methods
-- `calculateCoolingLoad(room)` - 冷負載計算
-- `calculateHeatingLoad(room)` - 熱負載計算
-- `sizeDuct(flow, velocity)` - 風管尺寸計算
-- `sizePipe(flow, pressure)` - 水管尺寸計算
-- `calculatePanelLoad(circuits)` - 電盤負載計算
-- `checkEquipmentSpace(requirements)` - TODO: 台灣機房空間法規檢查
+- HVAC Design
+- Mechanical Engineering
+- Building Services
+- Load Calculations
+- Energy Analysis
+- Engineering Education
 
-## Taiwan Adaptation Notes
-- TODO: 整合建築技術規則設備編
-- TODO: 各類場所消防安全設備設置標準
-- TODO: 用戶用電設備規程
-- TODO: 省水標章與環保法規
-- TODO: 台灣 VRF 空調系統設計慣例
+---
 
-## References
-- ASHRAE Handbook
-- NEC (National Electrical Code)
-- TODO: 建築技術規則設備編
-- TODO: 各類場所消防安全設備設置標準
-- TODO: 省水器具規範
+# Capabilities
+
+## HVAC Fundamentals
+
+- HVAC Principles
+- Engineering Units
+- SI/IP Conversion
+- Engineering Assumptions
+
+## Psychrometrics
+
+- Dry Bulb Temperature
+- Wet Bulb Temperature
+- Dew Point
+- Relative Humidity
+- Humidity Ratio
+- Enthalpy
+- Specific Volume
+- Sensible Heat
+- Latent Heat
+- SHR
+
+## Heating & Cooling Loads
+
+- Cooling Load
+- Heating Load
+- Peak Load
+- Block Load
+- Solar Heat Gain
+- Internal Heat Gain
+
+## Heat Transfer
+
+- Conduction
+- Convection
+- Radiation
+- U-Value
+- R-Value
+
+## Thermodynamics
+
+- First Law
+- Second Law
+- Refrigeration Cycle
+- Heat Pump
+
+## Fluid Mechanics
+
+- Bernoulli Equation
+- Reynolds Number
+- Darcy-Weisbach
+- Pipe Friction Loss
+- Duct Pressure Loss
+
+## Air Distribution
+
+- Diffusers
+- Registers
+- Throw
+- Spread
+- Return Air
+- Exhaust Air
+
+## Weather Data
+
+- Design Dry Bulb
+- Wet Bulb
+- Solar Radiation
+- Climate Zones
+
+## Building Envelope
+
+- Walls
+- Roofs
+- Windows
+- Insulation
+- Air Leakage
+
+## Indoor Environmental Quality
+
+- Thermal Comfort
+- PMV
+- PPD
+- Indoor Air Quality
+
+## Energy Analysis
+
+- COP
+- EER
+- SEER
+- IPLV
+- Building Energy Balance
+
+---
+
+# Parameters
+
+- Building Type
+- Floor Area
+- Outdoor Conditions
+- Indoor Conditions
+- Envelope Performance
+- Occupancy Load
+- Lighting Load
+- Equipment Load
+- Outdoor Airflow
+- Water Flow
+- Airflow
+
+---
+
+# Methods
+
+- calculateCoolingLoad()
+- calculateHeatingLoad()
+- calculatePsychrometrics()
+- calculateHeatTransfer()
+- calculateSolarGain()
+- calculateVentilation()
+- calculateAirProperties()
+- calculatePipePressureLoss()
+- calculateDuctPressureLoss()
+- calculateFanPower()
+- calculatePumpPower()
+- evaluateThermalComfort()
+
+---
+
+# Workflow
+
+1. Define Design Conditions
+2. Analyze Building Envelope
+3. Calculate Internal Loads
+4. Determine Ventilation Requirements
+5. Calculate Cooling Load
+6. Calculate Heating Load
+7. Analyze Psychrometrics
+8. Calculate Airflow
+9. Calculate Water Flow
+10. Evaluate Energy Performance
+
+---
+
+# Taiwan Adaptation
+
+- Taiwan Building Code
+- EEWH
+- CNS Standards
+- Taiwan Weather Data
+- Energy Conservation Regulations
+
+---
+
+# References
+
+- ASHRAE Handbook—Fundamentals
+- ASHRAE Standard 55
+- ASHRAE Standard 62.1
+- ASHRAE Standard 90.1
+- ASHRAE Standard 15
+- ASHRAE Standard 34
