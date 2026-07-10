@@ -33,7 +33,7 @@ Use this skill when the user wants to:
    - Multiple lots in the same section: `python3 scripts/taichung-land-parcel-query.py <district> <section> <lot1> <lot2> <lot3>`
    - A batch file (one query per line: `district section lot`): `python3 scripts/taichung-land-parcel-query.py queries.txt`
    - `python3 scripts/taichung-land-parcel-query.py list` to print all valid district/section codes.
-3. Read the generated report at `~/Desktop/查詢結果/臺中市{district}{section}{lot}地號/`, which contains the main PDF report plus any supporting PDFs/screenshots (building overlay, geological hazard, slope-land, active fault) that were actually found.
+3. Read the generated report at `~/Desktop/查詢結果/臺中市{district}{section}{lot}地號/`, which contains the main PDF report plus any supporting PDFs/screenshots that were actually found (building overlay, geological hazard, slope-land, active fault — the active fault report includes an auto-annotated map showing measured distance to the nearest fault lines).
 
 ## Requirements & Constraints
 
