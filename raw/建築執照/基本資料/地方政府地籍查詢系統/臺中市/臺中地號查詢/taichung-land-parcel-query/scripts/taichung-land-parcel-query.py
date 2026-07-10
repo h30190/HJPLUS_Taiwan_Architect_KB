@@ -5,8 +5,8 @@
 """
 臺中市地號查詢工具
 
-⚠️ 僅適用於台中市，不支援其他縣市。行政區代碼、地段代碼對照表（SECTIONS）
-與所有查詢網站都是台中市政府專屬系統，輸入其他縣市的行政區/地段會查不到資料。
+⚠️ 僅適用於臺中市，不支援其他縣市。行政區代碼、地段代碼對照表（SECTIONS）
+與所有查詢網站都是臺中市政府專屬系統，輸入其他縣市的行政區/地段會查不到資料。
 
 同時查詢：
   1. lohas GIS   — 使用分區、國土功能分區、登記面積
@@ -1034,9 +1034,9 @@ def _query_one(page: Page, district: str, section_name: str, section_code: str, 
 
 
         urban_screenshot_bytes = page.screenshot()
-        save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+        save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
         os.makedirs(save_dir, exist_ok=True)
-        screenshot_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_都計截圖.png")
+        screenshot_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_都計截圖.png")
         with open(screenshot_path, "wb") as f:
             f.write(urban_screenshot_bytes)
         land_texts.append(f"都計截圖路徑：{screenshot_path}")
@@ -1366,9 +1366,9 @@ def _query_slope(district: str, section_name: str, lot: str, save_pdf_to: str = 
 
 def _slope_worker(district: str, section_name: str, lot: str, out_file: str):
     """子程序入口：查山坡地，結果寫到 out_file"""
-    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
     os.makedirs(save_dir, exist_ok=True)
-    pdf_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_山坡地.pdf")
+    pdf_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_山坡地.pdf")
     result = _query_slope(district, section_name, lot, save_pdf_to=pdf_path)
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False)
@@ -1474,9 +1474,9 @@ def _query_gsa(district: str, section_name: str, lot: str, save_pdf_to: str = No
 
 def _gsa_worker(district: str, section_name: str, lot: str, out_file: str):
     """子程序入口：查地質敏感區，結果寫到 out_file"""
-    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
     os.makedirs(save_dir, exist_ok=True)
-    pdf_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_地質敏感區.pdf")
+    pdf_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_地質敏感區.pdf")
     result = _query_gsa(district, section_name, lot, save_pdf_to=pdf_path)
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False)
@@ -1818,9 +1818,9 @@ def _query_fault(district: str, section_name: str, lot: str, save_pdf_to: str = 
 
 def _fault_worker(district: str, section_name: str, lot: str, out_file: str):
     """子程序入口：查台灣活動斷層，結果寫到 out_file"""
-    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
     os.makedirs(save_dir, exist_ok=True)
-    pdf_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_活動斷層.pdf")
+    pdf_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_活動斷層.pdf")
     result = _query_fault(district, section_name, lot, save_pdf_to=pdf_path)
     if "截圖" in result:
         img_path = out_file.replace(".json", "_fault.png")
@@ -1975,7 +1975,7 @@ def query_batch(queries: list, headless: bool = False) -> list:
             ud_file = tempfile.mktemp(suffix=".json")
             proc_ud = None
             _ud_skip_reason = None
-            ud_save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+            ud_save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
             urban_json_str_ud = next((t[len("都計JSON："):] for t in gis_texts if t.startswith("都計JSON：")), None)
             if not urban_json_str_ud:
                 _ud_skip_reason = "非都市計畫區域或 GIS 未取得分區資料"
@@ -2658,7 +2658,7 @@ def save_pdf(district: str, section_name: str, lot: str,
   table.inner td {{ border:none; padding:2px 6px; }}
 </style>
 </head><body>
-<h1>台中市{district}{section_name}{lot}地號 查詢結果</h1>
+<h1>臺中市{district}{section_name}{lot}地號 查詢結果</h1>
 <div class="meta">地址：{address if address else "尚無"} &nbsp;|&nbsp; 查詢日期：{today}</div>
 
 <h2>GIS 分區資訊</h2>
@@ -2687,18 +2687,18 @@ def save_pdf(district: str, section_name: str, lot: str,
 {fault_html}
 </body></html>"""
 
-    parcel_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+    parcel_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
     os.makedirs(parcel_dir, exist_ok=True)
 
     # 套繪截圖另存至資料夾
     if isinstance(overlay, dict) and overlay.get("截圖路徑"):
-        overlay_dest = os.path.join(parcel_dir, f"台中市{district}{section_name}{lot}地號_套繪圖.png")
+        overlay_dest = os.path.join(parcel_dir, f"臺中市{district}{section_name}{lot}地號_套繪圖.png")
         try:
             shutil.copy2(overlay["截圖路徑"], overlay_dest)
         except Exception:
             pass
 
-    pdf_path = os.path.join(parcel_dir, f"台中市{district}{section_name}{lot}地號.pdf")
+    pdf_path = os.path.join(parcel_dir, f"臺中市{district}{section_name}{lot}地號.pdf")
     with sync_playwright() as p:
         browser = p.chromium.launch()
         pg = browser.new_page()
@@ -2845,15 +2845,15 @@ def lot_to_address(district: str, section_name: str, lot: str) -> str:
 
 def address_to_lot(address: str) -> tuple:
     """
-    透過 easymap.land.moi.gov.tw/P02 將台中市門牌地址轉為 (district, section_name, lot_number)。
-    address 範例: "<行政區><路名><門牌號>號" 或 "台中市<行政區><路名><門牌號>號"
+    透過 easymap.land.moi.gov.tw/P02 將臺中市門牌地址轉為 (district, section_name, lot_number)。
+    address 範例: "<行政區><路名><門牌號>號" 或 "臺中市<行政區><路名><門牌號>號"
     """
     district_m = re.search(r'([^\s市]+區)', address)
     district = district_m.group(1) if district_m else ""
 
     road_m = re.search(r'([^\s號巷弄\d０-９]+(?:街|路|大道|道)(?:[一二三四五六七八九十東西南北]+段)?)', address)
     road = road_m.group(1) if road_m else ""
-    # 若路名意外包含行政區前綴（如「<行政區><路名>」或「台中市<行政區><路名>」），去掉前綴
+    # 若路名意外包含行政區前綴（如「<行政區><路名>」或「臺中市<行政區><路名>」），去掉前綴
     if district and district in road:
         road = road[road.find(district) + len(district):]
 
