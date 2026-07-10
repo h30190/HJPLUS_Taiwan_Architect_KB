@@ -1,6 +1,6 @@
 ---
 name: taichung-land-parcel-query
-description: "This skill should be used when looking up basic land parcel (地號) information for a site in Taichung City, Taiwan — zoning (使用分區), registered land area, government-assessed land value, building numbers and permits, building overlay/footprint status, urban planning land-use regulations, geological hazard zones, slope-land restrictions, fire-break setback zones, active fault distances, and sewer connection announcements. Trigger scenarios: evaluating site feasibility before design, checking land-use restrictions before a building permit application, due diligence before a real-estate transaction, or converting a Taichung street address to its cadastral lot number (地號). This tool covers Taichung City only — it does not work for other Taiwan counties/cities."
+description: "This skill should be used when an architect receives just an address or lot number (地號) for a site in Taichung City, Taiwan, and needs to quickly understand the land's basic data — zoning, registered land area, land value, building numbers and permits, building overlay/footprint status, urban planning land-use regulations, geological hazard zones, slope-land restrictions, fire-break setback zones, active fault distances, and sewer connection announcements — while also getting a head start on the official PDF certificates commonly needed as supporting documents for a later building permit application. Trigger scenarios: evaluating site feasibility right after receiving an address/lot number, checking land-use restrictions and pre-gathering supporting documents before a permit application, due diligence before a real-estate transaction, or converting a Taichung street address to its lot number. Taichung City only — does not work for other Taiwan counties/cities."
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
 metadata:
@@ -16,9 +16,11 @@ metadata:
 
 This skill drives a browser-automation script that queries nine different Taichung City government GIS/data websites in parallel for a given land parcel (地號), then compiles the results into a single PDF report. It replaces manually opening each government website, selecting district/section/lot, waiting for the map to load, and reading legend colors — a workflow that normally takes 10+ minutes per parcel.
 
+**Core value**: given just an address or a lot number, an architect gets a full picture of a site's basic land data within minutes — and, as a side effect of the query, already has several of the official PDF certificates (geological hazard zone, slope-land, active fault) that are typically required as supporting documents when a building permit application is actually filed later.
+
 Use this skill when the user wants to:
-- Evaluate a Taichung site's development constraints (zoning, floor area ratio, building coverage ratio) before design.
-- Check for geological hazard zones, slope-land restrictions, or fire-break setback requirements before a building permit application.
+- Quickly understand a Taichung site right after receiving an address or lot number from a client (zoning, floor area ratio, building coverage ratio, and other constraints).
+- Check for geological hazard zones, slope-land restrictions, or fire-break setback requirements before a building permit application, while getting a head start on gathering the corresponding supporting-document PDFs needed for the filing.
 - Look up a parcel's building permit history, existing building footprint (套繪), or registered land area for due diligence.
 - Convert a Taichung street address into its cadastral district/section/lot number, or the reverse.
 
