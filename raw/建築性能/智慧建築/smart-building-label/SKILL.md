@@ -117,12 +117,12 @@ metadata:
 - 有效期限：5年
 
 ## References
+- [內政部建築研究所](https://www.abri.gov.tw/cp.aspx?n=806)
 - 智慧建築標章申請審核認可及使用作業要點
 - [智慧建築評估手冊2024年版](https://www.abri.gov.tw/News_Content.aspx?n=20916&s=322421)
-- [內政部建築研究所](https://www.abri.gov.tw/cp.aspx?n=806)
 - [台灣建築中心－智慧建築標章相關規定下載](https://ib.tabc.org.tw/modules/filelist/main/flist/1)
-- [台灣資通產業標準協會（TAICS）出版資訊－TAICS TS-0054 智慧建築資料交換互通標準及測試規範](https://www.taics.org.tw/Publishing.aspx?p=4)
 - [社團法人台灣智慧建築協會（TIBA）](https://www.tiba.org.tw/)
+- [台灣資通產業標準協會（TAICS）出版資訊－TAICS TS-0054 智慧建築資料交換互通標準及測試規範](https://www.taics.org.tw/Publishing.aspx?p=4)
 
 ## MCP Tool Integration
 - 查詢智慧建築法規：`taiwan-building-code_search_building_code(query: "智慧建築")`
