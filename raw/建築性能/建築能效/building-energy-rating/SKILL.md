@@ -1,15 +1,15 @@
 ---
 name: building-energy-rating
-description: "This skill should be used when applying for Taiwan Building Energy Efficiency Label (建築能效標示) or calculating building energy performance."
+description: "This skill should be used when applying for Taiwan Building Energy Rating System (建築能效標示, BERS) or calculating building energy performance."
 user-invocable: true
 metadata:
   class: B
 ---
 
-# Building Energy Rating (BEE)
+# Building Energy Rating (BERS)
 
 ## Overview
-建築能效標示（Building Energy Efficiency, BEE）是內政部建築研究所於2022年實施的建築能效評估制度，主要評估建築物使用階段之能源使用效率，為達成2050年淨零建築願景的重要政策工具。
+建築能效標示（Building Energy Rating System, BERS）是內政部建築研究所於2022年實施的建築能效評估制度，主要評估建築物使用階段之能源使用效率，為達成2050年淨零建築願景的重要政策工具。
 
 ## Applicable Scenarios
 - 申請建築能效標示（已取得使用執照之建築物）
@@ -70,6 +70,9 @@ BEI = 實際用電量密度 / 標準用電量密度
 | 2025/7/1 | 衛生、福利、住宿類（F-1, H類）| ≧2級 |
 
 ### ，民營建築（鼓勵申請）
+
+## Related Skills
+- [smart-building-label](../../智慧建築/smart-building-label/)（智慧建築標章）：以「偵知、顯示、連動」為核心判準，評估建築物智慧化控制系統本身（涵蓋安全防災、健康舒適、節能管理等6大指標），不等同於物理能效等級。智慧化空調控制有助於實際能效表現，但兩張標章評估內容不同，須分別申請。
 
 ## References
 - 建築能效評估手冊
