@@ -1,6 +1,6 @@
 ---
 name: design-theory
-description: Architectural movements, design philosophy, critical theory, precedent analysis, and compositional principles for informed design reasoning
+description: This skill should be used when architectural design reasoning needs theoretical grounding — architectural movements, design philosophy, critical theory, precedent analysis, and compositional principles. Trigger when the user asks about a movement or theorist, requests precedent analysis, or wants a design critiqued through a theoretical lens.
 user-invocable: true
 metadata:
   class: A
