@@ -2,7 +2,7 @@
 
 此分類包含技術資訊關於建築系統、材料和施工方法，適用於台灣建築環境。
 
-## 技能模組總覽（4 個：1A+3B）
+## 技能模組總覽（5 個：1A+3B+1C）
 
 ### 材料設備
 
@@ -22,6 +22,8 @@
 | 技能名稱 | 類型 | skill.md (AI) | domain.md (人類) |
 |---------|---|-----|-----|-|-|
 | [building-services](機電系統/building-services/) | B 類適配 | ✅ | ✅ |
+| [taiwan-mep-specifications](機電系統/台灣機電物料規格/taiwan-mep-specifications/) | C 類台灣法規 | ✅ | ✅ |
+
 
 ---
 

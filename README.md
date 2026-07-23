@@ -64,7 +64,7 @@
 
 ### 2️⃣ [專業複委託](專業複委託/) Technical Knowledge
 
-**4 個技能模組（1A+3B）**
+**5 個技能模組（1A+3B+1C）**
 
 - **材料設備/**
   - [material-selection](專業複委託/材料設備/material-selection/) (A 類通用)
@@ -73,6 +73,7 @@
   - [structural-systems](專業複委託/結構系統/structural-systems/) (B 類適配)
 - **機電系統/**
   - [building-services](專業複委託/機電系統/building-services/) (B 類適配)
+  - [taiwan-mep-specifications](專業複委託/機電系統/台灣機電物料規格/taiwan-mep-specifications/) (C 類台灣法規)
 
 ---
 
@@ -232,7 +233,7 @@
 |-----|-|-|-|
 | **A 類通用技能** | 9 個 | 國際通用標準，無需台灣適配 | AI + 人類直接使用 |
 | **B 類適配技能** | 8 個 | 國際規範→台灣適配，保留 TODO 注記 | 國際→台灣雙向支援 |
-| **C 類台灣法規技能** | 22 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
+| **C 類台灣法規技能** | 23 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
 
 ---
 

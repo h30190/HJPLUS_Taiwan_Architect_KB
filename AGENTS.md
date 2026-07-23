@@ -9,7 +9,7 @@ All skill content is in `raw/`. There is no separate published/flat structure.
 ```
 raw/
 ├── 建築設計與規劃/       (5 skills)
-├── 專業複委託/            (4 skills)
+├── 專業複委託/            (5 skills)
 ├── 建築性能/              (12 skills)
 ├── 建築法規/              (2 skills)
 ├── 建築施工與材料/        (5 skills)
