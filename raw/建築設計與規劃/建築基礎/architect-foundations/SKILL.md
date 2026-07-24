@@ -15,6 +15,8 @@ description: >
   daylighting metrics, and an anti-pattern catalog of common design failures. Routes to
   17 specialized downstream skills based on user query context.
 user-invocable: false
+metadata:
+  class: A
 ---
 
 # Architect Foundations

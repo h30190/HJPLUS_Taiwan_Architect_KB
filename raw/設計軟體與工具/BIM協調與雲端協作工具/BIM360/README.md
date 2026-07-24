@@ -12,5 +12,5 @@
 
 - BIM 360 Docs、Design、Coordinate、Field 等舊版 Autodesk 雲端流程。
 - 舊案文件管理、模型協調、問題追蹤與權限設定。
-- 與 Autodesk Construction Cloud 的差異、移轉與專案封存。
+- 與 Autodesk Forma 的差異、移轉與專案封存。
 

@@ -10,6 +10,8 @@ description: >-
   daylight, or analyzing how a typology affects density, efficiency, and user
   experience. Covers detached houses through supertall towers, hospitals through
   hotels, museums through mixed-use podium-tower developments.
+metadata:
+  class: A
 ---
 
 # Building Typology Skill

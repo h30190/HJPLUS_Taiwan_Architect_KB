@@ -1,0 +1,50 @@
+name: Deploy landing page
+
+# 部署 docs/ 到 GitHub Pages，並在部署前重產 docs/data.json
+# （landing page 的知識圖譜、tag、最新更新、統計數字）。
+# data.json 只進部署產物、不 commit 回 main，因此不受分支保護限制。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # commit count 需要完整歷史
+
+      - name: Fetch contributors and merged PR count
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          contributors=$(gh api "repos/${{ github.repository }}/contributors?per_page=100" --jq '[.[].login]' || echo 'null')
+          merged=$(gh api "search/issues?q=repo:${{ github.repository }}+type:pr+is:merged" --jq '.total_count' || echo 'null')
+          printf '{"contributors": %s, "mergedPRs": %s}\n' "$contributors" "$merged" > /tmp/gh-stats.json
+          cat /tmp/gh-stats.json
+
+      - name: Generate docs/data.json
+        run: python scripts/update_landing_page.py --github-stats /tmp/gh-stats.json
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

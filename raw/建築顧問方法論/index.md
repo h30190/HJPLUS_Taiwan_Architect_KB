@@ -1,0 +1,11 @@
+# Consulting Methodology (建築顧問方法論)
+
+Horizontal rules that govern **how** to answer Taiwan architecture questions using this knowledge base — regardless of topic. When the task is consulting (not repository maintenance), read [consultation-workflow](顧問諮詢工作流程/consultation-workflow/SKILL.md) first; it chains the other four.
+
+## Skills
+
+* [Consultation Workflow](顧問諮詢工作流程/consultation-workflow/SKILL.md) - This skill should be used as the entry point for answering any Taiwan architecture consulting question — it defines the seven-step consulting procedure (classify, locate governing law, route and combine KB skills, verify currency, resolve conflicts, detect boundary cases, format the answer) and the standard answer format with certainty labels.
+* [Regulation Hierarchy & Conflicts](法源位階與衝突處理/regulation-hierarchy-and-conflicts/SKILL.md) - This skill should be used when two or more Taiwan regulations appear to conflict, when deciding which rule governs (national law vs. local ordinance vs. administrative interpretation), or when a regulation was amended and it is unclear which version applies.
+* [Regulation Currency Check](法規時效性查證/regulation-currency-check/SKILL.md) - This skill should be used before quoting any normative number (dimension, ratio, monetary threshold, penalty, vendor specification) from memory or from another skill, when data is older than one year or undated, or when the topic is in a high-churn regulatory domain.
+* [Boundary Cases & Escalation](邊界案例與函詢時機/boundary-cases-and-escalation/SKILL.md) - This skill should be used when a compliance question falls into a regulatory gray zone (discretionary wording, undefined measurement, conflicting interpretations, municipal divergence) — it teaches when to stop giving a definitive answer and recommend a formal inquiry (函詢) or pre-review (預審) instead.
+* [Uncertainty & Source Control](不確定性標示與來源管控/uncertainty-and-source-control/SKILL.md) - This skill should be used whenever producing a consulting answer or authoring a KB skill — it defines the source-control iron rule, the Verified/Secondary/Unverified certainty labels, the ERROR/WARNING/INFO check convention, and the tone rules that prevent confidently-wrong output.

@@ -2,6 +2,8 @@
 name: public-review
 description: "This skill should be used when an architect needs to understand Taiwan's public review (公開閱覽) procedures for government procurement, including how to review tender documents, provide professional feedback, and evaluate project opportunities before formal bidding."
 user-invocable: true
+metadata:
+  class: C
 ---
 
 # Public Review (公開閱覽)

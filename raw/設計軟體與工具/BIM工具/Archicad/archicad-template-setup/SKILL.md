@@ -6,6 +6,7 @@ compatibility: claude-code,opencode,agent-skills
 metadata:
   audience: architects
   region: taiwan
+  class: A
 ---
 
 # Archicad Template Setup

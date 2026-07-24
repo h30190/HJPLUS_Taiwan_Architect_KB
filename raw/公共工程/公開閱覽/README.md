@@ -10,5 +10,5 @@
 
 ## 相關資源
 
-- [公共工程總索引](../README.md)
+- [公共工程總索引](../../README.md)
 - [domain.md — 繁中說明](domain.md)

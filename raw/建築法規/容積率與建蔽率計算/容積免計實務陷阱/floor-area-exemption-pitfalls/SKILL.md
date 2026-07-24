@@ -6,6 +6,7 @@ compatibility: claude-code,opencode,agent-skills
 metadata:
   audience: architects
   region: taiwan
+  class: C
 ---
 
 # Floor-Area Exemption Pitfalls (容積免計項目實務陷阱)

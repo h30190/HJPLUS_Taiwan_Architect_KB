@@ -2,6 +2,8 @@
 name: leed
 description: "This skill should be used when applying for LEED (Leadership in Energy and Environmental Design) certification or designing green buildings according to USGBC standards."
 user-invocable: true
+metadata:
+  class: B
 ---
 
 # LEED Certification

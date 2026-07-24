@@ -2,6 +2,8 @@
 name: daylighting-design
 description: "This skill should be used when designing and analyzing daylighting systems, optimizing natural light utilization, and evaluating visual comfort."
 user-invocable: true
+metadata:
+  class: B
 ---
 
 # Daylighting Design Skill

@@ -2,9 +2,14 @@
 name: architect-calculator
 description: "This skill should be used when performing architect calculations including floor area analysis, structural estimation, MEP load calculation, and cost estimation."
 user-invocable: true
+metadata:
+  class: B
+  status: unverified
 ---
 
 # Architect Calculator Skill
+
+> ⚠️ **UNVERIFIED — DO NOT QUOTE NUMBERS AS FACT.** The numeric values in this file (fees, penalties, deadlines, thresholds) were drafted from general knowledge and have **not** been verified clause-by-clause against current Taiwan regulations. Before citing any figure: (1) verify the current provision via MCP `taiwan-building-code_search_building_code` or the Laws & Regulations Database (law.moj.gov.tw); (2) never output a penalty or threshold amount without its governing article number. Methodology: see `raw/建築顧問方法論/不確定性標示與來源管控/uncertainty-and-source-control/SKILL.md`.
 
 ## Overview
 建築師專用計算工具箱，整合常用設計計算、法規檢查與成本估算功能。

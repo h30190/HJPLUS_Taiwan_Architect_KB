@@ -2,8 +2,13 @@
 name: building-permit-related-regulations
 description: "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan."
 user-invocable: true
+metadata:
+  class: C
+  status: unverified
 ---
 # 建築執照相關法規
+
+> ⚠️ **UNVERIFIED — DO NOT QUOTE NUMBERS AS FACT.** The numeric values in this file (fees, penalties, deadlines, thresholds) were drafted from general knowledge and have **not** been verified clause-by-clause against current Taiwan regulations. Before citing any figure: (1) verify the current provision via MCP `taiwan-building-code_search_building_code` or the Laws & Regulations Database (law.moj.gov.tw); (2) never output a penalty or threshold amount without its governing article number. Methodology: see `raw/建築顧問方法論/不確定性標示與來源管控/uncertainty-and-source-control/SKILL.md`.
 
 ## Overview
 

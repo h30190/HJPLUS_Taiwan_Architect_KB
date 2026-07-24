@@ -15,7 +15,7 @@ metadata:
 
 ## Overview
 
-Design requirements for reinforced concrete beams in Taiwan, limited to items directly verified against the uploaded PDF in this pass. This skill preserves the minimum beam-depth table, T-beam effective flange-width limits, and the verified clause references for beam reinforcement and detailing. For fundamental cover and splice concepts, see [concrete-general-requirements](../混凝土通用規定/concrete-general-requirements/).
+Design requirements for reinforced concrete beams in Taiwan, limited to items directly verified against the uploaded PDF in this pass. This skill preserves the minimum beam-depth table, T-beam effective flange-width limits, and the verified clause references for beam reinforcement and detailing. For fundamental cover and splice concepts, see [concrete-general-requirements](../../混凝土通用規定/concrete-general-requirements/).
 
 ---
 
@@ -141,5 +141,5 @@ taiwan-building-code_search_building_interpretations(query="梁 鋼筋 最小量
 
 ## Additional Resources
 
-- General requirements (cover, development length, splice): [concrete-general-requirements](../混凝土通用規定/concrete-general-requirements/)
-- Column design: [concrete-column-design](../混凝土柱設計/concrete-column-design/)
+- General requirements (cover, development length, splice): [concrete-general-requirements](../../混凝土通用規定/concrete-general-requirements/)
+- Column design: [concrete-column-design](../../混凝土柱設計/concrete-column-design/)

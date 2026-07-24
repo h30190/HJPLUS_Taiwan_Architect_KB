@@ -2,6 +2,8 @@
 name: accessible-door-clear-width
 description: "This skill should be used when checking accessible-route door/opening clear-width compliance for buildings in Taiwan, and avoiding the gap between the code's nominal frame-to-frame distance and the effective passable clear width after the door leaf, hardware and finishes intrude. Covers Taiwan Accessible Facilities Design Specification §205.2.3 (entrances/doors): hinged-door frame-to-frame distance ≥ 90 cm, sliding/folding-door clear width ≥ 80 cm, no thresholds, and the §205.4.1 ban on revolving/spring doors."
 user-invocable: true
+metadata:
+  class: C
 ---
 
 # Accessible Door Clear Width Pitfalls (無障礙出入口門淨寬實務陷阱)

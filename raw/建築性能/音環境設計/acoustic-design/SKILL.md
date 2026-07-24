@@ -2,6 +2,8 @@
 name: acoustic-design
 description: "This skill should be used when designing architectural acoustics, including room acoustics, noise control, and sound insulation."
 user-invocable: true
+metadata:
+  class: B
 ---
 
 # Acoustic Design Skill

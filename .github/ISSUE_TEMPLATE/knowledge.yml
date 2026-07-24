@@ -1,0 +1,74 @@
+name: 知識/經驗投稿
+description: 用講的就好——把你的實務經驗或知識用自己的話寫下來，格式交給維護者整理
+title: "[投稿] "
+labels: [knowledge-intake]
+body:
+  - type: input
+    id: topic
+    attributes:
+      label: 📌 主題
+      description: 一句話說這是關於什麼
+      placeholder: e.g. 梯廳淨深在台中市的實際認定經驗／某種防水工法的失敗教訓
+    validations:
+      required: true
+
+  - type: textarea
+    id: content
+    attributes:
+      label: 📝 你的經驗或知識
+      description: 用你自己的話寫就好，完全不用管格式、不用像公文——愈像你跟同事聊案子的講法愈好。整理成知識庫格式是維護者的事。
+      placeholder: |
+        e.g. 我之前在○○市送件，圖上梯廳淨深畫 2m，但審查時承辦認為轉角處要扣柱位再量，
+        結果被退回來改。後來我們是這樣處理的……
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: 🗺️ 哪個縣市／機關（如果適用）
+      description: 很多實務認定是「各地不一樣」的，有縣市這筆知識才用得準
+      placeholder: e.g. 台中市都發局／新北市工務局
+    validations:
+      required: false
+
+  - type: input
+    id: when
+    attributes:
+      label: 📅 大約什麼時候的經驗
+      description: 法規和審查實務會變，年份能幫大家判斷時效
+      placeholder: e.g. 2024 年底送件的案子
+    validations:
+      required: false
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 📎 有沒有依據或佐證（選填）
+      description: 公文字號、函釋、審查意見、照片說明……有就貼，沒有也完全沒關係，經驗本身就有價值。⚠️ 貼之前請先隱去業主／當事人姓名、地址、聯絡方式等可識別資訊，勿附未公開的圖說或合約
+      placeholder: e.g. 內政部○年○月○日營署建管字第○○號函／審查意見影本重點
+    validations:
+      required: false
+
+  - type: dropdown
+    id: credit
+    attributes:
+      label: 🙌 致謝方式
+      description: 整理入庫後，希望怎麼標示這筆知識的來源？
+      options:
+        - 具名致謝（用我的 GitHub 帳號）
+        - 匿名就好
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 確認
+      options:
+        - label: 我確認內容與台灣 AEC（建築×工程×營造）實務相關
+          required: true
+        - label: 我了解投稿內容將以開源授權（CC BY-SA 4.0）整理進知識庫
+          required: true
+        - label: 我確認投稿內容未包含業主機密、個人資料或受保密協議（NDA）拘束的資料，且已做適當去識別化
+          required: true

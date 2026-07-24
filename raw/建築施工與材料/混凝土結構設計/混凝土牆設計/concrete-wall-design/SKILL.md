@@ -15,7 +15,7 @@ metadata:
 
 ## Overview
 
-Design requirements for reinforced concrete walls in Taiwan, limited here to clauses directly verified against the uploaded PDF: minimum wall thickness, high-shear minimum reinforcement, spacing limits, and opening reinforcement. Special seismic-wall and boundary-element checks remain chapter references only unless directly transcribed from Chapter 18. For cover and splice fundamentals, see [concrete-general-requirements](../混凝土通用規定/concrete-general-requirements/).
+Design requirements for reinforced concrete walls in Taiwan, limited here to clauses directly verified against the uploaded PDF: minimum wall thickness, high-shear minimum reinforcement, spacing limits, and opening reinforcement. Special seismic-wall and boundary-element checks remain chapter references only unless directly transcribed from Chapter 18. For cover and splice fundamentals, see [concrete-general-requirements](../../混凝土通用規定/concrete-general-requirements/).
 
 ---
 
@@ -172,5 +172,5 @@ taiwan-building-code_search_building_interpretations(query="剪力牆 邊緣構�
 
 ## Additional Resources
 
-- General requirements (cover, development length, splice): [concrete-general-requirements](../混凝土通用規定/concrete-general-requirements/)
-- Column confinement (referenced by boundary elements): [concrete-column-design](../混凝土柱設計/concrete-column-design/)
+- General requirements (cover, development length, splice): [concrete-general-requirements](../../混凝土通用規定/concrete-general-requirements/)
+- Column confinement (referenced by boundary elements): [concrete-column-design](../../混凝土柱設計/concrete-column-design/)

@@ -2,6 +2,8 @@
 name: low-carbon-buildings
 description: "This skill should be used when applying for Taiwan Low Embodied Carbon Building Label (低碳建築標示/LEBR) or calculating embodied carbon in construction."
 user-invocable: true
+metadata:
+  class: B
 ---
 
 # Low Embodied Carbon Buildings (LEBR)

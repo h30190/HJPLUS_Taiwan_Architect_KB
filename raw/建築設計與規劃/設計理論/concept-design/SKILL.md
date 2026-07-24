@@ -2,6 +2,8 @@
 name: concept-design
 description: Parti development, massing studies, spatial organization strategies, design concept generation, and concept-to-form translation methodologies
 user-invocable: true
+metadata:
+  class: A
 ---
 
 # Concept Design

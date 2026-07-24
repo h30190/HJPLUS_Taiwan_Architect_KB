@@ -2,6 +2,8 @@
 name: building-envelope
 description: "This skill should be used when designing and analyzing building envelope systems, including wall assemblies, roofs, glazing, thermal performance, and waterproofing."
 user-invocable: true
+metadata:
+  class: B
 ---
 
 # Building Envelope Skill

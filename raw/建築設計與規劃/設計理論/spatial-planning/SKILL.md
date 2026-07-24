@@ -5,6 +5,8 @@ description: >
   design (corridors, stairs, elevators, escalators), core design and vertical
   service distribution, vertical stacking strategy, net-to-gross optimization,
   space efficiency metrics, wayfinding, and spatial legibility.
+metadata:
+  class: B
 ---
 
 # Spatial Planning

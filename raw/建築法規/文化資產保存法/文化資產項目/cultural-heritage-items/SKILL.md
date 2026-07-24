@@ -6,6 +6,7 @@ compatibility: claude-code,opencode,agent-skills
 metadata:
   audience: architects
   region: taiwan
+  class: C
 ---
 
 # Cultural Heritage Items (Taiwan)

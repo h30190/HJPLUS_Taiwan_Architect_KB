@@ -2,6 +2,8 @@
 name: well-building
 description: "This skill should be used when designing for WELL Building Certification or improving indoor health environment based on IWBI standards."
 user-invocable: true
+metadata:
+  class: B
 ---
 
 # WELL Building Certification
