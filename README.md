@@ -25,6 +25,7 @@
 <details>
 <summary>點開查看近期已合併的 PR（感謝所有貢獻者！）</summary>
 
+- **2026-07-24** 🚰 新增建築物給水排水設備設計技術規範技能（涵蓋水箱容量、管徑坡度、存水彎、通氣管與截留器等）([#37](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/37) by @Archwiz-boss)
 - **2026-07-23** 🏢 更新智慧建築標章至評估手冊2024年版（6大指標整併、等級門檻、22項基本規定；並修正建築能效標示 BEE→BERS）([#36](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/36) by @Jen666-Tw)
 - **2026-07-14** 🏙️ 新增高度比與面前道路認定檢討技能（§14-19、23-24、27 等 11 條法規）([#31](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/31) by @Archwiz-boss)
 - **2026-07-14** 🧠 新增建築顧問方法論橫向層（5 技能：諮詢流程、法源位階、時效查證、不確定性標示、邊界案例函詢）([#34](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/34) by @Jacky820507)
@@ -105,7 +106,7 @@ Archicad、Revit 等 BIM 及設計工具技能
 <!-- COUNT:summary -->
 | **A 類通用技能** | 10 個 | 國際通用標準，無需台灣適配 | AI + 人類直接使用 |
 | **B 類適配技能** | 20 個 | 國際規範→台灣適配，保留 TODO 注記 | 國際→台灣雙向支援 |
-| **C 類台灣法規技能** | 49 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
+| **C 類台灣法規技能** | 50 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
 
 ---
 

@@ -9,6 +9,7 @@
 - [容積率與建蔽率計算](容積率與建蔽率計算/) — taiwan-programming、floor-area-exemption-pitfalls、balcony-lobby-far-recalculation（3 技能）
 - [文化資產保存法](文化資產保存法/) — 9 個技能（調查、修復設計、監造、容移、稅賦減免等）
 - [建築技術規則](建築技術規則/) — taiwan-stair-railing-ramp（§33 樓梯寬度）
+- [建築物給水排水設備設計技術規範](建築物給水排水設備設計技術規範/) — plumbing-drainage-design-code (1 技能)
 
 ### 目錄已建立（尚無技能）
 

@@ -12,6 +12,7 @@
 * [無障礙設計 — 電梯機道尺寸](無障礙設計/無障礙電梯機道尺寸對應/accessible-elevator-shaft-dimensions/SKILL.md) - Minimum elevator shaft dimensions for accessibility compliance, with pre-verified lookup tables for Mitsubishi, Yung Ta, and Chung Yu elevators
 * [文化資產保存法](文化資產保存法/) - Cultural heritage preservation: investigation, restoration design, adaptive reuse, tax incentives, TDR, and supervision reports
 * [地方自治法規](地方自治法規/台中市/宜居建築設施設置及回饋辦法/taichung-livable-building-incentive/SKILL.md) - Taichung City's incentivized livable building facility regulation: vertical greening, shading walls, multi-level terraces, FAR exemptions, and feedback deposit
+* [建築物給水排水設備設計技術規範](建築物給水排水設備設計技術規範/plumbing-drainage-design-code/SKILL.md) - Building plumbing, hot water, and drainage/ventilation design code review including storage tanks, pumps, pipe sizing, trap seals, vent pipes, cleanouts, same-floor drainage, and grease traps
 * [都市計畫法](都市計畫法/) - 都市計畫法規（籌備中）
 * [耐震與結構安全](耐震與結構安全/) - 耐震與結構安全法規（籌備中）
 * [節能與環境](節能與環境/) - 節能與環境法規（籌備中）
