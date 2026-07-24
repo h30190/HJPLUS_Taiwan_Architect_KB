@@ -7,3 +7,11 @@ repos:
         language: system
         files: '(raw/|graphify\.py)'
         description: "自動重新生成知識圖譜（僅在 raw/ 或 graphify.py 變更時執行）"
+
+      - id: convert-mep-xlsx
+        name: Convert MEP Excel to JSON
+        entry: python raw/專業複委託/機電系統/台灣機電物料百科/tw-mep-spec-wiki/xlsx_to_json.py
+        language: system
+        files: 'raw/專業複委託/機電系統/台灣機電物料百科/MEP品項百科\.xlsx'
+        pass_filenames: false
+

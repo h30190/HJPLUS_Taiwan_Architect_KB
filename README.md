@@ -73,7 +73,7 @@
   - [structural-systems](專業複委託/結構系統/structural-systems/) (B 類適配)
 - **機電系統/**
   - [building-services](專業複委託/機電系統/building-services/) (B 類適配)
-  - [taiwan-mep-specifications](專業複委託/機電系統/台灣機電物料規格/taiwan-mep-specifications/) (C 類台灣法規)
+  - [tw-mep-spec-wiki](專業複委託/機電系統/台灣機電物料百科/tw-mep-spec-wiki/) (C 類台灣法規)
 
 ---
 

@@ -22,7 +22,7 @@
 | 技能名稱 | 類型 | skill.md (AI) | domain.md (人類) |
 |---------|---|-----|-----|-|-|
 | [building-services](機電系統/building-services/) | B 類適配 | ✅ | ✅ |
-| [taiwan-mep-specifications](機電系統/台灣機電物料規格/taiwan-mep-specifications/) | C 類台灣法規 | ✅ | ✅ |
+| [tw-mep-spec-wiki](機電系統/台灣機電物料百科/tw-mep-spec-wiki/) | C 類台灣法規 | ✅ | ✅ |
 
 
 ---
