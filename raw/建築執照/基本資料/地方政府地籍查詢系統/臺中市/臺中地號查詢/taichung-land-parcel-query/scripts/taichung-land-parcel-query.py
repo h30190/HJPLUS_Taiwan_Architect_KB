@@ -42,6 +42,17 @@ DISTRICT_TO_ZON = {
     "清水區": "436", "大甲區": "437", "外埔區": "438", "大安區": "439",
 }
 
+# 文化資產GIS查詢系統（culgis.taichung.gov.tw）行政區代碼，與 DISTRICT_TO_ZON 不同套
+CULTURALASSET_ADMIT = {
+    "中區": "01", "東區": "02", "南區": "03", "西區": "04", "北區": "05",
+    "西屯區": "06", "南屯區": "07", "北屯區": "08", "太平區": "27",
+    "大里區": "28", "霧峰區": "26", "烏日區": "23", "豐原區": "09",
+    "后里區": "15", "石岡區": "20", "東勢區": "10", "和平區": "29",
+    "新社區": "19", "潭子區": "17", "大雅區": "18", "神岡區": "16",
+    "大肚區": "24", "沙鹿區": "13", "龍井區": "25", "梧棲區": "14",
+    "清水區": "12", "大甲區": "11", "外埔區": "21", "大安區": "22",
+}
+
 # 套繪圖顏色判讀
 # 依據圖例說明 (https://mcgbm.taichung.gov.tw/geoViewer2/images/j.jpg)
 COLOR_LEGEND = {
@@ -669,10 +680,17 @@ def _retry_license_with_old_lot(page: Page, district: str, section_code: str, ol
     }""")
     time.sleep(5)
     page.evaluate("""() => {
+        const el = document.querySelector('calcite-action[data-action-id="analysis-buffer"]');
+        if (el) { el.click(); return; }
         const actions = document.querySelectorAll('.esri-popup__action');
         for (const a of actions) { if (a.textContent.trim() === '分析') { a.click(); return; } }
     }""")
     time.sleep(4)
+    page.evaluate("""() => {
+        const btn = document.querySelector('.layui-layer-btn0');
+        if (btn) btn.click();
+    }""")
+    time.sleep(0.5)
     page.evaluate("() => { for (const el of document.querySelectorAll('*')) { if (el.textContent.trim() === '建物' && el.offsetParent !== null) { el.click(); return; } } }")
     time.sleep(1.5)
     page.evaluate("""() => {
@@ -758,20 +776,48 @@ def _query_one(page: Page, district: str, section_name: str, section_code: str, 
     }""")
     time.sleep(5)
 
+    # 舊版彈窗用 .esri-popup__action 文字比對「分析」；網站改版後彈窗換成 Calcite
+    # Components，這個 class 已不存在，點擊會靜默失敗（不報錯），導致後面建物/履歷
+    # 頁籤永遠開不出來（因為它們現在是點「分析」後另外彈出的獨立浮動視窗
+    # #analbfdialog，不是原彈窗內建的頁籤）。新版正確觸發元素是這顆 calcite-action。
     page.evaluate("""() => {
+        const el = document.querySelector('calcite-action[data-action-id="analysis-buffer"]');
+        if (el) { el.click(); return; }
+        // fallback：舊版還在的話照樣支援
         const actions=document.querySelectorAll('.esri-popup__action');
         for(let a of actions){if(a.textContent.trim()==='分析'){a.click();return;}}
     }""")
     time.sleep(4)
 
+    # 關閉底圖圖資解析度提示（layui 彈窗，「分析」後常跳出，會蓋住/擋住彈窗導致
+    # 後面「建物」頁籤切換不到（offsetParent 判斷為 null），造成建號/執照查詢靜默查無）
+    page.evaluate("""() => {
+        const btn = document.querySelector('.layui-layer-btn0');
+        if (btn) btn.click();
+    }""")
+    time.sleep(0.5)
+
+    # 立即記錄本次分析地號的 TWD97 座標，供第五步都市計畫分區 identify 使用。
+    # 注意：不能用舊版 analgeo1（LandQuery.js 遺留全域變數，目前网站流程不會賦值，
+    # 一律是 undefined，導致都計JSON 一直靜默查不到資料）。
+    # 正確來源是目前 ArcGIS JS 4.x popup 本身選取的 feature。
+    page.evaluate("""() => {
+        try {
+            const attrs = MView.popup.selectedFeature.attributes;
+            window.__gisTWD97 = { x: attrs.TWD97E, y: attrs.TWD97N };
+        } catch (e) { window.__gisTWD97 = null; }
+    }""")
+
     # 第一步：先收集土地頁籤的全部文字
+    # 排除「*」開頭的圖層面板註解文字（如「*國土功能分區公展草案僅供參考」），
+    # 避免後續 key_labels 關鍵字比對誤將這些 UI 提示字當成資料值。
     land_texts = page.evaluate("""() => {
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
         let texts = [];
         let node;
         while (node = walker.nextNode()) {
             const txt = node.textContent.trim();
-            if (txt.length > 2 && txt.length < 300) {
+            if (txt.length > 2 && txt.length < 300 && !txt.startsWith('*')) {
                 const el = node.parentElement;
                 if (el && el.offsetParent !== null) texts.push(txt);
             }
@@ -956,8 +1002,9 @@ def _query_one(page: Page, district: str, section_name: str, section_code: str, 
         if arcgis_token:
             urban_data = page.evaluate(f"""() => new Promise((resolve) => {{
                 try {{
-                    const twd97x = analgeo1.attributes.TWD97E;
-                    const twd97y = analgeo1.attributes.TWD97N;
+                    if (!window.__gisTWD97) {{ resolve(null); return; }}
+                    const twd97x = window.__gisTWD97.x;
+                    const twd97y = window.__gisTWD97.y;
                     if (!twd97x || !twd97y) {{ resolve(null); return; }}
                     const R = 6378137;
                     const toM = (tx, ty) => {{
@@ -1015,7 +1062,27 @@ def _query_one(page: Page, district: str, section_name: str, section_code: str, 
         }""")
         time.sleep(3)
 
-        # 關閉所有浮動視窗：找 × 關閉符號的 leaf 節點並點擊
+        # 關閉地號分析結果彈窗（藏在 calcite-flow-item/calcite-panel 的 shadow DOM 裡，
+        # 一般 querySelectorAll 找不到，須逐層穿透 shadowRoot 才能找到關閉鈕）
+        page.evaluate("""() => {
+            const item = document.querySelector('calcite-flow-item');
+            if (!item || !item.shadowRoot) return;
+            const panel = item.shadowRoot.querySelector('calcite-panel');
+            if (!panel || !panel.shadowRoot) return;
+            const closeBtn = Array.from(panel.shadowRoot.querySelectorAll('calcite-action'))
+                .find(el => el.getAttribute('icon') === 'x' || el.getAttribute('aria-label') === '關閉');
+            if (closeBtn) closeBtn.click();
+        }""")
+        time.sleep(0.5)
+
+        # 關閉底圖圖資解析度提示（layui 彈窗，切換底圖影像圖層時常跳出）
+        page.evaluate("""() => {
+            const btn = document.querySelector('.layui-layer-btn0');
+            if (btn) btn.click();
+        }""")
+        time.sleep(0.3)
+
+        # 關閉其餘浮動視窗：找 × 關閉符號的 leaf 節點並點擊
         page.evaluate("""() => {
             const CLOSE_CHARS = new Set(['×', '✕', '✖', 'X', '×']);
             document.querySelectorAll('*').forEach(el => {
@@ -1034,12 +1101,46 @@ def _query_one(page: Page, district: str, section_name: str, section_code: str, 
 
 
         urban_screenshot_bytes = page.screenshot()
-        save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
+        save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
         os.makedirs(save_dir, exist_ok=True)
-        screenshot_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_都計截圖.png")
+        screenshot_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_都計截圖.png")
         with open(screenshot_path, "wb") as f:
             f.write(urban_screenshot_bytes)
         land_texts.append(f"都計截圖路徑：{screenshot_path}")
+    except Exception:
+        pass
+
+    # 第六步：測繪中心影像（國土測繪中心正射影像）
+    try:
+        # 關閉都市計畫分區圖層，避免疊圖影響影像判讀
+        page.evaluate("""() => {
+            const cb = document.getElementById('layer_urban');
+            if (cb && cb.checked) cb.click();
+        }""")
+        time.sleep(0.5)
+
+        page.evaluate("""() => {
+            const cb = document.getElementById('layer_PHOTO2');
+            if (cb && !cb.checked) cb.click();
+        }""")
+        time.sleep(3)
+
+        # 切換影像圖層常再跳一次底圖圖資解析度提示，關閉它
+        page.evaluate("""() => {
+            const btn = document.querySelector('.layui-layer-btn0');
+            if (btn) btn.click();
+        }""")
+        time.sleep(0.3)
+        page.keyboard.press("Escape")
+        time.sleep(0.3)
+
+        survey_screenshot_bytes = page.screenshot()
+        save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+        os.makedirs(save_dir, exist_ok=True)
+        survey_screenshot_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_測繪中心影像.png")
+        with open(survey_screenshot_path, "wb") as f:
+            f.write(survey_screenshot_bytes)
+        land_texts.append(f"測繪中心影像截圖路徑：{survey_screenshot_path}")
     except Exception:
         pass
 
@@ -1119,7 +1220,14 @@ def _query_bupic(license_str: str) -> dict:
         page.evaluate("() => { document.getElementById('QType1').click(); }")
         time.sleep(0.5)
         page.fill("#license_yy", year)
-        page.select_option("#licenseKind", value=kind_value)
+        # 多個 subprocess 併發查詢時本站偶爾較慢，加長等待 + 重試，避免下拉選單
+        # 尚未就緒就選取而 timeout（並非網站介面改版，是併發負載造成的偶發延遲）
+        page.wait_for_selector("#licenseKind", state="visible", timeout=20000)
+        try:
+            page.select_option("#licenseKind", value=kind_value, timeout=20000)
+        except Exception:
+            time.sleep(2)
+            page.select_option("#licenseKind", value=kind_value, timeout=20000)
         page.fill("#license_no1", number)
         time.sleep(1.5)
 
@@ -1366,9 +1474,9 @@ def _query_slope(district: str, section_name: str, lot: str, save_pdf_to: str = 
 
 def _slope_worker(district: str, section_name: str, lot: str, out_file: str):
     """子程序入口：查山坡地，結果寫到 out_file"""
-    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
+    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
     os.makedirs(save_dir, exist_ok=True)
-    pdf_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_山坡地.pdf")
+    pdf_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_山坡地.pdf")
     result = _query_slope(district, section_name, lot, save_pdf_to=pdf_path)
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False)
@@ -1474,9 +1582,9 @@ def _query_gsa(district: str, section_name: str, lot: str, save_pdf_to: str = No
 
 def _gsa_worker(district: str, section_name: str, lot: str, out_file: str):
     """子程序入口：查地質敏感區，結果寫到 out_file"""
-    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
+    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
     os.makedirs(save_dir, exist_ok=True)
-    pdf_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_地質敏感區.pdf")
+    pdf_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_地質敏感區.pdf")
     result = _query_gsa(district, section_name, lot, save_pdf_to=pdf_path)
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False)
@@ -1818,9 +1926,9 @@ def _query_fault(district: str, section_name: str, lot: str, save_pdf_to: str = 
 
 def _fault_worker(district: str, section_name: str, lot: str, out_file: str):
     """子程序入口：查台灣活動斷層，結果寫到 out_file"""
-    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
+    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
     os.makedirs(save_dir, exist_ok=True)
-    pdf_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_活動斷層.pdf")
+    pdf_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_活動斷層.pdf")
     result = _query_fault(district, section_name, lot, save_pdf_to=pdf_path)
     if "截圖" in result:
         img_path = out_file.replace(".json", "_fault.png")
@@ -1828,6 +1936,280 @@ def _fault_worker(district: str, section_name: str, lot: str, out_file: str):
             f.write(result["截圖"])
         result["截圖路徑"] = img_path
         del result["截圖"]
+    with open(out_file, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False)
+
+
+def _query_buildingline(district: str, section_code: str, lot: str) -> dict:
+    """查詢建築線免指地區 + 軍事禁限建 https://urbanline.taichung.gov.tw/Tainobl/index
+    做法：沿用套繪圖系統(_get_parcel_extent)取得地號 EPSG:3857 範圍算出中心點，
+    再直接呼叫該站底層 ArcGIS TaiNoBL_M/MapServer/identify 一次查完 layer 0~10：
+      - layer 0：免指地區
+      - layer 1~10：軍事禁限建圖層（戰備跑道、清泉崗機場管制範圍、各軍事單位管制範圍等）
+    兩組圖層各自獨立、會重疊，不能互相取代。
+    比開瀏覽器截圖比色更精準，可拿到官方公告文號/限建說明全文。
+    """
+    import urllib.request
+    import urllib.parse
+
+    zon = DISTRICT_TO_ZON.get(district)
+    if not zon:
+        return {"error": f"建築線免指查詢找不到行政區代碼：{district}"}
+
+    lot_parts = lot.split("-")
+    lot_main, lot_sub = lot_parts[0], (lot_parts[1] if len(lot_parts) > 1 else "0")
+
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True, slow_mo=200)
+            context = browser.new_context(viewport={"width": 1400, "height": 900})
+            ext = _get_parcel_extent(context, zon, section_code, lot_main, lot_sub)
+            browser.close()
+    except Exception as e:
+        return {"error": f"建築線免指查詢定位失敗：{e}"}
+
+    if not ext:
+        return {"error": "建築線免指查詢定位失敗（套繪圖系統未回傳地號範圍）"}
+
+    cx = (ext["xmin"] + ext["xmax"]) / 2
+    cy = (ext["ymin"] + ext["ymax"]) / 2
+    geometry = json.dumps({"x": cx, "y": cy, "spatialReference": {"wkid": 102100}})
+    params = {
+        "f": "json",
+        "geometry": geometry,
+        "geometryType": "esriGeometryPoint",
+        "sr": "102100",
+        "layers": "all:0,1,2,3,4,5,6,7,8,9,10",
+        "tolerance": "5",
+        "mapExtent": f"{cx-1000},{cy-1000},{cx+1000},{cy+1000}",
+        "imageDisplay": "800,600,96",
+        "returnGeometry": "false",
+    }
+    url = ("https://urbanline.taichung.gov.tw/server/rest/services/TaiNoBL_M/MapServer/identify?"
+           + urllib.parse.urlencode(params))
+    try:
+        with urllib.request.urlopen(url, timeout=20) as resp:
+            data = json.loads(resp.read().decode())
+    except Exception as e:
+        return {"error": f"建築線免指查詢 API 失敗：{e}"}
+
+    announcements = []
+    military = []
+    for item in data.get("results", []):
+        attrs = item.get("attributes", {})
+        if item.get("layerId") == 0:
+            announcements.append({
+                "文號": attrs.get("文號", ""),
+                "日期": attrs.get("日期", ""),
+                "名稱": attrs.get("名稱", ""),
+                "內容": attrs.get("內容", ""),
+            })
+        else:
+            military.append({
+                "圖層名": attrs.get("圖層名", "") or item.get("layerName", ""),
+                "案件編": attrs.get("案件編", ""),
+                "禁限建": attrs.get("禁限建", ""),
+                "NHEIGHT": attrs.get("NHEIGHT", ""),
+            })
+
+    if announcements:
+        summary = "位於免指區域（免申請指定建築線）"
+    else:
+        summary = "非免指區域（需申請指定建築線）"
+
+    if military:
+        military_summary = "位於軍事禁限建範圍"
+    else:
+        military_summary = "非軍事禁限建範圍"
+
+    return {
+        "建築線免指查詢": summary,
+        "免指清單": announcements,
+        "軍事禁限建查詢": military_summary,
+        "軍事禁限建清單": military,
+    }
+
+
+def _buildingline_worker(district: str, section_code: str, lot: str, out_file: str):
+    """子程序入口：查建築線免指地區，結果寫到 out_file"""
+    result = _query_buildingline(district, section_code, lot)
+    with open(out_file, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False)
+
+
+def _scan_nearby_monument(screenshot_path: str) -> bool:
+    """掃描文化資產查詢截圖，判斷地圖上是否有「古蹟」圖層的藍色填色區塊（即使該地號本身不在
+    法定範圍內，緊鄰古蹟仍可能需要提送開發行為說明書，這是實際查詢中發現的真實案例）。
+    只做「古蹟」這一類，因為實測藍色訊號夠乾淨可靠；其他類別試過但放棄了（市定考古遺址橘色
+    會被地圖上的快速道路橘線誤判、歷史建築灰色跟底圖太接近無法分辨），細節見專案記憶。
+    古蹟色塊在畫面上是半透明疊圖（約 alpha=0.62 疊在底圖上），純色鮮豔色票 (53,98,186) 實際
+    渲染出來會偏淡成 (126,154,208)，要用渲染後的顏色比對，不能直接用圖例色票。
+    以福星段479（無古蹟）、碧柳段40（有古蹟）、及整張台中市地圖（多地標文字干擾）三種情境
+    實測校準過門檻：真古蹟色塊命中約1200+個取樣點，最壞情況雜訊约15個，40是安全門檻。
+    """
+    from PIL import Image
+    target = (126, 154, 208)
+    thresh2 = 20 * 20
+    min_hits = 40
+    try:
+        img = Image.open(screenshot_path).convert("RGB")
+    except Exception:
+        return False
+    w, h = img.size
+    px = img.load()
+    count = 0
+    for x in range(560, w, 3):
+        for y in range(140, h - 20, 3):
+            r, g, b = px[x, y]
+            d2 = (r - target[0]) ** 2 + (g - target[1]) ** 2 + (b - target[2]) ** 2
+            if d2 < thresh2:
+                count += 1
+                if count >= min_hits:
+                    return True
+    return False
+
+
+def _capture_culturalasset_screenshot(district: str, section_name: str, lot_main: str, lot_sub: str, save_path: str) -> bool:
+    """至 culgis 地籍定位畫面實際操作一次並截圖（地圖會畫出紅框/紫框標示是否落在文資範圍），
+    供 PDF/終端機顯示視覺確認用。
+    ⚠️ Vuetify 頁面同一欄位標籤在 DOM 裡會有多個隱藏重複節點（其他分頁/側拉抽屜），
+    不能用 get_by_label 直接抓，改用 .land-locate-content 容器內 input 的 DOM 順序定位
+    （順序固定：0=行政區 1=地段關鍵字 2=地段別 3=地號 4=母號 5=子號）；
+    這些 combobox 為 readonly 且被同層 div 覆蓋，click() 需加 force=True 才不會被攔截判定卡住。
+    """
+    def first_visible(locator):
+        for i in range(locator.count()):
+            item = locator.nth(i)
+            box = item.bounding_box()
+            if box and box["width"] > 0 and box["height"] > 0 and box["x"] >= -1:
+                return item
+        return None
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True, slow_mo=100)
+        ctx = browser.new_context(viewport={"width": 1400, "height": 900})
+        page = ctx.new_page()
+        try:
+            page.goto("https://culgis.taichung.gov.tw/tc/index.html", timeout=60000, wait_until="domcontentloaded")
+            page.wait_for_timeout(3000)
+
+            menu_item = first_visible(page.get_by_text("地籍定位", exact=True))
+            if not menu_item:
+                return False
+            menu_item.click()
+            page.wait_for_timeout(800)
+
+            panel = page.locator(".land-locate-content")
+            inputs = panel.locator("input")
+            admin_input, keyword_input, section_input, lot_input = inputs.nth(0), inputs.nth(1), inputs.nth(2), inputs.nth(3)
+
+            admin_input.click(force=True)
+            page.wait_for_timeout(300)
+            page.get_by_role("option", name=district, exact=True).click()
+            page.wait_for_timeout(500)
+
+            keyword_input.fill(section_name)
+            page.wait_for_timeout(800)
+
+            section_input.click(force=True)
+            page.wait_for_timeout(300)
+            page.get_by_role("option", name=section_name, exact=True).first.click()
+            page.wait_for_timeout(300)
+
+            lot_input.fill(lot_main)
+            if lot_sub and lot_sub != "0":
+                inputs.nth(5).fill(lot_sub)
+            page.wait_for_timeout(300)
+
+            panel.get_by_role("button", name="加入地籍清單").click()
+            page.wait_for_timeout(1500)
+
+            # 點清單裡該筆的「定位」圖釘（不是「全部定位」）才會跳出含判讀結果紅字的「地籍資訊」彈窗；
+            # 「全部定位」只會讓地圖飛過去、畫出色框，不會自動彈出這個資訊框
+            panel.locator("table tbody tr, .v-table tbody tr").first.locator("button.text-primary").click(force=True)
+            page.wait_for_timeout(2000)
+
+            page.screenshot(path=save_path)
+            return True
+        except Exception:
+            return False
+        finally:
+            browser.close()
+
+
+def _query_culturalasset(district: str, section_code: str, section_name: str, lot: str) -> dict:
+    """查詢開發行為涉及文化資產查詢系統 https://culgis.taichung.gov.tw/tc/index.html
+    直接呼叫底層 locate_parcel_area2_158.cfm，不需瀏覽器、不需 session/cookie：
+      KEY_NO_LIST = 行政區代碼(2碼，CULTURALASSET_ADMIT) + 地段代碼(4碼，沿用 SECTIONS 全國段代碼)
+                    + 地號母(4碼) + 地號子(4碼)
+    回傳 GeoJSON FeatureCollection，properties.ISCUL："1"=落在法定文化資產範圍，"0"=不在。
+    另外開瀏覽器操作一次官網地籍定位畫面截圖（畫面上會顯示紅框/紫框），供視覺確認。
+    """
+    import urllib.request
+    import urllib.parse
+
+    admit = CULTURALASSET_ADMIT.get(district)
+    if not admit:
+        return {"error": f"文化資產查詢找不到行政區代碼：{district}"}
+
+    lot_parts = lot.split("-")
+    lot_main, lot_sub = lot_parts[0], (lot_parts[1] if len(lot_parts) > 1 else "0")
+    key_no = admit + section_code.zfill(4) + lot_main.zfill(4) + lot_sub.zfill(4)
+
+    body = urllib.parse.urlencode({"KEY_NO_LIST": key_no, "inx": "0"}).encode()
+    req = urllib.request.Request(
+        "https://culgis.taichung.gov.tw/tc/CFM/locate_parcel_area2_158.cfm",
+        data=body, method="POST",
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            raw = resp.read().decode("utf-8", errors="ignore")
+    except Exception as e:
+        return {"error": f"文化資產查詢 API 失敗：{e}"}
+
+    idx = raw.find("{")
+    if idx == -1:
+        return {"error": "文化資產查詢回傳格式異常"}
+    try:
+        data = json.loads(raw[idx:])
+    except Exception as e:
+        return {"error": f"文化資產查詢回傳解析失敗：{e}"}
+
+    features = data.get("features", [])
+    if not features:
+        return {"error": "文化資產查詢查無地號資料"}
+
+    props = features[0].get("properties", {})
+    iscul = str(props.get("ISCUL", "0"))
+    desc = re.sub(r"<[^>]+>", "", props.get("說明", "")).strip()
+
+    result = {
+        "文化資產查詢": "落在法定文化資產範圍內" if iscul == "1" else "非屬於法定文化資產範圍",
+        "在範圍內": iscul == "1",
+        "說明": desc,
+        "地段號": props.get("地段號", ""),
+        "鄰近提醒": "本查詢僅比對地籍範圍是否落在法定文化資產範圍內，請同時對照截圖與圖例，確認周邊是否有古蹟／歷史建築／聚落建築群等其他文化資產色塊，如有可能仍須提送開發行為說明書。",
+    }
+
+    img_path = tempfile.mktemp(suffix="_culturalasset.png")
+    try:
+        if _capture_culturalasset_screenshot(district, section_name, lot_main, lot_sub, img_path):
+            result["截圖路徑"] = img_path
+            try:
+                if _scan_nearby_monument(img_path):
+                    result["附近疑似古蹟"] = True
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+    return result
+
+
+def _culturalasset_worker(district: str, section_code: str, section_name: str, lot: str, out_file: str):
+    """子程序入口：查文化資產查詢，結果寫到 out_file"""
+    result = _query_culturalasset(district, section_code, section_name, lot)
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False)
 
@@ -1925,6 +2307,13 @@ def query_batch(queries: list, headless: bool = False) -> list:
                 "--firebreak-worker", district, code, lot, firebreak_file
             ])
 
+            # 啟動建築線免指地區查詢 subprocess（與 GIS 查詢並行）
+            buildingline_file = tempfile.mktemp(suffix=".json")
+            proc_buildingline = subprocess.Popen([
+                sys.executable, script_path,
+                "--buildingline-worker", district, code, lot, buildingline_file
+            ])
+
             # 啟動地質敏感區查詢 subprocess（與 GIS 查詢並行）
             gsa_file = tempfile.mktemp(suffix=".json")
             proc_gsa = subprocess.Popen([
@@ -1953,6 +2342,13 @@ def query_batch(queries: list, headless: bool = False) -> list:
                 "--fault-worker", district, section_name, lot, fault_file
             ])
 
+            # 啟動文化資產查詢 subprocess（與 GIS 查詢並行）
+            culturalasset_file = tempfile.mktemp(suffix=".json")
+            proc_culturalasset = subprocess.Popen([
+                sys.executable, script_path,
+                "--culturalasset-worker", district, code, section_name, lot, culturalasset_file
+            ])
+
             # 主程序同步查 GIS（含建號和執照號碼）
             gis_texts = _query_one(gis_page, district, section_name, code, lot,
                                    current_district, current_section)
@@ -1975,7 +2371,7 @@ def query_batch(queries: list, headless: bool = False) -> list:
             ud_file = tempfile.mktemp(suffix=".json")
             proc_ud = None
             _ud_skip_reason = None
-            ud_save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
+            ud_save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
             urban_json_str_ud = next((t[len("都計JSON："):] for t in gis_texts if t.startswith("都計JSON：")), None)
             if not urban_json_str_ud:
                 _ud_skip_reason = "非都市計畫區域或 GIS 未取得分區資料"
@@ -2027,6 +2423,15 @@ def query_batch(queries: list, headless: bool = False) -> list:
                 else:
                     bupic_results.append({"error": f"bupic 查詢失敗：{lic}"})
 
+            # 等建築線免指地區完成
+            proc_buildingline.wait(timeout=120)
+            if os.path.exists(buildingline_file):
+                with open(buildingline_file, encoding="utf-8") as f:
+                    buildingline_res = json.load(f)
+                os.unlink(buildingline_file)
+            else:
+                buildingline_res = {"error": "建築線免指查詢未回傳結果"}
+
             # 等地質敏感區完成
             proc_gsa.wait(timeout=120)
             if os.path.exists(gsa_file):
@@ -2063,6 +2468,15 @@ def query_batch(queries: list, headless: bool = False) -> list:
             else:
                 fault_res = {"error": "活動斷層查詢未回傳結果"}
 
+            # 等文化資產查詢完成
+            proc_culturalasset.wait(timeout=60)
+            if os.path.exists(culturalasset_file):
+                with open(culturalasset_file, encoding="utf-8") as f:
+                    culturalasset_res = json.load(f)
+                os.unlink(culturalasset_file)
+            else:
+                culturalasset_res = {"error": "文化資產查詢未回傳結果"}
+
             # 套繪有上色但執照仍查無（含重測前地號重試後）→ 加異常備注
             if (isinstance(overlay_res, dict) and overlay_res.get("有上色")
                     and "執照查詢：查無執照" in gis_texts):
@@ -2098,7 +2512,7 @@ def query_batch(queries: list, headless: bool = False) -> list:
                 except Exception:
                     pass
 
-            results.append((district, section_name, lot, gis_texts, overlay_res, bupic_results, gsa_res, slope_res, firebreak_res, sewer_res, fault_res, ud_res, lot2addr_result))
+            results.append((district, section_name, lot, gis_texts, overlay_res, bupic_results, gsa_res, slope_res, firebreak_res, sewer_res, fault_res, ud_res, lot2addr_result, buildingline_res, culturalasset_res))
             current_district = district
             current_section = code
 
@@ -2107,25 +2521,227 @@ def query_batch(queries: list, headless: bool = False) -> list:
     return results
 
 
+def _quick_summary(texts: list, overlay: dict, gsa: dict = None, slope: dict = None,
+                    firebreak: dict = None, sewer: dict = None, fault: dict = None,
+                    buildingline: dict = None, culturalasset: dict = None) -> list:
+    """組合快速摘要（查詢結果第一欄），回傳 [(label, value, is_warning), ...]"""
+    lines = []
+
+    # 1. 登記面積（附換算坪數，1平方公尺 = 0.3025坪）
+    area_val = None
+    for i, t in enumerate(texts):
+        if '登記面積' in t or t.startswith('面積('):
+            if re.search(r'\d', t):
+                area_val = t
+            elif i + 1 < len(texts):
+                area_val = texts[i + 1]
+            break
+    if area_val:
+        m = re.search(r'[\d,]+\.?\d*', area_val)
+        ping_str = ""
+        if m:
+            try:
+                sqm = float(m.group().replace(',', ''))
+                ping_str = f"（約{sqm * 0.3025:.2f}坪）"
+            except ValueError:
+                pass
+        area_val = (area_val if '平方公尺' in area_val else f"{area_val} 平方公尺") + ping_str
+    lines.append(("登記面積", area_val or "查無資料", False))
+
+    # 2. 使用分區（建蔽率/容積率）
+    urban_json_str = next((t[len("都計JSON："):] for t in texts if t.startswith("都計JSON：")), None)
+    zones_str = "查無資料"
+    if urban_json_str:
+        try:
+            zdata = json.loads(urban_json_str)
+            if isinstance(zdata, dict):
+                zdata = [zdata]
+            zone_parts = []
+            for u in zdata:
+                z = u.get("使用分區", "")
+                bc = u.get("建蔽率", "")
+                fc = u.get("容積率", "")
+                if z:
+                    zone_parts.append(f"{z}（建{bc}/容{fc}）" if (bc or fc) else z)
+            if zone_parts:
+                zones_str = "、".join(zone_parts)
+        except Exception:
+            pass
+    lines.append(("使用分區", zones_str, False))
+
+    # 3. 履歷有無異動
+    history_json_str = next((t[len("履歷JSON："):] for t in texts if t.startswith("履歷JSON：")), None)
+    has_history = False
+    if history_json_str:
+        try:
+            h = json.loads(history_json_str)
+            for k in ["其他登記事項", "分割合併紀錄", "重測前後對照"]:
+                tbl = h.get(k)
+                if tbl and tbl.get("rows"):
+                    has_history = True
+                    break
+        except Exception:
+            pass
+    lines.append(("履歷異動", "有" if has_history else "無", False))
+
+    # 4. 建號 / 執照 有無
+    build_no_line = next((t for t in texts if t.startswith("建號查詢：")), "")
+    lic_line = next((t for t in texts if t.startswith("執照查詢：")), "")
+    has_buildno = bool(build_no_line) and "查無建號" not in build_no_line
+    has_license = bool(lic_line) and "查無執照" not in lic_line
+    lines.append(("建號", "有" if has_buildno else "無", False))
+    lines.append(("執照", "有" if has_license else "無", False))
+
+    # 5. 建築套繪圖有無上色
+    if not overlay:
+        overlay_val, overlay_warn = "查無資料", False
+    elif "error" in overlay:
+        overlay_val, overlay_warn = "查詢失敗", False
+    else:
+        has_color = overlay.get("有上色", True)
+        overlay_val = "有上色" if has_color else "空白"
+        overlay_warn = has_color
+    lines.append(("套繪圖", overlay_val, overlay_warn))
+
+    # 6. 防火間隔
+    if not firebreak:
+        fb_val, fb_warn = "查無資料", False
+    elif "error" in firebreak:
+        fb_val, fb_warn = "查詢失敗", False
+    elif "結果" in firebreak:
+        fb_val, fb_warn = firebreak["結果"], False
+    else:
+        has_color = firebreak.get("有上色", True)
+        fb_val = "有防火間隔" if has_color else "無防火間隔"
+        fb_warn = has_color
+    lines.append(("防火間隔", fb_val, fb_warn))
+
+    # 7. 地質敏感區
+    if not gsa:
+        gsa_val, gsa_warn = "查無資料", False
+    elif "error" in gsa:
+        gsa_val, gsa_warn = gsa["error"], False
+    else:
+        gsa_txt = gsa.get("地質敏感區查詢", "查無資料")
+        gsa_val = gsa_txt
+        gsa_warn = '不在' not in gsa_txt and '查無' not in gsa_txt and '失敗' not in gsa_txt
+    lines.append(("地質敏感區", gsa_val, gsa_warn))
+
+    # 8. 山坡地（只列「是」的欄位）
+    if not slope:
+        slope_val, slope_warn = "查無資料", False
+    elif "error" in slope:
+        slope_val, slope_warn = slope["error"], False
+    else:
+        data = slope.get("山坡地查詢", {})
+        yes_keys = [k for k, v in data.items() if v == "是"]
+        if yes_keys:
+            slope_val, slope_warn = "、".join(yes_keys), True
+        else:
+            slope_val, slope_warn = "無限制", False
+    lines.append(("山坡地", slope_val, slope_warn))
+
+    # 9. 建築線免指 + 軍事禁限建
+    if not buildingline:
+        bl_val, bl_warn = "查無資料", False
+        mil_val, mil_warn = "查無資料", False
+    elif "error" in buildingline:
+        bl_val, bl_warn = buildingline["error"], False
+        mil_val, mil_warn = buildingline["error"], False
+    else:
+        bl_summary = buildingline.get("建築線免指查詢", "")
+        bl_val = bl_summary
+        bl_warn = bool(bl_summary) and "位於免指" not in bl_summary
+
+        mil_list = buildingline.get("軍事禁限建清單", [])
+        mil_summary = buildingline.get("軍事禁限建查詢", "")
+        if mil_list:
+            detail = ""
+            for m in mil_list:
+                match = re.search(r'(\d+)\s*公尺', m.get("禁限建", "") or "")
+                if match:
+                    detail = f"限高{match.group(1)}公尺"
+                    break
+            if not detail:
+                for m in mil_list:
+                    if m.get("NHEIGHT"):
+                        detail = f"限高{m['NHEIGHT']}公尺"
+                        break
+            mil_val = f"{mil_summary}（{detail}）" if detail else mil_summary
+            mil_warn = True
+        else:
+            mil_val, mil_warn = (mil_summary or "非軍事禁限建範圍"), False
+    lines.append(("建築線免指", bl_val, bl_warn))
+    lines.append(("軍事禁限建", mil_val, mil_warn))
+
+    # 10. 污水下水道接管
+    if not sewer:
+        sewer_val, sewer_warn = "查無資料", False
+    elif "error" in sewer:
+        sewer_val, sewer_warn = sewer["error"], False
+    elif "結果" in sewer:
+        sewer_val, sewer_warn = sewer["結果"], False
+    else:
+        v = sewer.get("公告特定區", "")
+        need = bool(v) and v != "查無資料"
+        sewer_val, sewer_warn = ("需套繪" if need else "不需套繪"), need
+    lines.append(("污水下水道", sewer_val, sewer_warn))
+
+    # 11. 台灣活動斷層（<100公尺才顯示）
+    if not fault:
+        fault_val, fault_warn = "查無資料", False
+    elif "error" in fault:
+        fault_val, fault_warn = fault["error"], False
+    else:
+        distances = fault.get("斷層距離", [])
+        near = min(distances, key=lambda d: d["distM"]) if distances else None
+        if near and near["distM"] < 100:
+            fault_val, fault_warn = f"{near['name']} {near['distM']:,}公尺", True
+        else:
+            fault_val, fault_warn = "無", False
+    lines.append(("活動斷層", fault_val, fault_warn))
+
+    # 12. 文化資產查詢
+    if not culturalasset:
+        cul_val, cul_warn = "查無資料", False
+    elif "error" in culturalasset:
+        cul_val, cul_warn = culturalasset["error"], False
+    else:
+        cul_val = culturalasset.get("文化資產查詢", "查無資料")
+        cul_warn = bool(culturalasset.get("在範圍內"))
+    lines.append(("文化資產", cul_val, cul_warn))
+
+    return lines
+
+
 def print_result(district: str, section_name: str, lot: str,
-                 texts: list, overlay: dict, bupic_list: list = None, gsa: dict = None, slope: dict = None, firebreak: dict = None, sewer: dict = None, fault: dict = None, ud: dict = None, address: str = ""):
+                 texts: list, overlay: dict, bupic_list: list = None, gsa: dict = None, slope: dict = None, firebreak: dict = None, sewer: dict = None, fault: dict = None, ud: dict = None, buildingline: dict = None, culturalasset: dict = None, address: str = ""):
     print()
     print("=" * 60)
     print(f"  {district} {section_name} {lot}地號")
     print(f"  地址：{address if address else '尚無'}")
     print("=" * 60)
 
+    print()
+    print("【快速摘要】")
+    for label, value, warn in _quick_summary(texts, overlay, gsa, slope, firebreak, sewer, fault, buildingline, culturalasset):
+        if warn:
+            print(f"\033[31m  {label}：{value}\033[0m")
+        else:
+            print(f"  {label}：{value}")
+
     # 分離建物查詢結果與履歷與都計
     build_lines = [t for t in texts if t.startswith("建號查詢：") or t.startswith("執照查詢：")]
     history_json = next((t[len("履歷JSON："):] for t in texts if t.startswith("履歷JSON：")), None)
     urban_json = next((t[len("都計JSON："):] for t in texts if t.startswith("都計JSON：")), None)
+    survey_screenshot_path = next((t[len("測繪中心影像截圖路徑："):] for t in texts if t.startswith("測繪中心影像截圖路徑：")), None)
     gis_texts = [t for t in texts if not t.startswith("建號查詢：") and not t.startswith("執照查詢：")
                  and not t.startswith("履歷JSON：") and not t.startswith("都計JSON：")
-                 and not t.startswith("都計截圖路徑：")]
+                 and not t.startswith("都計截圖路徑：") and not t.startswith("測繪中心影像截圖路徑：")]
 
     # GIS：提取關鍵段落（標籤行後面緊跟的值）
     print("【GIS 分區資訊】")
-    key_labels = ['登記面積', '公告地價', '公告現值', '使用資訊', '國土功能分區',
+    key_labels = ['登記面積', '面積(平方公尺)', '公告地價', '公告現值', '使用資訊',
                   '地政事務所', '區段徵收', '登記日期', '自然人']
     value_keywords = ['平方公尺', '住宅區', '商業區', '工業區', '農業區', '保護區',
                       '特定', '城鄉', '元/平方公尺', '地政事務所', '年', '%']
@@ -2163,6 +2779,11 @@ def print_result(district: str, section_name: str, lot: str,
                         print(f"  {key}：{val}")
         except Exception:
             pass
+
+    if survey_screenshot_path:
+        print()
+        print("【測繪中心影像】")
+        print(f"  截圖：{survey_screenshot_path}")
 
     if history_json:
         try:
@@ -2271,7 +2892,7 @@ def print_result(district: str, section_name: str, lot: str,
         pcts = overlay.get("各色比例", {})
         has_color = overlay.get("有上色", True)
         if has_color:
-            print(f"  結果：有上色")
+            print(f"\033[31m  結果：有上色\033[0m")
             print(f"  主要類型：{dominant}")
             if overlay.get("標記文字"):
                 print(f"  套繪標記：{overlay['標記文字']}")
@@ -2296,7 +2917,7 @@ def print_result(district: str, section_name: str, lot: str,
             dominant = firebreak.get("主要顏色", "未知")
             pcts = firebreak.get("各色比例", {})
             if has_color:
-                print(f"  結果：有防火間隔")
+                print(f"\033[31m  結果：有防火間隔\033[0m")
                 print(f"  主要類型：{dominant}")
             else:
                 print(f"  結果：空白（無防火間隔記錄）")
@@ -2331,6 +2952,32 @@ def print_result(district: str, section_name: str, lot: str,
                 else:
                     print(f"  {k}：{v}")
 
+    if buildingline:
+        print()
+        print("【建築線免指地區】")
+        if "error" in buildingline:
+            print(f"  查詢失敗：{buildingline['error']}")
+        else:
+            summary = buildingline.get("建築線免指查詢", "")
+            if "位於免指" in summary:
+                print(f"  {summary}")
+            else:
+                print(f"\033[31m  {summary}\033[0m")
+            for a in buildingline.get("免指清單", []):
+                print(f"    ▸ {a.get('文號','')}（{a.get('日期','')}）{a.get('名稱','')} — {a.get('內容','')}")
+
+            military_summary = buildingline.get("軍事禁限建查詢", "")
+            military_list = buildingline.get("軍事禁限建清單", [])
+            if military_summary:
+                print()
+                if military_list:
+                    print(f"\033[31m  {military_summary}\033[0m")
+                    for m in military_list:
+                        desc = m.get("禁限建", "") or f"限高{m.get('NHEIGHT','')}公尺"
+                        print(f"    ▸ {m.get('圖層名','')}：{desc}")
+                else:
+                    print(f"  {military_summary}")
+
     if sewer:
         print()
         print("【污水下水道接管查詢】")
@@ -2360,11 +3007,31 @@ def print_result(district: str, section_name: str, lot: str,
             if "截圖路徑" in fault:
                 print(f"  截圖：{fault['截圖路徑']}")
 
+    if culturalasset:
+        print()
+        print("【文化資產查詢】")
+        if "error" in culturalasset:
+            print(f"  查詢失敗：{culturalasset['error']}")
+        else:
+            summary = culturalasset.get("文化資產查詢", "")
+            if culturalasset.get("在範圍內"):
+                print(f"\033[31m  {summary}\033[0m")
+            else:
+                print(f"  {summary}")
+            if culturalasset.get("說明") and culturalasset["說明"] != summary:
+                print(f"    ▸ {culturalasset['說明']}")
+            if "截圖路徑" in culturalasset:
+                print(f"  截圖：{culturalasset['截圖路徑']}")
+            if culturalasset.get("附近疑似古蹟"):
+                print(f"\033[31m  ⚠️ 截圖偵測到附近有古蹟色塊，即使本地號不在範圍內，仍請確認是否需提送開發行為說明書\033[0m")
+            if culturalasset.get("鄰近提醒"):
+                print(f"  ⚠️ {culturalasset['鄰近提醒']}")
+
     print("=" * 60)
 
 
 def save_pdf(district: str, section_name: str, lot: str,
-             texts: list, overlay: dict, bupic_list: list = None, gsa: dict = None, slope: dict = None, firebreak: dict = None, sewer: dict = None, fault: dict = None, ud: dict = None, address: str = ""):
+             texts: list, overlay: dict, bupic_list: list = None, gsa: dict = None, slope: dict = None, firebreak: dict = None, sewer: dict = None, fault: dict = None, ud: dict = None, buildingline: dict = None, culturalasset: dict = None, address: str = ""):
     import base64
     from datetime import date
 
@@ -2372,11 +3039,18 @@ def save_pdf(district: str, section_name: str, lot: str,
     history_json = next((t[len("履歷JSON："):] for t in texts if t.startswith("履歷JSON：")), None)
     urban_json = next((t[len("都計JSON："):] for t in texts if t.startswith("都計JSON：")), None)
     urban_screenshot_path = next((t[len("都計截圖路徑："):] for t in texts if t.startswith("都計截圖路徑：")), None)
+    survey_screenshot_path = next((t[len("測繪中心影像截圖路徑："):] for t in texts if t.startswith("測繪中心影像截圖路徑：")), None)
     gis_texts = [t for t in texts if not t.startswith("建號查詢：") and not t.startswith("執照查詢：")
                  and not t.startswith("履歷JSON：") and not t.startswith("都計JSON：")
-                 and not t.startswith("都計截圖路徑：")]
+                 and not t.startswith("都計截圖路徑：") and not t.startswith("測繪中心影像截圖路徑：")]
 
-    key_labels = ['登記面積', '公告地價', '公告現值', '使用資訊', '國土功能分區',
+    _warn_style = " style='color:red;font-weight:bold;'"
+    quick_summary_rows = "".join(
+        f"<tr><td class='lbl'>{label}</td><td{_warn_style if warn else ''}>{value}</td></tr>"
+        for label, value, warn in _quick_summary(texts, overlay, gsa, slope, firebreak, sewer, fault, buildingline, culturalasset)
+    )
+
+    key_labels = ['登記面積', '面積(平方公尺)', '公告地價', '公告現值', '使用資訊',
                   '地政事務所', '區段徵收', '登記日期', '自然人']
     value_keywords = ['平方公尺', '住宅區', '商業區', '工業區', '農業區', '保護區',
                       '特定', '城鄉', '元/平方公尺', '地政事務所', '年', '%']
@@ -2526,6 +3200,17 @@ def save_pdf(district: str, section_name: str, lot: str,
         except Exception:
             pass
 
+    survey_html = ""
+    if survey_screenshot_path:
+        try:
+            with open(survey_screenshot_path, "rb") as f_img:
+                img_b64 = base64.b64encode(f_img.read()).decode()
+            survey_html = (f"<h2>測繪中心影像</h2>"
+                           f"<img src='data:image/png;base64,{img_b64}'"
+                           f" style='max-width:100%;margin-top:8px;border:1px solid #ccc;'>")
+        except Exception:
+            pass
+
     overlay_html = ""
     if "error" in overlay:
         overlay_html = f"<p>查詢失敗：{overlay['error']}</p>"
@@ -2534,7 +3219,8 @@ def save_pdf(district: str, section_name: str, lot: str,
         dominant = overlay.get("主要顏色", "未知")
         pcts = overlay.get("各色比例", {})
         detail = "、".join(f"{k} {v}" for k, v in pcts.items() if k != "其他")
-        overlay_html = f"<p>{'有上色' if has_color else '空白（無套繪記錄）'}</p>"
+        overlay_html = (f"<p{_warn_style}>有上色</p>" if has_color
+                        else "<p>空白（無套繪記錄）</p>")
         if has_color:
             overlay_html += f"<p>主要類型：{dominant}</p>"
             if overlay.get("標記文字"):
@@ -2561,7 +3247,8 @@ def save_pdf(district: str, section_name: str, lot: str,
             dominant = firebreak.get("主要顏色", "未知")
             pcts = firebreak.get("各色比例", {})
             detail = "、".join(f"{k} {v}" for k, v in pcts.items() if k != "其他")
-            firebreak_html = f"<p>{'有上色' if has_color else '空白（無防火間隔記錄）'}</p>"
+            firebreak_html = (f"<p{_warn_style}>有防火間隔</p>" if has_color
+                              else "<p>空白（無防火間隔記錄）</p>")
             if has_color:
                 firebreak_html += f"<p>主要類型：{dominant}</p>"
             if detail:
@@ -2600,6 +3287,35 @@ def save_pdf(district: str, section_name: str, lot: str,
         slope_html = f"<h2>山坡地查詢</h2><p>{slope['error']}</p>"
     else:
         slope_html = ""
+
+    # 建築線免指地區 + 軍事禁限建 HTML
+    if buildingline:
+        if "error" in buildingline:
+            buildingline_html = f"<h2>建築線免指地區</h2><p class='err'>{buildingline['error']}</p>"
+        else:
+            summary = buildingline.get("建築線免指查詢", "")
+            style = "" if "位於免指" in summary else " style='color:red;font-weight:bold;'"
+            rows = "".join(
+                f"<tr><td class='lbl'>{a.get('文號','')}（{a.get('日期','')}）{a.get('名稱','')}</td><td>{a.get('內容','')}</td></tr>"
+                for a in buildingline.get("免指清單", [])
+            )
+            buildingline_html = f"<h2>建築線免指地區</h2><p{style}>{summary}</p>"
+            if rows:
+                buildingline_html += f"<table>{rows}</table>"
+
+            military_summary = buildingline.get("軍事禁限建查詢", "")
+            military_list = buildingline.get("軍事禁限建清單", [])
+            if military_summary:
+                m_style = " style='color:red;font-weight:bold;'" if military_list else ""
+                buildingline_html += f"<h2>軍事禁限建</h2><p{m_style}>{military_summary}</p>"
+                if military_list:
+                    m_rows = "".join(
+                        f"<tr><td class='lbl'>{m.get('圖層名','')}</td><td>{m.get('禁限建','') or ('限高' + str(m.get('NHEIGHT','')) + '公尺')}</td></tr>"
+                        for m in military_list
+                    )
+                    buildingline_html += f"<table>{m_rows}</table>"
+    else:
+        buildingline_html = ""
 
     # 污水下水道接管 HTML
     if sewer:
@@ -2645,6 +3361,33 @@ def save_pdf(district: str, section_name: str, lot: str,
     else:
         fault_html = ""
 
+    # 文化資產查詢 HTML
+    if culturalasset:
+        if "error" in culturalasset:
+            culturalasset_html = f"<h2>文化資產查詢</h2><p class='err'>{culturalasset['error']}</p>"
+        else:
+            summary = culturalasset.get("文化資產查詢", "")
+            style = " style='color:red;font-weight:bold;'" if culturalasset.get("在範圍內") else ""
+            desc = culturalasset.get("說明", "")
+            desc_p = f"<p>{desc}</p>" if desc and desc != summary else ""
+            cul_img_html = ""
+            if "截圖路徑" in culturalasset:
+                try:
+                    import base64 as _b64_2
+                    with open(culturalasset["截圖路徑"], "rb") as _f:
+                        img_b64 = _b64_2.b64encode(_f.read()).decode()
+                    cul_img_html = f'<img src="data:image/png;base64,{img_b64}" style="max-width:100%;margin-top:8px;">'
+                except Exception:
+                    pass
+            cul_monument_p = ""
+            if culturalasset.get("附近疑似古蹟"):
+                cul_monument_p = "<p style='color:red;font-weight:bold;'>⚠️ 截圖偵測到附近有古蹟色塊，即使本地號不在範圍內，仍請確認是否需提送開發行為說明書</p>"
+            cul_note = culturalasset.get("鄰近提醒", "")
+            cul_note_p = f"<p style='color:#b8860b;'>⚠️ {cul_note}</p>" if cul_note else ""
+            culturalasset_html = f"<h2>文化資產查詢</h2><p{style}>{summary}</p>{desc_p}{cul_monument_p}{cul_note_p}{cul_img_html}"
+    else:
+        culturalasset_html = ""
+
     today = date.today().strftime("%Y年%m月%d日")
     html = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
 <style>
@@ -2658,13 +3401,18 @@ def save_pdf(district: str, section_name: str, lot: str,
   table.inner td {{ border:none; padding:2px 6px; }}
 </style>
 </head><body>
-<h1>臺中市{district}{section_name}{lot}地號 查詢結果</h1>
+<h1>台中市{district}{section_name}{lot}地號 查詢結果</h1>
 <div class="meta">地址：{address if address else "尚無"} &nbsp;|&nbsp; 查詢日期：{today}</div>
+
+<h2>快速摘要</h2>
+<table>{quick_summary_rows}</table>
 
 <h2>GIS 分區資訊</h2>
 <table>{"".join(gis_rows) or "<tr><td>無資料</td></tr>"}</table>
 
 {urban_html}
+
+{survey_html}
 
 {history_html}
 
@@ -2682,23 +3430,27 @@ def save_pdf(district: str, section_name: str, lot: str,
 
 {slope_html}
 
+{buildingline_html}
+
 {sewer_html}
 
 {fault_html}
+
+{culturalasset_html}
 </body></html>"""
 
-    parcel_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
+    parcel_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
     os.makedirs(parcel_dir, exist_ok=True)
 
     # 套繪截圖另存至資料夾
     if isinstance(overlay, dict) and overlay.get("截圖路徑"):
-        overlay_dest = os.path.join(parcel_dir, f"臺中市{district}{section_name}{lot}地號_套繪圖.png")
+        overlay_dest = os.path.join(parcel_dir, f"台中市{district}{section_name}{lot}地號_套繪圖.png")
         try:
             shutil.copy2(overlay["截圖路徑"], overlay_dest)
         except Exception:
             pass
 
-    pdf_path = os.path.join(parcel_dir, f"臺中市{district}{section_name}{lot}地號.pdf")
+    pdf_path = os.path.join(parcel_dir, f"台中市{district}{section_name}{lot}地號.pdf")
     with sync_playwright() as p:
         browser = p.chromium.launch()
         pg = browser.new_page()
@@ -2845,15 +3597,15 @@ def lot_to_address(district: str, section_name: str, lot: str) -> str:
 
 def address_to_lot(address: str) -> tuple:
     """
-    透過 easymap.land.moi.gov.tw/P02 將臺中市門牌地址轉為 (district, section_name, lot_number)。
-    address 範例: "<行政區><路名><門牌號>號" 或 "臺中市<行政區><路名><門牌號>號"
+    透過 easymap.land.moi.gov.tw/P02 將台中市門牌地址轉為 (district, section_name, lot_number)。
+    address 範例: "西區中興街350號" 或 "台中市西區中興街350號"
     """
     district_m = re.search(r'([^\s市]+區)', address)
     district = district_m.group(1) if district_m else ""
 
     road_m = re.search(r'([^\s號巷弄\d０-９]+(?:街|路|大道|道)(?:[一二三四五六七八九十東西南北]+段)?)', address)
     road = road_m.group(1) if road_m else ""
-    # 若路名意外包含行政區前綴（如「<行政區><路名>」或「臺中市<行政區><路名>」），去掉前綴
+    # 若路名意外包含行政區前綴（如「大雅區中清東路」或「台中市西區中興街」），去掉前綴
     if district and district in road:
         road = road[road.find(district) + len(district):]
 
@@ -3119,15 +3871,15 @@ def address_to_lot(address: str) -> tuple:
 def lookup(district: str, section_name: str, lot_number: str, address: str = ""):
     """單筆查詢"""
     results = query_batch([(district, section_name, lot_number)])
-    for d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault, ud, lot2addr in results:
+    for d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault, ud, lot2addr, buildingline, culturalasset in results:
         bupic_addr = ""
         for bp in (bupic_list or []):
             bupic_addr = _bupic_address(bp.get("執照存根詳細", {}))
             if bupic_addr:
                 break
         final_address = address or lot2addr or bupic_addr
-        print_result(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, address=final_address)
-        save_pdf(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, address=final_address)
+        print_result(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, buildingline=buildingline, culturalasset=culturalasset, address=final_address)
+        save_pdf(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, buildingline=buildingline, culturalasset=culturalasset, address=final_address)
 
 
 # 地段代碼對照（全臺中市，共 29 行政區、1625 地段）
@@ -4847,6 +5599,11 @@ if __name__ == "__main__":
         _firebreak_worker(district, code, lot, out_file)
         sys.exit(0)
 
+    if args and args[0] == "--buildingline-worker":
+        _, district, code, lot, out_file = args
+        _buildingline_worker(district, code, lot, out_file)
+        sys.exit(0)
+
     if args and args[0] == "--sewer-worker":
         _, district, code, lot, out_file = args
         _sewer_worker(district, code, lot, out_file)
@@ -4855,6 +5612,11 @@ if __name__ == "__main__":
     if args and args[0] == "--fault-worker":
         _, district, section_name, lot, out_file = args
         _fault_worker(district, section_name, lot, out_file)
+        sys.exit(0)
+
+    if args and args[0] == "--culturalasset-worker":
+        _, district, code, section_name, lot, out_file = args
+        _culturalasset_worker(district, code, section_name, lot, out_file)
         sys.exit(0)
 
     if args and args[0] == "--ud-worker":
@@ -4878,7 +5640,7 @@ if __name__ == "__main__":
                 print(f"  {name}")
         sys.exit(0)
 
-    # 門牌地址查詢：python3 gis_query.py <行政區><路名><門牌號>號
+    # 門牌地址查詢：python3 gis_query.py 西區中興街350號
     if len(args) == 1 and re.search(r'[街路道].*\d+號', args[0]):
         district, section_name, lot = address_to_lot(args[0])
         if district and section_name and lot:
@@ -4902,39 +5664,39 @@ if __name__ == "__main__":
                     print(f"略過格式錯誤的行：{line}")
         if queries:
             results = query_batch(queries)
-            for d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault, ud, lot2addr in results:
+            for d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault, ud, lot2addr, buildingline, culturalasset in results:
                 bupic_addr = next((_bupic_address(bp.get("執照存根詳細", {})) for bp in (bupic_list or []) if _bupic_address(bp.get("執照存根詳細", {}))), "")
                 final_addr = lot2addr or bupic_addr
-                print_result(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, address=final_addr)
-                save_pdf(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, address=final_addr)
+                print_result(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, buildingline=buildingline, culturalasset=culturalasset, address=final_addr)
+                save_pdf(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, buildingline=buildingline, culturalasset=culturalasset, address=final_addr)
         sys.exit(0)
 
-    # 同地段多地號：python3 gis_query.py <行政區> <地段> <地號1> <地號2> <地號3>
+    # 同地段多地號：python3 gis_query.py 北屯區 碧柳段 40 50 60
     if len(args) >= 4:
         district, section = args[0], args[1]
         lots = args[2:]
         queries = [(district, section, lot) for lot in lots]
         results = query_batch(queries)
-        for d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault, ud, lot2addr in results:
+        for d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault, ud, lot2addr, buildingline, culturalasset in results:
             bupic_addr = next((_bupic_address(bp.get("執照存根詳細", {})) for bp in (bupic_list or []) if _bupic_address(bp.get("執照存根詳細", {}))), "")
             final_addr = lot2addr or bupic_addr
-            print_result(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, address=final_addr)
-            save_pdf(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, address=final_addr)
+            print_result(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, buildingline=buildingline, culturalasset=culturalasset, address=final_addr)
+            save_pdf(d, s, n, texts, overlay, bupic_list, gsa, slope, firebreak, sewer, fault=fault, ud=ud, buildingline=buildingline, culturalasset=culturalasset, address=final_addr)
         sys.exit(0)
 
-    # 單筆：python3 gis_query.py <行政區> <地段> <地號>
+    # 單筆：python3 gis_query.py 北屯區 碧柳段 40
     if len(args) == 3:
         lookup(args[0], args[1], args[2])
         sys.exit(0)
 
     print("用法：")
-    print("  門牌：  python3 gis_query.py <行政區><路名><門牌號>號")
-    print("  單筆：  python3 gis_query.py <行政區> <地段> <地號>")
-    print("  多地號：python3 gis_query.py <行政區> <地段> <地號1> <地號2> <地號3>")
+    print("  門牌：  python3 gis_query.py 西區中興街350號")
+    print("  單筆：  python3 gis_query.py 北屯區 碧柳段 40")
+    print("  多地號：python3 gis_query.py 北屯區 碧柳段 40 50 60")
     print("  批次檔：python3 gis_query.py 地號清單.txt")
     print("  列地段：python3 gis_query.py list")
     print()
     print("批次檔格式（每行一筆，用空格分隔）：")
-    print("  <行政區> <地段> <地號>")
-    print("  <行政區> <地段> <地號>")
-    print("  <行政區> <地段> <地號>")
+    print("  北屯區 碧柳段 40")
+    print("  西屯區 惠來厝段 123")
+    print("  大里區 大里段 88")
