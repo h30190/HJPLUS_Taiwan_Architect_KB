@@ -25,6 +25,8 @@ import tempfile
 import os
 import re
 import shutil
+import difflib
+import unicodedata
 from PIL import Image
 from playwright.sync_api import sync_playwright, Page, BrowserContext
 
@@ -572,22 +574,58 @@ def _ud_fetch_subpage_pdfs(sub_url: str) -> list:
         return []
 
 
+def _ud_norm(s: str) -> str:
+    """統一全形/半形破折號與空白，並用 NFKC 把政府網站常見的 CJK 相容表意文字
+    （如「都」U+FA26、「北」U+F963，肉眼看起來跟正規字一樣但碼位不同）
+    收斂成正規字，避免同一個字因來源不同（GIS 資料 vs 都發局網站標題）
+    碼位不同而比對永遠對不上"""
+    s = unicodedata.normalize('NFKC', s or '')
+    s = re.sub(r'[－–—]', '-', s)
+    return re.sub(r'[\s　]+', '', s)
+
+
 def _ud_best_pdf(plan_case_name: str, pdf_links: list) -> tuple:
-    """從 pdf_links=[(text, url)] 找最符合 plan_case_name 的，回傳 (text, url)"""
+    """從 pdf_links=[(text, url)] 找最符合 plan_case_name 的，回傳 (text, url)。
+    找不到足夠可信的對應時回傳 (None, None)，避免猜錯份數（都發局檔名常被
+    系統截斷、缺右括號，寧可回報「無法確定」也不要靜默下載到錯誤的管制規定）。
+    """
     if not pdf_links:
         return None, None
-    if len(pdf_links) == 1 or not plan_case_name:
+    if len(pdf_links) == 1:
         return pdf_links[0]
+    if not plan_case_name:
+        return None, None
 
     stop = {'變更', '都市', '計畫', '臺中市', '細部', '擬定', '使用分區管制', '土地使用分區', ''}
+    plan_norm = _ud_norm(plan_case_name)
 
-    # 1) 括號內容完整比對
-    target_parens = set(re.findall(r'[（(]([^）)]+)[）)]', plan_case_name))
+    # 括號內容擷取：容忍缺右括號（檔名被截斷時，抓到字串結尾）
+    def _parens(s: str) -> set:
+        return {p.strip() for p in re.findall(r'[（(]([^）)]*)(?:[）)]|$)', s) if p.strip()}
+
+    def _strip_pdf(s: str) -> str:
+        return s[:-4] if s.lower().endswith('.pdf') else s
+
+    def _cand_parens(text: str, url: str) -> set:
+        # 分開處理 text/url 各自擷取括號，避免其中一邊缺右括號時把另一邊也吃進去
+        fname = _strip_pdf(url.rsplit('/', 1)[-1])
+        return _parens(_ud_norm(_strip_pdf(text))) | _parens(_ud_norm(fname))
+
+    target_parens = _parens(plan_norm)
+
+    def _prefix_overlap(a: set, b: set, min_len: int = 6) -> int:
+        # 都發局檔名常被截斷（如「...捷運機廠」被砍成「...捷運機」），
+        # 用前綴包含比對取代嚴格相等，容忍尾端缺字
+        return sum(
+            1 for t in a for c in b
+            if len(t) >= min_len and len(c) >= min_len and (t.startswith(c) or c.startswith(t))
+        )
+
+    # 1) 括號內容比對（前綴包含，容忍截斷）
     if target_parens:
-        best_score, best = 0, pdf_links[0]
+        best_score, best = 0, None
         for text, url in pdf_links:
-            cand_parens = set(re.findall(r'[（(]([^）)]+)[）)]', text + url))
-            score = len(target_parens & cand_parens)
+            score = _prefix_overlap(target_parens, _cand_parens(text, url))
             if score > best_score:
                 best_score, best = score, (text, url)
         if best_score > 0:
@@ -596,13 +634,13 @@ def _ud_best_pdf(plan_case_name: str, pdf_links: list) -> tuple:
     # 2) 括號內容拆字（「北屯區洲際地區」→「北屯區」+「洲際地區」）再比對
     target_subwords: set = set()
     for paren in target_parens:
-        target_subwords.update(re.split(r'[\s、，。\-]+', paren))
+        target_subwords.update(re.split(r'[、，。\-]+', paren))
     target_subwords -= stop
     if target_subwords:
-        best_score, best = 0, pdf_links[0]
+        best_score, best = 0, None
         for text, url in pdf_links:
-            cand_all = re.split(r'[\s（）()、，。\-]+', text + ' ' + url.split('/')[-1])
-            cand_w = set(cand_all) - stop
+            cand_text = _ud_norm(_strip_pdf(text)) + ' ' + _ud_norm(_strip_pdf(url.rsplit('/', 1)[-1]))
+            cand_w = set(re.split(r'[\s（）()、，。\-]+', cand_text)) - stop
             score = len(target_subwords & cand_w)
             if score > best_score:
                 best_score, best = score, (text, url)
@@ -610,16 +648,30 @@ def _ud_best_pdf(plan_case_name: str, pdf_links: list) -> tuple:
             return best
 
     # 3) 整個 plan_case_name 的關鍵字比對
-    target_w = set(re.split(r'[\s（）()、，。\-]', plan_case_name)) - stop
-    best_score, best = 0, pdf_links[0]
+    target_w = set(re.split(r'[（）()、，。\-]', plan_norm)) - stop
+    best_score, best = 0, None
     for text, url in pdf_links:
-        cand_w = set(re.split(r'[\s（）()、，。\-]', text + ' ' + url.split('/')[-1])) - stop
+        cand_text = _ud_norm(text) + ' ' + _ud_norm(url.rsplit('/', 1)[-1])
+        cand_w = set(re.split(r'[\s（）()、，。\-]', cand_text)) - stop
         score = len(target_w & cand_w)
         if score > best_score:
             best_score, best = score, (text, url)
     if best_score > 0:
         return best
-    return pdf_links[0]
+
+    # 4) 檔名被截斷/斷詞完全對不上時的最後手段：整串模糊相似度比對
+    # （處理都發局 PDF 檔名超長被系統砍尾的情況，如「...捷運機廠」被砍成「...捷運機」）
+    best_ratio, best = 0.0, None
+    for text, url in pdf_links:
+        cand_text = _ud_norm(text) + _ud_norm(url.rsplit('/', 1)[-1])
+        ratio = difflib.SequenceMatcher(None, plan_norm, cand_text).ratio()
+        if ratio > best_ratio:
+            best_ratio, best = ratio, (text, url)
+    if best and best_ratio >= 0.35:
+        return best
+
+    # 完全無法判斷 → 回傳 None，讓呼叫端明確回報「無法確定」而不是亂猜一份
+    return None, None
 
 
 def _query_ud_pdf(urban_plan_area: str, plan_case_name: str, save_dir: str) -> dict:
