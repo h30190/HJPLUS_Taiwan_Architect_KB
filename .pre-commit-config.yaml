@@ -1,6 +1,15 @@
 repos:
   - repo: local
     hooks:
+      - id: check-encoding
+        name: Check File Encoding
+        entry: python scripts/check_encoding.py
+        language: system
+        files: '\.(md|html|json|py|ya?ml|txt|csv)$'
+        description: "擋下 BOM、cp950/Big5 亂碼、換行被壓平的檔案（見 PR #13 文化資產亂碼事故）"
+        stages: [pre-commit]
+        always_run: false
+
       - id: graphify
         name: Graphify Knowledge Graph
         entry: python scripts/run_graphify.py
