@@ -62,7 +62,8 @@ def check(path):
             "cp950/Big5 and the original characters are gone"
         )
 
-    fffd = text.count("�")
+    # Escape, not the literal character - otherwise this file fails its own check.
+    fffd = text.count("\ufffd")
     if fffd:
         problems.append(f"{fffd} U+FFFD replacement character(s) - lossy decode")
 

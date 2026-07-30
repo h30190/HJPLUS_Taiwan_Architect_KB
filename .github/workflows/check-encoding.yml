@@ -1,0 +1,23 @@
+name: Check encoding
+
+# 擋下 BOM、cp950/Big5 亂碼、換行被壓平的檔案。
+# 同一份檢查也掛在 pre-commit（check-encoding hook），但貢獻者不一定裝了
+# pre-commit，所以 CI 再跑一次，確保毀損檔案不會進 main。
+# 參見 PR #13 文化資產技能整合時的 cp950 編碼毀損事故。
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check all tracked text files
+        run: python scripts/check_encoding.py
