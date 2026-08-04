@@ -584,19 +584,53 @@ def _ud_norm(s: str) -> str:
     return re.sub(r'[\s　]+', '', s)
 
 
+# 臺中市都市計畫名稱的樣板文字：幾乎每份計畫都有，完全不具辨識力。
+# 必須用「子串移除」而非集合相等比對來排除（詳見 _ud_keywords 說明）。
+_UD_BOILERPLATE = (
+    '土地使用分區管制要點', '土地使用分區管制', '使用分區管制', '土地使用分區',
+    '細部計畫', '主要計畫', '都市計畫', '通盤檢討',
+    '臺中市', '台中市', '變更', '擬定', '修訂', '第一次', '第二次', '第三次',
+)
+
+
+def _ud_strip_bp(s: str) -> str:
+    """把樣板文字整串剝掉，只留下真正能辨識計畫的文字"""
+    for bp in _UD_BOILERPLATE:
+        s = s.replace(bp, '')
+    return s
+
+
+def _ud_keywords(s: str) -> set:
+    """切出「真正能辨識計畫」的關鍵詞集合（已剝除樣板文字）。
+
+    ⚠️ 不能只用 stop 集合做相等比對：_ud_norm 移除空白後，「變更臺中市都市計畫」
+    會黏成單一斷詞，跟 stop 裡任何單詞都不相等，於是被當成有效關鍵字——只要兩份
+    計畫都帶這串樣板文字就會假命中。實測會把「（北屯區洲際地區）」配到
+    「（西屯區水湳經貿園區）」那一份，而且不報錯，使用者拿到的是別的計畫的管制規定。
+    因此樣板詞一律用子串移除，剝完剩不到 2 個字的斷詞直接丟棄（避免「區」這種單字假命中）。
+    """
+    words = set()
+    for w in re.split(r'[\s（）()、，。\-]+', s):
+        w = _ud_strip_bp(w).strip()
+        if len(w) >= 2:
+            words.add(w)
+    return words
+
+
 def _ud_best_pdf(plan_case_name: str, pdf_links: list) -> tuple:
-    """從 pdf_links=[(text, url)] 找最符合 plan_case_name 的，回傳 (text, url)。
-    找不到足夠可信的對應時回傳 (None, None)，避免猜錯份數（都發局檔名常被
-    系統截斷、缺右括號，寧可回報「無法確定」也不要靜默下載到錯誤的管制規定）。
+    """從 pdf_links=[(text, url)] 找最符合 plan_case_name 的，回傳 (text, url, 匹配方式)。
+    匹配方式為「精確」（靠地區識別詞交集命中）或「模糊」（僅靠整串相似度兜底，
+    呼叫端須在報告上標示不確定性）。找不到足夠可信的對應時回傳 (None, None, None)，
+    避免猜錯份數（都發局檔名常被系統截斷、缺右括號，寧可回報「無法確定」
+    也不要靜默下載到錯誤的管制規定）。
     """
     if not pdf_links:
-        return None, None
+        return None, None, None
     if len(pdf_links) == 1:
-        return pdf_links[0]
+        return pdf_links[0][0], pdf_links[0][1], "唯一"
     if not plan_case_name:
-        return None, None
+        return None, None, None
 
-    stop = {'變更', '都市', '計畫', '臺中市', '細部', '擬定', '使用分區管制', '土地使用分區', ''}
     plan_norm = _ud_norm(plan_case_name)
 
     # 括號內容擷取：容忍缺右括號（檔名被截斷時，抓到字串結尾）
@@ -629,49 +663,50 @@ def _ud_best_pdf(plan_case_name: str, pdf_links: list) -> tuple:
             if score > best_score:
                 best_score, best = score, (text, url)
         if best_score > 0:
-            return best
+            return best[0], best[1], "精確"
 
     # 2) 括號內容拆字（「北屯區洲際地區」→「北屯區」+「洲際地區」）再比對
     target_subwords: set = set()
     for paren in target_parens:
-        target_subwords.update(re.split(r'[、，。\-]+', paren))
-    target_subwords -= stop
+        target_subwords |= _ud_keywords(paren)
     if target_subwords:
         best_score, best = 0, None
         for text, url in pdf_links:
             cand_text = _ud_norm(_strip_pdf(text)) + ' ' + _ud_norm(_strip_pdf(url.rsplit('/', 1)[-1]))
-            cand_w = set(re.split(r'[\s（）()、，。\-]+', cand_text)) - stop
-            score = len(target_subwords & cand_w)
+            score = len(target_subwords & _ud_keywords(cand_text))
             if score > best_score:
                 best_score, best = score, (text, url)
         if best_score > 0:
-            return best
+            return best[0], best[1], "精確"
 
     # 3) 整個 plan_case_name 的關鍵字比對
-    target_w = set(re.split(r'[（）()、，。\-]', plan_norm)) - stop
+    target_w = _ud_keywords(plan_norm)
     best_score, best = 0, None
     for text, url in pdf_links:
         cand_text = _ud_norm(text) + ' ' + _ud_norm(url.rsplit('/', 1)[-1])
-        cand_w = set(re.split(r'[\s（）()、，。\-]', cand_text)) - stop
-        score = len(target_w & cand_w)
+        score = len(target_w & _ud_keywords(cand_text))
         if score > best_score:
             best_score, best = score, (text, url)
     if best_score > 0:
-        return best
+        return best[0], best[1], "精確"
 
-    # 4) 檔名被截斷/斷詞完全對不上時的最後手段：整串模糊相似度比對
+    # 4) 檔名被截斷/斷詞完全對不上時的最後手段：模糊相似度比對
     # （處理都發局 PDF 檔名超長被系統砍尾的情況，如「...捷運機廠」被砍成「...捷運機」）
+    # ⚠️ 相似度必須在「剝除樣板文字後」的字串上計算：臺中市計畫名稱的樣板佔比極高，
+    # 直接比整串會讓毫不相干的兩份計畫也拿到 0.60（實測），門檻形同虛設。
+    plan_core = _ud_strip_bp(plan_norm)
     best_ratio, best = 0.0, None
-    for text, url in pdf_links:
-        cand_text = _ud_norm(text) + _ud_norm(url.rsplit('/', 1)[-1])
-        ratio = difflib.SequenceMatcher(None, plan_norm, cand_text).ratio()
-        if ratio > best_ratio:
-            best_ratio, best = ratio, (text, url)
-    if best and best_ratio >= 0.35:
-        return best
+    if len(plan_core) >= 4:
+        for text, url in pdf_links:
+            cand_core = _ud_strip_bp(_ud_norm(text) + _ud_norm(url.rsplit('/', 1)[-1]))
+            ratio = difflib.SequenceMatcher(None, plan_core, cand_core).ratio()
+            if ratio > best_ratio:
+                best_ratio, best = ratio, (text, url)
+    if best and best_ratio >= 0.60:
+        return best[0], best[1], "模糊"
 
     # 完全無法判斷 → 回傳 None，讓呼叫端明確回報「無法確定」而不是亂猜一份
-    return None, None
+    return None, None, None
 
 
 def _query_ud_pdf(urban_plan_area: str, plan_case_name: str, save_dir: str) -> dict:
@@ -693,18 +728,25 @@ def _query_ud_pdf(urban_plan_area: str, plan_case_name: str, save_dir: str) -> d
         with _ur.urlopen(req, timeout=30) as r:
             with open(save_path, 'wb') as f:
                 f.write(r.read())
-        return {"PDF路徑": save_path, "匹配計畫": matched_key}
+        # 對照表直接指到 PDF，不經檔名比對，屬精確對應
+        return {"PDF路徑": save_path, "匹配計畫": matched_key, "匹配方式": "精確"}
     pdf_links = _ud_fetch_subpage_pdfs(matched_url)
     if not pdf_links:
         return {"error": "子頁面找不到 PDF", "匹配計畫": matched_key}
-    best_text, best_url = _ud_best_pdf(plan_case_name, pdf_links)
+    best_text, best_url, match_kind = _ud_best_pdf(plan_case_name, pdf_links)
     if not best_url:
-        return {"error": "無法從子頁面找到匹配 PDF", "匹配計畫": matched_key}
+        return {"error": "無法從子頁面找到匹配 PDF（子頁面內容與計畫名稱對不上，請人工確認）",
+                "匹配計畫": matched_key}
     req = _ur.Request(_safe_url(best_url), headers={"User-Agent": "Mozilla/5.0"})
     with _ur.urlopen(req, timeout=60) as r:
         with open(save_path, 'wb') as f:
             f.write(r.read())
-    return {"PDF路徑": save_path, "匹配計畫": matched_key, "匹配PDF": best_text}
+    result = {"PDF路徑": save_path, "匹配計畫": matched_key, "匹配PDF": best_text,
+              "匹配方式": match_kind}
+    if match_kind != "精確":
+        # 靠「唯一一份」或「整串相似度」取得的，不保證是該計畫的管制規定，須提醒人工核對
+        result["匹配提醒"] = f"此份 PDF 以「{match_kind}」方式取得，請核對檔名與計畫名稱是否相符再引用。"
+    return result
 
 
 def _ud_worker(urban_plan_area: str, plan_case_name: str, save_dir: str, out_file: str):
@@ -1153,9 +1195,9 @@ def _query_one(page: Page, district: str, section_name: str, section_code: str, 
 
 
         urban_screenshot_bytes = page.screenshot()
-        save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+        save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
         os.makedirs(save_dir, exist_ok=True)
-        screenshot_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_都計截圖.png")
+        screenshot_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_都計截圖.png")
         with open(screenshot_path, "wb") as f:
             f.write(urban_screenshot_bytes)
         land_texts.append(f"都計截圖路徑：{screenshot_path}")
@@ -1187,9 +1229,9 @@ def _query_one(page: Page, district: str, section_name: str, section_code: str, 
         time.sleep(0.3)
 
         survey_screenshot_bytes = page.screenshot()
-        save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+        save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
         os.makedirs(save_dir, exist_ok=True)
-        survey_screenshot_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_測繪中心影像.png")
+        survey_screenshot_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_測繪中心影像.png")
         with open(survey_screenshot_path, "wb") as f:
             f.write(survey_screenshot_bytes)
         land_texts.append(f"測繪中心影像截圖路徑：{survey_screenshot_path}")
@@ -1526,9 +1568,9 @@ def _query_slope(district: str, section_name: str, lot: str, save_pdf_to: str = 
 
 def _slope_worker(district: str, section_name: str, lot: str, out_file: str):
     """子程序入口：查山坡地，結果寫到 out_file"""
-    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
     os.makedirs(save_dir, exist_ok=True)
-    pdf_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_山坡地.pdf")
+    pdf_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_山坡地.pdf")
     result = _query_slope(district, section_name, lot, save_pdf_to=pdf_path)
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False)
@@ -1634,9 +1676,9 @@ def _query_gsa(district: str, section_name: str, lot: str, save_pdf_to: str = No
 
 def _gsa_worker(district: str, section_name: str, lot: str, out_file: str):
     """子程序入口：查地質敏感區，結果寫到 out_file"""
-    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
     os.makedirs(save_dir, exist_ok=True)
-    pdf_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_地質敏感區.pdf")
+    pdf_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_地質敏感區.pdf")
     result = _query_gsa(district, section_name, lot, save_pdf_to=pdf_path)
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False)
@@ -1978,9 +2020,9 @@ def _query_fault(district: str, section_name: str, lot: str, save_pdf_to: str = 
 
 def _fault_worker(district: str, section_name: str, lot: str, out_file: str):
     """子程序入口：查台灣活動斷層，結果寫到 out_file"""
-    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+    save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
     os.makedirs(save_dir, exist_ok=True)
-    pdf_path = os.path.join(save_dir, f"台中市{district}{section_name}{lot}地號_活動斷層.pdf")
+    pdf_path = os.path.join(save_dir, f"臺中市{district}{section_name}{lot}地號_活動斷層.pdf")
     result = _query_fault(district, section_name, lot, save_pdf_to=pdf_path)
     if "截圖" in result:
         img_path = out_file.replace(".json", "_fault.png")
@@ -2096,8 +2138,10 @@ def _scan_nearby_monument(screenshot_path: str) -> bool:
     會被地圖上的快速道路橘線誤判、歷史建築灰色跟底圖太接近無法分辨），細節見專案記憶。
     古蹟色塊在畫面上是半透明疊圖（約 alpha=0.62 疊在底圖上），純色鮮豔色票 (53,98,186) 實際
     渲染出來會偏淡成 (126,154,208)，要用渲染後的顏色比對，不能直接用圖例色票。
-    以福星段479（無古蹟）、碧柳段40（有古蹟）、及整張台中市地圖（多地標文字干擾）三種情境
-    實測校準過門檻：真古蹟色塊命中約1200+個取樣點，最壞情況雜訊约15個，40是安全門檻。
+    以福星段479（無古蹟）、碧柳段40（有古蹟）、及整張臺中市地圖（多地標文字干擾）三種情境
+    實測校準過門檻：真古蹟色塊命中約1200+個取樣點，最壞情況雜訊約15個，40是安全門檻。
+    掃描起點跳過左側工具列與上方標題列，用「佔畫面比例」而非絕對像素，
+    這樣日後調整 viewport 尺寸時取樣區域不會靜默偏掉（校準時的 viewport 為 1400x900）。
     """
     from PIL import Image
     target = (126, 154, 208)
@@ -2110,8 +2154,11 @@ def _scan_nearby_monument(screenshot_path: str) -> bool:
     w, h = img.size
     px = img.load()
     count = 0
-    for x in range(560, w, 3):
-        for y in range(140, h - 20, 3):
+    x_start = int(w * 0.40)   # 原校準值 560/1400
+    y_start = int(h * 0.155)  # 原校準值 140/900
+    y_end = h - max(1, int(h * 0.022))
+    for x in range(x_start, w, 3):
+        for y in range(y_start, y_end, 3):
             r, g, b = px[x, y]
             d2 = (r - target[0]) ** 2 + (g - target[1]) ** 2 + (b - target[2]) ** 2
             if d2 < thresh2:
@@ -2121,9 +2168,9 @@ def _scan_nearby_monument(screenshot_path: str) -> bool:
     return False
 
 
-def _capture_culturalasset_screenshot(district: str, section_name: str, lot_main: str, lot_sub: str, save_path: str) -> bool:
+def _capture_culturalasset_screenshot(district: str, section_name: str, lot_main: str, lot_sub: str, save_path: str) -> tuple:
     """至 culgis 地籍定位畫面實際操作一次並截圖（地圖會畫出紅框/紫框標示是否落在文資範圍），
-    供 PDF/終端機顯示視覺確認用。
+    供 PDF/終端機顯示視覺確認用。回傳 (是否成功, 失敗原因)。
     ⚠️ Vuetify 頁面同一欄位標籤在 DOM 裡會有多個隱藏重複節點（其他分頁/側拉抽屜），
     不能用 get_by_label 直接抓，改用 .land-locate-content 容器內 input 的 DOM 順序定位
     （順序固定：0=行政區 1=地段關鍵字 2=地段別 3=地號 4=母號 5=子號）；
@@ -2147,7 +2194,7 @@ def _capture_culturalasset_screenshot(district: str, section_name: str, lot_main
 
             menu_item = first_visible(page.get_by_text("地籍定位", exact=True))
             if not menu_item:
-                return False
+                return False, "找不到「地籍定位」選單（網站介面可能已改版）"
             menu_item.click()
             page.wait_for_timeout(800)
 
@@ -2182,9 +2229,11 @@ def _capture_culturalasset_screenshot(district: str, section_name: str, lot_main
             page.wait_for_timeout(2000)
 
             page.screenshot(path=save_path)
-            return True
-        except Exception:
-            return False
+            return True, ""
+        except Exception as e:
+            # 不吞掉原因：截圖是「附近疑似古蹟」偵測的唯一輸入，網站改版時若靜默失敗，
+            # 這個提醒會無聲消失，使用者不會知道少了一項判讀
+            return False, f"{type(e).__name__}: {e}".strip()
         finally:
             browser.close()
 
@@ -2246,15 +2295,26 @@ def _query_culturalasset(district: str, section_code: str, section_name: str, lo
 
     img_path = tempfile.mktemp(suffix="_culturalasset.png")
     try:
-        if _capture_culturalasset_screenshot(district, section_name, lot_main, lot_sub, img_path):
+        ok, shot_err = _capture_culturalasset_screenshot(district, section_name, lot_main, lot_sub, img_path)
+        if ok:
             result["截圖路徑"] = img_path
             try:
                 if _scan_nearby_monument(img_path):
                     result["附近疑似古蹟"] = True
-            except Exception:
-                pass
-    except Exception:
-        pass
+            except Exception as e:
+                result["截圖判讀失敗"] = f"{type(e).__name__}: {e}".strip()
+        else:
+            result["截圖擷取失敗"] = shot_err or "未知原因"
+    except Exception as e:
+        result["截圖擷取失敗"] = f"{type(e).__name__}: {e}".strip()
+
+    # 截圖是「附近疑似古蹟」的唯一判讀依據，取不到就等於少了一項判讀，必須明講
+    if "截圖路徑" not in result:
+        result["鄰近提醒"] = (
+            "官方查詢畫面截圖擷取失敗，本次【未】進行鄰近古蹟色塊判讀。"
+            "請自行至 https://culgis.taichung.gov.tw/tc/index.html 以地籍定位確認"
+            "周邊是否有古蹟／歷史建築／聚落建築群等文化資產，如有可能仍須提送開發行為說明書。"
+        )
 
     return result
 
@@ -2423,7 +2483,7 @@ def query_batch(queries: list, headless: bool = False) -> list:
             ud_file = tempfile.mktemp(suffix=".json")
             proc_ud = None
             _ud_skip_reason = None
-            ud_save_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+            ud_save_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
             urban_json_str_ud = next((t[len("都計JSON："):] for t in gis_texts if t.startswith("都計JSON：")), None)
             if not urban_json_str_ud:
                 _ud_skip_reason = "非都市計畫區域或 GIS 未取得分區資料"
@@ -2761,6 +2821,13 @@ def _quick_summary(texts: list, overlay: dict, gsa: dict = None, slope: dict = N
     else:
         cul_val = culturalasset.get("文化資產查詢", "查無資料")
         cul_warn = bool(culturalasset.get("在範圍內"))
+        if culturalasset.get("附近疑似古蹟"):
+            cul_val += "（但附近偵測到古蹟色塊）"
+            cul_warn = True
+        elif "截圖擷取失敗" in culturalasset or "截圖判讀失敗" in culturalasset:
+            # 摘要是最多人只看這一段的地方，判讀沒做成就不能讓它看起來像「查過且沒事」
+            cul_val += "（未完成鄰近古蹟判讀，須人工確認）"
+            cul_warn = True
     lines.append(("文化資產", cul_val, cul_warn))
 
     return lines
@@ -3058,6 +3125,24 @@ def print_result(district: str, section_name: str, lot: str,
                     print(f"  {item['name']}：{item['distM']:,} 公尺")
             if "截圖路徑" in fault:
                 print(f"  截圖：{fault['截圖路徑']}")
+
+    # ud（都市計畫土地使用管制 PDF）原本傳進來卻從未輸出，PDF 只靜靜躺在資料夾裡；
+    # 配對錯誤時使用者會拿到別的計畫的管制規定而毫無察覺，因此必須把匹配狀態講明
+    if ud:
+        print()
+        print("【都市計畫土地使用管制】")
+        if "error" in ud:
+            print(f"\033[31m  查詢失敗：{ud['error']}\033[0m")
+            if ud.get("匹配計畫"):
+                print(f"  對應計畫：{ud['匹配計畫']}")
+        else:
+            print(f"  對應計畫：{ud.get('匹配計畫', '')}")
+            if ud.get("匹配PDF"):
+                print(f"  PDF 檔名：{ud['匹配PDF']}")
+            if ud.get("PDF路徑"):
+                print(f"  PDF：{ud['PDF路徑']}")
+            if ud.get("匹配提醒"):
+                print(f"\033[31m  ⚠️ {ud['匹配提醒']}\033[0m")
 
     if culturalasset:
         print()
@@ -3440,6 +3525,23 @@ def save_pdf(district: str, section_name: str, lot: str,
     else:
         culturalasset_html = ""
 
+    # 都市計畫土地使用管制 PDF：原本 ud 傳進來卻沒放進報告，使用者只會在資料夾裡看到一份
+    # 「都市計畫土地使用管制.pdf」，無從得知它是精確配對還是模糊猜的
+    if ud:
+        if "error" in ud:
+            _key = ud.get("匹配計畫", "")
+            _key_p = f"<p>對應計畫：{_key}</p>" if _key else ""
+            ud_html = f"<h2>都市計畫土地使用管制</h2><p class='err'>{ud['error']}</p>{_key_p}"
+        else:
+            _rows = [f"<p>對應計畫：{ud.get('匹配計畫', '')}</p>"]
+            if ud.get("匹配PDF"):
+                _rows.append(f"<p>PDF 檔名：{ud['匹配PDF']}</p>")
+            if ud.get("匹配提醒"):
+                _rows.append(f"<p style='color:red;font-weight:bold;'>⚠️ {ud['匹配提醒']}</p>")
+            ud_html = "<h2>都市計畫土地使用管制</h2>" + "".join(_rows)
+    else:
+        ud_html = ""
+
     today = date.today().strftime("%Y年%m月%d日")
     html = f"""<!DOCTYPE html><html><head><meta charset="utf-8">
 <style>
@@ -3453,7 +3555,7 @@ def save_pdf(district: str, section_name: str, lot: str,
   table.inner td {{ border:none; padding:2px 6px; }}
 </style>
 </head><body>
-<h1>台中市{district}{section_name}{lot}地號 查詢結果</h1>
+<h1>臺中市{district}{section_name}{lot}地號 查詢結果</h1>
 <div class="meta">地址：{address if address else "尚無"} &nbsp;|&nbsp; 查詢日期：{today}</div>
 
 <h2>快速摘要</h2>
@@ -3489,20 +3591,22 @@ def save_pdf(district: str, section_name: str, lot: str,
 {fault_html}
 
 {culturalasset_html}
+
+{ud_html}
 </body></html>"""
 
-    parcel_dir = os.path.expanduser(f"~/Desktop/查詢結果/台中市{district}{section_name}{lot}地號")
+    parcel_dir = os.path.expanduser(f"~/Desktop/查詢結果/臺中市{district}{section_name}{lot}地號")
     os.makedirs(parcel_dir, exist_ok=True)
 
     # 套繪截圖另存至資料夾
     if isinstance(overlay, dict) and overlay.get("截圖路徑"):
-        overlay_dest = os.path.join(parcel_dir, f"台中市{district}{section_name}{lot}地號_套繪圖.png")
+        overlay_dest = os.path.join(parcel_dir, f"臺中市{district}{section_name}{lot}地號_套繪圖.png")
         try:
             shutil.copy2(overlay["截圖路徑"], overlay_dest)
         except Exception:
             pass
 
-    pdf_path = os.path.join(parcel_dir, f"台中市{district}{section_name}{lot}地號.pdf")
+    pdf_path = os.path.join(parcel_dir, f"臺中市{district}{section_name}{lot}地號.pdf")
     with sync_playwright() as p:
         browser = p.chromium.launch()
         pg = browser.new_page()

@@ -22,3 +22,7 @@ outputs/
 
 # 自動產生檔：CI 於部署時經 scripts/update_landing_page.py 重產，不追蹤於 repo
 docs/data.json
+
+# Python 位元碼快取（執行技能腳本時會自動產生）
+__pycache__/
+*.pyc
