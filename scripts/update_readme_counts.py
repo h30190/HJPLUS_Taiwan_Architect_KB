@@ -27,7 +27,12 @@ SECTION_CLASS = {
     "專業複委託":      {"default": "B", "overrides": {
         "專業複委託/材料設備/material-selection": "A",
     }},
-    "建築性能":        {"default": "B"},
+    # 建築性能底下多為國際規範的台灣適配（B），但本土自有標章屬 C，
+    # 與各該 SKILL.md 的 metadata.class 對齊
+    "建築性能":        {"default": "B", "overrides": {
+        "建築性能/建築能效/building-energy-rating": "C",
+        "建築性能/智慧建築/smart-building-label": "C",
+    }},
     "建築法規":        {"default": "C"},
     "專案管理":        {"default": "C"},
     "經營管理":        {"default": "B", "overrides": {
