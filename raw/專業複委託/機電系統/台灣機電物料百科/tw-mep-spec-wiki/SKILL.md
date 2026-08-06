@@ -8,7 +8,7 @@ metadata:
   region: taiwan
   class: C
   status: unverified
-  data-currency: "2026-07-23"
+  data-currency: "2026-08-06"
 ---
 
 # Taiwan MEP Specifications Skill

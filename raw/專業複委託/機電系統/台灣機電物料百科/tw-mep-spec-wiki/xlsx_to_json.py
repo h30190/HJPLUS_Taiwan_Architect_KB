@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import sys
@@ -38,11 +39,13 @@ def convert_xlsx_to_json(xlsx_path, json_path):
                                 val = int(float(val))  # float first to handle cases like 1.0
                             except (ValueError, TypeError):
                                 pass
+                        elif isinstance(val, (datetime.datetime, datetime.date)):
+                            val = val.strftime("%Y-%m-%d")
                         row_dict[header_name] = val
             data.append(row_dict)
             
         with open(json_path, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+            json.dump(data, f, ensure_ascii=False, indent=2, default=str)
         print(f"Successfully converted {xlsx_path} to {json_path}")
     except Exception as e:
         print(f"Error during conversion: {e}", file=sys.stderr)
@@ -54,3 +57,4 @@ if __name__ == "__main__":
     json_path = os.path.normpath(os.path.join(script_dir, "MEP品項百科.json"))
     
     convert_xlsx_to_json(xlsx_path, json_path)
+
