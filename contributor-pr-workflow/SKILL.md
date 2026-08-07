@@ -76,7 +76,7 @@ This skill covers the full lifecycle from first clone to PR submission, with aut
 8. **Update parent `index.md`**:
    - Open the parent directory's `index.md`
    - Add a new `* [Skill Name](path/SKILL.md) - description` entry under `## Skills`
-   - If no `index.md` exists and the directory has 2+ children, create one per OKF v0.1
+   - If no `index.md` exists and the directory has 2+ children, create one per OKF v0.2
 
 ### Phase 2: Editing an Existing Skill
 

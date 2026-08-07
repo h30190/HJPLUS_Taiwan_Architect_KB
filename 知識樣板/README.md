@@ -15,7 +15,7 @@
    - `SKILL.md` 的 `name` 必須與資料夾名稱**完全一致**。
 6. **更新父層 `index.md`**：回到上層目錄，檢查有沒有 `index.md`。
    - 有 → 在 `## Skills` 下加一筆新技能連結。
-   - 無 → 且該目錄已有多個條目 → 依照 [OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) 格式建立一份。
+   - 無 → 且該目錄已有多個條目 → 依照 [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) 格式建立一份。
 
 ---
 

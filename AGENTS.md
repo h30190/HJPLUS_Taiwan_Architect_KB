@@ -124,10 +124,10 @@ File placement:
 ❌ Wrong: `消防安全/排煙窗法規檢討/SKILL.md` (no English subdirectory)
 ❌ Wrong: `pai-yan-chuang/SKILL.md` (pinyin instead of English)
 
-## index.md — OKF Directory Index (v0.1)
+## index.md — OKF Directory Index (v0.2)
 
 This project follows the `index.md` convention from Google's
-[Open Knowledge Format (OKF) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
+[Open Knowledge Format (OKF) v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
 to support progressive discovery for AI agents.
 
 **When exploring a directory, always read `index.md` first** (not `README.md`).
@@ -142,7 +142,7 @@ readers browsing GitHub and may be stale or incomplete.
 | Directory contains **2+** subdirectories or skills | ✅ Yes |
 | Directory IS a knowledge entry (has `domain.md`) | ❌ No |
 | Directory IS a skill directory (has `SKILL.md`) | ❌ No |
-| `raw/` (bundle root) | ✅ Yes (with `okf_version: "0.1"`) |
+| `raw/` (bundle root) | ✅ Yes (with `okf_version: "0.2"`) |
 
 Rule of thumb: **If a directory holds multiple things, it gets an index. If it IS one thing, it doesn't.**
 
@@ -168,7 +168,7 @@ Rule of thumb: **If a directory holds multiple things, it gets an index. If it I
 
 ### Maintenance
 
-- OKF is currently **v0.1 draft** (June 2026). Revisit this section if the spec updates.
+- OKF is currently **v0.2** (released 2026-07-24). Revisit this section if the spec updates.
 
 ## SKILL.md Frontmatter
 ```yaml
@@ -254,7 +254,7 @@ After merging a PR, the maintainer must:
    ```
    - **YYYY-MM-DD** {emoji} {brief description} ([#{pr-number}](url) by @author)
    ```
-2. **Update parent `index.md`** — If the PR added or removed skills, sync the parent directory's `index.md` `## Skills` list per [OKF v0.1](#indexmd--okf-directory-index-v01).
+2. **Update parent `index.md`** — If the PR added or removed skills, sync the parent directory's `index.md` `## Skills` list per [OKF v0.2](#indexmd--okf-directory-index-v02).
 3. **Run `python scripts/update_readme_counts.py`** to refresh the skill count table (auto-runs via pre-commit hook if configured, but verify the numbers match).
 
 The landing page data (`docs/data.json` — knowledge-graph tree, tag list, 最新更新, stat counters)
