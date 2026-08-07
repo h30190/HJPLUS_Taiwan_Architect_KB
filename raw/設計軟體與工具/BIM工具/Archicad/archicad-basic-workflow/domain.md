@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "Archicad 基礎工作流程"
+---
+
 # Archicad 基礎工作流程
 
 ## 為什麼重要？

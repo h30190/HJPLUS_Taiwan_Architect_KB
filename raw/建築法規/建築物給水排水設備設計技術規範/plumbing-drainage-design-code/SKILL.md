@@ -1,8 +1,11 @@
 ---
+type: Skill
 name: plumbing-drainage-design-code
 description: "This skill should be used when reviewing or calculating building water supply, hot water, and drainage/ventilation designs according to Taiwan's Technical Code for Building Plumbing and Drainage Equipment Design (建築物給水排水設備設計技術規範). It covers sizing water tanks and booster pumps, cold/hot water piping, Hunter fixture units (WSFU), drainage pipe slopes, trap seals (5-10cm), vent piping (stack/individual/loop/relief/yoke/AAV), grease interceptors, cleanout intervals, and same-floor drainage (同層排水)."
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
+verified:
+  - { by: human:ChimingLu, at: 2026-07-24T00:00:00Z }
 metadata:
   audience: architects
   region: taiwan

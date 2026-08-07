@@ -1,8 +1,9 @@
 ---
+type: Skill
 name: taiwan-water-meter-installation
 description: "This skill should be used when planning, designing, or reviewing the water meter installation locations, types, and configurations for buildings in Taiwan according to the Taiwan Water Corporation guidelines."
 metadata:
-  class: B
+  class: C
 ---
 
 # Taiwan Water Meter Installation Principles

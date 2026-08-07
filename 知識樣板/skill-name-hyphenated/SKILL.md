@@ -1,8 +1,17 @@
 ---
+type: Skill          # REQUIRED: OKF §11.2, always "Skill"
 name: skill-name-hyphenated
 description: "This skill should be used when [specific trigger scenarios]. [1-1024 chars]"
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
+sources:             # REQUIRED for new skills — cite in body with [^id] footnotes
+  - id: source-key
+    resource: https://law.moj.gov.tw/...   # URL or bundle-relative path
+    title: 來源標題
+    last_modified: YYYY-MM-DD
+# verified:          # add ONE entry once metadata.status becomes "verified"
+#   - { by: human:your-github-handle, at: YYYY-MM-DDT00:00:00Z }
+# stale_after: YYYY-MM-DD   # only when a real expiry date exists
 metadata:
   audience: architects
   region: taiwan

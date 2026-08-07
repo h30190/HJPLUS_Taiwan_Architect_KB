@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "建築執照相關法規"
+---
+
 # 建築執照相關法規
 
 ## 使用情境

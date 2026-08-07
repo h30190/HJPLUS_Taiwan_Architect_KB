@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: heritage-restoration-phases
 description: "This skill should be used to understand and manage the statutory four-phase workflow for cultural heritage restoration and adaptive reuse projects in Taiwan."
 license: CC-BY-SA-4.0

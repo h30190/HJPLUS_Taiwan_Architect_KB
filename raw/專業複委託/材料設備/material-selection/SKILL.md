@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: material-selection
 description: Architectural material properties, durability, sustainability, specification, detailing, life-cycle assessment, and material palettes for building design
 user-invocable: true

@@ -70,13 +70,14 @@ This skill covers the full lifecycle from first clone to PR submission, with aut
    - C-class skills MUST include MCP tool examples
 
 7. **Write `domain.md`**:
-   - Traditional Chinese, NO frontmatter
+   - Traditional Chinese body
+   - OKF frontmatter with `type: Knowledge Entry` and `title` matching the `# H1` — nothing else
    - 使用情境、學習目標、實務應用
 
 8. **Update parent `index.md`**:
    - Open the parent directory's `index.md`
    - Add a new `* [Skill Name](path/SKILL.md) - description` entry under `## Skills`
-   - If no `index.md` exists and the directory has 2+ children, create one per OKF v0.1
+   - If no `index.md` exists and the directory has 2+ children, create one per OKF v0.2
 
 ### Phase 2: Editing an Existing Skill
 
@@ -129,17 +130,21 @@ Run ALL checks below. If any fails, fix it before proceeding.
 - [ ] Three-layer structure correct:
       `category/chinese-entry/english-skill-name/SKILL.md`
       `category/chinese-entry/domain.md`
-- [ ] `domain.md` has NO frontmatter (no `---` at top)
+- [ ] `domain.md` frontmatter has `type: Knowledge Entry` + `title` ONLY (no skill fields)
 - [ ] No `.history/`, `.vscode/`, `node_modules/`, `__pycache__/` files in the diff
 - [ ] Skill directory name is lowercase English hyphenated (❌ pinyin like `pai-yan-chuang`)
 - [ ] Skill directory name matches `name` in SKILL.md frontmatter
 
 #### Frontmatter Checks
 
+- [ ] `type: Skill` is present (OKF §11.2 — required on every SKILL.md)
 - [ ] `name` is 1-64 chars, lowercase + hyphens only
 - [ ] `description` is 1-1024 chars, includes trigger scenario
 - [ ] `metadata.class` is present: A / B / C
+- [ ] `sources` declared with `id` / `resource` (required for new skills)
+- [ ] Top-level `status`, if used, is `draft`/`stable`/`deprecated` — never `verified`/`unverified`
 - [ ] No undefined frontmatter fields (❌ `user-invocable`, `language`, `category` without AGENTS.md approval)
+- [ ] `python scripts/validate_okf.py` reports 0 errors
 
 #### Content Checks
 

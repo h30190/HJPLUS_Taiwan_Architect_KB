@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: architect-foundations
 description: >
   Auto-activated foundation layer for the Architect Skills plugin providing practitioner-grade

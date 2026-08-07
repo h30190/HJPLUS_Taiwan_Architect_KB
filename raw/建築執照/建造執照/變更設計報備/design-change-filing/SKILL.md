@@ -130,5 +130,5 @@ taiwan-building-code_search_building_code(query: "臺北市都市設計及土地
 
 ## Related Skills
 
-- [建造執照/申辦流程](../../申辦流程/SKILL.md) — initial building permit application (distinct from post-issuance report-filing covered here)
-- [建造執照/相關法規](../../相關法規/SKILL.md) — general building-permit regulatory framework
+- [建造執照/申辦流程](../../申辦流程/construction-permit-application-process/SKILL.md) — initial building permit application (distinct from post-issuance report-filing covered here)
+- [建造執照/相關法規](../../相關法規/construction-permit-related-regulations/SKILL.md) — general building-permit regulatory framework

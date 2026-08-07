@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "智慧建築標章"
+---
+
 # 智慧建築標章
 
 ## 什麼是智慧建築標章

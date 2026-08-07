@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "Archicad 樣板設定"
+---
+
 # Archicad 樣板設定
 
 ## 為什麼重要？

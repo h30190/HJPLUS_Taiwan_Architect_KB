@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: leed
 description: "This skill should be used when applying for LEED (Leadership in Energy and Environmental Design) certification or designing green buildings according to USGBC standards."
 user-invocable: true
@@ -15,6 +16,9 @@ LEED是由美國綠建築協會（USGBC）於2000年發展的綠建築認證系�
 - 申請LEED認證（新建築、室內裝修、既有建築）
 - 綠建築設計顧問
 - ESG報告相關建築評估
+
+<!-- TODO: Taiwan adaptation needed -->
+> ⚠️ 以下內容以 USGBC LEED 為基準，**尚未完成台灣在地化**。引用任何數值前，請先依本檔「Taiwan Adaptation Notes」的待辦項目查證對應的台灣法規。
 
 ## Rating System
 

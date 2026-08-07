@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "混凝土版設計"
+---
+
 # 混凝土版設計
 
 ## 使用情境

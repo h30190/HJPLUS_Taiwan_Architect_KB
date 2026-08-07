@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "Archicad 圖面與文件產出"
+---
+
 # Archicad 圖面與文件產出
 
 ## 為什麼重要？

@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: concrete-wall-design
 description: "This skill should be used when an architect or structural designer needs to verify PDF-backed concrete wall requirements such as minimum wall thickness, high-shear minimum reinforcement, bar spacing, and opening reinforcement in Taiwan's concrete structure design code."
 user-invocable: true

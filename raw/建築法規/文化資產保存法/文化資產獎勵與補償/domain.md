@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "文化資產獎勵與補償"
+---
+
 # 文化資產獎勵與補償
 
 ## 使用情境

@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: spatial-planning
 description: >
   Spatial planning for buildings: floor plan layout and archetypes, circulation
@@ -10,6 +11,9 @@ metadata:
 ---
 
 # Spatial Planning
+
+<!-- TODO: Taiwan adaptation needed -->
+> ⚠️ 以下內容以 IBC、NFPA 101、BS 9999、Approved Documents B/K/M 為基準，**尚未完成台灣在地化**。引用任何數值前，各標準的適用轄區見文末 Appendix 的 Jurisdiction 欄；台灣對應規定（建築技術規則設計施工編）尚未對照。
 
 ## Section 1: Floor Plan Archetypes
 

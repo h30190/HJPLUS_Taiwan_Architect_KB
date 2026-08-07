@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: taichung-land-parcel-query
 description: "This skill should be used when an architect receives just an address or lot number (地號) for a site in Taichung City, Taiwan, and needs to quickly understand the land's basic data — zoning, registered land area, land value, building numbers and permits, building overlay/footprint status, urban planning land-use regulations, geological hazard zones, slope-land restrictions, fire-break setback zones, active fault distances, sewer connection announcements, building-line exemption zones, military restricted-building zones, and whether the parcel (or a neighboring parcel) falls within a legally designated cultural heritage asset boundary — while also getting a head start on the official PDF certificates commonly needed as supporting documents for a later building permit application. Trigger scenarios: evaluating site feasibility right after receiving an address/lot number, checking land-use restrictions and pre-gathering supporting documents before a permit application, due diligence before a real-estate transaction, checking whether a development project near a historic site/monument may need to submit a cultural heritage impact statement, or converting a Taichung street address to its lot number. Taichung City only — does not work for other Taiwan counties/cities."
 license: CC-BY-SA-4.0
@@ -6,6 +7,7 @@ compatibility: claude-code,opencode,agent-skills
 metadata:
   audience: architects
   region: taiwan
+  class: C
 ---
 
 # Taichung Land Parcel Query

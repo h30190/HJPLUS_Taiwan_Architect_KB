@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "Building Envelope Domain Knowledge"
+---
+
 # Building Envelope Domain Knowledge
 
 ## 定義

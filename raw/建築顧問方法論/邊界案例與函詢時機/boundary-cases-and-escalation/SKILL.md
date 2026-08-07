@@ -1,9 +1,12 @@
 ---
+type: Skill
 name: boundary-cases-and-escalation
 description: "This skill should be used when a compliance question falls into a regulatory gray zone — the article uses discretionary wording (認定、核定、必要時、經主管機關認可), interpretations contradict each other, municipalities apply different review standards, or the measurement method is undefined (e.g., net depth of an irregular lobby). It teaches when to stop giving a definitive answer and recommend a formal inquiry (函詢) or pre-review (預審) to the competent authority instead."
 user-invocable: true
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
+verified:
+  - { by: human:Jacky820507, at: 2026-07-10T00:00:00Z }
 metadata:
   audience: architects
   region: taiwan

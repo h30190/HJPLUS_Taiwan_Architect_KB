@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "建築基礎知識"
+---
+
 # 建築基礎知識
 
 ## 為什麼重要？

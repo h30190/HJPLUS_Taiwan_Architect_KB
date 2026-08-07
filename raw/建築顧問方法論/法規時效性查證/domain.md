@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "法規時效性查證"
+---
+
 # 法規時效性查證
 
 ## 使用情境

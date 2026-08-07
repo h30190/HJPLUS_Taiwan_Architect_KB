@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "Building Services Domain Knowledge"
+---
+
 # Building Services Domain Knowledge
 
 ## 定義

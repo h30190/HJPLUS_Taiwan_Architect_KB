@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: building-typology
 description: >-
   Identify and apply building typologies for residential, commercial, institutional,

@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "公共工程品質資料庫"
+---
+
 # 公共工程品質資料庫
 
 ## 使用情境

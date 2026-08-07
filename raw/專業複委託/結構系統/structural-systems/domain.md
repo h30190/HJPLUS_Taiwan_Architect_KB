@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "Structural Systems Domain Knowledge"
+---
+
 # Structural Systems Domain Knowledge
 
 ## 定義

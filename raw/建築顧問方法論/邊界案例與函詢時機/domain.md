@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "邊界案例與函詢時機"
+---
+
 # 邊界案例與函詢時機
 
 ## 使用情境

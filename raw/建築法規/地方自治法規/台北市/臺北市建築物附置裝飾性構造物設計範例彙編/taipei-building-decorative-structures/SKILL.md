@@ -1,8 +1,11 @@
 ---
+type: Skill
 name: taipei-building-decorative-structures
 description: "This skill should be used when reviewing Taipei City facade design (臺北市新建案立面檢討/外牆立面規畫), building attached non-structural decorative elements (外牆附置物/裝飾物/附屬物), frames, beams, columns, panels, louvers, railings, canopy/balcony/terrace/facade decorative features in Taipei City per the 2024 Taipei City Building Attached Decorative Structure Design Exemplar Compilation (臺北市建築物附置裝飾性構造物設計範例彙編, Effective 2024-09-25). Includes porosity, projection, emergency opening, building area, FAR exemption, and height-slope restriction review."
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
+verified:
+  - { by: human:CWLin0518, at: 2026-07-28T00:00:00Z }
 metadata:
   audience: architects
   region: taiwan

@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "LEED認證"
+---
+
 # LEED認證
 
 ## 什麼是LEED
