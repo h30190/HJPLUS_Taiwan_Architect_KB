@@ -6,6 +6,7 @@
 
 ## 2026-08-07
 
+- **Update**: 建築執照 4 種執照別（使用／建造／拆除／雜項）下的 16 個技能改用執照別專屬名稱並移入英文技能目錄，解除 4 組 `name` 重複；內容仍四份相同，已於各檔標註 TODO 待專業者依執照別分化。2 份參考資料補 `type: Reference`，`scripts/validate_okf.py` 新增重複 `name` 檢查。
 - **Update**: 全庫升級至 OKF v0.2。81 份 `domain.md` 補上 `type: Knowledge Entry`、81 份 `SKILL.md` 補上 `type: Skill`；8 份標記 `metadata.status: verified` 的技能改以 OKF `verified` 家族記錄查證者與查證日期；新增本檔與 `scripts/validate_okf.py`。
 - **Update**: 修復文化資產分類 11 個檔案的編碼損壞，並補齊全庫 `metadata.class`（[#45](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/45)）。
 

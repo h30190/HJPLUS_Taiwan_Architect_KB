@@ -47,6 +47,7 @@ DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 errors = []
 warnings = []
+skill_names = {}  # name -> first path that claimed it
 
 
 def err(path, msg):
@@ -127,7 +128,13 @@ def check_concept(path, expected_type):
         name = keys.get("name", "").strip("\"'")
         if not name:
             err(path, "missing `name`")
-        elif name != path.parent.name:
+        else:
+            # Agent Skills resolve by `name`; two skills sharing one collide.
+            first = skill_names.setdefault(name, path)
+            if first != path:
+                err(path, f"duplicate skill `name` {name!r}, already used by "
+                          f"{first.relative_to(ROOT)}")
+        if name and name != path.parent.name:
             # Pre-existing layout debt: a few skills sit directly in their
             # Chinese knowledge-entry directory instead of an English skill
             # directory. Renaming would break inbound links, so warn only.

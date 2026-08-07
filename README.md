@@ -25,6 +25,7 @@
 <details>
 <summary>點開查看近期已合併的 PR（感謝所有貢獻者！）</summary>
 
+- **2026-08-07** 🪪 建築執照 16 個技能改用執照別專屬名稱（使用／建造／拆除／雜項），解除 4 組技能名稱重複；內容尚未依執照別分化，已標註 TODO
 - **2026-08-07** 📦 全庫升級至 Open Knowledge Format v0.2（`type` 概念標註、`verified` 查證家族、`raw/log.md` 沿革、`scripts/validate_okf.py` 驗證器）
 - **2026-08-07** 🏛️ 修復文化資產分類 11 個檔案的編碼損壞，並補齊全庫 `metadata.class` ([#45](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/45) by @h30190)
 - **2026-08-04** 🏢 修正智慧建築標章 4.2.2 空調系統智慧化節能計算範例的積分加總值（49→59，已向台灣智慧建築協會確認）([#43](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/43) by @Jen666-Tw)
