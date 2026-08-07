@@ -67,10 +67,11 @@ carry it; new skills must declare it. The class-assignment reference table is `S
 `scripts/update_readme_counts.py` — keep the two consistent.
 
 `scripts/validate_okf.py` warns when a `B` skill carries no `<!-- TODO: Taiwan adaptation needed -->`
-marker. As of 2026-08-07 all 18 B-class skills trip this warning — the rule has never been enforced.
-Some of them (`taipower-*`, `taiwan-plumbing-design-codes`, `taiwan-water-meter-installation`,
-`taiwan-telecom-design-codes`) look Taiwan-specific and may simply be misclassified `C`. Resolving
-this needs a domain judgment per skill; do not bulk-insert markers to silence the warning.
+marker. When that warning fires, first ask whether the skill is international at all: a skill built on
+Taiwan's own regulations or labels (台電/自來水/電信規範, EEWH, 低碳建築標示, 室內空氣品質管理法) is
+`C`, and reclassifying it is the fix — do not insert a marker to silence the warning. Only genuinely
+international content (ASHRAE, AISC/ACI, ISO/ASTM, IBC/NFPA, LEED, WELL) is `B`, and there the marker
+goes immediately before the block whose specs are not yet localized, naming the standards it follows.
 
 **`metadata.status`** (optional, but load-bearing when present):
 

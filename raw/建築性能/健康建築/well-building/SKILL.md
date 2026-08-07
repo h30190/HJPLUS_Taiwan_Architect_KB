@@ -18,6 +18,9 @@ WELL Building Standard是由國際WELL建築研究院（IWBI）於2014年發布�
 - 室內環境品質優化
 - 企業ESG健康指標提升
 
+<!-- TODO: Taiwan adaptation needed -->
+> ⚠️ 以下內容以 IWBI WELL v2 為基準，**尚未完成台灣在地化**。引用任何數值前，請先依本檔「Taiwan Adaptation Notes」的待辦項目查證對應的台灣法規。
+
 ## WELL v2 Concepts (10大概念)
 
 | 編號 | 概念 | 說明 |

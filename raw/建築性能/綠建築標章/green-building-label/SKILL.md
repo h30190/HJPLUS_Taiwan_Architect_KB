@@ -4,7 +4,7 @@ name: green-building-label
 description: "This skill should be used when applying for Taiwan Green Building Label (綠建築標章) or Candidate Green Building Certificate (候選綠建築證書) through the EEWH system."
 user-invocable: true
 metadata:
-  class: B
+  class: C
 ---
 
 # Green Building Label (EEWH)

@@ -4,7 +4,7 @@ name: indoor-environment
 description: "This skill should be used when designing indoor environmental quality including daylighting, ventilation, acoustic comfort, and air quality."
 user-invocable: true
 metadata:
-  class: B
+  class: C
 ---
 
 # Indoor Environmental Quality

@@ -19,6 +19,9 @@ metadata:
 - 音質優化建議
 - 法規符合性檢查
 
+<!-- TODO: Taiwan adaptation needed -->
+> ⚠️ 以下內容以 ISO 16283、ASTM E90 為基準，**尚未完成台灣在地化**。引用任何數值前，請先依本檔「Taiwan Adaptation Notes」的待辦項目查證對應的台灣法規。
+
 ## Parameters
 ```typescript
 interface AcousticDesignParams {
