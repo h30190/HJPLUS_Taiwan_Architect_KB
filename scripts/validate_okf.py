@@ -39,6 +39,7 @@ TYPES = {
 }
 
 STATUS_VALUES = {"draft", "stable", "deprecated"}
+ADAPTATION_MARKER = "<!-- TODO: Taiwan adaptation needed -->"
 # Planned entries are marked either by a "## Planned" heading or, more often
 # in this repo, inline with （籌備中） in the description.
 PLANNED_INLINE = re.compile(r"籌備中|規劃中|\(planned\)", re.IGNORECASE)
@@ -144,6 +145,13 @@ def check_concept(path, expected_type):
         cls = nested_keys(fm, "metadata").get("class", "").strip("\"'")
         if cls not in {"A", "B", "C"}:
             err(path, f"metadata.class {cls!r} must be A, B or C")
+        elif cls == "B" and ADAPTATION_MARKER not in path.read_text(encoding="utf-8"):
+            # AGENTS.md requires B-class skills to flag the international spec
+            # blocks that still need Taiwan adaptation. Warn rather than fail:
+            # some skills on this list may simply be misclassified (a
+            # Taiwan-only skill tagged B belongs in C, with no marker needed).
+            warn(path, f"metadata.class B but no `{ADAPTATION_MARKER}` marker — "
+                       "add markers, or reclassify if the content is not international")
 
 
 def check_index(path, is_root):

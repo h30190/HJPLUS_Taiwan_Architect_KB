@@ -23,7 +23,7 @@ This skill provides comprehensive information about the standard building permit
 - Building code compliance (Taiwan Building Code)
 - Structural safety standards
 - Fire safety and life safety requirements
-- Accessibility compliance (ADA standards)
+- Accessibility compliance (建築物無障礙設施設計規範 / Taiwan Accessible Facilities Design Specification)
 - Environmental protection regulations
 - Urban planning and zoning requirements
 

@@ -66,6 +66,12 @@ Pre-commit hook (`.pre-commit-config.yaml`): runs `python scripts/run_graphify.p
 carry it; new skills must declare it. The class-assignment reference table is `SECTION_CLASS` in
 `scripts/update_readme_counts.py` — keep the two consistent.
 
+`scripts/validate_okf.py` warns when a `B` skill carries no `<!-- TODO: Taiwan adaptation needed -->`
+marker. As of 2026-08-07 all 18 B-class skills trip this warning — the rule has never been enforced.
+Some of them (`taipower-*`, `taiwan-plumbing-design-codes`, `taiwan-water-meter-installation`,
+`taiwan-telecom-design-codes`) look Taiwan-specific and may simply be misclassified `C`. Resolving
+this needs a domain judgment per skill; do not bulk-insert markers to silence the warning.
+
 **`metadata.status`** (optional, but load-bearing when present):
 
 | Value | Meaning | Reader behavior |
