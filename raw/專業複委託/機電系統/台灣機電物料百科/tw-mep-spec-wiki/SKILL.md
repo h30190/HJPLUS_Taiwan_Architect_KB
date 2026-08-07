@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: tw-mep-spec-wiki
 description: "This skill should be used to search, query, verify, and recommend commercial MEP (Mechanical, Electrical, and Plumbing) materials and specifications in Taiwan from the local JSON database (which currently contains Kaohsingchang piping specs but will expand to include other manufacturers and equipment in the future)."
 license: CC-BY-SA-4.0

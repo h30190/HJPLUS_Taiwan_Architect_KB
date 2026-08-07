@@ -13,6 +13,10 @@ repos:
       - id: convert-mep-xlsx
         name: Convert MEP Excel to JSON
         entry: python raw/專業複委託/機電系統/台灣機電物料百科/tw-mep-spec-wiki/xlsx_to_json.py
-        language: system
+        # language: python + additional_dependencies 讓 pre-commit 自建隔離環境。
+        # 原本用 language: system 會直接依賴系統 Python 有裝 openpyxl，沒裝的人
+        # hook 一跑就 exit 1 —— 實際上這正是 #38 的 json 沒被同步重生的原因。
+        language: python
+        additional_dependencies: [openpyxl]
         files: 'raw/專業複委託/機電系統/台灣機電物料百科/MEP品項百科\.xlsx'
         pass_filenames: false

@@ -6,6 +6,7 @@
 
 ## 2026-08-07
 
+- **Creation**: 新增 `專業複委託/機電系統/台灣機電物料百科/tw-mep-spec-wiki`——台灣機電物料規格百科，目前收錄高興昌配管 1,180 筆（[#38](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/38)）。合併後由維護者重新產生 `MEP品項百科.json`（原提交版全部 1,180 筆的 `資料來源` 仍指向已移除的廠商型錄 PDF 路徑）、修正 pre-commit hook 的相依宣告，並補上 OKF `type` frontmatter。
 - **Creation**: 新增 `專業複委託/機電系統/taiwan-mep-unit-basis`——台灣機電單位慣例與法規設計階段對應（[#46](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/46)）。該 PR 早於 OKF v0.2，合併後由維護者補上 `type` frontmatter 與 `SECTION_CLASS` 覆寫。
 - **Update**: 清理 B 類分類債。8 個實為台灣本土法規／標章的技能（台電屋內線路與受電室、台灣給排水／電信／水表規範、EEWH 綠建築標章、低碳建築標示、室內環境）由 B 改為 C；其餘 10 個確為國際規範的技能補上 `<!-- TODO: Taiwan adaptation needed -->` 標記，指明所依國際標準與尚未在地化的區塊。`scripts/update_readme_counts.py` 的 `SECTION_CLASS` 同步覆寫，分類統計由 A 10／B 18／C 53 變為 A 10／B 10／C 61。
 - **Update**: 建築執照 4 種執照別（使用／建造／拆除／雜項）下的 16 個技能改用執照別專屬名稱並移入英文技能目錄，解除 4 組 `name` 重複；內容仍四份相同，已於各檔標註 TODO 待專業者依執照別分化。2 份參考資料補 `type: Reference`，`scripts/validate_okf.py` 新增重複 `name` 檢查。

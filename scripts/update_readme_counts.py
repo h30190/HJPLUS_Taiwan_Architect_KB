@@ -30,6 +30,7 @@ SECTION_CLASS = {
         "專業複委託/機電系統/taipower-indoor-wiring-ampacity": "C",
         "專業複委託/機電系統/taipower-substation-review-docs": "C",
         "專業複委託/機電系統/taiwan-mep-unit-basis": "C",
+        "專業複委託/機電系統/台灣機電物料百科/tw-mep-spec-wiki": "C",
         "專業複委託/機電系統/taiwan-plumbing-design-codes": "C",
         "專業複委託/機電系統/taiwan-telecom-design-codes": "C",
         "專業複委託/機電系統/taiwan-water-meter-installation": "C",
