@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "建築執照申辦流程"
+---
+
 # 建築執照申辦流程
 
 ## 使用情境

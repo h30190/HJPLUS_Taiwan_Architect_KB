@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "Architect Calculator Domain Knowledge"
+---
+
 # Architect Calculator Domain Knowledge
 
 ## 定義

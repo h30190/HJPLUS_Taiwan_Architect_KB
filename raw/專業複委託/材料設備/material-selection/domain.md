@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "材料選擇"
+---
+
 # 材料選擇
 
 ## 為什麼重要？

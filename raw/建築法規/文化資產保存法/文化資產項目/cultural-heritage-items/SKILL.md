@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: cultural-heritage-items
 description: "This skill should be used when assessing the categories of cultural heritage defined by the Cultural Heritage Preservation Act in Taiwan, especially during site analysis and architectural planning."
 license: CC-BY-SA-4.0

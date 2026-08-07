@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "[知識名稱]"
+---
+
 # [知識名稱]
 
 ## 使用情境

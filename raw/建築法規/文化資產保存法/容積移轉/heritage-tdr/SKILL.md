@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: heritage-tdr
 description: "This skill should be used when assessing and processing the Transfer of Development Rights (TDR) for privately-owned cultural heritage properties to compensate owners for development restrictions according to the Cultural Heritage Preservation Act."
 license: CC-BY-SA-4.0

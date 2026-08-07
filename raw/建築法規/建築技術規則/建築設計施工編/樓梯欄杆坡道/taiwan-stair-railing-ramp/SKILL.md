@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: taiwan-stair-railing-ramp
 description: "This skill should be used when checking stair dimensional compliance for buildings in Taiwan — minimum stair-and-landing width, riser height, tread depth by building-use category, and the critical handrail-encroachment rule (clear width must remain >= 75 cm regardless of handrails), per Taiwan Building Technical Regulations (Design & Construction) Article 33, Chapter 2 Section 7 (Stairs, Railings, Ramps, Articles 33-39). Railings (Art. 38), handrails (Art. 37) and ramps (Art. 39) are stubbed for later completion."
 license: CC-BY-SA-4.0

@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "低碳建築標示（LEBR）"
+---
+
 # 低碳建築標示（LEBR）
 
 ## 什麼是低碳建築標示

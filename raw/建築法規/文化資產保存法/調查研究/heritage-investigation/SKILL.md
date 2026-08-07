@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: heritage-investigation
 description: "This skill should be used when initiating a cultural heritage restoration project to conduct historical research, surveying, and damage investigation according to the Regulations for the Restoration and Adaptive Reuse of Historic Monuments."
 license: CC-BY-SA-4.0

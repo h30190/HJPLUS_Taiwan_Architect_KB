@@ -25,6 +25,8 @@
 <details>
 <summary>點開查看近期已合併的 PR（感謝所有貢獻者！）</summary>
 
+- **2026-08-07** 📦 全庫升級至 Open Knowledge Format v0.2（`type` 概念標註、`verified` 查證家族、`raw/log.md` 沿革、`scripts/validate_okf.py` 驗證器）
+- **2026-08-07** 🏛️ 修復文化資產分類 11 個檔案的編碼損壞，並補齊全庫 `metadata.class` ([#45](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/45) by @h30190)
 - **2026-08-04** 🏢 修正智慧建築標章 4.2.2 空調系統智慧化節能計算範例的積分加總值（49→59，已向台灣智慧建築協會確認）([#43](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/43) by @Jen666-Tw)
 - **2026-08-04** 🗺️ 臺中市地址地號查詢新增建築線免指地區／軍事禁限建、文化資產查詢與快速摘要（查詢來源 9 → 11 個）([#42](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/42) by @ottina；配對邏輯與報告警示於 [#44](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/44) 補強)
 - **2026-07-27** 🏛️ 新增臺北市建築物附置裝飾性構造物設計範例彙編技能（113年9月25日最新發布實施規範）([#41](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/41) by @CWLin0518)

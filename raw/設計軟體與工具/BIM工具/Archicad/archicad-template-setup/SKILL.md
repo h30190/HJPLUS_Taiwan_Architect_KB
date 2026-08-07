@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: archicad-template-setup
 description: "This skill should be used when architects need to create, audit, or maintain an Archicad office template with consistent layers, pens, attributes, favorites, composites, layouts, and publishing standards."
 license: CC-BY-SA-4.0

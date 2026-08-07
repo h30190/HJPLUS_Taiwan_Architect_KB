@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "混凝土柱設計"
+---
+
 # 混凝土柱設計
 
 ## 使用情境

@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "設計理論"
+---
+
 # 設計理論
 
 ## 為什麼重要？

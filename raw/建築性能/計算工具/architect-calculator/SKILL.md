@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: architect-calculator
 description: "This skill should be used when performing architect calculations including floor area analysis, structural estimation, MEP load calculation, and cost estimation."
 user-invocable: true

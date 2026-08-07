@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: building-permit-review-standards
 description: "This skill should be used when architects or construction professionals need to understand the standard building permit review criteria and compliance requirements in Taiwan."
 user-invocable: true

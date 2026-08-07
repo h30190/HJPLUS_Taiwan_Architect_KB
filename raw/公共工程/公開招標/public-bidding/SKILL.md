@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: public-bidding
 description: "This skill should be used when an architect needs guidance on Taiwan's public open bidding (公開招標) procedures under the Government Procurement Act, including bid preparation, evaluation criteria, threshold amounts, and compliance requirements."
 user-invocable: true

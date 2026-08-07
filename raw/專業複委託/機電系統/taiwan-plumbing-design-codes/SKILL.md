@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: taiwan-plumbing-design-codes
 description: "This skill should be used when verifying indoor plumbing designs in Taiwan, including water tank capacities, pipe sizing, trap seals, drainage slopes, and ventilation pipes."
 metadata:

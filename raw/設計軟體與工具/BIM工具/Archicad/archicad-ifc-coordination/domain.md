@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "Archicad IFC 協調"
+---
+
 # Archicad IFC 協調
 
 ## 為什麼重要？

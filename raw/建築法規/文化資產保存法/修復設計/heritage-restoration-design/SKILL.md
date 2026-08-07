@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: heritage-restoration-design
 description: "This skill should be used when undertaking the architectural restoration design for cultural heritage buildings, detailing preservation methods and compliance with the Regulations for the Restoration and Adaptive Reuse of Historic Monuments."
 license: CC-BY-SA-4.0

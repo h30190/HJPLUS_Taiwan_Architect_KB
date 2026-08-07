@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "Building Sustainability Domain Knowledge"
+---
+
 # Building Sustainability Domain Knowledge
 
 ## 定義

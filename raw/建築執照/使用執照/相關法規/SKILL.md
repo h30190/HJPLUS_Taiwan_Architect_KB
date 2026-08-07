@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: building-permit-related-regulations
 description: "This skill should be used when architects or construction professionals need to understand the regulatory framework for building permits in Taiwan."
 user-invocable: true

@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "公開閱覽"
+---
+
 # 公開閱覽
 
 ## 什麼是公開閱覽？

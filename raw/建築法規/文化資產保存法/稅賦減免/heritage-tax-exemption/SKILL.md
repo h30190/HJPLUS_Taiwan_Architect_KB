@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: heritage-tax-exemption
 description: "This skill should be used when assessing tax benefits for cultural heritage, specifically the exemptions from land value tax and house tax for historic buildings, monuments, and memorial buildings according to the Cultural Heritage Preservation Act."
 license: CC-BY-SA-4.0

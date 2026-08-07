@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: spatial-planning
 description: >
   Spatial planning for buildings: floor plan layout and archetypes, circulation

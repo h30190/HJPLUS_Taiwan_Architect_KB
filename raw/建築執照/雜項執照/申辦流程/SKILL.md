@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: building-permit-application-process
 description: "This skill should be used when architects or construction professionals need to understand the standard building permit application procedures and requirements in Taiwan."
 user-invocable: true

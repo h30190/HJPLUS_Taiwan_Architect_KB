@@ -1,9 +1,12 @@
 ---
+type: Skill
 name: regulation-hierarchy-and-conflicts
 description: "This skill should be used when two or more Taiwan regulations appear to conflict, when deciding which rule governs (national law vs. local ordinance vs. administrative interpretation), when a regulation was amended and it is unclear which version applies, or before answering any compliance question that touches more than one body of law (e.g., building code vs. fire code, national code vs. municipal ordinance)."
 user-invocable: true
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
+verified:
+  - { by: human:Jacky820507, at: 2026-07-10T00:00:00Z }
 metadata:
   audience: architects
   region: taiwan

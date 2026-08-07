@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: adaptive-reuse-response-plan
 description: "This skill should be used when preparing an Adaptive Reuse Response Plan to obtain exemptions from the Building Act or Fire Services Act for cultural heritage projects, proposing alternative safety and compliance measures."
 license: CC-BY-SA-4.0

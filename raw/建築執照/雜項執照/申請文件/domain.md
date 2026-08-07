@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "建築執照申請文件"
+---
+
 # 建築執照申請文件
 
 ## 使用情境

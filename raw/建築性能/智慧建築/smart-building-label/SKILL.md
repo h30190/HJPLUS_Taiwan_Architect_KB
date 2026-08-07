@@ -1,7 +1,10 @@
 ---
+type: Skill
 name: smart-building-label
 description: "This skill should be used when applying for Taiwan Smart Building Label (智慧建築標章) or designing intelligent building systems."
 user-invocable: true
+verified:
+  - { by: human:Jen666-Tw, at: 2026-07-21T00:00:00Z }
 metadata:
   class: C
   status: verified

@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "混凝土通用規定"
+---
+
 # 混凝土通用規定
 
 ## 使用情境

@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: design-theory
 description: Architectural movements, design philosophy, critical theory, precedent analysis, and compositional principles for informed design reasoning
 user-invocable: true

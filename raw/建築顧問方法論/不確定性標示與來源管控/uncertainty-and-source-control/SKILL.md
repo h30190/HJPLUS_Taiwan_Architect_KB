@@ -1,9 +1,12 @@
 ---
+type: Skill
 name: uncertainty-and-source-control
 description: "This skill should be used whenever producing a consulting answer or authoring/editing a knowledge-base skill, to control how facts are sourced and how uncertainty is expressed: it defines the source-control iron rule (never infer un-transcribed numeric values from general practice), the three certainty labels (Verified / Secondary / Unverified), the ERROR/WARNING/INFO check-output convention, the To-Verify section format, and the tone rules that prevent confidently-wrong output."
 user-invocable: true
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
+verified:
+  - { by: human:Jacky820507, at: 2026-07-10T00:00:00Z }
 metadata:
   audience: architects
   region: taiwan

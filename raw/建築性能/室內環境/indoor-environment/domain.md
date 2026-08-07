@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "室內環境品質"
+---
+
 # 室內環境品質
 
 ## 什麼是室內環境品質

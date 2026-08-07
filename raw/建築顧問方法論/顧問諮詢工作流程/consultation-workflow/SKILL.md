@@ -1,9 +1,12 @@
 ---
+type: Skill
 name: consultation-workflow
 description: "This skill should be used when answering any Taiwan architecture consulting question — code compliance, FAR/area calculation, permits, fire safety, accessibility, procurement, structural checks — as the entry point that defines the seven-step consulting procedure (classify, locate governing law, route and combine KB skills, verify currency, resolve conflicts, detect boundary cases, format the answer) and the standard answer format with certainty labels."
 user-invocable: true
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
+verified:
+  - { by: human:Jacky820507, at: 2026-07-10T00:00:00Z }
 metadata:
   audience: architects
   region: taiwan

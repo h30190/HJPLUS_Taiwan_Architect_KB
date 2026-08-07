@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "建築執照審核標準"
+---
+
 # 建築執照審核標準
 
 ## 使用情境

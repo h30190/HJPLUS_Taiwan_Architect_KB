@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: height-ratio-front-road-review
 description: "This skill should be used when reviewing Taiwan building-height limits controlled by front-road width and FAR-area 3.6:1 height-slope rules: determining the legal front road, calculating Article 14 1.5W+6m where applicable, Article 164 H<=3.6(Sw+D) and shadow-area caps, selecting conservative floor-area-line control points, handling private passages, multiple roads, permanent open space, road-end, residential/non-FAR/cross-zoning checks under Articles 1, 8, 14-19, 23, 24, 27, 29, 160, 164, and 166."
 license: CC-BY-SA-4.0

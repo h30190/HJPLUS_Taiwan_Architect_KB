@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: heritage-supervision-report
 description: "This skill should be used when supervising cultural heritage restoration construction and compiling the final Working Report as required by the Regulations for the Restoration and Adaptive Reuse of Historic Monuments."
 license: CC-BY-SA-4.0

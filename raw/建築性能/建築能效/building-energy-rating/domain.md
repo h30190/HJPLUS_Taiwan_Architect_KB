@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "建築能效標示"
+---
+
 # 建築能效標示
 
 ## 什麼是建築能效標示

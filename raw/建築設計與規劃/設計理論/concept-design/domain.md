@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "概念設計"
+---
+
 # 概念設計
 
 ## 為什麼重要？
