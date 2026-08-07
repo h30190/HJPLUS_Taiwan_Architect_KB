@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: taiwan-mep-unit-basis
 description: "This skill should be used when you need the correct UNIT for a Taiwan MEP quantity (airflow, static pressure, water pressure, pipe diameter, per-person water demand, storage-tank volume, drainage slope, lighting load) together with its statutory source, OR when you need to know at which DESIGN STAGE a MEP regulation is checked and whether it is MANDATORY / needs a licensed-engineer seal. It owns the cross-system UNIT CONVENTIONS (metric measurement + kgf/cm² pressure + imperial pipe designations) and the regulation→stage→mandatory→responsibility-gap map; per-system detailed design numbers live in the deep-dive skills. Keywords: MEP unit, kg/cm2, m3/h, m/min, 英吋, 度量衡法, design stage, mandatory, 技師簽證."
 license: CC-BY-SA-4.0
