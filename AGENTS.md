@@ -364,6 +364,49 @@ downgraded to `[Unverified]` or reject it. Adding `[Unverified]` / `[Secondary]`
 to this check (readers already treat those as non-authoritative). Rationale: `[Verified]` is the only tag
 that unlocks 「規定為/必須」 tone, so the maintainer's verification cost is concentrated there.
 
+### Run what the PR ships — do not review from the commit message
+
+When a PR contains a script, or when a previous review asked for a fix, **execute it** rather than
+reading the diff and trusting the commit title. Two failures found this way that a diff read would
+have missed:
+
+- A contributor's commit said the catalog PDF was replaced by an official URL. The `.xlsx` was
+  indeed fixed — but the generated `.json` that `SKILL.md` actually feeds to the AI was never
+  regenerated, so all 1,180 records still pointed at a file that had just been deleted from the repo.
+  Running the contributor's own converter and diffing its output against the committed file exposed it.
+- A `pre-commit` hook declared `language: system` and silently required an unlisted `openpyxl`.
+  It exited 1 on any machine without that package — meaning the hook meant to keep those two files
+  in sync had never actually run for anyone.
+
+Use a throwaway venv when a script needs packages this repo does not depend on; never install into
+the maintainer's environment to test someone's PR.
+
+### Frontmatter must agree with in-body certainty tags
+
+`metadata.status: verified` claims every normative number was transcribed clause-by-clause. If the
+body carries `[Unverified]` or `[Secondary]` tags and no `[Verified]` ones, the frontmatter is
+overclaiming even when each individual tag is honest — ask for `status: unverified` instead.
+
+### Locality must be visible at the index, not only in the body
+
+A skill covering one municipality's procedure (建照報備, 地籍查詢, 都審) must say so where a reader
+meets it first: a `⚠️ 僅適用於OO市` line under `domain.md`'s H1, **and** the municipality in the
+parent `index.md` entry. 建築執照 and 地籍 procedures diverge sharply between counties, and someone
+browsing `建造執照/index.md` will not read the frontmatter's `region:` key.
+[臺中地號查詢](raw/建築執照/基本資料/地方政府地籍查詢系統/臺中市/臺中地號查詢/domain.md) is the
+reference example.
+
+### A new rule does not block a PR that predates it
+
+When this repo adopts a convention (OKF v0.2's `type`, a new required field), PRs opened before that
+date are **not** sent back for it. Merge on the PR's own merits and backfill in a separate
+maintainer commit — see the OKF backfill PRs #50, #52, #53. Tell the contributor explicitly that
+they do not need to act on it, so the message does not read as one more round of homework.
+
+Conversely, when a defect class shows up in a real PR, add a check to
+`scripts/validate_okf.py` so it cannot recur silently — the duplicate-`name` and B-class-marker
+checks both exist because a merged PR had already tripped them.
+
 ## Post-Merge Maintenance
 
 After merging a PR, the maintainer must:
@@ -377,7 +420,12 @@ After merging a PR, the maintainer must:
    machine-readable twin of step 1 (OKF §9).
 3. **Update parent `index.md`** — If the PR added or removed skills, sync the parent directory's `index.md` `## Skills` list per [OKF v0.2](#indexmd--directory-index).
 4. **Run `python scripts/update_readme_counts.py`** to refresh the skill count table (auto-runs via pre-commit hook if configured, but verify the numbers match).
-5. **Run `python scripts/validate_okf.py`** — must report 0 errors.
+5. **Run `python scripts/validate_okf.py`** — must report 0 errors. A PR that predates a convention
+   will fail here; backfill it in a separate commit rather than reopening the PR (see
+   [Pre-Merge Verification](#a-new-rule-does-not-block-a-pr-that-predates-it)).
+6. **Sync `SECTION_CLASS`** in `scripts/update_readme_counts.py` when the new skill's
+   `metadata.class` differs from its section default — otherwise the README count table and the
+   frontmatter disagree.
 
 The landing page data (`docs/data.json` — knowledge-graph tree, tag list, 最新更新, stat counters)
 is **auto-regenerated at deploy time**: the `Deploy landing page` GitHub Action runs
