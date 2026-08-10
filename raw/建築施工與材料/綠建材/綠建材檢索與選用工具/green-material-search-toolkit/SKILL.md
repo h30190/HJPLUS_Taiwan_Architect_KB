@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: green-material-search-toolkit
 description: "This skill should be used when an architect or consultant needs to search Taiwan's TABC (財團法人臺灣建築中心) green building material certification database, assemble a set of qualified materials for a project (a \"Set\"), ask the AI to draft a material-selection advisory document for that Set, or export/import a Set as a project file. It does not write to any BIM software model."
 license: CC-BY-SA-4.0
