@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: leed
-description: "This skill should be used when applying for LEED (Leadership in Energy and Environmental Design) certification or designing green buildings according to USGBC standards."
+description: "This skill should be used when applying for LEED (Leadership in Energy and Environmental Design) certification or designing green buildings according to USGBC standards. 僅限LEED認證流程;台灣EEWH綠建築標章請用green-building-label,本地室內環境品質設計請用indoor-environment。"
 user-invocable: true
 metadata:
   class: B

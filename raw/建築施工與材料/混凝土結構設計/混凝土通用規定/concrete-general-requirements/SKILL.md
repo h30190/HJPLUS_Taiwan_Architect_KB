@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: concrete-general-requirements
-description: "This skill should be used when an architect needs to verify PDF-backed common concrete detailing rules such as concrete cover, reinforcement terminology, minimum spacing references, development-length clauses, and splice clauses in Taiwan's concrete structure design code."
+description: "This skill should be used when an architect needs to verify PDF-backed common concrete detailing rules such as concrete cover, reinforcement terminology, minimum spacing references, development-length clauses, and splice clauses in Taiwan's concrete structure design code. 若請求未指明構件(梁/柱/版/牆),先用本skill;本skill僅涵蓋最小淨間距(Chapter 25.2),各構件最大間距上限請查對應concrete-*-design。Trigger words: 混凝土保護層、鋼筋淨間距、伸展長度、續接。"
 user-invocable: true
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
@@ -148,8 +148,8 @@ Use this table to auto-check submitted structural drawings or design parameters:
 | Check | Condition | AI Action |
 |---|---|---|
 | Minimum spacing | Parallel bars do not satisfy 25.2.1, 25.2.2, or 25.2.3 | ERROR: Rebar spacing violates Chapter 25.2. |
-| Cover — interior slab | C < 20 mm (#5 and smaller) | ERROR: Insufficient cover |
-| Cover — exterior | C < 50 mm (exposed to weather, #6 and smaller) | ERROR: Insufficient cover |
+| Cover — interior slab | C < 20 mm (D36 and smaller) | ERROR: Insufficient cover |
+| Cover — exterior | C < 50 mm (D19–D57) or C < 40 mm (D16 and smaller) | ERROR: Insufficient cover |
 | Cover — soil contact | C < 75 mm (cast against soil) | ERROR: Insufficient cover |
 | Development length | Numeric ld needed but Chapter 25.4 not yet resolved | WARNING: Resolve from verified Chapter 25.4 source before checking |
 | Splice class | Numeric splice class or factor not yet resolved from Chapter 25.5 | WARNING: Resolve from verified Chapter 25.5 source before checking |

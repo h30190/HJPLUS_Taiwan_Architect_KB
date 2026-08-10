@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: well-building
-description: "This skill should be used when designing for WELL Building Certification or improving indoor health environment based on IWBI standards."
+description: "This skill should be used when designing for WELL Building Certification or improving indoor health environment based on IWBI standards. 僅限WELL認證流程;台灣本地室內環境品質設計請用indoor-environment。Trigger words: WELL健康建築認證。"
 user-invocable: true
 metadata:
   class: B
@@ -40,7 +40,7 @@ WELL Building Standard是由國際WELL建築研究院（IWBI）於2014年發布�
 
 | 等級 | 分數門檻 | 必備條件 |
 |-----|---------|---------|
-| 銅級 | 80分 | 24項必備條件全部滿足 |
+| 銅級 | 80分（⚠️ 與同表白金級 80 分矛盾，未查證 WELL 官方門檻前勿引用本表分數） | 24項必備條件全部滿足 |
 | 銀級 | 40分 | 必備+額外得分 |
 | 金級 | 60分 | 必備+額外得分 |
 | 白金級 | 80分 | 必備+額外得分 |

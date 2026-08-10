@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: archicad-documentation
-description: "This skill should be used when architects need to produce plans, sections, elevations, details, schedules, layouts, issue sets, and PDF or DWG publications from an Archicad model."
+description: "This skill should be used when architects need to produce plans, sections, elevations, details, schedules, layouts, issue sets, and PDF or DWG publications from an Archicad model. Trigger words: Archicad 出圖、圖紙、發布、PDF/DWG。"
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
 metadata:
