@@ -1,7 +1,10 @@
 ---
+type: Skill
 name: smart-building-label
 description: "This skill should be used when applying for Taiwan Smart Building Label (智慧建築標章) or designing intelligent building systems."
 user-invocable: true
+verified:
+  - { by: human:Jen666-Tw, at: 2026-07-21T00:00:00Z }
 metadata:
   class: C
   status: verified
@@ -147,7 +150,7 @@ metadata:
 | 冷卻水泵變頻控制 | 1 |
 | 冷卻水塔出水溫度控制 | 5 |
 | 執行TAB與Cx（測試調整平衡＋性能確認） | 4+4=8 |
-| **節能值總和** | **49** |
+| **節能值總和** | **59** |
 
 依手冊表2.8「節能值對應得分」，節能值達45以上，該評估項目可得**滿分4分**。
 

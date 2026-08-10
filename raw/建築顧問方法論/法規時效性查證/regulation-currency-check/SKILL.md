@@ -1,9 +1,12 @@
 ---
+type: Skill
 name: regulation-currency-check
 description: "This skill should be used when about to quote any normative number (dimension, ratio, monetary threshold, penalty, vendor specification) from memory or from another skill in this knowledge base, when a skill's data is older than one year or carries no date, when the topic is in a high-churn regulatory domain (building code amendments, accessibility standards, green-building versions, procurement thresholds), or when a skill is marked status: unverified."
 user-invocable: true
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
+verified:
+  - { by: human:Jacky820507, at: 2026-07-10T00:00:00Z }
 metadata:
   audience: architects
   region: taiwan

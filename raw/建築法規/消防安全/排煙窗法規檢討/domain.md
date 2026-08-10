@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "排煙窗法規檢討"
+---
+
 # 排煙窗法規檢討
 
 ## 使用情境

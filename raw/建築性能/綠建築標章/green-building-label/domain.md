@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "綠建築標章（EEWH）"
+---
+
 # 綠建築標章（EEWH）
 
 ## 什麼是綠建築標章

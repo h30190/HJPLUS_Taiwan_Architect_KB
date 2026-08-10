@@ -1,6 +1,6 @@
 # 機電系統 (MEP Systems)
 
-此分類涵蓋建築物機電設備設計、水電法規、電信規範等專業實務知識。
+此分類涵蓋建築物機電設備設計、水電法規、電信規範以及機電設備物料百科等專業實務知識。
 
 ## 技能模組總覽
 
@@ -9,6 +9,7 @@
 | 技能名稱 | 類型 | SKILL.md (AI) | domain.md (人類) |
 |---------|---|-----|-----|
 | [building-services](building-services/) | B 類適配 | ✅ | ✅ |
+| [tw-mep-spec-wiki](台灣機電物料百科/tw-mep-spec-wiki/) | C 類台灣法規 | ✅ | ✅ |
 | [taiwan-water-meter-installation](taiwan-water-meter-installation/) | C 類台灣法規 | ✅ | ✅ |
 | [taipower-substation-review-docs](taipower-substation-review-docs/) | C 類台灣法規 | ✅ | ✅ |
 | [taipower-indoor-wiring-ampacity](taipower-indoor-wiring-ampacity/) | C 類台灣法規 | ✅ | ✅ |

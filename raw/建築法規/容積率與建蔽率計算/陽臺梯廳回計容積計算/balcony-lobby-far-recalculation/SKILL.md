@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: balcony-lobby-far-recalculation
 description: "This skill should be used when calculating Taiwan FAR gross-floor-area inclusion for balcony and shared stair/elevator lobby areas under Building Technical Regulations Article 162, including the separate 10% balcony cap, separate 10% lobby cap, combined 15% balcony-plus-lobby cap, and avoiding double-counting already-included excess area."
 license: CC-BY-SA-4.0

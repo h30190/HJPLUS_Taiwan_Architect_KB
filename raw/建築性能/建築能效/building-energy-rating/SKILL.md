@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: building-energy-rating
 description: "This skill should be used when applying for Taiwan Building Energy-Efficiency Rating System (建築能效標示, BERS) or calculating building energy performance."
 user-invocable: true

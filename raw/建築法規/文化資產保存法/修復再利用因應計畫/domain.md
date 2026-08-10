@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "修復再利用因應計畫"
+---
+
 # 修復再利用因應計畫
 
 ## 使用情境

@@ -8,6 +8,7 @@
 2. **資料夾改名（中文）**：將複製後的資料夾**改名為中文**（例如：`公開招標/` 或 `排煙窗法規檢討/`）。
    - 這是給**人類瀏覽**的入口，必須使用直覺的中文命名。
 3. **填寫 `domain.md`**：在資料夾根目錄填寫 `domain.md`（繁體中文說明）。
+   保留樣板已有的 `type: Knowledge Entry` frontmatter，並把 `title` 改成與 `# H1` 相同的知識名稱。
    - 這是人類打開資料夾後第一眼看到的內容。
 4. **進入並改名子資料夾（英文）**：進入 `skill-name-hyphenated/`，將其**改名為英文**（例如：`public-bidding/` 或 `smoke-exhaust-review/`）。
    - 這是給 **AI 識別** 的技能層，必須符合 Agent Skills 標準（小寫英文 + 連字號）。
@@ -15,7 +16,7 @@
    - `SKILL.md` 的 `name` 必須與資料夾名稱**完全一致**。
 6. **更新父層 `index.md`**：回到上層目錄，檢查有沒有 `index.md`。
    - 有 → 在 `## Skills` 下加一筆新技能連結。
-   - 無 → 且該目錄已有多個條目 → 依照 [OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) 格式建立一份。
+   - 無 → 且該目錄已有多個條目 → 依照 [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) 格式建立一份。
 
 ---
 

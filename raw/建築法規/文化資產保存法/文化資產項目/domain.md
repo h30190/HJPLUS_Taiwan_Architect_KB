@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "文化資產項目"
+---
+
 # 文化資產項目
 
 ## 使用情境

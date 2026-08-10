@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: concrete-slab-design
 description: "This skill should be used when an architect or structural designer needs to verify PDF-backed concrete slab requirements such as minimum slab thickness, minimum flexural reinforcement, and shrinkage/temperature reinforcement rules in Taiwan's concrete structure design code."
 user-invocable: true

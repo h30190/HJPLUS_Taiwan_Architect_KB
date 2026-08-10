@@ -76,6 +76,7 @@
 2. **資料夾改名（中文）**：將複製後的資料夾**改名為中文**（例如 `公開招標` 或 `排煙窗法規檢討`）。
    - 這是人類瀏覽的入口，必須使用直覺的中文命名。
 3. **填寫 `domain.md`**：在資料夾根目錄填寫 `domain.md`（繁體中文說明）。
+   frontmatter 只放 `type: Knowledge Entry` 與 `title`（與 `# H1` 一致），不要放 `name`、`metadata` 等技能欄位。
    - 這是人類打開資料夾後第一眼看到的內容。
 4. **子資料夾改名（英文）**：進入內部的 `skill-name-hyphenated/`，將其**改名為英文**（例如 `public-bidding` 或 `smoke-exhaust-review`）。
    - 這是給 AI 識別的技能層，必須符合 Agent Skills 標準（小寫英文 + 連字號）。
@@ -83,7 +84,7 @@
    - `SKILL.md` 的 `name` 必須與資料夾名稱**完全一致**。
 6. **刪除不需要的子資料夾**：如果技能不需要 `scripts/`、`assets/` 或 `references/`，直接刪掉即可。
 7. **更新父層 `index.md`**：如果上層目錄有 `index.md`，在 `## Skills` 下新增一筆新技能的連結。
-   如果上層目錄還沒有 `index.md` 但已包含多個子條目，請依照 [OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) 格式建立一份。
+   如果上層目錄還沒有 `index.md` 但已包含多個子條目，請依照 [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) 格式建立一份。
 
 ### SKILL.md 的 Frontmatter 規則
 
@@ -91,10 +92,16 @@
 
 ```yaml
 ---
+type: Skill
 name: skill-name-hyphenated
 description: "This skill should be used when [具體觸發情境]。"
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
+sources:
+  - id: btr-33
+    resource: https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=D0070115
+    title: 建築技術規則建築設計施工編 §33
+    last_modified: 2024-03-14
 metadata:
   audience: architects
   region: taiwan
@@ -106,14 +113,21 @@ metadata:
 
 | 欄位 | 規則 |
 |------|------|
+| `type` | **必填**，固定為 `Skill`（OKF v0.2 §11.2 要求每份概念文件都要有 `type`） |
 | `name` | **必填**，1-64 字，小寫英文數字 + 單連字號，不能以 `-` 開頭或結尾，必須與資料夾名稱一致 |
 | `description` | **必填**，1-1024 字，必須包含具體觸發情境，讓 AI 知道何時呼叫此技能 |
+| `sources` | **新技能必填**，每筆需有 `id` 與 `resource`；正文用 `[^id]` 註腳標註是哪一句話引用了它 |
 | `license` | 可選，授權聲明 |
 | `compatibility` | 可選，相容性宣告 |
+| `verified` | 建議填，格式 `- { by: human:<GitHub 帳號>, at: YYYY-MM-DDT00:00:00Z }`；`metadata.status` 為 `unverified` 時**不要寫這個欄位**，OKF 就是以「沒有 `verified`」表示未查證 |
+| `status`（頂層） | 可選，只能是 `draft`／`stable`／`deprecated`。**不要填 `verified`／`unverified`**，那是 `metadata.status` 的值域 |
+| `stale_after` | 可選，`YYYY-MM-DD`，僅在確實有失效日期時填 |
 | `metadata.class` | **必填**，`A`／`B`／`C`（分類定義見下表） |
 | `metadata.status` | 可選，`verified`（數值已逐條查證）／`unverified`（數值未查證，AI 引用前必重查）／`draft`（骨架） |
 | `metadata.data-currency` | 建議填，`"YYYY-MM-DD"`——最後一次查證來源的日期 |
 | `metadata`（其他 key） | 可選，key-value 擴充欄位 |
+
+送出 PR 前請執行 `python scripts/validate_okf.py`，必須回報 0 errors。
 
 ### 技能分類與特殊要求
 

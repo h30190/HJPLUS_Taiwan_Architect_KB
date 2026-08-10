@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "法源位階與衝突處理"
+---
+
 # 法源位階與衝突處理
 
 ## 使用情境

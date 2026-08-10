@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "建築類型學"
+---
+
 # 建築類型學
 
 ## 為什麼重要？

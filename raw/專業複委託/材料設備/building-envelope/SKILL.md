@@ -1,4 +1,5 @@
 ---
+type: Skill
 name: building-envelope
 description: "This skill should be used when designing and analyzing building envelope systems, including wall assemblies, roofs, glazing, thermal performance, and waterproofing."
 user-invocable: true
@@ -17,6 +18,9 @@ metadata:
 - 熱橋效應評估
 - 防水與氣密系統設計
 - 窗牆比（WWR）優化
+
+<!-- TODO: Taiwan adaptation needed -->
+> ⚠️ 以下內容以 ASHRAE 90.1 為基準，**尚未完成台灣在地化**。引用任何數值前，請先依本檔「Taiwan Adaptation Notes」的待辦項目查證對應的台灣法規。
 
 ## Parameters
 ```typescript

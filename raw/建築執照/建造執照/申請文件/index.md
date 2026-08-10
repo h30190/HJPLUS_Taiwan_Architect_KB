@@ -2,6 +2,7 @@
 
 ## Skills
 
+* [建造執照申請文件](construction-permit-application-documents/SKILL.md) - 建造執照申請所需文件的通用說明
 * [書類文件](書類文件/) - 建造執照申請書類文件（各縣市）
 
 ## Planned

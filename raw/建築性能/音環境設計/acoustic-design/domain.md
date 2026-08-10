@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "Acoustic Design Domain Knowledge"
+---
+
 # Acoustic Design Domain Knowledge
 
 ## 定義

@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "修復工程程序"
+---
+
 # 修復工程程序
 
 ## 使用情境

@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "Daylighting Design Domain Knowledge"
+---
+
 # Daylighting Design Domain Knowledge
 
 ## 定義

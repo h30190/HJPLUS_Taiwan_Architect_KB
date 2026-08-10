@@ -1,3 +1,8 @@
+---
+type: Knowledge Entry
+title: "施工規範與CNS核對"
+---
+
 # 施工規範與CNS核對
 
 ## 使用情境
