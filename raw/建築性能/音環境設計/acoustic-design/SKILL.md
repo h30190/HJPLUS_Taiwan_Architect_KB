@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: acoustic-design
-description: "This skill should be used when designing architectural acoustics, including room acoustics, noise control, and sound insulation."
+description: "This skill should be used when designing architectural acoustics, including room acoustics, noise control, and sound insulation. Trigger words: 隔音設計、噪音控制、室內音響、樓板衝擊音。"
 user-invocable: true
 metadata:
   class: B

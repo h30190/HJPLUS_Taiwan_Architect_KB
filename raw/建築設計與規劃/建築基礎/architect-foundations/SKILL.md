@@ -1,20 +1,7 @@
 ---
 type: Skill
 name: architect-foundations
-description: >
-  Auto-activated foundation layer for the Architect Skills plugin providing practitioner-grade
-  reference across 50+ architects and theorists (Vitruvius through Kere), 100+ quantitative
-  rules of thumb sourced from IBC, ASHRAE 90.1, ADA/ABA, NFPA 101, BS EN 1991-1995,
-  Neufert Architects' Data, and Architectural Graphic Standards. Covers all major building
-  typologies (residential, commercial, institutional, industrial, special), design quality
-  frameworks (RIBA Plan of Work 2020, AIA Framework for Design Excellence, CABE Building
-  for Life 12), sustainability rating systems (LEED BD+C v4.1, BREEAM New Construction 2024,
-  Passive House Classic/Plus/Premium, WELL v2, Living Building Challenge 4.0, Fitwel),
-  fire and life safety codes (NFPA 101, IBC Ch. 7-10, BS 9999, Approved Document B),
-  accessibility standards (ADA 2010, BS 8300, EN 17210, DDA), acoustic performance
-  (ASTM E90 STC, ASTM E492 IIC, BB93, DIN 4109), structural systems, envelope performance,
-  daylighting metrics, and an anti-pattern catalog of common design failures. Routes to
-  17 specialized downstream skills based on user query context.
+description: "This skill should be used when an architecture question needs foundational reference data — architects and theorists (Vitruvius through Kere), quantitative rules of thumb from IBC, ASHRAE 90.1, ADA/ABA, NFPA 101, Eurocodes, Neufert, and Architectural Graphic Standards, building typologies (residential, commercial, institutional, industrial), design quality frameworks (RIBA Plan of Work 2020, AIA Design Excellence, CABE), sustainability rating systems (LEED, BREEAM, Passive House, WELL, Living Building Challenge, Fitwel), fire and life safety, accessibility, acoustics, structural systems, envelope performance, daylighting metrics, and an anti-pattern catalog of common design failures. Auto-activated foundation layer of the Architect Skills plugin; routes to 17 specialized downstream skills based on query context."
 user-invocable: false
 metadata:
   class: A

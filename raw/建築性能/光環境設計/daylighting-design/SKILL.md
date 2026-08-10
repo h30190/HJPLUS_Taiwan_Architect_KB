@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: daylighting-design
-description: "This skill should be used when designing and analyzing daylighting systems, optimizing natural light utilization, and evaluating visual comfort."
+description: "This skill should be used when designing and analyzing daylighting systems, optimizing natural light utilization, and evaluating visual comfort. Trigger words: 自然採光、晝光設計、遮陽設計、眩光控制。"
 user-invocable: true
 metadata:
   class: B

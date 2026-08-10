@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: taiwan-telecom-design-codes
-description: "This skill should be used when checking indoor/outdoor telecommunication equipment setups, including telecom room sizes, lead-in conduits, shafts, and distribution boxes."
+description: "This skill should be used when checking indoor/outdoor telecommunication equipment setups, including telecom room sizes, lead-in conduits, shafts, and distribution boxes. Trigger words: 電信室、弱電間、引進管、總配線箱、電信管道。"
 metadata:
   class: C
 ---

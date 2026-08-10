@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: building-services
-description: "This skill should be used when designing building MEP systems including HVAC, plumbing, electrical, fire protection, and system integration."
+description: "This skill should be used when designing building MEP systems including HVAC, plumbing, electrical, fire protection, and system integration. Based on ASHRAE/NEC (US practice), not yet localized to Taiwan — NOT for Taiwan statutory values: use plumbing-drainage-design-code, taipower-indoor-wiring-ampacity, taiwan-telecom-design-codes, taiwan-water-meter-installation for those. Trigger words: 機電系統整合、HVAC空調概念設計。"
 metadata:
   class: B
 ---

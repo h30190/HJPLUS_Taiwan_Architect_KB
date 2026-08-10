@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: concept-design
-description: Parti development, massing studies, spatial organization strategies, design concept generation, and concept-to-form translation methodologies
+description: "This skill should be used when generating or developing an architectural design concept — parti development, massing studies, spatial organization strategies, design concept generation, and concept-to-form translation methodologies. Trigger when the user asks for a design parti, massing options, a concept narrative, or how to translate an idea into built form."
 user-invocable: true
 metadata:
   class: A

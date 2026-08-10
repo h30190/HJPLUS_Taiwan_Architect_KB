@@ -1,11 +1,7 @@
 ---
 type: Skill
 name: spatial-planning
-description: >
-  Spatial planning for buildings: floor plan layout and archetypes, circulation
-  design (corridors, stairs, elevators, escalators), core design and vertical
-  service distribution, vertical stacking strategy, net-to-gross optimization,
-  space efficiency metrics, wayfinding, and spatial legibility.
+description: "This skill should be used when planning building interior space — floor plan layout and archetypes, circulation design (corridors, stairs, elevators, escalators), core design and vertical service distribution, vertical stacking strategy, net-to-gross optimization, space efficiency metrics, wayfinding, and spatial legibility. Trigger for plan layout, core placement, circulation sizing, or space efficiency questions."
 metadata:
   class: B
 ---
