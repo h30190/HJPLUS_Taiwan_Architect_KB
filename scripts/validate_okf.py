@@ -49,6 +49,7 @@ DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 errors = []
 warnings = []
 skill_names = {}  # name -> first path that claimed it
+concept_titles = {}  # domain.md title -> first path that claimed it
 
 
 def err(path, msg):
@@ -71,6 +72,15 @@ def split_frontmatter(path):
         err(path, "frontmatter block is never closed")
         return [], False
     return lines[1:end], True
+
+
+def first_h1(path):
+    """The document's `# H1` text, or None."""
+    for line in path.read_text(encoding="utf-8").splitlines():
+        m = re.match(r"^#\s+(.+?)\s*$", line)
+        if m:
+            return m.group(1)
+    return None
 
 
 def top_level_keys(fm_lines):
@@ -111,6 +121,20 @@ def check_concept(path, expected_type):
         err(path, "§11.2 missing non-empty `type`")
     elif got != expected_type:
         err(path, f"§11.2 type is {got!r}, expected {expected_type!r}")
+
+    if path.name == "domain.md":
+        # The desktop agent's skill list and knowledge graph render domain.md's
+        # H1, while OKF consumers render `title` — they must not drift apart,
+        # and sibling entries must stay distinguishable (see issue #40).
+        h1 = first_h1(path)
+        title = keys.get("title", "").strip("\"'")
+        if h1 and title and h1 != title:
+            err(path, f"`title` {title!r} does not match the H1 {h1!r}")
+        if title:
+            first = concept_titles.setdefault(title, path)
+            if first != path:
+                warn(path, f"duplicate `title` {title!r}, also used by "
+                           f"{first.relative_to(ROOT)} — readers cannot tell them apart")
 
     if "status" in keys:
         v = keys["status"].strip("\"'")
