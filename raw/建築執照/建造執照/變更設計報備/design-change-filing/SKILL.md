@@ -3,7 +3,7 @@ name: design-change-filing
 description: "This skill should be used when an architect needs to file a design-change report (報備) for an already-issued building permit (建造執照) in Taipei City — determining whether report-filing applies instead of a full design-change re-application, choosing between self-filing (自行報備) and spot-check filing (抽查後報備), preparing the required forms, walking through the submission-review-duplicate-collation-collection workflow, and sequencing seals correctly when the case involves structural external review (結構外審)."
 metadata:
   class: C
-  status: verified
+  status: unverified
   region: taipei-city
   data-currency: "2026-05-05"
 ---
