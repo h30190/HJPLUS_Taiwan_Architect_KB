@@ -1,9 +1,9 @@
 ---
 type: Knowledge Entry
-title: "Architect Calculator Domain Knowledge"
+title: "建築師計算工具"
 ---
 
-# Architect Calculator Domain Knowledge
+# 建築師計算工具
 
 ## 定義
 建築師計算工具是整合設計過程中常用計算、法規檢查與成本估算的實用工具集。

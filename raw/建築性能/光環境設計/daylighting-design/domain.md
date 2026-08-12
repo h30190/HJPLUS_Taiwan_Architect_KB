@@ -1,9 +1,9 @@
 ---
 type: Knowledge Entry
-title: "Daylighting Design Domain Knowledge"
+title: "採光設計"
 ---
 
-# Daylighting Design Domain Knowledge
+# 採光設計
 
 ## 定義
 採光設計是利用自然光滿足室內照明需求，並創造舒適光環境的設計策略。

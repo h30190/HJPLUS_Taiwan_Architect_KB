@@ -1,9 +1,9 @@
 ---
 type: Knowledge Entry
-title: "Building Sustainability Domain Knowledge"
+title: "綠建築與永續設計"
 ---
 
-# Building Sustainability Domain Knowledge
+# 綠建築與永續設計
 
 ## 定義
 綠建築與永續設計是整合環境保護、資源效率、健康舒適的建築設計方法。

@@ -1,9 +1,9 @@
 ---
 type: Knowledge Entry
-title: "Structural Systems Domain Knowledge"
+title: "結構系統"
 ---
 
-# Structural Systems Domain Knowledge
+# 結構系統
 
 ## 定義
 結構系統是建築承受與傳遞荷重至基礎的骨架系統，包括垂直構件（柱、牆）、水平構件（樑、樓板）與基礎。
