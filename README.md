@@ -212,7 +212,7 @@ description: "This skill should be used when [具體觸發情境]。"
 
 不會用 GitHub 也沒關係——開一則 [知識/經驗投稿](../../issues/new?template=knowledge.yml)，把你的實務經驗用自己的話寫下來就好，格式交給維護者整理。
 
-## 🤝 兄弟專案
+## 🤝 關聯專案
 
 ### [REVIT_MCP_study](https://github.com/CWLin0518/REVIT_MCP_study) — by [@CWLin0518](https://github.com/CWLin0518)
 
