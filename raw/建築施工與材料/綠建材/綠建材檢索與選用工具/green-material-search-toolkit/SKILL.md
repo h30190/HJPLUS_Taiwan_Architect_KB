@@ -35,13 +35,12 @@ Mentioning "綠建材" (or a related term — 綠建材標章, TABC 綠建材, �
 
 ## Setup — Obtaining the Data Assets (First Run Only)
 
-`assets/tabc_master_database.json`, `assets/green-material-toolkit.html`, and `assets/exported_material_sets.json` are **not included in this skill's files**. They contain TABC's (財團法人臺灣建築中心) certification data and/or a specific user's project output, neither of which belongs under this repository's CC BY-SA 4.0 license — see `.gitignore` in this directory.
+`assets/tabc_master_database.json`, `assets/green-material-toolkit.html`, and `assets/exported_material_sets.json` are **not included in this skill's files**. They contain TABC's (財團法人臺灣建築中心) certification data and/or a specific user's project output, neither of which belongs under this repository's CC BY-SA 4.0 license — see `.gitignore` in this directory. The interface itself (`assets/green-material-toolkit.template.html`) *is* shipped with the skill, empty of TABC data (`const tabcDatabase = [];`), so this step is self-contained — no manual download from anywhere.
 
 Before first use:
 
-1. **`assets/green-material-toolkit.html`** — this is the interface itself, not something a script can generate. Obtain it from the upstream project ([REVIT_MCP_study](https://github.com/CWLin0518/REVIT_MCP_study), `assets/green-material-showcase.html`) and save it as `assets/green-material-toolkit.html` here, or from wherever the skill author has published a standalone copy (e.g. a GitHub Release). Ask the user if they have a copy already before fetching one.
-2. **`assets/tabc_master_database.json`** — run `python scripts/update_tabc_database.py` once with no existing file; the script bootstraps a fresh database from a live TABC crawl (starts from an empty list, everything found is added). This takes longer than a normal incremental update since nothing is cached yet.
-3. **`assets/exported_material_sets.json`** — not needed up front; it's created automatically the first time a Set is saved.
+1. Run `python scripts/update_tabc_database.py` once with no existing `assets/tabc_master_database.json`; the script bootstraps a fresh database from a live TABC crawl (starts from an empty list, everything found is added — takes longer than a normal incremental update since nothing is cached yet), then fills that data into `assets/green-material-toolkit.template.html` and writes the result to `assets/green-material-toolkit.html`. Both outputs are gitignored, regenerated locally on every run.
+2. **`assets/exported_material_sets.json`** — not needed up front; it's created automatically the first time a Set is saved.
 
 After this, normal use (steps 1–4 below) works entirely offline except for step 4's optional refresh crawl.
 
@@ -96,12 +95,12 @@ python scripts/update_tabc_database.py --dry-run   # preview diff, no writes
 python scripts/update_tabc_database.py              # actually merge + write
 ```
 
-Crawls the live TABC site (`https://tabcmgr.hopto.org/mgr/SearchCaseAction.aspx`, GBMTYPE 1–4) and merges new/changed records into `assets/tabc_master_database.json`, then re-syncs the same data into `assets/green-material-toolkit.html`'s embedded offline cache (`const tabcDatabase = [...]`). Records not seen in a given crawl are **kept, not deleted** — a partial network failure must never wipe real data; they're only listed as "not seen this run" in the diff output. Always run `--dry-run` first and show the user the diff (added/updated/not-seen counts) before running the real update, since it rewrites two local data files (gitignored, not committed to this repo — see Setup section above).
+Crawls the live TABC site (`https://tabcmgr.hopto.org/mgr/SearchCaseAction.aspx`, GBMTYPE 1–4) and merges new/changed records into `assets/tabc_master_database.json`, then re-generates `assets/green-material-toolkit.html` by filling the same data into `assets/green-material-toolkit.template.html`'s embedded offline cache (`const tabcDatabase = [...]`) — the template itself is never modified. Records not seen in a given crawl are **kept, not deleted** — a partial network failure must never wipe real data; they're only listed as "not seen this run" in the diff output. Always run `--dry-run` first and show the user the diff (added/updated/not-seen counts) before running the real update, since it rewrites two local data files (gitignored, not committed to this repo — see Setup section above).
 
 ## Requirements & Constraints
 
-- Shipped with this skill: `scripts/local_server.py`, `scripts/update_tabc_database.py`, `scripts/generate_material_advisory.py`.
-- Obtained locally on first use (not shipped — see Setup section above): `assets/tabc_master_database.json`, `assets/green-material-toolkit.html`. `assets/exported_material_sets.json` (or the `GREEN_MATERIAL_OUTPUT_DIR` equivalent) is generated automatically.
+- Shipped with this skill: `scripts/local_server.py`, `scripts/update_tabc_database.py`, `scripts/generate_material_advisory.py`, `assets/green-material-toolkit.template.html` (the UI, empty of TABC data).
+- Generated locally on first use (not shipped — see Setup section above): `assets/tabc_master_database.json`, `assets/green-material-toolkit.html`. `assets/exported_material_sets.json` (or the `GREEN_MATERIAL_OUTPUT_DIR` equivalent) is generated automatically.
 - Environment: Python 3.8+ (standard library only — no `pip install` needed). Any modern browser for the page itself.
 - Network: only `scripts/update_tabc_database.py` needs outbound internet access (to `tabcmgr.hopto.org`); everything else is fully local/offline.
 
