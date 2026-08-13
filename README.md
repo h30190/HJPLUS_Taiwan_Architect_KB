@@ -212,6 +212,14 @@ description: "This skill should be used when [具體觸發情境]。"
 
 不會用 GitHub 也沒關係——開一則 [知識/經驗投稿](../../issues/new?template=knowledge.yml)，把你的實務經驗用自己的話寫下來就好，格式交給維護者整理。
 
+## 🤝 兄弟專案
+
+### [REVIT_MCP_study](https://github.com/CWLin0518/REVIT_MCP_study) — by [@CWLin0518](https://github.com/CWLin0518)
+
+把 Revit 接上 MCP 的實作研究。兩個專案方向互補：這裡累積**台灣 AEC 的知識與法規判準**，那裡處理**BIM 工具端的實際操作**，正在往互相搭配的方向合作。
+
+本庫的 [綠建材檢索與選用工具](raw/建築施工與材料/綠建材/綠建材檢索與選用工具/) 技能就是這樣分工的實例——檢索介面本體來自該專案，本庫收錄的是操作說明、爬取腳本與選用說明書產生器。
+
 ## 授權
 
 此專案採用 **分層授權** 模式：
