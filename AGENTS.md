@@ -137,6 +137,50 @@ File placement:
 ❌ Wrong: `消防安全/排煙窗法規檢討/SKILL.md` (no English subdirectory)
 ❌ Wrong: `pai-yan-chuang/SKILL.md` (pinyin instead of English)
 
+## Tool-Backed Skills — What Ships and What Does Not
+
+Some skills are not documents but small applications: they ship `scripts/` that crawl a source,
+serve a local UI, or generate a deliverable. This repository is a knowledge base, so the line is:
+
+> **The repo carries the knowledge and the code to obtain things. It does not carry the things.**
+
+| Ships in the repo | Stays outside |
+|---|---|
+| `SKILL.md`, `domain.md` | Third-party data compilations (certification databases, vendor catalogs) |
+| `scripts/` the contributor wrote | A built interface that embeds such data |
+| `references/` the contributor wrote | The user's project output (Sets, generated reports, exports) |
+| Small assets the contributor authored | Large generated files a shipped script can rebuild |
+
+Rationale: `.md` content here is distributed under **CC BY-SA 4.0** — commercial use allowed,
+derivatives allowed, and **irrevocable**. Nobody in this project has the right to relicense someone
+else's dataset under it, and once merged it cannot be taken back. A contributor's own honest note
+that "智慧財產權仍歸原著作權人所有" is itself proof the material is incompatible with our license.
+
+Two further constraints on the same family of skills:
+
+- **Do not hotlink a third-party server.** A page that pulls 1,000+ images from the source's host
+  every time someone opens it is imposing a cost on them we did not negotiate.
+- **Write user output outside the repo.** Default to a path under the user's home and allow an
+  environment variable to redirect it — `GREEN_MATERIAL_OUTPUT_DIR` in
+  [green-material-search-toolkit](raw/建築施工與材料/綠建材/綠建材檢索與選用工具/green-material-search-toolkit/SKILL.md)
+  is the reference pattern.
+
+### How to ship one anyway
+
+1. Prefer **shipping the generator over the generated data**. `update_tabc_database.py` bootstraps
+   an empty database from a live crawl, so the dataset never has to pass through this repo.
+2. Give `SKILL.md` a **`## Setup` section** naming exactly where the excluded assets come from
+   (upstream repo + filename, or a Release), and telling the agent to ask whether the user already
+   has a copy before fetching.
+3. Put a **`.gitignore` in the skill directory** listing the excluded paths, with a comment saying
+   why. Without it the assets get re-committed by the next merge — this has already happened once.
+4. Follow the confirmation rule in
+   [Tool-Backed Skills — Confirm Before Launching Anything](#tool-backed-skills--confirm-before-launching-anything).
+
+Precedents: #47 (TABC HTML and database excluded, `Setup` section added), #57 (the same HTML
+returned through a branch merge and was rejected again), #38 (vendor catalog PDF replaced by the
+manufacturer's official URL).
+
 ## OKF v0.2 — Bundle Conventions
 
 `raw/` is an [Open Knowledge Format (OKF) v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
@@ -445,6 +489,8 @@ page accurate. To preview locally, run `python scripts/update_landing_page.py`.
 ## Prohibited
 - No frontmatter in `index.md` (except `okf_version` at the bundle root) or `log.md`
 - No skill fields (`name`, `description`, `metadata.*`) in `domain.md`
+- No third-party datasets, built interfaces embedding them, or user project output — see
+  [Tool-Backed Skills — What Ships and What Does Not](#tool-backed-skills--what-ships-and-what-does-not)
 - No Simplified Chinese in any file
 - No Chinese characters in skill directory names
 - No absolute paths
