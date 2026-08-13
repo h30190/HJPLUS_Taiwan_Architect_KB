@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: accessible-elevator-shaft-dimensions
-description: "Use when determining the minimum elevator shaft (hoistway) dimensions required for accessibility compliance in Taiwan. Covers Taiwan Accessible Facilities Design Specification §406.1: general buildings (door clear width ≥ 90 cm, car depth ≥ 135 cm) and the H-2 residential proviso (door clear width ≥ 80 cm, car depth ≥ 125 cm). Provides pre-verified shaft dimension lookup tables for Mitsubishi, Yung Ta, and Chung Yu elevators (P8–P13), eliminating the need to cross-reference manufacturer spec sheets during floor plan layout."
+description: "Use when determining the minimum elevator shaft (hoistway) dimensions required for accessibility compliance in Taiwan. Covers Taiwan Accessible Facilities Design Specification §406.1: general buildings (door clear width ≥ 90 cm, car depth ≥ 135 cm) and the H-2 residential proviso (door clear width ≥ 80 cm, car depth ≥ 125 cm). Provides pre-verified shaft dimension lookup tables for Mitsubishi, Yung Ta, and Chung Yu elevators (P8–P13), eliminating the need to cross-reference manufacturer spec sheets during floor plan layout. 僅涵蓋電梯機道/車廂尺寸;梯廳(電梯前廳)容積免計淨深度≥2.0m請用floor-area-exemption-pitfalls。Trigger words: 無障礙電梯、機道尺寸、車廂深度。"
 metadata:
   class: C
 ---

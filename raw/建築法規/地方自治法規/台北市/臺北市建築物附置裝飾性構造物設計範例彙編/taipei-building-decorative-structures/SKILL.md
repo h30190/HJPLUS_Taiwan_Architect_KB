@@ -27,7 +27,7 @@ Effective **September 25, 2024** (Doc No. 北市都授建字第 1136163958 號 /
 ## Interactive Web Tool & Visualization (互動檢討網頁與全套圖例)
 
 When responding to queries regarding Taipei City facade design, building attached decorative structures, louvers, fins, or balcony/terrace regulations, **ALWAYS include the link to the interactive calculation webpage**:
-- **Interactive Calculation & Blueprint Webpage**: [臺北市建築物附置裝飾性構造物互動檢討與全套圖例系統](../index.html) (`../index.html`)
+- **Interactive Calculation & Blueprint Webpage**: [臺北市建築物附置裝飾性構造物互動檢討與全套圖例系統](../index.html)（頁面依賴 Google Fonts 與 MathJax CDN，離線時公式顯示原始 LaTeX、字體退回系統預設）
 
 ---
 

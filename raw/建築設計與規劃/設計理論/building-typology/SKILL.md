@@ -1,16 +1,7 @@
 ---
 type: Skill
 name: building-typology
-description: >-
-  Identify and apply building typologies for residential, commercial, institutional,
-  hospitality, industrial, cultural, and mixed-use buildings. Use when the user asks
-  about building types, plan configurations, floor plate design, core arrangements,
-  net-to-gross ratios, structural grids, floor-to-floor heights, unit mix, parking
-  strategies, or exemplar buildings. Also use when comparing typological options,
-  selecting an appropriate building form for a site, evaluating plan depth and
-  daylight, or analyzing how a typology affects density, efficiency, and user
-  experience. Covers detached houses through supertall towers, hospitals through
-  hotels, museums through mixed-use podium-tower developments.
+description: "Identify and apply building typologies for residential, commercial, institutional, hospitality, industrial, cultural, and mixed-use buildings. Use when the user asks about building types, plan configurations, floor plate design, core arrangements, net-to-gross ratios, structural grids, floor-to-floor heights, unit mix, parking strategies, or exemplar buildings. Also use when comparing typological options, selecting an appropriate building form for a site, evaluating plan depth and daylight, or analyzing how a typology affects density, efficiency, and user experience. Covers detached houses through supertall towers, hospitals through hotels, museums through mixed-use podium-tower developments. 依建築類型比較配置差異用本skill;不分類型的通用平面/核心/動線技法請用spatial-planning。"
 metadata:
   class: A
 ---

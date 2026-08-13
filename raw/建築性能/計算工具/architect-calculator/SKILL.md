@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: architect-calculator
-description: "This skill should be used when performing architect calculations including floor area analysis, structural estimation, MEP load calculation, and cost estimation."
+description: "This skill should be used for quick rough estimates (速算/粗估): floor area analysis (容積/樓地板面積試算), structural sizing estimation (結構粗估), MEP load estimation (機電負荷估算), and cost estimation (造價估算). For statutory precise checks use the specialized skills instead (concrete-*-design, balcony-lobby-far-recalculation, height-ratio-front-road-review, taiwan-mep-unit-basis)."
 user-invocable: true
 metadata:
   class: B

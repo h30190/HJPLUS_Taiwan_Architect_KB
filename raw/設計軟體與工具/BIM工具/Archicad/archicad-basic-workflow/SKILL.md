@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: archicad-basic-workflow
-description: "This skill should be used when architects need to understand Archicad project setup, BIM modeling workflow, view organization, drawing production, and publishing processes."
+description: "This skill should be used when architects need to understand Archicad project setup, BIM modeling workflow, view organization, drawing production, and publishing processes. Scope: project setup and modeling workflow only — actual drawing production, issue sets and PDF/DWG publishing belong to archicad-documentation. Trigger words: Archicad 建模、專案設定。"
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
 metadata:

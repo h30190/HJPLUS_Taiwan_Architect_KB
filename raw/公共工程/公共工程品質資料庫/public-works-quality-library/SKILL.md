@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: public-works-quality-library
-description: "This skill should be used when architects or project teams need to query, organize, compare, or source-check Taiwan public works quality-management references, inspection forms, supervision references, traffic-maintenance references, occupational safety references, PCIC construction specifications, and public works checklist sources."
+description: "This skill should be used when architects or project teams need to query, organize, compare, or source-check Taiwan public works quality-management references, inspection forms, supervision references, traffic-maintenance references, occupational safety references, PCIC construction specifications, and public works checklist sources. 個別CNS/PCC施工綱要規範章節的查詢核對請改用 cns-spec-query;本skill負責品質管理資料庫(查核表/督導/職安/品質計畫)的組織比對與溯源。"
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
 metadata:

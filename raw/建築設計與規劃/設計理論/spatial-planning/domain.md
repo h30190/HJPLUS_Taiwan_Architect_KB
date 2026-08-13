@@ -53,4 +53,4 @@ title: "空間規劃"
 
 ## 延伸閱讀
 
-- [原始技能文檔](Skills-Architects/skills/spatial-planning/)
+- 原始技能文檔：Skills-Architects 國際技能模組（原始資料夾已自本庫移除，僅留出處註記）

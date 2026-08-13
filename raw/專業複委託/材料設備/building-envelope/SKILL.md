@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: building-envelope
-description: "This skill should be used when designing and analyzing building envelope systems, including wall assemblies, roofs, glazing, thermal performance, and waterproofing."
+description: "This skill should be used when designing and analyzing building envelope systems, including wall assemblies, roofs, glazing, thermal performance, and waterproofing. Trigger words: 外牆系統、帷幕牆、屋頂防水、開窗熱性能、建築外殼。"
 user-invocable: true
 metadata:
   class: B

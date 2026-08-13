@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: indoor-environment
-description: "This skill should be used when designing indoor environmental quality including daylighting, ventilation, acoustic comfort, and air quality."
+description: "This skill should be used when designing indoor environmental quality including daylighting, ventilation, acoustic comfort, and air quality. Trigger words: 室內環境品質IEQ整體評估、通風換氣、室內空氣品質;單一系統深入設計請用 acoustic-design(隔音)/daylighting-design(採光)。"
 user-invocable: true
 metadata:
   class: C

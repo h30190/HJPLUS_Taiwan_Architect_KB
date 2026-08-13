@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: material-selection
-description: Architectural material properties, durability, sustainability, specification, detailing, life-cycle assessment, and material palettes for building design
+description: "This skill should be used when selecting or specifying building materials — material properties, durability, sustainability, specification, detailing, life-cycle assessment, and material palettes. Trigger when the user asks which material to use, how materials compare, how a material should be detailed or specified, or for a project material palette."
 user-invocable: true
 metadata:
   class: A

@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: generator-room-fire-safety
-description: "This skill should be used when reviewing the architectural and MEP designs of a generator room, specifically checking the fuel tank capacity, maintenance clearances, and ventilation requirements according to Taiwan fire safety interpretations."
+description: "This skill should be used when reviewing the architectural and MEP designs of a generator room, specifically checking the fuel tank capacity, maintenance clearances, and ventilation requirements according to Taiwan fire safety interpretations. Trigger words: 發電機房檢討、燃料油箱容量、維修淨空、通風量。"
 metadata:
   class: C
 ---

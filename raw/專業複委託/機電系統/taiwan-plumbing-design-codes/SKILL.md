@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: taiwan-plumbing-design-codes
-description: "This skill should be used when verifying indoor plumbing designs in Taiwan, including water tank capacities, pipe sizing, trap seals, drainage slopes, and ventilation pipes."
+description: "This skill should be used when verifying indoor plumbing designs in Taiwan, including water tank capacities, pipe sizing, trap seals, drainage slopes, and ventilation pipes. Note: overlaps with plumbing-drainage-design-code, which is verified and more complete (WSFU, grease interceptors, 同層排水) — prefer that skill for statutory numbers; use this one only as a quick checklist (給排水快速檢核)."
 metadata:
   class: C
 ---

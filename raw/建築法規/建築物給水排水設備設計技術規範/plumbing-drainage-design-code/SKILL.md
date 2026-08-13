@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: plumbing-drainage-design-code
-description: "This skill should be used when reviewing or calculating building water supply, hot water, and drainage/ventilation designs according to Taiwan's Technical Code for Building Plumbing and Drainage Equipment Design (建築物給水排水設備設計技術規範). It covers sizing water tanks and booster pumps, cold/hot water piping, Hunter fixture units (WSFU), drainage pipe slopes, trap seals (5-10cm), vent piping (stack/individual/loop/relief/yoke/AAV), grease interceptors, cleanout intervals, and same-floor drainage (同層排水)."
+description: "This skill should be used when reviewing or calculating building water supply, hot water, and drainage/ventilation designs according to Taiwan's Technical Code for Building Plumbing and Drainage Equipment Design (建築物給水排水設備設計技術規範). It covers sizing water tanks and booster pumps, cold/hot water piping, Hunter fixture units (WSFU), drainage pipe slopes, trap seals (5-10cm), vent piping (stack/individual/loop/relief/yoke/AAV), grease interceptors, cleanout intervals, and same-floor drainage (同層排水). Trigger words: 給排水設計、水塔/受水槽容量計算、揚水泵、給水管徑、存水彎水封、排水坡度、通氣管、油脂截留器。This is the authoritative Taiwan code-calculation skill for plumbing — prefer it over taiwan-plumbing-design-codes (overlapping summary) and building-services (US-based) for statutory numbers."
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
 verified:

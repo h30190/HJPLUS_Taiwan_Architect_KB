@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: building-sustainability
-description: "This skill should be used when designing green building and sustainable architecture, integrating environmental assessment, energy efficiency, and resource circularity."
+description: "This skill should be used when designing green building and sustainable architecture, integrating environmental assessment, energy efficiency, and resource circularity. 本skill為國際永續框架總論;台灣EEWH綠建築標章申請請用green-building-label,LEED認證請用leed,建築能效標示請用building-energy-rating。Trigger words: 永續建築總論。"
 user-invocable: true
 metadata:
   class: B

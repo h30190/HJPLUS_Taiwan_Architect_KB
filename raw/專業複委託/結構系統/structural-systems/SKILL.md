@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: structural-systems
-description: "This skill should be used when designing and analyzing building structural systems, including seismic design, structural system selection, and load calculation."
+description: "This skill should be used when designing and analyzing building structural systems, including seismic design, structural system selection, and load calculation. Trigger words: 結構系統選擇、耐震設計、載重計算。"
 user-invocable: true
 metadata:
   class: B

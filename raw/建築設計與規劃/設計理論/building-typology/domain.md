@@ -49,4 +49,4 @@ title: "建築類型學"
 
 ## 延伸閱讀
 
-- [原始技能文檔](Skills-Architects/skills/building-typology/)
+- 原始技能文檔：Skills-Architects 國際技能模組（原始資料夾已自本庫移除，僅留出處註記）
