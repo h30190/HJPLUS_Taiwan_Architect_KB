@@ -25,6 +25,8 @@
 <details>
 <summary>點開查看近期已合併的 PR（感謝所有貢獻者！）</summary>
 
+- **2026-08-13** 🏷️ 統一 24 份 domain.md 的顯示標題：7 個英文 H1 中文化、混凝土「版」→「板」、建照四類帶執照別（`title` 與 H1 同步修正）([#58](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/58) by @Rumi-3653)
+- **2026-08-13** 📝 新增台北市建照變更設計報備流程技能（自行報備／抽查後報備判準、掛件對副本流程、結構外審用印順序）([#51](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/51) by @ray92chiu-png)
 - **2026-08-07** 🌿 新增 TABC 綠建材檢索與選用工具技能（本機檢索平台＋選用說明書產生；認證資料與成品不隨庫散布，首次使用時於本機取得）([#47](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/47) by @CWLin0518)
 - **2026-08-07** 🔧 新增台灣機電物料規格技能模組 tw-mep-spec-wiki（目前收錄高興昌配管，含 CNS 編號、管徑、來料長度與接合工法解碼）([#38](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/38) by @openudm3-dotcom)
 - **2026-08-07** ⚡ 新增台灣機電單位標準與法規設計階段技能（度量衡單位慣例、法規→設計階段→強制性→技師簽證對應）([#46](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/46) by @shuotao)
@@ -117,7 +119,7 @@ Archicad、Revit 等 BIM 及設計工具技能
 <!-- COUNT:summary -->
 | **A 類通用技能** | 10 個 | 國際通用標準，無需台灣適配 | AI + 人類直接使用 |
 | **B 類適配技能** | 10 個 | 國際規範→台灣適配，保留 TODO 注記 | 國際→台灣雙向支援 |
-| **C 類台灣法規技能** | 64 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
+| **C 類台灣法規技能** | 65 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
 
 ---
 
