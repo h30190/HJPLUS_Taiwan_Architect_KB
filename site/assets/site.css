@@ -194,9 +194,7 @@ body.home main > section > .container { width: 100%; }
   html.home { scroll-snap-type: none; }
   body.home main > section { min-height: 0; display: block; }
 }
-@media (prefers-reduced-motion: reduce) {
-  html.home { scroll-snap-type: none; }
-}
+/* 同上：不 gate。snap 本身不是動畫，只是捲動落點。 */
 
 /* ═══ 側邊圓點導覽（沿用 V1，僅首頁）═══ */
 .dot-nav {
@@ -322,13 +320,10 @@ section.tinted { background: var(--surface); }
   .hero.loaded .hero-bg { opacity: 0.26; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .hero-eyebrow, .hero-headline, .hero-sub, .hero-lead, .hero-actions, .hero-stats, .hero-meta {
-    opacity: 1; transform: none; transition: none;
-  }
-  .hero-bg { opacity: 0.34; } .hero-overlay { opacity: 1; }
-}
+/* 註：這裡刻意「不」用 prefers-reduced-motion 關閉效果。
+   V1 沒有檢查這個設定，而部署環境（VDI、公司政策關閉系統動畫）常常
+   回報 reduce —— 一旦 gate 在上面，多數實際使用者會看到完全靜止的頁面。
+   要改回尊重系統設定，把這三處註解還原即可（另見 site.js / kg.js）。 */
 
 /* ═══ 文件頁頁首 ═══ */
 .page-head { padding: 64px 0 40px; border-bottom: 1px solid var(--line); }
@@ -392,9 +387,7 @@ section.dark .tag { background: rgba(255, 255, 255, 0.12); color: rgba(255, 255,
   will-change: opacity, transform;
 }
 .reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
+/* 同上：不 gate。位移只有 20px，屬於溫和的淡入。 */
 
 /* ═══ 死 / 活 對照 ═══
    左欄刻意做得沉、灰、扁；右欄有邊框與重量。

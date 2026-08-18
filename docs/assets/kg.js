@@ -9,7 +9,6 @@
      4. 滑鼠      整張圖朝游標偏移      ← 新增（V1 只有局部推開）
 
    自 v1 landing page 移植，另外補了：
-     · 尊重 prefers-reduced-motion（只畫一張靜態圖）
      · 離開畫面就停止繪製（IntersectionObserver）
      · 節點密度依容器面積決定，避免小區塊擠成一團
      · canvas bitmap 由 ResizeObserver 追蹤，內容撐開時不會被拉伸 */
@@ -19,7 +18,8 @@
   /* hero 有自己的照片背景，不畫圖譜；要排除其他區塊就加 .no-kg */
   var TARGETS = 'section:not(.hero):not(.no-kg), .page-head:not(.no-kg)';
 
-  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* 比照 V1：不因 prefers-reduced-motion 停止繪製。部署環境常常回報 reduce
+     （VDI、公司政策關閉系統動畫），gate 在上面等於多數人看到靜止畫面。 */
 
   var FALLBACK_TREE = [
     '建築顧問方法論', '建築法規', '建築執照', '建築性能', '建築設計與規劃',
@@ -188,7 +188,6 @@
       else canvas.classList.remove('kg-clipped');
 
       build();
-      if (REDUCED) draw(true);
     }
 
     /* 捲動視差：用「這個區塊的中心離視窗中心多遠」換算縱向位移。
@@ -308,15 +307,13 @@
     /* 先量尺寸建好節點，再開始觀察 —— 否則第一幀會畫在還沒建圖的空狀態上 */
     resize();
 
-    if (!REDUCED) {
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          visible = entry.isIntersecting;
-          if (visible && !rafId) rafId = requestAnimationFrame(tick);
-          else if (!visible && rafId) { cancelAnimationFrame(rafId); rafId = null; }
-        });
-      }, { threshold: 0 }).observe(wrap);
-    }
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        visible = entry.isIntersecting;
+        if (visible && !rafId) rafId = requestAnimationFrame(tick);
+        else if (!visible && rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      });
+    }, { threshold: 0 }).observe(wrap);
 
     var t;
     function scheduleResize() {

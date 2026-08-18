@@ -95,9 +95,9 @@
     }, { threshold: 0.5 });
     secs.forEach(function (sec) { io.observe(sec); });
 
-    /* ── 自動輪播 ── */
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
+    /* ── 自動輪播 ──
+       比照 V1：不檢查 prefers-reduced-motion。任何使用者操作都會永久停止，
+       所以它不會跟人搶方向盤。 */
     var timer = null, alive = true;
 
     function stop() {
@@ -131,7 +131,6 @@
      進入視窗時逐一浮現。只處理載入時就存在的元素 —— 之後由 JS 塞進來的
      內容（知識庫卡片、活動列表）不掛 .reveal，否則會閃一下才出現。 */
   (function () {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (!('IntersectionObserver' in window)) return;
 
     var SELECTORS = [
@@ -203,8 +202,8 @@
 
   /* ── 數字滾動 ── */
   function countUp(el, to) {
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce || to > 5000) { el.textContent = to; return; }
+    /* 太大的數字滾起來只是雜訊，直接顯示 */
+    if (to > 5000) { el.textContent = to; return; }
     var start = null, dur = 900, from = 0;
     function tick(now) {
       if (start === null) start = now;
