@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="doc">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>為什麼要開源 — 台灣 AEC 開源知識庫</title>
+<meta name="description" content="憑什麼把辛苦累積的 know-how 公開給同業？因為護城河的位置移動了，而台灣 AEC 需要一份公共的知識基礎設施。">
+<meta property="og:site_name" content="台灣 AEC 開源知識庫">
+<meta property="og:title" content="為什麼要開源 — 台灣 AEC 開源知識庫">
+<meta property="og:description" content="憑什麼把辛苦累積的 know-how 公開給同業？因為護城河的位置移動了，而台灣 AEC 需要一份公共的知識基礎設施。">
+<meta property="og:url" content="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/why/">
+<meta property="og:image" content="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/images/cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../assets/site.css">
+
+</head>
+<body class="doc">
+<a class="skip-link" href="#main">跳到主要內容</a>
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">AEC</span>
+      <span class="brand-text">台灣 AEC 開源知識庫</span>
+    </a>
+    <nav class="site-nav" id="siteNav">
+      <a href="../index.html">首頁</a>
+      <a href="../why/index.html" class="active">為什麼</a>
+      <a href="../kb/index.html">知識庫</a>
+      <a href="../contribute/index.html">參與</a>
+      <a href="../quality/index.html">品質</a>
+      <a href="../community/index.html">社群</a>
+    </nav>
+    <div class="header-actions">
+      <a class="header-cta" href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank" rel="noopener">GitHub</a>
+      <button class="nav-toggle" id="navToggle" aria-label="開關選單" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="page-head dark">
+  <div class="container">
+    <p class="eyebrow">論述</p>
+    <h1>憑什麼要開源？</h1>
+    <p class="lead">
+      這是這個專案最該被質問的一題，也是我們最想正面回答的一題。
+      如果你只讀一頁，讀這頁。
+    </p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="prose">
+
+      <h2>先承認一件事：內部 wiki 也能解決那些痛點</h2>
+      <p>
+        重複回答同樣的問題、新人沒人教、資深離職把知識帶走 —— 這三件事確實很痛。
+        但誠實地說，<strong>這三件事，一份做得好的公司內部知識庫也能解決</strong>。
+      </p>
+      <p>
+        所以如果一個開源知識庫的全部理由只有「省時間」，那它站不住腳。
+        真正需要回答的問題是：憑什麼要公開？公開對你有什麼好處，是關起門來做拿不到的？
+      </p>
+
+      <hr>
+
+      <h2>因為這是產業級的重複投資，不是公司級的效率問題</h2>
+      <p>
+        容積率怎麼算、使用執照怎麼送、防火區劃怎麼檢討、陽臺回計容積的邊界在哪 ——
+        這些題目<strong>沒有任何一題是某一家公司獨有的</strong>。
+      </p>
+      <p>
+        全台灣幾千家建築師事務所、營造廠、室內裝修公司，每一家都在自己摸索同一批答案；
+        每一家都有一份不完整的內部筆記；每一份筆記都會隨著寫的人離職而失效，然後下一個人重新摸一遍。
+      </p>
+      <blockquote>
+        <p>
+          這不是哪一家的管理問題。這是整個產業，在同一批已知的題目上，
+          年復一年地重複燒錢。
+        </p>
+      </blockquote>
+      <p>
+        而重複投資這種問題，本質上<strong>單一公司自己解不掉</strong> ——
+        你把內部 wiki 做到滿分，也只是讓你這一家不再重複，隔壁那幾千家照樣重複。
+        要解掉它，答案必須在公司的邊界之外。
+      </p>
+
+      <hr>
+
+      <h2>那為什麼是現在？以前為什麼不行？</h2>
+      <p>
+        「大家一起寫一份共同的知識庫」從來不是新點子。它以前失敗，是因為兩個很硬的現實理由。
+        而這兩個理由，都剛好在最近幾年鬆動了。
+      </p>
+
+      <h3>理由一：寫下來沒人看 —— 現在有讀者了</h3>
+      <p>
+        內部 wiki 的墳場人人都看過：寫的時候很認真，三個月後沒人翻，半年後連搜尋都搜不到想要的那句話。
+        知識寫下來的邊際效益太低，所以沒有人有動力持續寫。
+      </p>
+      <p>
+        現在變了。寫下來的東西有了一個全新的、而且極度勤勞的讀者：<strong>AI agent</strong>。
+      </p>
+      <p>
+        你寫一次 <code>domain.md</code>，AI 就能在新人第 87 次問使照流程時，拿它給出一個有依據的答案。
+        你不必在場，不必被打斷，也不必擔心自己講漏了哪一條。
+        <strong>筆記從死檔案，變成了一個活的同事。</strong>
+      </p>
+      <p>
+        這是 Agent Skills 這類開放格式在這兩年成立之後，才第一次真正可行的事。
+        寫知識的投報率，被 AI 改寫了。
+      </p>
+
+      <h3>理由二：公開沒好處 —— 但護城河的位置移動了</h3>
+      <p>
+        這是真正關鍵的一點。過去「知道法規怎麼查、流程怎麼跑」確實是競爭力 ——
+        因為資訊不對稱，知道的人就是比不知道的人值錢。
+      </p>
+      <p>
+        但當 AI 能讀懂公開知識，這種競爭力正在快速貶值。
+        你不公開，別人也會公開；你不寫，AI 也會從別的地方拼湊一個（可能是錯的）答案出來。
+        <strong>「查得到的知識」正在下沉成基礎設施 —— 就像水電，不是誰的護城河。</strong>
+      </p>
+      <p>
+        護城河沒有消失，它往上移動了。真正值錢的變成：
+      </p>
+      <ul>
+        <li><strong>設計判斷</strong> —— 在一堆合法解裡挑出對的那個，這件事 AI 做不到</li>
+        <li><strong>業主關係與信任</strong> —— 沒有任何文件寫得下來</li>
+        <li><strong>跨專業整合能力</strong> —— 把結構、機電、法規、預算收斂成一個能蓋的方案</li>
+        <li><strong>承擔責任的資格</strong> —— 簽證是法律授予的，不是知識授予的</li>
+      </ul>
+      <p>
+        把已經在下沉的東西公開，換整個產業的基準線上升 ——
+        <strong>對真的有能力的人，這是淨賺</strong>。
+        會因為「法規查詢知識公開」而失去競爭力的，本來也守不住那條護城河。
+      </p>
+
+
+      <hr>
+
+      <h2>而且它不會停在寫完的那一刻</h2>
+      <p>
+        這是「活的」和「死的」真正的分界，也是幾乎所有內部知識庫失敗的地方。
+      </p>
+      <p>
+        共用資料夾、內部 wiki、Notion、某位主管硬碟裡的範例集 —— 幾乎每家公司都有過。
+        現在去打開你們公司那一份，看一眼最後修改日期 ——
+        <strong>那個日期，就是它真正的死亡時間。</strong>
+        它們失敗的原因從來不是寫得不好，而是寫完的那一刻就開始過期，而沒有人有理由回去更新。
+        維護是某個人的額外工作，而額外工作永遠排在最後。
+      </p>
+      <p>
+        開源知識庫的結構剛好相反：
+      </p>
+      <blockquote>
+        <p>
+          內部資料庫的讀者沒有修改的權力，也沒有修改的動機。<br>
+          開源知識庫的讀者，天生就是可以改它的人 —— <strong>使用即維護。</strong>
+        </p>
+      </blockquote>
+      <p>
+        每一次有人把某個技能拿出來用，就是一次「這段還準不準」的檢驗。
+        發現條號變了、發現某個縣市的做法不一樣、發現漏了一個前提 ——
+        當場改掉，下一個人看到的就是修好的版本。
+        改動留在 git 歷程上，誰在什麼時候改了什麼都查得到。
+      </p>
+      <p>
+        <strong>死的資料庫越用越舊，活的經驗越用越厚。</strong>
+        差別不在紀律，在結構。
+      </p>
+
+      <hr>
+
+      <h2>新人和老鳥，都同時在兩邊</h2>
+      <p>
+        最常見的誤解是把這件事想成慈善：資深的人把知識捐出來，資淺的人拿去用。
+        如果真是這樣，它撐不了多久 —— 沒有人能長期靠善意運作。
+      </p>
+      <p>
+        實際的結構是雙向的：
+      </p>
+      <h3>老鳥也是受益者</h3>
+      <p>
+        因為<strong>沒有人是全領域的老鳥</strong>。
+        你在容積計算是老手，在機電配管就是新手；
+        你在台北市送審熟得不用查，換到台中就得重新摸一遍地方自治法規；
+        你做了二十年住宅，第一次接文化資產案子時，跟新人沒什麼兩樣。
+        專業的深度是垂直的，而案子是水平的 —— 這就是老鳥需要這個庫的理由。
+      </p>
+      <h3>新人也是貢獻者</h3>
+      <p>
+        而且是很關鍵的一種貢獻。<strong>新人卡住的地方，就是這份知識真正的缺口地圖。</strong>
+      </p>
+      <p>
+        老鳥寫知識最大的盲點是「這不是大家都知道嗎」 ——
+        他們早就忘了自己當年卡在哪裡，所以會把最關鍵的那一步跳過去。
+        只有還在卡的人知道到底哪裡不通。
+        所以新人問的「笨問題」不是打擾，是<strong>這個庫最需要的輸入</strong>；
+        把卡住的過程寫下來，本身就是一篇別人用得到的內容。
+      </p>
+      <p>
+        於是它變成一個交換：<strong>每個人在自己的專長處貢獻，在陌生的地方受益。</strong>
+        這種結構才撐得久，因為每一方都有實際拿到東西。
+      </p>
+
+      <hr>
+
+      <h2>「那我不就是在幫競爭對手？」</h2>
+      <p>
+        會這樣問是合理的，所以直接回答。
+      </p>
+      <p>
+        <strong>一、你公開的不是你的案子，是產業的公共常識。</strong>
+        這裡收的是建築技術規則怎麼適用、送審流程怎麼跑、標章怎麼評 ——
+        這些本來就是公開資訊，只是散落在各處、要靠經驗才拼得起來。
+        你的設計手法、你的成本結構、你的業主名單，這個庫從來不收，
+        <a href="../contribute/index.html">貢獻指南</a>裡也明訂了保密邊界。
+      </p>
+      <p>
+        <strong>二、先寫的人定義標準。</strong>
+        當 AI 成為新人和業主查詢台灣建築知識的主要入口，那個入口裡放的是誰整理的判準，
+        會實質影響整個產業的做事方式。這件事已經在發生了，
+        差別只在於是由懂的人來寫，還是放任 AI 拿美國規範來答台灣的案子。
+      </p>
+      <p>
+        <strong>三、貢獻是署名的。</strong>
+        每一筆知識都留下貢獻者，每一次修改都留在 git 歷程上。
+        對個人、對事務所來說，這是可被看見的專業信用 —— 而不是無償的付出。
+      </p>
+
+      <hr>
+
+      <h2>所以這裡要蓋的是什麼</h2>
+      <blockquote>
+        <p>
+          不是一家公司的 wiki，是<strong>台灣 AEC 的公共知識基礎設施</strong> ——
+          讓 AI 真的懂台灣的法規，而不是每次都拿美國規範亂答你。
+        </p>
+      </blockquote>
+      <p>
+        而基礎設施跟資料夾的差別，不在於量，在於<strong>可不可追溯</strong>。
+      </p>
+      <p>
+        建築法規講錯是會出事的。所以這個庫的核心不是「收了幾篇」，而是每一條知識都要能回答：
+        它從哪裡來？依據是哪一條？誰改過、什麼時候改的？哪些部分還不確定？
+      </p>
+      <p>
+        這也是為什麼我們把
+        <a href="../kb/index.html#status">資料狀況</a>整頁攤開給你看，包含難看的數字。
+        一份誠實標示「哪裡還不可靠」的知識，比一份假裝完整的知識有用得多 ——
+        後者在專業場合是有害的。
+      </p>
+
+      <div class="callout">
+        <h4>我們不做什麼</h4>
+        <ul class="mb-0">
+          <li>不收未經授權的業主資料、案件圖說、契約與報價</li>
+          <li>不取代技師簽證 —— 這裡的內容不構成專業建議，也不承擔設計責任</li>
+          <li>不做成單一廠商綁定的產品 —— 採開放格式，任何 agent 都能讀</li>
+          <li>不隱藏缺陷 —— 空的分類就顯示是空的，只有骨架的說明就標出來</li>
+        </ul>
+      </div>
+
+      <h2>誰在做這件事</h2>
+      <p>
+        專案由 <a href="https://www.hjplusdesign.com/" target="_blank" rel="noopener">加號設計數位工程有限公司</a> 徐灝發起，
+        但它不是一家公司的資產 —— 內容採 CC BY-SA 4.0，程式碼採 Apache 2.0，任何人都能自由使用、修改、
+        帶回自己的組織，唯一的要求是改良後同樣公開。
+      </p>
+      <p>
+        目前由來自建築師事務所、營造、機電、結構、學界的夥伴共同維護。
+        看看<a href="../community/index.html">社群現況</a>，或直接
+        <a href="../contribute/index.html">找一件可以做的事</a>。
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<section class="dark tight">
+  <div class="container center">
+    <h2>認同的話，從最小的一步開始</h2>
+    <p class="lead" style="max-width:560px;margin:12px auto 28px">
+      改一個錯字也算貢獻。不會用 Git，用講的投稿就好。
+    </p>
+    <a class="btn btn-primary" href="../contribute/index.html">看四種參與方式</a>
+    <a class="btn btn-outline" href="../kb/index.html">先翻翻內容</a>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="https://www.hjplusdesign.com/" target="_blank" rel="noopener">
+          <img src="../images/hjplus-logo.png" alt="HJPLUS.DESIGN" loading="lazy">
+        </a>
+        <p>台灣 AEC 產業的公共知識基礎設施。<br>由加號設計數位工程有限公司 徐灝發起，社群共同維護。</p>
+      </div>
+      <div class="footer-col">
+        <h4>知識庫</h4>
+        <a href="../kb/index.html">瀏覽全部技能</a>
+        <a href="../kb/index.html#status">資料狀況</a>
+        <a href="../quality/index.html">品質與免責</a>
+      </div>
+      <div class="footer-col">
+        <h4>參與</h4>
+        <a href="../contribute/index.html">怎麼開始貢獻</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/issues/new?template=knowledge.yml" target="_blank" rel="noopener">用講的投稿（免 Git）</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">貢獻指南</a>
+        <a href="../community/index.html">社群與活動</a>
+      </div>
+      <div class="footer-col">
+        <h4>關於</h4>
+        <a href="../why/index.html">為什麼要開源</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank" rel="noopener">GitHub 儲存庫</a>
+        <a href="https://github.com/CWLin0518/REVIT_MCP_study" target="_blank" rel="noopener">關聯專案 REVIT_MCP_study</a>
+        <a href="https://www.hjplusdesign.com/" target="_blank" rel="noopener">業務委託 HJPLUS.DESIGN</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-disclaimer">
+        本知識庫內容僅供參考與教育用途，<strong>不構成專業工程、法律或建築設計建議</strong>，且未經技師簽證。
+        引用任何數值或法規前請自行查證 — <a href="../quality/index.html">我們如何處理正確性</a>。
+      </p>
+      <p class="footer-legal">
+        文字內容 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">CC BY-SA 4.0</a>
+        ｜ 程式碼 <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Apache 2.0</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>window.SITE_ROOT = "../"; window.SITE_REPO = "https://github.com/h30190/HJPLUS_Taiwan_Architect_KB";</script>
+<script src="../assets/site.js"></script>
+<script src="../assets/kg.js"></script>
+
+</body>
+</html>

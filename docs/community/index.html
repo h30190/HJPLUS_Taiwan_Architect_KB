@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="doc">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社群與活動 — 台灣 AEC 開源知識庫</title>
+<meta name="description" content="小聚、共寫工作坊、貢獻者名單與關聯專案。這個知識庫不是一家公司的資產，是一群人的共同工程。">
+<meta property="og:site_name" content="台灣 AEC 開源知識庫">
+<meta property="og:title" content="社群與活動 — 台灣 AEC 開源知識庫">
+<meta property="og:description" content="小聚、共寫工作坊、貢獻者名單與關聯專案。這個知識庫不是一家公司的資產，是一群人的共同工程。">
+<meta property="og:url" content="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/community/">
+<meta property="og:image" content="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/images/cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../assets/site.css">
+
+</head>
+<body class="doc">
+<a class="skip-link" href="#main">跳到主要內容</a>
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">AEC</span>
+      <span class="brand-text">台灣 AEC 開源知識庫</span>
+    </a>
+    <nav class="site-nav" id="siteNav">
+      <a href="../index.html">首頁</a>
+      <a href="../why/index.html">為什麼</a>
+      <a href="../kb/index.html">知識庫</a>
+      <a href="../contribute/index.html">參與</a>
+      <a href="../quality/index.html">品質</a>
+      <a href="../community/index.html" class="active">社群</a>
+    </nav>
+    <div class="header-actions">
+      <a class="header-cta" href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank" rel="noopener">GitHub</a>
+      <button class="nav-toggle" id="navToggle" aria-label="開關選單" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="page-head">
+  <div class="container">
+    <p class="eyebrow">社群</p>
+    <h1>這不是一家公司的專案</h1>
+    <p class="lead">
+      知識庫由 <a href="https://www.hjplusdesign.com/" target="_blank" rel="noopener">加號設計數位工程有限公司</a> 徐灝發起，但內容來自建築師事務所、營造、機電、結構與學界的夥伴。
+      這頁記錄現在有誰在做、正在發生什麼。
+    </p>
+  </div>
+</div>
+
+<!-- ═══ 活動 ═══ -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">近期活動</p>
+      <h2>小聚與共寫工作坊</h2>
+      <p class="lead">
+        不定期舉辦知識庫共寫工作坊與法規討論小聚。
+        帶著你手上正在卡的題目來，通常現場就能生出一篇技能。
+      </p>
+    </div>
+    <div id="eventList">
+      <div class="event-empty">讀取活動資訊中…</div>
+    </div>
+    <p class="small muted mt-32">
+      活動由維護者以 GitHub issue 發布（標籤 <code>event</code>），過期會自動關閉。
+      想辦一場？<a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/issues/new?template=event.yml" target="_blank" rel="noopener">開一則活動 issue</a>。
+    </p>
+  </div>
+</section>
+
+<!-- ═══ 貢獻者 ═══ -->
+<section class="dark">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">貢獻者</p>
+      <h2>把知識寫下來的人</h2>
+      <p class="lead">
+        每一筆知識都留下貢獻者，每一次修改都留在 git 歷程上。
+        這是可被看見的專業信用，不是無償的付出。
+      </p>
+    </div>
+    <div class="contributors" id="contributorList"></div>
+
+    <div class="mt-40">
+      <h3>最近合併的貢獻</h3>
+      <ul id="updateList" class="small" style="list-style:none;padding:0;margin-top:14px">
+        <li class="muted">讀取中…</li>
+      </ul>
+      <p class="small mt-32" style="color:rgba(255,255,255,0.45)">
+        完整紀錄見 <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pulls?q=is%3Apr+is%3Amerged" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.7)">GitHub 上已合併的 PR</a>。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 影片 ═══ -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">介紹影片</p>
+      <h2>五分鐘了解這個專案</h2>
+    </div>
+    <div style="max-width:720px">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/dug5qyJuXJo"
+                title="台灣 AEC 開源知識庫介紹"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 關聯專案 ═══ -->
+<section class="tinted">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">關聯專案</p>
+      <h2>方向互補的夥伴專案</h2>
+    </div>
+    <div class="grid grid-2">
+      <a class="card card-link" href="https://github.com/CWLin0518/REVIT_MCP_study" target="_blank" rel="noopener">
+        <span class="tag">by @CWLin0518</span>
+        <h3>REVIT_MCP_study</h3>
+        <p>
+          把 Revit 接上 MCP 的實作研究。兩個專案方向互補 ——
+          這裡累積<strong>台灣 AEC 的知識與法規判準</strong>，
+          那裡處理 <strong>BIM 工具端的實際操作</strong>。
+        </p>
+        <span class="card-arrow">前往 GitHub →</span>
+      </a>
+      <a class="card card-link" href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/tree/main/raw/建築施工與材料/綠建材/綠建材檢索與選用工具" target="_blank" rel="noopener">
+        <span class="tag">合作實例</span>
+        <h3>綠建材檢索與選用工具</h3>
+        <p>
+          實際分工的例子：檢索介面本體來自 REVIT_MCP_study，
+          本庫收錄的是操作說明、爬取腳本與選用說明書產生器。
+        </p>
+        <span class="card-arrow">看這個技能 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="dark tight">
+  <div class="container center">
+    <h2>想加入？</h2>
+    <p class="lead" style="max-width:560px;margin:12px auto 28px">
+      不用等到小聚。開一則 issue，或直接挑一件狀況頁上列出來的缺口。
+    </p>
+    <a class="btn btn-primary" href="../contribute/index.html">看四種參與方式</a>
+    <a class="btn btn-outline" href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank" rel="noopener">前往 GitHub</a>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="https://www.hjplusdesign.com/" target="_blank" rel="noopener">
+          <img src="../images/hjplus-logo.png" alt="HJPLUS.DESIGN" loading="lazy">
+        </a>
+        <p>台灣 AEC 產業的公共知識基礎設施。<br>由加號設計數位工程有限公司 徐灝發起，社群共同維護。</p>
+      </div>
+      <div class="footer-col">
+        <h4>知識庫</h4>
+        <a href="../kb/index.html">瀏覽全部技能</a>
+        <a href="../kb/index.html#status">資料狀況</a>
+        <a href="../quality/index.html">品質與免責</a>
+      </div>
+      <div class="footer-col">
+        <h4>參與</h4>
+        <a href="../contribute/index.html">怎麼開始貢獻</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/issues/new?template=knowledge.yml" target="_blank" rel="noopener">用講的投稿（免 Git）</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">貢獻指南</a>
+        <a href="../community/index.html">社群與活動</a>
+      </div>
+      <div class="footer-col">
+        <h4>關於</h4>
+        <a href="../why/index.html">為什麼要開源</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank" rel="noopener">GitHub 儲存庫</a>
+        <a href="https://github.com/CWLin0518/REVIT_MCP_study" target="_blank" rel="noopener">關聯專案 REVIT_MCP_study</a>
+        <a href="https://www.hjplusdesign.com/" target="_blank" rel="noopener">業務委託 HJPLUS.DESIGN</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-disclaimer">
+        本知識庫內容僅供參考與教育用途，<strong>不構成專業工程、法律或建築設計建議</strong>，且未經技師簽證。
+        引用任何數值或法規前請自行查證 — <a href="../quality/index.html">我們如何處理正確性</a>。
+      </p>
+      <p class="footer-legal">
+        文字內容 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">CC BY-SA 4.0</a>
+        ｜ 程式碼 <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Apache 2.0</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>window.SITE_ROOT = "../"; window.SITE_REPO = "https://github.com/h30190/HJPLUS_Taiwan_Architect_KB";</script>
+<script src="../assets/site.js"></script>
+<script src="../assets/kg.js"></script>
+
+</body>
+</html>

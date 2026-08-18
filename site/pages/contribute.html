@@ -1,0 +1,202 @@
+<!--meta
+title: 參與 — 台灣 AEC 開源知識庫
+description: 四種參與方式，從「用講的投稿」到「寫一個完整技能」。不會用 Git 也能貢獻，改一個錯字也算。
+nav: contribute
+bodyclass: doc
+-->
+
+<div class="page-head">
+  <div class="container">
+    <p class="eyebrow">參與</p>
+    <h1>從最小的一步開始</h1>
+    <p class="lead">
+      最常見的誤解是「要寫一篇完整的技能才叫貢獻」。不是的。
+      這裡有四個階梯，<strong>第一階完全不需要碰 Git</strong>，五分鐘就能做完。
+    </p>
+  </div>
+</div>
+
+<!-- ═══ 四階梯 ═══ -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">階梯</p>
+      <h2>挑一個你現在做得到的</h2>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="tag">① 五分鐘 · 免 Git</span>
+        <h3>用講的投稿</h3>
+        <p>
+          把你的實務經驗用自己的話寫下來 —— 一段也好。格式、分類、frontmatter 全部交給維護者整理。
+          這是最歡迎、也最缺的一種貢獻，因為<strong>經驗只有你有，格式誰都能補</strong>。
+        </p>
+        <a class="btn btn-primary btn-sm" href="{{repo}}/issues/new?template=knowledge.yml" target="_blank" rel="noopener">開一則知識投稿</a>
+      </div>
+
+      <div class="card">
+        <span class="tag">② 十分鐘 · 需要 GitHub 帳號</span>
+        <h3>回報或修正一個錯誤</h3>
+        <p>
+          發現法規條號過期、數字有誤、連結壞掉、錯字 —— 直接在 GitHub 上點編輯改掉送出，
+          或開一則 issue 講一聲。<strong>指出錯誤和寫新內容一樣有價值</strong>，
+          尤其在一個講建築法規的庫裡。
+        </p>
+        <a class="btn btn-outline btn-sm" href="{{repo}}/issues/new" target="_blank" rel="noopener">回報問題</a>
+      </div>
+
+      <div class="card">
+        <span class="tag">③ 半小時 · 有明確清單</span>
+        <h3>補一個缺掉的欄位</h3>
+        <p>
+          知識庫裡有一批技能缺適用地區、適用對象、授權與相容性標示。
+          這些任務<strong>範圍明確、不需要從零寫起</strong>，很適合當第一次送 PR 的練習。
+          需要補什麼，狀況頁上一筆一筆列著。
+        </p>
+        <a class="btn btn-outline btn-sm" href="../kb/index.html?flag=incomplete">看最需要補的清單</a>
+      </div>
+
+      <div class="card">
+        <span class="tag">④ 一個下午 · 完整貢獻</span>
+        <h3>寫一個技能模組</h3>
+        <p>
+          你最熟的那個題目 —— 送審流程、某條法規的實務陷阱、某個標章的計算眉角。
+          複製 <code>知識樣板/</code> 當起點，寫 <code>domain.md</code>（人讀）加
+          <code>SKILL.md</code>（AI 讀）。建議用 AI 輔助整理格式。
+        </p>
+        <a class="btn btn-outline btn-sm" href="{{repo}}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">讀貢獻指南</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 現在最需要什麼 ═══ -->
+<section class="tinted">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">現在最需要</p>
+      <h2>如果你不知道從哪裡下手</h2>
+      <p class="lead">
+        這幾個缺口是掃描 <code>raw/</code> 直接算出來的，不是人工維護的許願清單。
+        點進去就是具體的檔案。
+      </p>
+    </div>
+
+    <div class="grid grid-2">
+      <a class="card card-link" href="../kb/index.html?sort=stale">
+        <span class="tag">最大的一塊</span>
+        <h3>回頭看一眼久沒更新的內容</h3>
+        <p>
+          法規會修。有一批技能已經好幾個月沒有人動過，內容可能已經跟現行規定脫節。
+          你不需要重寫 —— 對照現行法規讀一遍，不對就修，順手把缺掉的欄位補齊。
+          <strong>這是專業人士最能發揮、也最難被取代的貢獻。</strong>
+        </p>
+        <span class="card-arrow">看最久沒更新的清單 →</span>
+      </a>
+
+      <a class="card card-link" href="../kb/index.html?flag=todo">
+        <span class="tag">B 類技能</span>
+        <h3>把國際規範適配到台灣</h3>
+        <p>
+          有一批技能標著 <code>TODO: Taiwan adaptation needed</code> ——
+          內容是國際通用做法，但還沒對應到台灣的法規與慣例。
+          知道台灣這邊實際怎麼做的人，補上去就行。
+        </p>
+        <span class="card-arrow">看待適配清單 →</span>
+      </a>
+
+      <a class="card card-link" href="../kb/index.html?flag=thin">
+        <span class="tag">內容偏薄</span>
+        <h3>把只有骨架的說明寫厚</h3>
+        <p>
+          有一批 <code>domain.md</code> 只有幾行，讀的人看不出這個技能實際能幫上什麼。
+          補使用情境、補一個實務例子、補常踩的坑 ——
+          這種貢獻不需要新知識，只需要你講一次自己平常怎麼做。
+        </p>
+        <span class="card-arrow">看說明最薄的清單 →</span>
+      </a>
+
+      <a class="card card-link" href="../kb/index.html#status">
+        <span class="tag">兩個空分類</span>
+        <h3>專案管理 · 經營管理</h3>
+        <p>
+          這兩個分類在 README 裡列著，但目前一個技能都沒有。
+          時程、預算、契約、事務所營運、專業倫理 ——
+          如果這是你的領域，這裡是一整片空地。
+        </p>
+        <span class="card-arrow">看各分類進度 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 規則摘要 ═══ -->
+<section>
+  <div class="container">
+    <div class="prose">
+      <h2>送 PR 前，先過這幾關</h2>
+      <p>
+        完整規則在 <a href="{{repo}}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">CONTRIBUTING.md</a>，
+        這裡是最常踩到的幾條。
+      </p>
+
+      <h3>命名：上層中文，最底層英文</h3>
+      <p>分類與知識入口用繁體中文，AI 技能資料夾一律小寫英文加連字號，而且必須是<strong>英文翻譯，不能用拼音</strong>。</p>
+      <div class="code-block">
+        ✅ 建築法規/消防安全/排煙窗法規檢討/domain.md<br>
+        ✅ 建築法規/消防安全/排煙窗法規檢討/<strong>smoke-exhaust-review</strong>/SKILL.md<br>
+        ❌ .../<strong>pai-yan-chuang</strong>/SKILL.md　　← 拼音不收
+      </div>
+
+      <h3>frontmatter：<code>name</code> 必須等於資料夾名稱</h3>
+      <p>
+        <code>SKILL.md</code> 的 <code>name</code> 要跟它所在的英文資料夾完全一致，
+        <code>description</code> 要寫出具體的觸發情境，AI 才知道什麼時候該叫用它。
+        建立新知識時，直接複製 <code>知識樣板/</code> 當起點最不容易出錯。
+      </p>
+
+      <h3>保密邊界（這條最重要）</h3>
+      <div class="callout">
+        <p class="mb-0">
+          <strong>不要上傳任何未經授權的業主資料、案件圖說、契約、報價或個資。</strong>
+          這個庫收的是產業的公共判準，不是你的案子。
+          如果一段內容只有你的客戶適用，那它不屬於這裡；
+          把它抽象成通則之後再寫進來。
+        </p>
+      </div>
+
+      <h3>正確性優先於數量</h3>
+      <p>
+        引用法規請附條號與來源，不確定的地方請明白標示不確定 ——
+        這個庫寧可少收一篇，也不要收一篇看起來很篤定卻沒有依據的內容。
+        詳見<a href="../quality/index.html">品質與免責</a>。
+      </p>
+
+      <hr>
+
+      <h2>你的貢獻會怎麼被處理</h2>
+      <ol>
+        <li><strong>開 issue 或送 PR</strong> —— 兩種都可以，用講的也行</li>
+        <li><strong>維護者審閱</strong> —— 檢查格式、命名、保密邊界與內容合理性</li>
+        <li><strong>自動驗證</strong> —— <code>scripts/validate_okf.py</code> 檢查 OKF 格式是否完整</li>
+        <li><strong>合併並署名</strong> —— 你的 GitHub 帳號會出現在貢獻者名單與更新紀錄裡</li>
+      </ol>
+      <p class="small muted">
+        貢獻即表示你同意內容以 CC BY-SA 4.0（文字）與 Apache 2.0（程式碼）授權釋出，
+        並確認你有權釋出這些內容。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="dark tight">
+  <div class="container center">
+    <h2>不確定自己的經驗算不算數？</h2>
+    <p class="lead" style="max-width:600px;margin:12px auto 28px">
+      算。你覺得「這不是大家都知道嗎」的那件事，通常正是新人卡最久的那一關。
+    </p>
+    <a class="btn btn-primary" href="{{repo}}/issues/new?template=knowledge.yml" target="_blank" rel="noopener">用講的投稿，五分鐘</a>
+    <a class="btn btn-outline" href="../community/index.html">或先來小聚聊聊</a>
+  </div>
+</section>
