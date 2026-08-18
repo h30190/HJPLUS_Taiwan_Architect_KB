@@ -122,6 +122,10 @@ a { color: inherit; }
 @media (max-width: 860px) {
   .brand-text { display: none; }
   .nav-toggle { display: flex; }
+  /* 靠右推開的 margin-left:auto 掛在 .site-nav 上，nav 一變成 fixed
+     就脫離 flex 流、那個 auto 也跟著失效，GitHub 鈕與漢堡於是黏在
+     品牌標右邊。改由 .header-actions 自己頂到右緣。 */
+  .header-actions { margin-left: auto; }
   .site-nav {
     position: fixed; inset: var(--header-h) 0 auto 0; flex-direction: column; gap: 0;
     background: #fff; border-bottom: 1px solid var(--line); padding: 8px 16px 16px;
@@ -180,19 +184,41 @@ code {
    一旦加上 snap 會跟閱讀打架，所以用 html.home 把範圍鎖死。 */
 html.home { scroll-snap-type: y mandatory; }
 
+/* 全域 scroll-padding-top 是給錨點跳轉留的（header + 16px 呼吸空間），
+   但 snapport 也吃這個值。首頁的 snap 落點只能讓開 header 本身，
+   多出來的 16px 會在每段上緣露出前一段的底色，所以這裡收回去。
+   同理，section 不能再掛 scroll-margin-top —— snapport 的 padding
+   已經讓開 header 了，兩者相加會把整段往下推 136px。 */
+html.home { scroll-padding-top: var(--header-h); }
+
 body.home main > section {
   scroll-snap-align: start;
-  scroll-margin-top: var(--header-h);   /* 別被 sticky header 蓋住 */
   min-height: calc(100vh - var(--header-h));
   display: flex;
   align-items: center;
 }
 body.home main > section > .container { width: 100%; }
 
+/* hero 用負 margin 鑽到 sticky header 底下（起點是 y=0 而非 y=60），
+   所以它要的是整整一屏，不是 100vh - header。 */
+body.home main > section.hero { min-height: 100vh; }
+
+/* footer 不在 main 裡，沒有 snap-align 就不是 snap point；
+   mandatory snap 會把捲到底的位置吸回最後一段，footer 因此看不到。 */
+body.home .site-footer {
+  scroll-snap-align: start;
+  min-height: calc(100vh - var(--header-h));
+  display: flex;
+  align-items: center;
+}
+body.home .site-footer > .container { width: 100%; }
+
 /* 手機上 snap 容易卡住捲動，關掉 */
 @media (max-width: 700px) {
-  html.home { scroll-snap-type: none; }
-  body.home main > section { min-height: 0; display: block; }
+  html.home { scroll-snap-type: none; scroll-padding-top: calc(var(--header-h) + 16px); }
+  body.home main > section,
+  body.home main > section.hero { min-height: 0; display: block; }
+  body.home .site-footer { min-height: 0; display: block; }
 }
 /* 同上：不 gate。snap 本身不是動畫，只是捲動落點。 */
 
@@ -553,6 +579,25 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .kb-view-toggle button.active { background: var(--ink); color: #fff; }
 
 .kb-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
+
+/* 手機上這排篩選 chip 有三組、攤開約 150px 高，而工具列是 sticky 的，
+   等於整趟捲動都有半個畫面被工具列佔著。窄螢幕改成收起來，
+   由「篩選」鈕展開；桌機空間夠，維持全部攤開、鈕不出現。 */
+.kb-filter-toggle { display: none; }
+
+@media (max-width: 700px) {
+  .kb-filter-toggle {
+    display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto;
+    border: 1px solid var(--line); background: #fff; border-radius: var(--radius);
+    font: inherit; font-size: 0.8125rem; font-weight: 600; color: var(--ink-3);
+    padding: 11px 16px; cursor: pointer;
+  }
+  .kb-filter-toggle::after { content: "▾"; font-size: 0.6875rem; }
+  .kb-filter-toggle[aria-expanded="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .kb-filter-toggle[aria-expanded="true"]::after { content: "▴"; }
+  .kb-toolbar .kb-filters { display: none; }
+  .kb-toolbar.filters-open .kb-filters { display: flex; }
+}
 .kb-filter-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .kb-filter-label { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.04em; margin-right: 2px; }
 .chip {
@@ -642,6 +687,38 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 
 /* ═══ 貢獻者 ═══ */
 .contributors { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+
+/* ═══ 貢獻者跑馬燈 ═══
+   track 裡是兩份等寬的名單，位移一份的寬度（-50%）剛好無縫接回開頭。
+   時長由 JS 依名單長度算，維持固定的移動速度。 */
+.contrib-marquee { display: block; overflow: hidden; position: relative; }
+.contrib-marquee-track {
+  display: flex; width: max-content;
+  animation: contrib-scroll 30s linear infinite;
+}
+.contrib-group { display: flex; gap: 8px; padding-right: 8px; }
+@keyframes contrib-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+/* 要點名字不必追著跑；focus-within 讓鍵盤 tab 進去也會停 */
+.contrib-marquee:hover .contrib-marquee-track,
+.contrib-marquee:focus-within .contrib-marquee-track { animation-play-state: paused; }
+
+/* 兩側淡出，讓名單看起來是從邊界外滾進來的 */
+.contrib-marquee::before, .contrib-marquee::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 40px; z-index: 1; pointer-events: none;
+}
+.contrib-marquee::before { left: 0; background: linear-gradient(to right, var(--bg), rgba(255, 255, 255, 0)); }
+.contrib-marquee::after { right: 0; background: linear-gradient(to left, var(--bg), rgba(255, 255, 255, 0)); }
+section.dark .contrib-marquee::before { background: linear-gradient(to right, var(--ink), rgba(26, 26, 26, 0)); }
+section.dark .contrib-marquee::after { background: linear-gradient(to left, var(--ink), rgba(26, 26, 26, 0)); }
+section.tinted .contrib-marquee::before { background: linear-gradient(to right, var(--surface), rgba(247, 247, 245, 0)); }
+section.tinted .contrib-marquee::after { background: linear-gradient(to left, var(--surface), rgba(247, 247, 245, 0)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .contrib-marquee-track { animation: none; }
+}
 .contributor {
   display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
   background: var(--line-2); border-radius: 999px; font-size: 0.875rem; font-weight: 500;
@@ -695,3 +772,84 @@ section.dark .event-card p { color: rgba(255, 255, 255, 0.6); }
 .muted { color: var(--muted); }
 .small { font-size: 0.875rem; }
 .nowrap { white-space: nowrap; }
+
+/* ═══ 橫向滑動卡片 ═══
+   一整節並列的重點（四道關卡、幾種做法…）改成一排可橫捲的卡片：
+   縱向高度收掉大半，資訊一條都沒少，只是換成讀者自己決定要不要往右翻。
+   桌機用捲軸或鍵盤左右鍵，觸控直接滑。 */
+.hscroll { position: relative; margin: 22px 0 8px; }
+
+/* 卡片列刻意不破格：寬度就跟正文一樣，左右邊界對齊上下的段落。
+   （之前讓它延伸到 container 右緣，桌機多露一張卡，但整列相對
+   正文往右凸出一塊，看起來是歪的。） */
+
+.hscroll-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; margin: 0 0 14px;
+}
+.hscroll-hint {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 0.8125rem; color: var(--muted); margin: 0;
+}
+
+.hscroll-btns { display: flex; gap: 8px; flex: 0 0 auto; }
+.hscroll-btn {
+  width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+  border: 1px solid var(--line); background: #fff; color: var(--ink-2);
+  font-size: 1rem; line-height: 1; display: flex; align-items: center; justify-content: center;
+  transition: background .16s, border-color .16s, opacity .16s;
+}
+.hscroll-btn:hover:not(:disabled) { background: var(--surface); border-color: var(--ink-3); }
+.hscroll-btn:disabled { opacity: 0.3; cursor: default; }
+@media (pointer: coarse) { .hscroll-btn { width: 44px; height: 44px; } }
+
+.hscroll-track {
+  display: flex; gap: 16px;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  counter-reset: hcard;
+  padding: 2px 2px 14px;            /* 給卡片邊框與捲軸留位置 */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+}
+.hscroll-track::-webkit-scrollbar { height: 6px; }
+.hscroll-track::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+.hscroll-track:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: var(--radius); }
+
+/* 右緣淡出＝「右邊還有」，捲到底由 JS 掛 .at-end 收掉，
+   否則到底了還留著一片虛邊，反而像內容被切掉。
+   用 mask 而不是疊一層漸層色塊：mask 不必知道底下是什麼顏色，
+   放到深色或淺灰區塊都不用另外寫一組覆寫。 */
+.hscroll-track {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent);
+}
+.hscroll.at-end .hscroll-track { -webkit-mask-image: none; mask-image: none; }
+
+.hcard {
+  flex: 0 0 clamp(256px, 72vw, 322px);
+  scroll-snap-align: start;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 20px 20px 22px; display: flex; flex-direction: column;
+  counter-increment: hcard;
+}
+.hcard::before {
+  content: "0" counter(hcard);
+  font-size: 1.625rem; font-weight: 800; line-height: 1;
+  color: var(--line); margin-bottom: 12px;
+}
+.hcard h3 { font-size: 1.0625rem; line-height: 1.5; margin: 0 0 10px; }
+.hcard p { font-size: 0.9375rem; line-height: 1.78; color: var(--ink-2); margin: 0 0 12px; }
+.hcard p:last-child { margin-bottom: 0; }
+.hcard .code-block { font-size: 0.6875rem; line-height: 1.7; padding: 12px 13px; margin: 0 0 12px; }
+.hcard blockquote {
+  margin: 0 0 12px; padding: 12px 14px; background: var(--surface);
+  border-left: 2px solid var(--ink-3); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.hcard blockquote p { font-size: 0.875rem; line-height: 1.7; margin: 0; color: var(--ink-2); }
+/* 貼齊卡片底部，四張卡片的註腳因此對在同一條線上 */
+.hcard-note {
+  margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line-2);
+  font-size: 0.8125rem; line-height: 1.7; color: var(--muted);
+}
+.hcard-note code { font-size: 0.75rem; }

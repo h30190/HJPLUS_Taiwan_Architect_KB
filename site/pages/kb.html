@@ -6,7 +6,7 @@ bodyclass: doc
 extrajs: <script src="../assets/kb.js"></script>
 -->
 
-<div class="page-head">
+<div class="page-head no-kg">
   <div class="container container-wide">
     <p class="eyebrow">知識庫</p>
     <h1>找資料，也看得見資料的狀況</h1>
@@ -22,7 +22,7 @@ extrajs: <script src="../assets/kb.js"></script>
   </div>
 </div>
 
-<section class="tight">
+<section class="tight no-kg">
   <div class="container container-wide">
     <div class="kb-toolbar">
       <div class="kb-search-row">
@@ -42,6 +42,8 @@ extrajs: <script src="../assets/kb.js"></script>
           <button id="kbViewCard" type="button" class="active">卡片</button>
           <button id="kbViewTable" type="button">表格</button>
         </div>
+        <button type="button" class="kb-filter-toggle" id="kbFilterToggle"
+                aria-expanded="false" aria-controls="kbFilters">篩選</button>
       </div>
       <div class="kb-filters" id="kbFilters"></div>
     </div>
@@ -57,7 +59,7 @@ extrajs: <script src="../assets/kb.js"></script>
   </div>
 </section>
 
-<section class="tinted" id="status">
+<section class="tinted no-kg" id="status">
   <div class="container container-wide">
     <div class="section-head">
       <p class="eyebrow">資料狀況</p>

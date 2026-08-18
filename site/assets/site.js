@@ -39,6 +39,30 @@
     requestAnimationFrame(function () { hero.classList.add('loaded'); });
   }
 
+  /* ── hero 計數器：等 hero 揭示完才滾（沿用 V1 的節奏）──
+     交給 IntersectionObserver 會壞掉：hero 一開始就在視窗內，data.json 一回來
+     （通常 <100ms）動畫就跑完了，而 .hero-stats 要到 1.12s 才淡入，
+     使用者只會看到最終數字。所以 hero 這幾顆改用時間排程，
+     對齊 .hero-stats 淡入之後，時長也拉回 V1 的 1200ms。
+     HTML 寫死的數字先收成 fallback，no-JS 時仍看得到值。 */
+  var HERO_DELAY = 1500, HERO_DUR = 1200;
+  var heroCounters = hero ? $$('[data-stat]', hero) : [];
+  var heroCountersRan = false;
+
+  heroCounters.forEach(function (el) {
+    el.dataset.to = (el.textContent || '').replace(/[^0-9]/g, '') || '0';
+    el.textContent = '0';
+  });
+
+  if (heroCounters.length) {
+    setTimeout(function () {
+      heroCountersRan = true;
+      heroCounters.forEach(function (el) {
+        countUp(el, parseInt(el.dataset.to, 10) || 0, HERO_DUR);
+      });
+    }, HERO_DELAY);
+  }
+
   /* ── 圓點導覽 + 自動輪播（僅首頁，沿用 V1 行為）──
      V1 的「動感」主要來自這裡：載入 4 秒後每 5 秒自己捲到下一段，
      使用者一動就永久停止。標籤直接取每段的 .eyebrow 或 h2，
@@ -200,11 +224,135 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   })();
 
+  /* ── 文件頁的章節圓點導覽 ──
+     首頁那組 dot-nav 綁在 section 上（一段一屏）並且會自動輪播；
+     文件頁沒有分屏，章節單位是 h2，而且刻意不自動捲：
+     免責條文與方法論要停下來細讀，讀到一半被捲走比頁面長更糟。
+     標籤取 data-nav，沒有就用標題本身截短。 */
+  (function () {
+    if (!document.body.classList.contains('doc')) return;
+
+    var heads = $$('.page-head h1, #main h2');
+    if (heads.length < 4) return;    /* 章節太少，圓點只是雜訊 */
+
+    var nav = document.createElement('nav');
+    nav.className = 'dot-nav';
+    nav.setAttribute('aria-label', '章節導覽');
+
+    var items = heads.map(function (h, i) {
+      if (!h.id) h.id = 'ch-' + (i + 1);
+      var label = (h.getAttribute('data-nav') || h.textContent || '').trim();
+      if (label.length > 12) label = label.slice(0, 11) + '…';
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.dataset.label = label;
+      a.setAttribute('aria-label', label);
+      /* 自己捲，不讓網址留下 hash：ch-N 是照出現順序自動編號的，
+         章節一增減，複製出去的 #ch-5 就指到別章了。
+         href 照樣留著，鍵盤與螢幕閱讀器要看得到這是連結。 */
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        h.scrollIntoView({ behavior: 'smooth' });
+      });
+      nav.appendChild(a);
+      return { head: h, dot: a, dark: !!h.closest('section.dark, .page-head.dark') };
+    });
+    document.body.appendChild(nav);
+
+    /* 判定線放在 header 底下一點：標題捲過這條線就算進入該章節 */
+    var LINE_PAD = 24;
+    var ticking = false;
+
+    function syncActive() {
+      ticking = false;
+      var hh = parseInt(getComputedStyle(document.documentElement)
+        .getPropertyValue('--header-h'), 10) || 60;
+      var line = hh + LINE_PAD;
+      var cur = items[0];
+      items.forEach(function (it) {
+        if (it.head.getBoundingClientRect().top <= line) cur = it;
+      });
+      items.forEach(function (it) { it.dot.classList.toggle('active', it === cur); });
+      nav.classList.toggle('dark-bg', cur.dark);
+    }
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(syncActive);
+    }
+
+    syncActive();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+  })();
+
+  /* ── 知識庫工具列的篩選摺疊（只在窄螢幕作用） ── */
+  (function () {
+    var btn = $('#kbFilterToggle'), bar = $('.kb-toolbar');
+    if (!btn || !bar) return;
+    btn.addEventListener('click', function () {
+      var open = bar.classList.toggle('filters-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
+
+  /* ── 橫向滑動卡片 ──
+     右緣的淡出遮罩代表「右邊還有」，捲到底就得收掉，
+     不然到底了還留一片灰，看起來像內容被裁掉。
+     鍵盤左右鍵補上捲動：track 是 tabindex=0 的 group，
+     但瀏覽器預設只給上下鍵捲，橫向捲動對鍵盤使用者等於沒有。 */
+  $$('.hscroll').forEach(function (wrap) {
+    var track = $('.hscroll-track', wrap);
+    if (!track) return;
+
+    var btns = $$('.hscroll-btn', wrap);
+
+    /* 一次捲一張卡（含 gap），而不是捲一整個可視寬度 —— 卡片才會
+       停在整數張的位置上，不會出現半張。 */
+    function step() {
+      var card = $('.hcard', track);
+      return card ? card.offsetWidth + 16 : 280;
+    }
+    function scrollByCard(dir) {
+      track.scrollBy({ left: dir * step(), behavior: 'smooth' });
+    }
+
+    function syncEdge() {
+      /* 次像素誤差會讓「捲到底」永遠差 0.5px，留 2px 容錯 */
+      var atStart = track.scrollLeft <= 2;
+      var atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+      wrap.classList.toggle('at-end', atEnd);
+      btns.forEach(function (b) {
+        var dir = parseInt(b.getAttribute('data-dir'), 10);
+        b.disabled = dir < 0 ? atStart : atEnd;
+      });
+    }
+    syncEdge();
+    track.addEventListener('scroll', syncEdge, { passive: true });
+    window.addEventListener('resize', syncEdge);
+
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        scrollByCard(parseInt(b.getAttribute('data-dir'), 10));
+      });
+    });
+
+    track.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      scrollByCard(e.key === 'ArrowRight' ? 1 : -1);
+      e.preventDefault();
+    });
+  });
+
   /* ── 數字滾動 ── */
-  function countUp(el, to) {
+  function countUp(el, to, dur) {
     /* 太大的數字滾起來只是雜訊，直接顯示 */
     if (to > 5000) { el.textContent = to; return; }
-    var start = null, dur = 900, from = 0;
+    /* 從畫面上的現值起跳：真實統計比 fallback 晚到時，是接著滑而不是跳回 0 */
+    var start = null, from = parseInt((el.textContent || '').replace(/[^0-9]/g, ''), 10) || 0;
+    dur = dur || 900;
     function tick(now) {
       if (start === null) start = now;
       var p = Math.min((now - start) / dur, 1);
@@ -218,6 +366,13 @@
     $$('[data-stat]').forEach(function (el) {
       var v = values[el.getAttribute('data-stat')];
       if (v == null) return;
+      /* hero 那幾顆由上面的排程負責：還沒滾就換掉目標值，
+         已經滾完（統計回得慢）就從現值再滑到真實值。 */
+      if (heroCounters.indexOf(el) !== -1) {
+        el.dataset.to = v;
+        if (heroCountersRan) countUp(el, v, HERO_DUR);
+        return;
+      }
       var seen = false;
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
@@ -233,28 +388,146 @@
     .then(function (r) { return r.ok ? r.json() : null; })
     .catch(function () { return null; });
 
+  /* data.json 是建置時的快照，但 contributors 與 mergedPRs 只有 CI
+     帶 --github-stats 跑才有值 —— 本機預覽時是 null，名單會是空的。
+     所以照 V1 的做法，前端自己打一次 GitHub API 補上。 */
+  var ghApplied = false;
+
   window.siteData.then(function (d) {
     if (!d) return;
     var s = d.stats || {};
-    setCounters({
-      commits: s.commits,
-      skills: s.skills,
-      categories: s.categories,
-      contributors: s.contributors,
-      mergedPRs: s.mergedPRs
-    });
-    renderContributors(d.contributors);
+    /* API 已經回來過就別用舊快照覆蓋它 */
+    if (!ghApplied) {
+      setCounters({
+        commits: s.commits,
+        skills: s.skills,
+        categories: s.categories,
+        contributors: s.contributors,
+        mergedPRs: s.mergedPRs
+      });
+      renderContributors(d.contributors);
+    }
     renderUpdates(d.updates);
   });
 
+  /* ── GitHub API：貢獻者名單與即時計數 ──
+     未認證的 API 每小時 60 次、search 更少，所以整批結果放進
+     sessionStorage，同一次瀏覽不再重複打。
+     任何一支失敗就讓它回 null，其餘照樣套用，不要一顆壞掉全盤放棄。 */
+  (function () {
+    var KEY = 'gh-stats-v3';   /* 結構加了 skills / categories，舊快取要失效 */
+    var SEARCH = 'https://api.github.com/search/issues?q=repo:h30190/' +
+      'HJPLUS_Taiwan_Architect_KB+type:pr+is:merged';
+
+    function apply(g) {
+      ghApplied = true;
+      var vals = {};
+      if (g.commits) vals.commits = g.commits;
+      if (g.skills) vals.skills = g.skills;
+      if (g.categories) vals.categories = g.categories;
+      if (g.mergedPRs != null) vals.mergedPRs = g.mergedPRs;
+      if (g.contributors && g.contributors.length) {
+        vals.contributors = g.contributors.length;
+        renderContributors(g.contributors);
+      }
+      setCounters(vals);
+    }
+
+    var cached = null;
+    try { cached = JSON.parse(sessionStorage.getItem(KEY)); } catch (e) { /* 壞掉就重抓 */ }
+    if (cached) { apply(cached); return; }
+
+    /* commit 總數不在 body 裡，要從分頁 Link 標頭的 last 頁號讀 */
+    function lastPage(res) {
+      var m = (res.headers.get('Link') || '').match(/[?&]page=(\d+)>;\s*rel="last"/);
+      return m ? parseInt(m[1], 10) : null;
+    }
+
+    Promise.all([
+      fetch(API + '/commits?per_page=1')
+        .then(lastPage).catch(function () { return null; }),
+      fetch(API + '/contributors?per_page=100')
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (a) {
+          return Array.isArray(a) ? a.map(function (u) { return u.login; }) : [];
+        })
+        .catch(function () { return []; }),
+      fetch(SEARCH)
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) { return d ? d.total_count : null; })
+        .catch(function () { return null; }),
+      /* 分類數 = raw/ 底下的目錄數 */
+      fetch(API + '/contents/raw')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!Array.isArray(d)) return null;
+          return d.filter(function (i) { return i.type === 'dir'; }).length;
+        })
+        .catch(function () { return null; }),
+      /* 技能數 = raw/ 底下的 SKILL.md 數。
+         V1 是掃全庫，會把 contributor-pr-workflow 與 知識樣板/ 那兩份
+         也算進去（87 而不是 85），所以這裡限定 raw/ 開頭，
+         跟 kb_index.py 產出的數字對得上。
+         truncated 代表樹被截斷、數出來會偏少，那寧可不採用。 */
+      fetch(API + '/git/trees/main?recursive=1')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d || !d.tree || d.truncated) return null;
+          return d.tree.filter(function (i) {
+            return i.path.indexOf('raw/') === 0 && /SKILL\.md$/.test(i.path);
+          }).length;
+        })
+        .catch(function () { return null; })
+    ]).then(function (a) {
+      var g = {
+        commits: a[0], contributors: a[1], mergedPRs: a[2],
+        categories: a[3], skills: a[4]
+      };
+      if (!g.commits && !g.contributors.length && g.mergedPRs == null &&
+          !g.categories && !g.skills) return;
+      try { sessionStorage.setItem(KEY, JSON.stringify(g)); } catch (e) { /* 無痕模式會擋 */ }
+      apply(g);
+    });
+  })();
+
+  /* 貢獻者名單做成跑馬燈：人數會一直長，攤開排會佔掉半個區塊，
+     而且這份名單本身就是想被看見的東西，滾動比靜態清單更容易被注意到。
+     滑鼠移上去或鍵盤 focus 進去就停，要點名字不必追著跑。 */
   function renderContributors(list) {
     var box = $('#contributorList');
     if (!box || !list || !list.length) return;
-    box.innerHTML = list.map(function (c) {
+
+    var html = list.map(function (c) {
       var login = typeof c === 'string' ? c : c.login;
       return '<a class="contributor" href="https://github.com/' + encodeURIComponent(login) +
         '" target="_blank" rel="noopener">@' + esc(login) + '</a>';
     }).join('');
+
+    /* 這裡跟背景圖譜的取捨不同，所以尊重 prefers-reduced-motion：
+       圖譜停下來只是少了氣氛，跑馬燈停下來就是一排完整的名字，
+       資訊一點沒少，關掉的代價幾乎是零。人少時也不必滾。 */
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || list.length < 8) {
+      box.className = 'contributors';
+      box.innerHTML = html;
+      return;
+    }
+
+    /* 兩份等寬的名單並排，動畫捲一份的距離（-50%）就無縫接回開頭。
+       複本對輔助技術隱藏，否則每個名字都會被讀兩次。 */
+    box.className = 'contributors contrib-marquee';
+    box.innerHTML =
+      '<div class="contrib-marquee-track">' +
+        '<div class="contrib-group">' + html + '</div>' +
+        '<div class="contrib-group" aria-hidden="true">' + html + '</div>' +
+      '</div>';
+
+    /* 名單越長就滾越久，讓速度固定在每秒約 60px，不會人一多就飆過去 */
+    var group = $('.contrib-group', box);
+    if (group) {
+      var secs = Math.max(18, Math.round(group.scrollWidth / 60));
+      $('.contrib-marquee-track', box).style.animationDuration = secs + 's';
+    }
   }
 
   function renderUpdates(list) {
