@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="doc">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>知識庫 — 台灣 AEC 開源知識庫</title>
+<meta name="description" content="瀏覽全部技能模組，並看得見每一筆資料的分類、待補欄位、篇幅與最後更新時間。">
+<meta property="og:site_name" content="台灣 AEC 開源知識庫">
+<meta property="og:title" content="知識庫 — 台灣 AEC 開源知識庫">
+<meta property="og:description" content="瀏覽全部技能模組，並看得見每一筆資料的分類、待補欄位、篇幅與最後更新時間。">
+<meta property="og:url" content="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/kb/">
+<meta property="og:image" content="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/images/cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../assets/site.css">
+
+</head>
+<body class="doc">
+<a class="skip-link" href="#main">跳到主要內容</a>
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">AEC</span>
+      <span class="brand-text">台灣 AEC 開源知識庫</span>
+    </a>
+    <nav class="site-nav" id="siteNav">
+      <a href="../index.html">首頁</a>
+      <a href="../why/index.html">為什麼</a>
+      <a href="../kb/index.html" class="active">知識庫</a>
+      <a href="../contribute/index.html">參與</a>
+      <a href="../quality/index.html">品質</a>
+      <a href="../community/index.html">社群</a>
+    </nav>
+    <div class="header-actions">
+      <a class="header-cta" href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank" rel="noopener">GitHub</a>
+      <button class="nav-toggle" id="navToggle" aria-label="開關選單" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="page-head no-kg">
+  <div class="container container-wide">
+    <p class="eyebrow">知識庫</p>
+    <h1>找資料，也看得見資料的狀況</h1>
+    <p class="lead">
+      這裡列出知識庫裡的每一個技能模組。除了搜尋與篩選，每一筆都標示它
+      <strong>缺哪些後設資料、中文說明多厚、多久沒有人動過</strong> ——
+      讓你知道自己讀到的是一篇成熟的內容，還是一個剛開的坑。
+    </p>
+    <p class="small muted mb-0">
+      資料由 <code>scripts/kb_index.py</code> 每次部署時掃描 <code>raw/</code> 產生，不是人工維護的清單。
+      點任何一筆都會連到 GitHub 上的原始檔。
+    </p>
+  </div>
+</div>
+
+<section class="tight no-kg">
+  <div class="container container-wide">
+    <div class="kb-toolbar">
+      <div class="kb-search-row">
+        <div class="kb-search" id="kbSearchBox">
+          <span class="kb-search-icon" aria-hidden="true">⌕</span>
+          <input id="kbSearch" type="search" placeholder="搜尋技能名稱、說明、分類…（空白分隔可多關鍵字）" aria-label="搜尋技能">
+          <button id="kbClear" type="button" aria-label="清除搜尋">×</button>
+        </div>
+        <select class="kb-sort" id="kbSort" aria-label="排序方式">
+          <option value="category">依分類</option>
+          <option value="title">依名稱</option>
+          <option value="updated">最近更新</option>
+          <option value="stale">最久沒更新</option>
+          <option value="thin">中文說明最薄</option>
+        </select>
+        <div class="kb-view-toggle" role="group" aria-label="檢視方式">
+          <button id="kbViewCard" type="button" class="active">卡片</button>
+          <button id="kbViewTable" type="button">表格</button>
+        </div>
+        <button type="button" class="kb-filter-toggle" id="kbFilterToggle"
+                aria-expanded="false" aria-controls="kbFilters">篩選</button>
+      </div>
+      <div class="kb-filters" id="kbFilters"></div>
+    </div>
+
+    <div class="kb-resultbar">
+      <div id="kbCount">讀取中…</div>
+      <div class="small muted">按「表格」可以一次看到缺少的欄位與說明篇幅</div>
+    </div>
+
+    <div id="kbResults">
+      <div class="kb-empty"><p class="muted">讀取知識庫索引中…</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="tinted no-kg" id="status">
+  <div class="container container-wide">
+    <div class="section-head">
+      <p class="eyebrow">資料狀況</p>
+      <h2>這個知識庫現在的體檢報告</h2>
+      <p class="lead">
+        我們選擇把數字攤開，包含難看的那些。
+        <strong>缺口不是失敗，是待辦清單</strong> —— 每一個沒填滿的欄位、每一篇久未更新的內容，
+        都是一件範圍明確、有人可以認領的具體工作。
+      </p>
+    </div>
+    <div id="kbDash"></div>
+
+    <div class="callout mt-40">
+      <h4>這些數字怎麼來的？</h4>
+      <p class="mb-0">
+        全部由 <code>scripts/kb_index.py</code> 直接讀 <code>raw/</code> 底下每個 <code>SKILL.md</code> 的
+        OKF frontmatter 與 <code>domain.md</code> 內容算出來，沒有人工填寫的環節，所以不會有「報表好看但實情不同」的空間。
+        想知道我們怎麼看待內容的正確性與免責邊界，看 <a href="../quality/index.html">品質與免責</a>。
+      </p>
+    </div>
+
+    <div class="center mt-40">
+      <a class="btn btn-primary" href="../contribute/index.html">我想認領一項來補</a>
+      <a class="btn btn-outline" href="../quality/index.html">先了解免責邊界</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="https://www.hjplusdesign.com/" target="_blank" rel="noopener">
+          <img src="../images/hjplus-logo.png" alt="HJPLUS.DESIGN" loading="lazy">
+        </a>
+        <p>台灣 AEC 產業的公共知識基礎設施。<br>由加號設計數位工程有限公司 徐灝發起，社群共同維護。</p>
+      </div>
+      <div class="footer-col">
+        <h4>知識庫</h4>
+        <a href="../kb/index.html">瀏覽全部技能</a>
+        <a href="../kb/index.html#status">資料狀況</a>
+        <a href="../quality/index.html">品質與免責</a>
+      </div>
+      <div class="footer-col">
+        <h4>參與</h4>
+        <a href="../contribute/index.html">怎麼開始貢獻</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/issues/new?template=knowledge.yml" target="_blank" rel="noopener">用講的投稿（免 Git）</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">貢獻指南</a>
+        <a href="../community/index.html">社群與活動</a>
+      </div>
+      <div class="footer-col">
+        <h4>關於</h4>
+        <a href="../why/index.html">為什麼要開源</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank" rel="noopener">GitHub 儲存庫</a>
+        <a href="https://github.com/CWLin0518/REVIT_MCP_study" target="_blank" rel="noopener">關聯專案 REVIT_MCP_study</a>
+        <a href="https://www.hjplusdesign.com/" target="_blank" rel="noopener">業務委託 HJPLUS.DESIGN</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-disclaimer">
+        本知識庫內容僅供參考與教育用途，<strong>不構成專業工程、法律或建築設計建議</strong>，且未經技師簽證。
+        引用任何數值或法規前請自行查證 — <a href="../quality/index.html">我們如何處理正確性</a>。
+      </p>
+      <p class="footer-legal">
+        文字內容 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">CC BY-SA 4.0</a>
+        ｜ 程式碼 <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Apache 2.0</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>window.SITE_ROOT = "../"; window.SITE_REPO = "https://github.com/h30190/HJPLUS_Taiwan_Architect_KB";</script>
+<script src="../assets/site.js"></script>
+<script src="../assets/kg.js"></script>
+<script src="../assets/kb.js"></script>
+</body>
+</html>

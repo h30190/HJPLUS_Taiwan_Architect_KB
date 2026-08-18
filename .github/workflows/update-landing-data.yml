@@ -1,8 +1,9 @@
 name: Deploy landing page
 
-# 部署 docs/ 到 GitHub Pages，並在部署前重產 docs/data.json
-# （landing page 的知識圖譜、tag、最新更新、統計數字）。
-# data.json 只進部署產物、不 commit 回 main，因此不受分支保護限制。
+# 由 site/ 建置 docs/ 並部署到 GitHub Pages。
+# 建置後重產兩份資料檔：kb.json（知識庫索引與資料狀況）與
+# data.json（首頁統計、貢獻者、最近更新）。
+# 兩者只進部署產物、不 commit 回 main，因此不受分支保護限制。
 on:
   push:
     branches: [main]
@@ -36,6 +37,12 @@ jobs:
           merged=$(gh api "search/issues?q=repo:${{ github.repository }}+type:pr+is:merged" --jq '.total_count' || echo 'null')
           printf '{"contributors": %s, "mergedPRs": %s}\n' "$contributors" "$merged" > /tmp/gh-stats.json
           cat /tmp/gh-stats.json
+
+      - name: Build site (docs/) from site/
+        run: python scripts/build_site.py --clean --skip-index
+
+      - name: Generate docs/kb.json
+        run: python scripts/kb_index.py --stats
 
       - name: Generate docs/data.json
         run: python scripts/update_landing_page.py --github-stats /tmp/gh-stats.json
