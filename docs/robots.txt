@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/sitemap.xml
