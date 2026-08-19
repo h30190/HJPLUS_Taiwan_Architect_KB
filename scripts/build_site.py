@@ -31,6 +31,8 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 DOCS = ROOT / "docs"
 
+NL = chr(10)
+
 META_RE = re.compile(r"^<!--meta\s*(.*?)-->\s*", re.DOTALL)
 PLACEHOLDER_RE = re.compile(r"\{\{(\w+)\}\}")
 
@@ -87,6 +89,59 @@ def out_path(slug):
 
 def page_url(slug):
     return f"{SITE_URL}/" if slug == "index" else f"{SITE_URL}/{slug}/"
+
+
+def last_modified(path):
+    """Date of the last commit touching `path`, as YYYY-MM-DD.
+
+    Returns None outside a git checkout, or for a file that has never been
+    committed — the sitemap entry then omits <lastmod> rather than claiming a
+    date we cannot back up.
+    """
+    result = subprocess.run(
+        ["git", "log", "-1", "--format=%cs", "--", str(path)],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    return result.stdout.strip() or None
+
+
+def write_sitemap(entries):
+    """docs/sitemap.xml — the file to submit to Search Console.
+
+    `entries` is [(url, lastmod)], collected by the same loop that writes the
+    pages, so a newly added page cannot be forgotten here.
+    """
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>',
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for url, lastmod in entries:
+        lines.append("  <url>")
+        lines.append("    <loc>" + url + "</loc>")
+        if lastmod:
+            lines.append("    <lastmod>" + lastmod + "</lastmod>")
+        lines.append("  </url>")
+    lines.append("</urlset>")
+    (DOCS / "sitemap.xml").write_text(NL.join(lines) + NL, encoding="utf-8")
+
+
+def write_robots():
+    """docs/robots.txt.
+
+    Caveat worth knowing: this deploys to a *project* Pages site
+    (h30190.github.io/HJPLUS_Taiwan_Architect_KB/), and crawlers only read
+    robots.txt from the domain root — which belongs to the user Pages repo,
+    not this one. So the file is inert today; it starts working the day the
+    site moves to a custom domain. The sitemap gets submitted to Search
+    Console directly either way.
+    """
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        "",
+        "Sitemap: " + SITE_URL + "/sitemap.xml",
+    ]
+    (DOCS / "robots.txt").write_text(NL.join(lines) + NL, encoding="utf-8")
 
 
 def clean_docs():
@@ -152,6 +207,7 @@ def main():
 
     known = {item["slug"] for item in NAV}
     built = []
+    sitemap_entries = []
     for src in sorted((SITE / "pages").glob("*.html")):
         slug = src.stem
         meta, body = parse_meta(src.read_text(encoding="utf-8"))
@@ -176,13 +232,17 @@ def main():
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_text(render(base, values), encoding="utf-8")
         built.append((slug, dst))
+        sitemap_entries.append((page_url(slug), last_modified(src)))
         if slug not in known:
             print(f"  note: {slug} is not in NAV, so no header tab links to it", file=sys.stderr)
+
+    write_sitemap(sitemap_entries)
+    write_robots()
 
     if not args.skip_index:
         run_data()
 
-    print(f"build_site: {len(built)} pages", file=sys.stderr)
+    print(f"build_site: {len(built)} pages + sitemap.xml + robots.txt", file=sys.stderr)
     for slug, dst in built:
         print(f"  {slug:<12} {dst.relative_to(ROOT).as_posix()}", file=sys.stderr)
     return 0
