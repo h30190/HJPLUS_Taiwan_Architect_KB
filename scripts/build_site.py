@@ -116,8 +116,8 @@ def dataset_jsonld():
     data = {
         "@context": "https://schema.org",
         "@type": "Dataset",
-        "name": "台灣 AEC 開源知識庫",
-        "alternateName": "HJPLUS Taiwan AEC Knowledge Base",
+        "name": "台灣AEC(建築x工程x營造)產業技能開源知識庫",
+        "alternateName": "台灣 AEC 開源知識庫",
         "description": (
             "台灣建築、工程、營造領域的實務判準知識庫，以技能模組（SKILL.md）"
             "組織，供人閱讀，也供 AI 代理程式直接取用。每一筆都標示分類、"

@@ -119,8 +119,13 @@ a { color: inherit; }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-@media (max-width: 860px) {
+/* 站名是專案全名（24 字），比導覽摺疊的斷點更早就塞不下 nav 與 GitHub 鈕，
+   所以文字先讓位、只留 AEC 標記，而不是等到 860px 才一起收。 */
+@media (max-width: 1080px) {
   .brand-text { display: none; }
+}
+
+@media (max-width: 860px) {
   .nav-toggle { display: flex; }
   /* 靠右推開的 margin-left:auto 掛在 .site-nav 上，nav 一變成 fixed
      就脫離 flex 流、那個 auto 也跟著失效，GitHub 鈕與漢堡於是黏在

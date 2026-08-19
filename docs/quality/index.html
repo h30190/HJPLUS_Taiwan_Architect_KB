@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>品質與免責 — 台灣 AEC 開源知識庫</title>
-<meta name="description" content="AI 輔助整理的建築法規知識憑什麼可信？我們的答案不是「相信我們」，而是把來源、格式與未完成的部分攤開來讓你自己判斷。">
+<title>品質與免責 — 台灣AEC(建築x工程x營造)產業技能開源知識庫</title>
+<meta name="description" content="AI 輔助整理的台灣營建實務知識憑什麼可信？我們的答案不是「相信我們」，而是把來源、格式與未完成的部分攤開來讓你自己判斷。">
 <!-- 站內連結一律寫成 index.html（這樣 file:// 直接開也能用），於是每頁都有
      /kb/ 與 /kb/index.html 兩個入口。canonical 指定其中一個為正本，
      避免搜尋引擎把同一頁的權重拆成兩份。 -->
 <link rel="canonical" href="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/quality/">
-<meta property="og:site_name" content="台灣 AEC 開源知識庫">
-<meta property="og:title" content="品質與免責 — 台灣 AEC 開源知識庫">
-<meta property="og:description" content="AI 輔助整理的建築法規知識憑什麼可信？我們的答案不是「相信我們」，而是把來源、格式與未完成的部分攤開來讓你自己判斷。">
+<meta property="og:site_name" content="台灣AEC(建築x工程x營造)產業技能開源知識庫">
+<meta property="og:title" content="品質與免責 — 台灣AEC(建築x工程x營造)產業技能開源知識庫">
+<meta property="og:description" content="AI 輔助整理的台灣營建實務知識憑什麼可信？我們的答案不是「相信我們」，而是把來源、格式與未完成的部分攤開來讓你自己判斷。">
 <meta property="og:url" content="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/quality/">
 <meta property="og:image" content="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/images/cover.jpg">
 <meta property="og:image:width" content="1200">
@@ -22,8 +22,8 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "台灣 AEC 開源知識庫",
-  "alternateName": "HJPLUS Taiwan AEC Knowledge Base",
+  "name": "台灣AEC(建築x工程x營造)產業技能開源知識庫",
+  "alternateName": ["台灣 AEC 開源知識庫", "HJPLUS Taiwan AEC Knowledge Base"],
   "url": "https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/",
   "inLanguage": "zh-Hant-TW",
   "description": "台灣建築、工程、營造的實務判準知識庫，人與 AI 都能讀。內容以 CC BY-SA 4.0 開放。",
@@ -45,7 +45,7 @@
   <div class="header-inner">
     <a class="brand" href="../index.html">
       <span class="brand-mark">AEC</span>
-      <span class="brand-text">台灣 AEC 開源知識庫</span>
+      <span class="brand-text">台灣AEC(建築x工程x營造)產業技能開源知識庫</span>
     </a>
     <nav class="site-nav" id="siteNav">
       <a href="../index.html">首頁</a>
@@ -71,7 +71,7 @@
     <h1 data-nav="開頭">憑什麼可以信這裡的內容？</h1>
     <p class="lead">
       正確的答案是：<strong>不要無條件相信</strong>。
-      建築法規講錯會出事，任何要你「相信我們」的知識庫都不該被信任。
+      條號、做法、數字，任何一項講錯都會出事，任何要你「相信我們」的知識庫都不該被信任。
       我們能做的，是把判斷所需的資訊全部攤開給你。
     </p>
   </div>
@@ -83,9 +83,9 @@
 
       <h2 data-nav="問題在哪裡">問題在哪裡</h2>
       <p>
-        「AI 輔助整理的台灣建築法規知識」這句話，對專業人士來說應該要觸發警報。
-        大型語言模型會流暢地生成看起來很篤定、實際上過期或根本不存在的條號 ——
-        而建築領域的錯誤代價，是退件、重做、賠償，最壞的情況是公共安全。
+        「AI 輔助整理的台灣營建實務知識」這句話，對專業人士來說應該要觸發警報。
+        大型語言模型會流暢地生成看起來很篤定、實際上過期或根本不存在的條號與數字 ——
+        而營建現場的錯誤代價，是退件、重做、賠償，最壞的情況是公共安全。
       </p>
       <p>
         所以這個庫的核心設計不是「收多少」，是<strong>可追溯</strong>：
@@ -214,13 +214,13 @@
       <h2 data-nav="回報錯誤">發現錯誤怎麼辦</h2>
       <p>
         請直接說。指出錯誤在這裡跟寫新內容一樣有價值 ——
-        在一個講法規的庫裡，甚至更有價值。
+        在一個會被拿去當判斷依據的庫裡，甚至更有價值。
       </p>
       <ul>
         <li><strong>看到明顯錯誤</strong> ——
           <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/issues/new" target="_blank" rel="noopener">開一則 issue</a>，
           講清楚哪一筆、哪裡錯、正確的應該是什麼</li>
-        <li><strong>你能直接修</strong> —— 在 GitHub 上編輯該檔案送 PR，附上法規依據</li>
+        <li><strong>你能直接修</strong> —— 在 GitHub 上編輯該檔案送 PR，附上依據來源</li>
         <li><strong>你發現的是爭議而不是錯誤</strong> —— 那更值得寫下來。
           「這條各縣市認定不同」正是這個庫最想收的東西</li>
       </ul>
@@ -267,7 +267,7 @@
         <h4>關於</h4>
         <a href="../why/index.html">為什麼要開源</a>
         <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank" rel="noopener">GitHub 儲存庫</a>
-        <a href="https://github.com/CWLin0518/REVIT_MCP_study" target="_blank" rel="noopener">關聯專案 REVIT_MCP_study</a>
+        <a href="https://github.com/shuotao/REVIT_MCP_study" target="_blank" rel="noopener">關聯專案 REVIT_MCP_study</a>
         <a href="https://www.hjplusdesign.com/" target="_blank" rel="noopener">業務委託 HJPLUS.DESIGN</a>
       </div>
     </div>
