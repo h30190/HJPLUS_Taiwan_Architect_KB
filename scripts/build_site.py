@@ -21,6 +21,7 @@ Usage:
 """
 
 import argparse
+import json
 import re
 import shutil
 import subprocess
@@ -89,6 +90,69 @@ def out_path(slug):
 
 def page_url(slug):
     return f"{SITE_URL}/" if slug == "index" else f"{SITE_URL}/{slug}/"
+
+
+def category_names():
+    """raw/ 底下的分類目錄名。
+
+    Dataset 的 keywords 直接掃這裡，新增一個分類不必回頭改這支腳本。
+    """
+    raw = ROOT / "raw"
+    if not raw.is_dir():
+        return []
+    return sorted(
+        p.name for p in raw.iterdir()
+        if p.is_dir() and not p.name.startswith(".")
+    )
+
+
+def dataset_jsonld():
+    """知識庫頁的 Dataset 結構化資料。
+
+    Google Dataset Search 收錄的是 schema.org/Dataset，而這個庫剛好符合它
+    要的三件事：明確的授權、機器可讀的 distribution（kb.json）、標明語言與
+    地理範圍。放在 /kb/ 而不是首頁，因為那頁才是資料本身的入口。
+    """
+    data = {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "台灣 AEC 開源知識庫",
+        "alternateName": "HJPLUS Taiwan AEC Knowledge Base",
+        "description": (
+            "台灣建築、工程、營造領域的實務判準知識庫，以技能模組（SKILL.md）"
+            "組織，供人閱讀，也供 AI 代理程式直接取用。每一筆都標示分類、"
+            "資料完整度與最後更新時間，未完成的部分一併攤開。"
+        ),
+        "url": SITE_URL + "/kb/",
+        "sameAs": REPO_URL,
+        "inLanguage": "zh-Hant-TW",
+        "isAccessibleForFree": True,
+        "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "keywords": category_names(),
+        "spatialCoverage": {"@type": "Place", "name": "臺灣"},
+        "creator": {
+            "@type": "Organization",
+            "name": "加號設計數位工程有限公司",
+            "url": "https://www.hjplusdesign.com/",
+        },
+        "distribution": [
+            {
+                "@type": "DataDownload",
+                "name": "知識庫索引（JSON）",
+                "encodingFormat": "application/json",
+                "contentUrl": SITE_URL + "/kb.json",
+            },
+            {
+                "@type": "DataDownload",
+                "name": "技能模組原始檔（Markdown，Git 儲存庫）",
+                "encodingFormat": "text/markdown",
+                "contentUrl": REPO_URL + "/tree/main/raw",
+            },
+        ],
+    }
+    return (NL + '<script type="application/ld+json">' + NL
+            + json.dumps(data, ensure_ascii=False, indent=2)
+            + NL + '</script>')
 
 
 def last_modified(path):
@@ -224,6 +288,9 @@ def main():
             "extrahead": meta.get("extrahead", ""),
             "extrajs": meta.get("extrajs", ""),
         }
+        if slug == "kb":
+            values["extrahead"] = values["extrahead"] + dataset_jsonld()
+
         values["header"] = render(header, values)
         values["footer"] = render(footer, values)
         values["content"] = render(body, values)
