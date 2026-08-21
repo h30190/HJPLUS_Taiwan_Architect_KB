@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="{{bodyclass}}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<!-- 站內連結一律寫成 index.html（這樣 file:// 直接開也能用），於是每頁都有
+     /kb/ 與 /kb/index.html 兩個入口。canonical 指定其中一個為正本，
+     避免搜尋引擎把同一頁的權重拆成兩份。 -->
+<link rel="canonical" href="{{url}}">
+<meta property="og:site_name" content="台灣AEC(建築x工程x營造)產業技能開源知識庫">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{url}}">
+<meta property="og:image" content="{{site}}/images/cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "台灣AEC(建築x工程x營造)產業技能開源知識庫",
+  "alternateName": ["台灣 AEC 開源知識庫", "HJPLUS Taiwan AEC Knowledge Base"],
+  "url": "{{site}}/",
+  "inLanguage": "zh-Hant-TW",
+  "description": "台灣建築、工程、營造的實務判準知識庫，人與 AI 都能讀。內容以 CC BY-SA 4.0 開放。",
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "codeRepository": "{{repo}}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "加號設計數位工程有限公司",
+    "url": "https://www.hjplusdesign.com/"
+  }
+}
+</script>
+<link rel="stylesheet" href="{{root}}assets/site.css">
+{{extrahead}}
+</head>
+<body class="{{bodyclass}}">
+{{header}}
+<main id="main">
+{{content}}
+</main>
+{{footer}}
+<script>window.SITE_ROOT = "{{root}}"; window.SITE_REPO = "{{repo}}";</script>
+<script src="{{root}}assets/site.js"></script>
+<script src="{{root}}assets/kg.js"></script>
+{{extrajs}}
+</body>
+</html>

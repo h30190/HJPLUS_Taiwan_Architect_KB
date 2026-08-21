@@ -1,0 +1,181 @@
+<!--meta
+title: 品質與免責 — 台灣AEC(建築x工程x營造)產業技能開源知識庫
+description: AI 輔助整理的台灣營建實務知識憑什麼可信？我們的答案不是「相信我們」，而是把來源、格式與未完成的部分攤開來讓你自己判斷。
+nav: quality
+bodyclass: doc
+-->
+
+<div class="page-head">
+  <div class="container">
+    <p class="eyebrow">品質與免責</p>
+    <h1 data-nav="開頭">憑什麼可以信這裡的內容？</h1>
+    <p class="lead">
+      正確的答案是：<strong>不要無條件相信</strong>。
+      條號、做法、數字，任何一項講錯都會出事，任何要你「相信我們」的知識庫都不該被信任。
+      我們能做的，是把判斷所需的資訊全部攤開給你。
+    </p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="prose">
+
+      <h2 data-nav="問題在哪裡">問題在哪裡</h2>
+      <p>
+        「AI 輔助整理的台灣營建實務知識」這句話，對專業人士來說應該要觸發警報。
+        大型語言模型會流暢地生成看起來很篤定、實際上過期或根本不存在的條號與數字 ——
+        而營建現場的錯誤代價，是退件、重做、賠償，最壞的情況是公共安全。
+      </p>
+      <p>
+        所以這個庫的核心設計不是「收多少」，是<strong>可追溯</strong>：
+        每一條知識都要能回答它從哪裡來，以及哪些部分還不確定。
+      </p>
+
+      <hr>
+
+      <h2 data-nav="怎麼處理">我們怎麼處理正確性</h2>
+      <div class="hscroll">
+        <div class="hscroll-head">
+          <p class="hscroll-hint">四道關卡</p>
+          <div class="hscroll-btns">
+            <button type="button" class="hscroll-btn" data-dir="-1" aria-label="上一張">‹</button>
+            <button type="button" class="hscroll-btn" data-dir="1" aria-label="下一張">›</button>
+          </div>
+        </div>
+        <div class="hscroll-track" tabindex="0" role="group" aria-label="我們怎麼處理正確性的四道關卡，可左右捲動">
+
+          <article class="hcard">
+            <h3>引用要有來源，不確定要標出來</h3>
+            <p>
+              引用法規請附條號與出處，不要只寫結論。
+              遇到各縣市認定不同、或條文本身有解釋空間的地方，
+              <strong>要明白寫出「這裡有爭議」而不是挑一個答案講得很篤定</strong>。
+            </p>
+            <p class="hcard-note">寧可少收一篇，也不要收一篇看起來確定卻沒有依據的內容。</p>
+          </article>
+
+          <article class="hcard">
+            <h3>格式由機器檢查</h3>
+            <p>
+              全庫採用 <strong>Open Knowledge Format (OKF) v0.2</strong>。
+              每個 <code>SKILL.md</code> 的 frontmatter 必須帶上概念型別、技能名稱、觸發情境與分類：
+            </p>
+            <div class="code-block">
+              ---<br>
+              type: Skill<br>
+              name: smoke-exhaust-review<br>
+              description: "This skill should be…"<br>
+              metadata:<br>
+              &nbsp;&nbsp;class: C<br>
+              &nbsp;&nbsp;region: taiwan<br>
+              &nbsp;&nbsp;audience: architects<br>
+              ---
+            </div>
+            <p>
+              <code>description</code> 要寫具體的觸發情境；<code>class</code> 分
+              A 通用／B 待台灣適配／C 台灣法規。
+              <code>scripts/validate_okf.py</code> 在 CI 上檢查這些欄位，格式不合的 PR 過不了。
+            </p>
+            <p class="hcard-note"><strong>這道檢查保證的是「說得清楚」，不是「內容正確」</strong> —— 兩者要分開看。</p>
+          </article>
+
+          <article class="hcard">
+            <h3>每一筆修改都要經過人</h3>
+            <p>
+              所有內容都以 Pull Request 進來，由維護者審閱格式、命名、保密邊界與內容合理性後才合併。
+            </p>
+            <p>
+              全部歷程留在 git 上 —— 誰在什麼時候改了什麼，都查得到。
+            </p>
+            <p class="hcard-note">重大沿革另外記在 <code>raw/log.md</code>。</p>
+          </article>
+
+          <article class="hcard">
+            <h3>沒完成的部分不藏</h3>
+            <p>
+              最重要的一條。<a href="../kb/index.html#status">資料狀況</a>頁上把數字攤開，
+              包含難看的那些：哪些分類還是空的、哪些技能的中文說明只有骨架、
+              哪些國際規範還沒做台灣適配、哪些內容已經好幾個月沒有人動過。
+            </p>
+            <blockquote>
+              <p>
+                一份誠實標示「哪裡還沒完成」的知識，比一份假裝完整的知識有用得多。
+                後者在專業場合是有害的。
+              </p>
+            </blockquote>
+            <p class="hcard-note">
+              <a href="../kb/index.html">知識庫</a>裡每一筆都可以直接點到 GitHub 上的原始檔 ——
+              你不必相信我們的摘要，可以自己去看它到底寫了什麼。
+            </p>
+          </article>
+
+        </div>
+      </div>
+
+      <hr>
+
+      <h2 data-nav="方法論">還有一層：方法論本身也是知識</h2>
+      <p>
+        知識庫裡有一個<a href="../kb/index.html?q=建築顧問方法論">建築顧問方法論</a>橫向分類，
+        專門處理「怎麼判斷一個答案可不可信」這件事本身 ——
+        法源位階與衝突消解、法規時效的確認、邊界案例何時該函詢、不確定性怎麼標示。
+      </p>
+      <p>
+        它的設計目的是讓 AI 在回答之前先讀這一層，
+        學會說「這題有爭議，建議函詢主管機關」而不是硬給一個答案。
+        <strong>知道自己不知道，是這個庫要求 AI 具備的第一個能力。</strong>
+      </p>
+
+      <hr>
+
+      <h2 data-nav="免責邊界">免責邊界 —— 講清楚</h2>
+      <div class="callout">
+        <p>
+          本知識庫內容僅供<strong>參考與教育用途</strong>，不構成專業工程、法律或建築設計建議。
+        </p>
+        <ul>
+          <li>部分內容由 AI 輔助生成或整理，<strong>未經專業技師簽證或第三方審核</strong></li>
+          <li>引用法規條文可能因修法而過時，請以
+            <a href="https://law.moj.gov.tw/" target="_blank" rel="noopener">全國法規資料庫</a>
+            及各主管機關最新公告為準</li>
+          <li>實際工程設計與施工應由<strong>依法登記之專業技師或建築師</strong>簽證負責</li>
+          <li>內容由熱心夥伴貢獻整理，正確性無法保證；引用任何數值、法規或計算前，
+            請自行向主管機關或依法登記之專業技師／建築師查證確認</li>
+          <li>使用本知識庫產生的任何決策或後果，由使用者自行承擔</li>
+        </ul>
+        <p class="mb-0">
+          簡單講：<strong>這裡幫你更快找到該查什麼，但不能替你查，更不能替你簽證。</strong>
+        </p>
+      </div>
+
+      <hr>
+
+      <h2 data-nav="回報錯誤">發現錯誤怎麼辦</h2>
+      <p>
+        請直接說。指出錯誤在這裡跟寫新內容一樣有價值 ——
+        在一個會被拿去當判斷依據的庫裡，甚至更有價值。
+      </p>
+      <ul>
+        <li><strong>看到明顯錯誤</strong> ——
+          <a href="{{repo}}/issues/new" target="_blank" rel="noopener">開一則 issue</a>，
+          講清楚哪一筆、哪裡錯、正確的應該是什麼</li>
+        <li><strong>你能直接修</strong> —— 在 GitHub 上編輯該檔案送 PR，附上依據來源</li>
+        <li><strong>你發現的是爭議而不是錯誤</strong> —— 那更值得寫下來。
+          「這條各縣市認定不同」正是這個庫最想收的東西</li>
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+<section class="tinted tight">
+  <div class="container center">
+    <h2 data-nav="實際狀況">看看目前的實際狀況</h2>
+    <p class="lead" style="max-width:560px;margin:12px auto 28px">
+      哪些分類還空著、哪些說明只有骨架、哪些內容久沒更新，全部列在狀況頁上。
+    </p>
+    <a class="btn btn-primary" href="../kb/index.html#status">資料狀況一覽</a>
+    <a class="btn btn-outline" href="../contribute/index.html">挑一件來補</a>
+  </div>
+</section>

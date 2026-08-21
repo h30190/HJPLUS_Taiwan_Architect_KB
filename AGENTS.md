@@ -25,6 +25,12 @@ The five methodology skills there are **horizontal rules** that override topical
 [uncertainty-and-source-control](raw/建築顧問方法論/不確定性標示與來源管控/uncertainty-and-source-control/SKILL.md)
 to any content you author (no unsourced penalty/threshold figures, label certainty, keep To-Verify sections).
 
+### Tool-Backed Skills — Confirm Before Launching Anything
+
+A handful of skills under `raw/` ship their own `scripts/` that open a local port, start a server, or otherwise run a live process — not just static reference reading. Mentioning the topic in conversation is not, by itself, permission to launch one. Check the matching skill's own confirmation rule before running its scripts.
+
+- **綠建材 / TABC 綠建材 / green building material** topics → read [green-material-search-toolkit](raw/建築施工與材料/綠建材/綠建材檢索與選用工具/green-material-search-toolkit/SKILL.md) first. Its "Trigger Confirmation Rule" section applies: do **not** run `scripts/local_server.py` (it opens port 8888 and a browser tab) until the user has explicitly confirmed they want the search tool opened — a passing mention of the topic is not confirmation.
+
 ## Project Structure
 All skill content is in `raw/`. There is no separate published/flat structure.
 
@@ -130,6 +136,50 @@ File placement:
 ❌ Wrong: `消防安全/smoke-exhaust-review/domain.md`
 ❌ Wrong: `消防安全/排煙窗法規檢討/SKILL.md` (no English subdirectory)
 ❌ Wrong: `pai-yan-chuang/SKILL.md` (pinyin instead of English)
+
+## Tool-Backed Skills — What Ships and What Does Not
+
+Some skills are not documents but small applications: they ship `scripts/` that crawl a source,
+serve a local UI, or generate a deliverable. This repository is a knowledge base, so the line is:
+
+> **The repo carries the knowledge and the code to obtain things. It does not carry the things.**
+
+| Ships in the repo | Stays outside |
+|---|---|
+| `SKILL.md`, `domain.md` | Third-party data compilations (certification databases, vendor catalogs) |
+| `scripts/` the contributor wrote | A built interface that embeds such data |
+| `references/` the contributor wrote | The user's project output (Sets, generated reports, exports) |
+| Small assets the contributor authored | Large generated files a shipped script can rebuild |
+
+Rationale: `.md` content here is distributed under **CC BY-SA 4.0** — commercial use allowed,
+derivatives allowed, and **irrevocable**. Nobody in this project has the right to relicense someone
+else's dataset under it, and once merged it cannot be taken back. A contributor's own honest note
+that "智慧財產權仍歸原著作權人所有" is itself proof the material is incompatible with our license.
+
+Two further constraints on the same family of skills:
+
+- **Do not hotlink a third-party server.** A page that pulls 1,000+ images from the source's host
+  every time someone opens it is imposing a cost on them we did not negotiate.
+- **Write user output outside the repo.** Default to a path under the user's home and allow an
+  environment variable to redirect it — `GREEN_MATERIAL_OUTPUT_DIR` in
+  [green-material-search-toolkit](raw/建築施工與材料/綠建材/綠建材檢索與選用工具/green-material-search-toolkit/SKILL.md)
+  is the reference pattern.
+
+### How to ship one anyway
+
+1. Prefer **shipping the generator over the generated data**. `update_tabc_database.py` bootstraps
+   an empty database from a live crawl, so the dataset never has to pass through this repo.
+2. Give `SKILL.md` a **`## Setup` section** naming exactly where the excluded assets come from
+   (upstream repo + filename, or a Release), and telling the agent to ask whether the user already
+   has a copy before fetching.
+3. Put a **`.gitignore` in the skill directory** listing the excluded paths, with a comment saying
+   why. Without it the assets get re-committed by the next merge — this has already happened once.
+4. Follow the confirmation rule in
+   [Tool-Backed Skills — Confirm Before Launching Anything](#tool-backed-skills--confirm-before-launching-anything).
+
+Precedents: #47 (TABC HTML and database excluded, `Setup` section added), #57 (the same HTML
+returned through a branch merge and was rejected again), #38 (vendor catalog PDF replaced by the
+manufacturer's official URL).
 
 ## OKF v0.2 — Bundle Conventions
 
@@ -358,6 +408,49 @@ downgraded to `[Unverified]` or reject it. Adding `[Unverified]` / `[Secondary]`
 to this check (readers already treat those as non-authoritative). Rationale: `[Verified]` is the only tag
 that unlocks 「規定為/必須」 tone, so the maintainer's verification cost is concentrated there.
 
+### Run what the PR ships — do not review from the commit message
+
+When a PR contains a script, or when a previous review asked for a fix, **execute it** rather than
+reading the diff and trusting the commit title. Two failures found this way that a diff read would
+have missed:
+
+- A contributor's commit said the catalog PDF was replaced by an official URL. The `.xlsx` was
+  indeed fixed — but the generated `.json` that `SKILL.md` actually feeds to the AI was never
+  regenerated, so all 1,180 records still pointed at a file that had just been deleted from the repo.
+  Running the contributor's own converter and diffing its output against the committed file exposed it.
+- A `pre-commit` hook declared `language: system` and silently required an unlisted `openpyxl`.
+  It exited 1 on any machine without that package — meaning the hook meant to keep those two files
+  in sync had never actually run for anyone.
+
+Use a throwaway venv when a script needs packages this repo does not depend on; never install into
+the maintainer's environment to test someone's PR.
+
+### Frontmatter must agree with in-body certainty tags
+
+`metadata.status: verified` claims every normative number was transcribed clause-by-clause. If the
+body carries `[Unverified]` or `[Secondary]` tags and no `[Verified]` ones, the frontmatter is
+overclaiming even when each individual tag is honest — ask for `status: unverified` instead.
+
+### Locality must be visible at the index, not only in the body
+
+A skill covering one municipality's procedure (建照報備, 地籍查詢, 都審) must say so where a reader
+meets it first: a `⚠️ 僅適用於OO市` line under `domain.md`'s H1, **and** the municipality in the
+parent `index.md` entry. 建築執照 and 地籍 procedures diverge sharply between counties, and someone
+browsing `建造執照/index.md` will not read the frontmatter's `region:` key.
+[臺中地號查詢](raw/建築執照/基本資料/地方政府地籍查詢系統/臺中市/臺中地號查詢/domain.md) is the
+reference example.
+
+### A new rule does not block a PR that predates it
+
+When this repo adopts a convention (OKF v0.2's `type`, a new required field), PRs opened before that
+date are **not** sent back for it. Merge on the PR's own merits and backfill in a separate
+maintainer commit — see the OKF backfill PRs #50, #52, #53. Tell the contributor explicitly that
+they do not need to act on it, so the message does not read as one more round of homework.
+
+Conversely, when a defect class shows up in a real PR, add a check to
+`scripts/validate_okf.py` so it cannot recur silently — the duplicate-`name` and B-class-marker
+checks both exist because a merged PR had already tripped them.
+
 ## Post-Merge Maintenance
 
 After merging a PR, the maintainer must:
@@ -371,7 +464,12 @@ After merging a PR, the maintainer must:
    machine-readable twin of step 1 (OKF §9).
 3. **Update parent `index.md`** — If the PR added or removed skills, sync the parent directory's `index.md` `## Skills` list per [OKF v0.2](#indexmd--directory-index).
 4. **Run `python scripts/update_readme_counts.py`** to refresh the skill count table (auto-runs via pre-commit hook if configured, but verify the numbers match).
-5. **Run `python scripts/validate_okf.py`** — must report 0 errors.
+5. **Run `python scripts/validate_okf.py`** — must report 0 errors. A PR that predates a convention
+   will fail here; backfill it in a separate commit rather than reopening the PR (see
+   [Pre-Merge Verification](#a-new-rule-does-not-block-a-pr-that-predates-it)).
+6. **Sync `SECTION_CLASS`** in `scripts/update_readme_counts.py` when the new skill's
+   `metadata.class` differs from its section default — otherwise the README count table and the
+   frontmatter disagree.
 
 The landing page data (`docs/data.json` — knowledge-graph tree, tag list, 最新更新, stat counters)
 is **auto-regenerated at deploy time**: the `Deploy landing page` GitHub Action runs
@@ -391,6 +489,8 @@ page accurate. To preview locally, run `python scripts/update_landing_page.py`.
 ## Prohibited
 - No frontmatter in `index.md` (except `okf_version` at the bundle root) or `log.md`
 - No skill fields (`name`, `description`, `metadata.*`) in `domain.md`
+- No third-party datasets, built interfaces embedding them, or user project output — see
+  [Tool-Backed Skills — What Ships and What Does Not](#tool-backed-skills--what-ships-and-what-does-not)
 - No Simplified Chinese in any file
 - No Chinese characters in skill directory names
 - No absolute paths

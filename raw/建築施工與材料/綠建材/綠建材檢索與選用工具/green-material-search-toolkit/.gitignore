@@ -1,0 +1,9 @@
+# TABC 綠建材認證資料屬第三方（財團法人臺灣建築中心）著作，不隨本庫 CC BY-SA 4.0
+# 授權再散布。首次使用請依 SKILL.md「取得與初始化」一節下載，或執行
+# scripts/update_tabc_database.py 於本機重新抓取。
+assets/tabc_master_database.json
+assets/green-material-toolkit.html
+
+# 使用者的專案成品（材料 Set、選用說明書），不屬於知識庫內容。
+assets/exported_material_sets.json
+assets/Material_Advisory_Report.md

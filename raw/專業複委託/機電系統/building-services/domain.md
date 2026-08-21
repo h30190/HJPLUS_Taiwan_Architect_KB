@@ -1,9 +1,9 @@
 ---
 type: Knowledge Entry
-title: "Building Services Domain Knowledge"
+title: "建築機電系統"
 ---
 
-# Building Services Domain Knowledge
+# 建築機電系統
 
 ## 定義
 建築機電系統是維持建築機能運作的基礎設施，包括空調、給排水、電氣、弱電、消防等系統。

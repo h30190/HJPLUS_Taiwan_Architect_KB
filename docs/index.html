@@ -1,1022 +1,403 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" class="home">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HJPLUS 台灣 AEC 知識庫</title>
-<meta name="description" content="一個讓 AI 去回答重複問題、讓人類專心做設計的開源知識庫。台灣建築營造室裝從業人員的共同筆記。">
-<meta property="og:title" content="HJPLUS 台灣 AEC 知識庫">
-<meta property="og:description" content="一個讓 AI 去回答重複問題、讓人類專心做設計的開源知識庫。台灣建築營造室裝從業人員的共同筆記。">
+<title>台灣AEC(建築x工程x營造)產業技能開源知識庫</title>
+<meta name="description" content="全台灣的設計與營造現場，都在重複解同一批題。這是一個把台灣建築、工程、營造的實務判準寫下來、讓人和 AI 都能用的公共知識庫。">
+<!-- 站內連結一律寫成 index.html（這樣 file:// 直接開也能用），於是每頁都有
+     /kb/ 與 /kb/index.html 兩個入口。canonical 指定其中一個為正本，
+     避免搜尋引擎把同一頁的權重拆成兩份。 -->
+<link rel="canonical" href="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/">
+<meta property="og:site_name" content="台灣AEC(建築x工程x營造)產業技能開源知識庫">
+<meta property="og:title" content="台灣AEC(建築x工程x營造)產業技能開源知識庫">
+<meta property="og:description" content="全台灣的設計與營造現場，都在重複解同一批題。這是一個把台灣建築、工程、營造的實務判準寫下來、讓人和 AI 都能用的公共知識庫。">
+<meta property="og:url" content="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/">
 <meta property="og:image" content="https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/images/cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<style>
-  /* ── reset ── */
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html{font-size:16px;scroll-behavior:smooth;scroll-snap-type:y mandatory;line-height:1.6}
-  @media(min-width:1024px){html{font-size:19.2px}}  /* desktop: 1.2× */
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",sans-serif;color:#1a1a1a;background:#fff;-webkit-font-smoothing:antialiased}
-
-  /* ── snap sections ── */
-  /* ── knowledge graph canvas ── */
-  .kg-wrap{position:relative}
-  .kg-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.7}
-  section,footer{min-height:100vh;scroll-snap-align:start;display:flex;align-items:center;padding:64px 0;position:relative}
-  .container{max-width:800px;margin:0 auto;padding:0 24px;width:100%}
-  .container-narrow{max-width:720px}
-
-  /* ── typography ── */
-  h1{font-size:2.5rem;font-weight:800;line-height:1.2;letter-spacing:-0.02em}
-  h2{font-size:1.5rem;font-weight:700;line-height:1.3;margin-bottom:24px}
-  h3{font-size:1.125rem;font-weight:600;margin-bottom:8px}
-  p{margin-bottom:16px;color:#444}
-  .lead{font-size:1.125rem;color:#666;line-height:1.7}
-
-  /* ── hero ── */
-  .hero{position:relative;background:#1a1a1a;overflow:hidden}
-  .hero-bg{position:absolute;inset:0;background:url('images/cover.jpg') center/cover no-repeat;opacity:1;transition:opacity 1.2s ease}
-  .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,26,26,0.6),rgba(26,26,26,0.9));opacity:0;transition:opacity 1.2s ease}
-  .hero .container{max-width:720px;position:relative;z-index:1}
-  .hero .hero-eyebrow{font-size:0.8125rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:16px}
-  .hero .hero-headline{font-size:clamp(2rem,5vw,3.75rem);font-weight:800;line-height:1.1;letter-spacing:-0.03em;margin-bottom:20px;color:#fff}
-  .hero .hero-sub{font-size:clamp(1rem,2vw,1.25rem);line-height:1.5;color:rgba(255,255,255,0.8);margin-bottom:12px;font-weight:400}
-  .hero .lead{font-size:clamp(0.9375rem,1.5vw,1.0625rem);color:rgba(255,255,255,0.55)}
-  .hero .hero-stats .h-counter,
-  .hero .hero-stats .h-plus{font-size:1.5rem;font-weight:800;color:rgba(255,255,255,0.7)}
-  .hero .meta{margin-top:40px;display:flex;gap:32px;flex-wrap:wrap;font-size:0.875rem;color:rgba(255,255,255,0.4)}
-  /* ── hero reveal ── */
-  .hero .hero-eyebrow,
-  .hero .hero-headline,
-  .hero .hero-sub,
-  .hero .hero-lead,
-  .hero .hero-stats,
-  .hero .meta{
-    opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "台灣AEC(建築x工程x營造)產業技能開源知識庫",
+  "alternateName": ["台灣 AEC 開源知識庫", "HJPLUS Taiwan AEC Knowledge Base"],
+  "url": "https://h30190.github.io/HJPLUS_Taiwan_Architect_KB/",
+  "inLanguage": "zh-Hant-TW",
+  "description": "台灣建築、工程、營造的實務判準知識庫，人與 AI 都能讀。內容以 CC BY-SA 4.0 開放。",
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "codeRepository": "https://github.com/h30190/HJPLUS_Taiwan_Architect_KB",
+  "publisher": {
+    "@type": "Organization",
+    "name": "加號設計數位工程有限公司",
+    "url": "https://www.hjplusdesign.com/"
   }
-  .hero.loaded .hero-bg{opacity:0.35;transition-delay:1.8s}
-  .hero.loaded .hero-overlay{opacity:1;transition-delay:1.8s}
-  .hero.loaded .hero-eyebrow{opacity:1;transform:translateY(0);transition-delay:2.1s}
-  .hero.loaded .hero-headline{opacity:1;transform:translateY(0);transition-delay:2.35s}
-  .hero.loaded .hero-sub{opacity:1;transform:translateY(0);transition-delay:2.6s}
-  .hero.loaded .hero-lead{opacity:1;transform:translateY(0);transition-delay:2.85s}
-  .hero.loaded .hero-stats{opacity:1;transform:translateY(0);transition-delay:3.1s}
-  .hero.loaded .meta{opacity:1;transform:translateY(0);transition-delay:3.35s}
+}
+</script>
+<link rel="stylesheet" href="assets/site.css">
 
-  /* ── pain points ── */
-  .pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:32px}
-  .pain-card{background:#f8f8f8;border-radius:8px;padding:32px 24px}
-  .pain-card .num{font-size:2.5rem;font-weight:800;color:#ccc;line-height:1;margin-bottom:8px}
-  .pain-card p{font-size:0.9375rem;margin:0}
-
-  /* ── loop ── */
-  .loop{background:#1a1a1a;color:#fff}
-  .loop h2,.loop p{color:#fff}
-  .loop-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:32px;counter-reset:step}
-  .loop-step{position:relative;padding:24px;background:rgba(255,255,255,0.08);border-radius:8px;counter-increment:step;border:1px solid rgba(255,255,255,0.06)}
-  .loop-step::before{content:"0" counter(step);position:absolute;top:12px;right:16px;font-size:2.5rem;font-weight:800;color:rgba(255,255,255,0.12);line-height:1}
-  .loop-step h3{font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.4);margin-bottom:6px}
-  .loop-step p{font-size:0.9375rem;color:rgba(255,255,255,0.9);margin:0;line-height:1.6}
-
-  /* ── quick-start ── */
-  .start-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:32px}
-  .start-card{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:28px 24px}
-  .start-card .start-icon{font-size:1.75rem;margin-bottom:10px}
-  .start-card h3{color:#fff;font-size:1rem;margin-bottom:8px}
-  .start-card p{font-size:0.875rem;color:rgba(255,255,255,0.6);margin:0;line-height:1.7}
-  .start-card .start-code{background:rgba(0,0,0,0.3);border-radius:6px;padding:10px 14px;font-family:"SF Mono","Cascadia Code","Noto Sans Mono",monospace;font-size:0.8125rem;color:rgba(255,255,255,0.75);margin-top:14px;word-break:break-all;line-height:1.6}
-  .start-card code{background:rgba(255,255,255,0.12);padding:1px 6px;border-radius:3px;font-size:0.8125rem;color:rgba(255,255,255,0.8)}
-
-  /* ── for-who ── */
-  .who-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:32px}
-  .who-card{padding:24px;border:1px solid #e8e8e8;border-radius:8px}
-  .who-card h3{margin-bottom:4px}
-  .who-card .tag{display:inline-block;font-size:0.75rem;font-weight:600;color:#666;background:#f0f0f0;padding:2px 10px;border-radius:4px;margin-bottom:12px}
-
-  /* ── evidence ── */
-  .evidence{background:#1a1a1a;color:#fff}
-  .evidence h2,.evidence .lead{color:#fff}
-  .evidence-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:32px}
-  .evidence-card{border:1px solid #e8e8e8;border-radius:8px;padding:24px}
-  .evidence-card h3{font-size:0.9375rem}
-  .evidence-card p{font-size:0.875rem;color:#888;margin:0}
-  .evidence .evidence-card{border-color:rgba(255,255,255,0.12)}
-  .evidence .evidence-card h3{color:#fff}
-  .evidence .evidence-card p{color:rgba(255,255,255,0.6)}
-
-  /* ── video embed ── */
-  .video-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin-top:12px;background:#000}
-  .video-embed iframe{position:absolute;inset:0;width:100%;height:100%}
-  .video-meta{font-size:0.8125rem;color:rgba(255,255,255,0.4);margin-top:6px}
-  .video-meta strong{color:rgba(255,255,255,0.7)}
-
-  /* ── contributors ── */
-  .contributors{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-  .contributor{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#f0f0f0;border-radius:20px;font-size:0.875rem;font-weight:500;color:#333;text-decoration:none}
-  .contributor:hover{background:#e0e0e0}
-  .contributor .count{font-size:0.75rem;color:#999;font-weight:400}
-  .evidence .contributor{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.9)}
-  .evidence .contributor:hover{background:rgba(255,255,255,0.18)}
-  .evidence .contributor .count{color:rgba(255,255,255,0.4)}
-
-  /* ── details / 折疊 ── */
-  details{background:#f8f8f8;border-radius:8px;padding:16px 20px;margin-top:16px}
-  summary{font-weight:600;cursor:pointer;font-size:0.9375rem;color:#333}
-  details[open] summary{margin-bottom:16px}
-  details ul{list-style:none;padding:0;font-size:0.875rem}
-  details li{padding:6px 0;border-bottom:1px solid #eee;color:#555}
-  details li:last-child{border-bottom:none}
-  details li .date{color:#999;margin-right:8px}
-  .evidence details{background:rgba(255,255,255,0.06)}
-  .evidence summary{color:rgba(255,255,255,0.85)}
-  .evidence details li{color:rgba(255,255,255,0.65);border-color:rgba(255,255,255,0.08)}
-  .evidence details li .date{color:rgba(255,255,255,0.35)}
-
-  /* ── tags ── */
-  .tag-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-  .tag{font-size:0.8125rem;padding:4px 12px;background:#f0f0f0;border-radius:4px;color:#555}
-  .evidence .tag{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)}
-
-  /* ── upcoming event ── */
-  .event-card{border:1px solid #e0e0e0;border-radius:8px;padding:28px;margin-top:32px;display:flex;flex-wrap:wrap;gap:20px;align-items:center}
-  .event-card .event-info{flex:2;min-width:220px}
-  .event-card .event-meta{font-size:0.8125rem;color:#888;margin-bottom:4px}
-  .event-card .event-meta strong{color:#333}
-  .event-card h3{margin:0 0 4px}
-  .event-card p{margin:0;font-size:0.9375rem}
-  .event-card .event-action{flex:0 0 auto}
-  .event-card .btn-primary{background:#1a1a1a;color:#fff}
-  .event-card .btn-primary:hover{background:#333}
-  .event-empty{text-align:center;padding:32px;color:#999;font-size:0.9375rem}
-  .event-empty a{color:#666}
-
-  /* ── architecture block ── */
-  .code-block{background:#f8f8f8;border-radius:8px;padding:24px;font-family:"SF Mono","Cascadia Code","Noto Sans Mono",monospace;font-size:0.875rem;line-height:2;margin-top:16px}
-
-  /* ── cta ── */
-  .cta{position:relative;background:#1a1a1a;color:#fff;text-align:center;overflow:hidden}
-  .cta .hero-bg{position:absolute;inset:0;background:url('images/cover.jpg') center/cover no-repeat;opacity:0.35}
-  .cta .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,26,26,0.6),rgba(26,26,26,0.9));opacity:1}
-  .cta .container{position:relative;z-index:1}
-  .cta h2{color:#fff;margin-bottom:12px;font-size:clamp(1.5rem,3vw,2rem)}
-  .cta .cta-sub{color:rgba(255,255,255,0.6);max-width:500px;margin:0 auto 28px;font-size:1rem;line-height:1.6}
-  .cta-stats{display:flex;justify-content:center;gap:40px;margin-bottom:36px;flex-wrap:wrap}
-  .cta-stat{text-align:center}
-  .cta-stat .num{font-size:1.5rem;font-weight:800;color:#fff;line-height:1}
-  .cta-stat .label{font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:4px;letter-spacing:0.03em}
-  .btn{display:inline-block;padding:14px 32px;border-radius:8px;font-weight:600;font-size:1rem;text-decoration:none;transition:all .2s}
-  .btn-primary{background:#fff;color:#1a1a1a}
-  .btn-primary:hover{background:#e0e0e0;transform:translateY(-1px)}
-  .btn-secondary{background:rgba(255,255,255,0.1);color:#fff;margin-left:12px}
-  .btn-secondary:hover{background:rgba(255,255,255,0.2);transform:translateY(-1px)}
-  .cta .tertiary{display:inline-block;margin-top:24px;font-size:0.875rem;color:rgba(255,255,255,0.35);text-decoration:none;transition:color .2s}
-  .cta .tertiary:hover{color:rgba(255,255,255,0.7);text-decoration:underline}
-  .cta .cta-logo{margin-top:48px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.1);text-align:center}
-  .cta .cta-logo img{width:100%;max-width:440px;height:auto;opacity:0.6;transition:opacity .25s}
-  .cta .cta-logo img:hover{opacity:0.85}
-  .cta .cta-logo-caption{margin:10px 0 0;font-size:0.8125rem;color:rgba(255,255,255,0.35);letter-spacing:0.04em}
-  @media(max-width:480px){.btn-secondary{margin-left:0;margin-top:12px}.cta-stats{gap:24px}}
-
-  /* ── event cards on dark CTA bg ── */
-  .cta .event-card{border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:28px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin-bottom:8px}
-  .cta .event-card:only-child{margin-bottom:0}
-  .cta .event-card .event-info{flex:2;min-width:220px}
-  .cta .event-card .event-meta{font-size:0.8125rem;color:rgba(255,255,255,0.45);margin-bottom:4px}
-  .cta .event-card .event-meta strong{color:rgba(255,255,255,0.8)}
-  .cta .event-card h3{margin:0 0 4px;color:#fff;font-size:1.125rem}
-  .cta .event-card p{margin:0;font-size:0.9375rem;color:rgba(255,255,255,0.55)}
-  .cta .event-card .event-action{flex:0 0 auto}
-  .cta .event-card .btn-primary{background:#fff;color:#1a1a1a}
-  .cta .event-card .btn-primary:hover{background:#e0e0e0}
-  .cta .event-empty{color:rgba(255,255,255,0.4)}
-  .cta .event-empty a{color:rgba(255,255,255,0.6)}
-
-  /* ── footer ── */
-  footer{min-height:auto;display:block;padding:48px 0 40px;font-size:0.8125rem;color:#999;text-align:center;border-top:1px solid #e8e8e8}
-  footer .footer-logo{margin-bottom:16px}
-  footer .footer-logo img{height:24px;width:auto;opacity:0.55;transition:opacity .25s}
-  footer .footer-logo img:hover{opacity:1}
-  footer p a{color:#999}
-  footer p a:hover{color:#666}
-  footer.scroll-snap{min-height:100vh;display:flex;align-items:center;border-top:none}
-
-  /* ── responsive ── */
-  @media(max-width:600px){section{min-height:100vh;padding:48px 0}.container{padding:0 20px}h1{font-size:1.75rem}h2{font-size:1.25rem}}
-
-  /* ══════════════════════════════════
-     DOT NAV
-     ══════════════════════════════════ */
-  .dot-nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:14px;padding:12px 0}
-  .dot-nav a{display:block;width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.2);transition:all .25s;position:relative;text-decoration:none}
-  .dot-nav a::after{content:attr(data-label);position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:0.75rem;color:#999;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;font-weight:500}
-  .dot-nav a:hover::after{opacity:1}
-  .dot-nav a.active{background:#1a1a1a;transform:scale(1.4)}
-  .dot-nav a.active::after{opacity:1;color:#1a1a1a}
-  /* inverted on dark backgrounds (toggled by JS) */
-  .dot-nav.dark-bg a{background:rgba(255,255,255,0.25)}
-  .dot-nav.dark-bg a:hover{background:rgba(255,255,255,0.5)}
-  .dot-nav.dark-bg a.active{background:#fff}
-  .dot-nav.dark-bg a::after{color:rgba(255,255,255,0.5)}
-  .dot-nav.dark-bg a.active::after{color:#fff}
-
-  @media(max-width:600px){.dot-nav{display:none}}
-</style>
 </head>
-<body>
+<body class="home">
+<a class="skip-link" href="#main">跳到主要內容</a>
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">AEC</span>
+      <span class="brand-text">台灣AEC(建築x工程x營造)產業技能開源知識庫</span>
+    </a>
+    <nav class="site-nav" id="siteNav">
+      <a href="index.html" class="active">首頁</a>
+      <a href="why/index.html">為什麼</a>
+      <a href="kb/index.html">知識庫</a>
+      <a href="contribute/index.html">參與</a>
+      <a href="quality/index.html">品質</a>
+      <a href="community/index.html">社群</a>
+    </nav>
+    <div class="header-actions">
+      <a class="header-cta" href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank" rel="noopener">GitHub</a>
+      <button class="nav-toggle" id="navToggle" aria-label="開關選單" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-<!-- ═══ dot nav ═══ -->
-<nav class="dot-nav" id="dotNav"></nav>
-
-<!-- ═══ HERO ═══ -->
-<section class="hero" id="sec-hero">
+<main id="main">
+<section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
-  <div class="container container-narrow">
-    <p class="hero-eyebrow">台灣 AEC（建築 · 工程 · 營造）開源知識庫</p>
+  <div class="container">
+    <p class="hero-eyebrow">台灣AEC(建築x工程x營造)產業技能開源知識庫</p>
     <h1 class="hero-headline">知識，<br>不該只存在一個人的腦子裡。</h1>
-    <p class="hero-sub">讓 AI 去回答重複問題，讓人類專心做只有人類能做的事。</p>
-    <p class="lead hero-lead">人寫筆記，AI 陪跑新人。知識越用越厚，不會退休就帶走。</p>
-    <p class="lead hero-stats" style="margin-top:24px;font-size:0.8125rem;color:rgba(255,255,255,0.35)">
-      目前已累積 <span class="h-counter" data-to="82">0</span> 次 commit、
-      <span class="h-counter" data-to="11">0</span> 個 PR 已合併、
-      <span class="h-counter" data-to="10">0</span> 大分類、
-      <span class="h-counter" data-to="39">0</span><span class="h-plus">+</span> 技能模組，
-      由 <span class="h-counter" data-to="8">0</span> 位貢獻者共同維護。
+    <p class="hero-sub">全台灣的設計與營造現場，每天都有人在重複解同一批題。</p>
+    <p class="hero-lead">
+      容積怎麼算、使照怎麼送、材料怎麼選、案子怎麼管 —— 這些答案不該是每家公司各自摸索、
+      再隨著某個人離職一起消失的東西。
     </p>
-    <div class="meta">
-      <span>CC BY-SA 4.0</span>
-      <span>Apache 2.0</span>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="kb/index.html">瀏覽知識庫</a>
+      <a class="btn btn-outline" href="why/index.html">為什麼要開源？</a>
     </div>
-  </div>
-</section>
-
-<!-- ═══ 痛點 ═══ -->
-<section class="kg-wrap" id="sec-pain">
-  <div class="container">
-    <h2>你每天在浪費多少時間？</h2>
-    <p class="lead">這些場景，在每一個 AEC 團隊每天都在發生。</p>
-    <div class="pain-grid">
-      <div class="pain-card">
-        <div class="num">01</div>
-        <p><strong>同樣的問題，每年回答 N 遍。</strong>容積率算法、使照申請流程、防火區劃原則 — 資深人員的時間被重複問題吃光。</p>
-      </div>
-      <div class="pain-card">
-        <div class="num">02</div>
-        <p><strong>新人來了，沒人教。</strong>資深在忙，新人不敢問。自己摸一週才搞懂的東西，其實 10 分鐘就能講完。</p>
-      </div>
-      <div class="pain-card">
-        <div class="num">03</div>
-        <p><strong>人走了，知識也帶走了。</strong>退休、轉職、離職 — 那些年累積的判斷和經驗，沒有留下來。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 雙贏迴圈 ═══ -->
-<section class="loop kg-wrap" id="sec-loop">
-  <div class="container">
-    <h2>人類 × Agent 雙贏迴圈</h2>
-    <p class="lead" style="color:rgba(255,255,255,0.7)">不是取代，是分工。人做判斷，AI 做陪跑。</p>
-    <div class="loop-steps">
-      <div class="loop-step">
-        <h3>Step 1</h3>
-        <p><strong>人寫筆記。</strong>經驗、判斷、法規重點 — 寫成 domain.md，人類可讀。</p>
-      </div>
-      <div class="loop-step">
-        <h3>Step 2</h3>
-        <p><strong>Agent 讀。</strong>基於 domain.md 建立 SKILL.md，AI 能精準回答，不會亂來。</p>
-      </div>
-      <div class="loop-step">
-        <h3>Step 3</h3>
-        <p><strong>新人用。</strong>問 AI 不尷尬、不打擾人。陪跑到能獨立作業。</p>
-      </div>
-      <div class="loop-step">
-        <h3>Step 4</h3>
-        <p><strong>資深省時間。</strong>不用再重複回答。經驗留下來，知識越轉越厚。</p>
-      </div>
-    </div>
-    <p style="margin-top:32px;font-size:0.875rem;color:rgba(255,255,255,0.5);text-align:center">
-      迴圈每轉一次，你的團隊就多一分底蘊。
+    <p class="hero-stats">
+      目前收錄
+      <span class="h-counter" data-stat="skills">85</span> 個技能模組、
+      <span class="h-counter" data-stat="categories">11</span> 大分類，累積
+      <span class="h-counter" data-stat="commits">195</span> 次提交，
+      由 <span class="h-counter" data-stat="contributors">19</span> 位夥伴共同維護。
     </p>
-  </div>
-</section>
-
-<!-- ═══ 對你的好處 ═══ -->
-<section class="kg-wrap" id="sec-benefit">
-  <div class="container">
-    <h2>這對你的好處</h2>
-    <div class="who-grid">
-      <div class="who-card">
-        <span class="tag">經營者／主管</span>
-        <p>新人 onboarding 從兩週變兩天。資深時間解放。知識是公司資產，不是個人抽屜。</p>
-      </div>
-      <div class="who-card">
-        <span class="tag">資深建築師／技師</span>
-        <p>不用再回答第 87 次使照流程。你寫一次，全公司 AI 都會了。專心做你該做的設計。</p>
-      </div>
-      <div class="who-card">
-        <span class="tag">新人／學生</span>
-        <p>不用怕問笨問題。打開這個庫，AI 陪你跑一遍。你補上去的內容，是你留在產業的足跡。</p>
-      </div>
-      <div class="who-card">
-        <span class="tag">學界／教職員</span>
-        <p>一套活著的教材，學生可以直接跟產業實務接軌。也可以當教學素材 fork 回去改。</p>
-      </div>
+    <div class="hero-meta">
+      <span>內容 CC BY-SA 4.0</span>
+      <span>程式碼 Apache 2.0</span>
+      <span>Agent Skills 開放格式</span>
     </div>
   </div>
 </section>
 
-<!-- ═══ 證據 ═══ -->
-<section class="evidence kg-wrap" id="sec-evidence">
+<!-- ═══ 1. 痛：這是產業級的重複投資 ═══ -->
+<section>
   <div class="container">
-    <h2>這不是空殼</h2>
-    <p class="lead">有人在用，在長大，在發生。</p>
-
-    <div class="evidence-grid">
-      <div class="evidence-card">
-        <h3>小聚與活動</h3>
-        <p>不定期舉辦知識庫共寫工作坊、法規討論小聚。跟社群一起把知識補完。</p>
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/dug5qyJuXJo" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <p class="video-meta">2026-06-24 · <strong>台灣 AEC 知識庫小聚 #2</strong></p>
+    <div class="section-head">
+      <p class="eyebrow">問題</p>
+      <h2>這不是哪一家的管理問題</h2>
+      <p class="lead">
+        同樣的三件事，在每一間 AEC 公司裡天天發生。差別只在於，大家都以為那是自己家的問題。
+      </p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="card-num">01</div>
+        <p><strong>同樣的問題，每年回答 N 遍。</strong>資深人員的時間被重複問題吃光，而這些答案在別家公司也正被重新推導一次。</p>
       </div>
-      <div class="evidence-card">
-        <h3>貢獻者</h3>
-        <p><span id="contribCount">8</span> 位貢獻者，來自建築師事務所、工程顧問、營造廠、室內裝修、學界。改一個錯字也算貢獻。</p>
-        <div class="contributors" id="contribList">
-          <span class="contributor">hh</span>
-          <span class="contributor">Alex Huang</span>
-          <span class="contributor">Archwiz-boss</span>
-          <span class="contributor">Chiming Lu</span>
-          <span class="contributor">tdrpro1984-code</span>
-          <span class="contributor">Hsu David</span>
-          <span class="contributor">ArchWiz</span>
-        </div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <p><strong>新人來了，沒人教。</strong>資深在忙，新人不敢問。自己摸一週才搞懂的東西，其實十分鐘就講得完。</p>
+      </div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <p><strong>人走了，知識也帶走了。</strong>退休、轉職、離職 —— 那些年累積的判斷，沒有留下任何一份可交接的形式。</p>
       </div>
     </div>
-
-    <details>
-      <summary>最新更新</summary>
-      <ul id="updatesList">
-        <li><span class="date">2026-06-19</span>🧰 新增設計軟體與工具分類（Archicad 4 個技能模組）</li>
-        <li><span class="date">2026-06-19</span>🪜 新增樓梯欄杆坡道技能（建技規 §33 樓梯寬度）</li>
-        <li><span class="date">2026-06-19</span>📐 新增容積免計實務陷阱技能</li>
-        <li><span class="date">2026-06-18</span>🏛️ 新增文化資產保存法分類（9 個 C 類技能）</li>
-        <li><span class="date">2026-06-17</span>🏗️ 新增混凝土結構設計分類（5 個 C 類技能）</li>
-        <li><span class="date">2026-06-17</span>♿ 新增無障礙出入口門淨寬實務陷阱技能</li>
-        <li><span class="date">2026-05-17</span>✨ 新增公共工程分類（公開招標、公開閱覽）</li>
-        <li><span class="date">2026-05-03</span>🔥 新增排煙窗法規檢討技能</li>
-      </ul>
-    </details>
-
-    <div class="tag-list" id="tagList">
-      <span class="tag">設計理論</span>
-      <span class="tag">容積計算</span>
-      <span class="tag">消防法規</span>
-      <span class="tag">無障礙設計</span>
-      <span class="tag">事務所營運</span>
-      <span class="tag">專案管理</span>
-      <span class="tag">混凝土結構</span>
-      <span class="tag">文化資產</span>
-      <span class="tag">公共工程</span>
-      <span class="tag">Archicad</span>
-      <span class="tag">機電系統</span>
-      <span class="tag">施工材料</span>
-      <span class="tag">…等你開新主題</span>
+    <div class="callout mt-40">
+      <p class="mb-0">
+        把這三件事乘上全台灣的事務所數量，你看到的不是效率問題，是
+        <strong>整個產業在同一批題目上重複燒錢</strong>。這種浪費，任何一家公司自己都解不掉。
+      </p>
     </div>
   </div>
 </section>
 
-<!-- ═══ 架構 ═══ -->
-<section class="kg-wrap" id="sec-arch">
+<!-- ═══ 2. 為什麼是現在 ═══ -->
+<section class="dark">
   <div class="container">
-    <h2>架構 — 一句話</h2>
-    <p class="lead">每個知識主題產出兩份文件：一份給人讀，一份給 AI 讀。</p>
+    <div class="section-head">
+      <p class="eyebrow">時機</p>
+      <h2>以前這題無解，現在兩件事變了</h2>
+      <p class="lead">
+        寫知識庫從來不是新點子。它以前失敗，是因為兩個很現實的理由 —— 而這兩個理由都剛好在這幾年鬆動了。
+      </p>
+    </div>
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="tag">變化一</span>
+        <h3>寫下來的東西，終於有讀者了</h3>
+        <p>
+          以前內部 wiki 都是死的 —— 寫了沒人翻，翻了找不到。現在寫下來的筆記有了新的讀者：<strong>AI agent 會讀</strong>。
+          你寫一次 <code>domain.md</code>，AI 就能拿它回答新人第 87 次的問題。
+          而每一次被讀到、被用到，就是一次「這段還準不準」的檢驗 ——
+          <strong>筆記從死檔案，變成了一個會長大的同事。</strong>
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag">變化二</span>
+        <h3>護城河的位置，移動了</h3>
+        <p>
+          當 AI 能讀懂公開知識，「知道去哪裡查、流程怎麼跑」就不再是競爭力，它會下沉成基礎設施。
+          真正值錢的變成<strong>設計判斷、業主關係、整合能力</strong>。
+          把查得到的東西公開，換整個產業的基準線上升 —— 對真的有能力的人是淨賺。
+        </p>
+      </div>
+    </div>
+    <div class="center mt-40">
+      <a class="btn btn-primary" href="why/index.html">完整論述：為什麼是開源，而不是內部 wiki</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2.5 死資料庫 vs 活經驗 ═══ -->
+<section class="tinted">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">關鍵差別</p>
+      <h2>每家公司都有資料庫。你確定它還活著、還有人在用嗎？</h2>
+      <p class="lead">
+        共用資料夾、內部 wiki、Notion 頁面、某位主管硬碟裡的「範例集」——
+        幾乎每一間公司都有過。現在打開它看看：上一次有人更新是什麼時候？
+        <strong>最後一筆修改的日期，就是它真正的死亡時間。</strong>
+      </p>
+    </div>
+
+    <div class="compare">
+      <div class="compare-col compare-dead">
+        <span class="compare-tag">死的資料庫</span>
+        <h3>寫完就停在那裡</h3>
+        <p>越用越舊。</p>
+        <ul>
+          <li>有人在某個時間點寫完，然後就不動了</li>
+          <li>寫的人離職後沒人接手，內容慢慢腐爛</li>
+          <li>沒人知道哪一段還準、哪一段早就過期</li>
+          <li>讀的人只能讀。發現錯了也只能自己記在腦子裡</li>
+          <li>找不到就放棄，回去問人 —— 於是又回到原點</li>
+        </ul>
+      </div>
+
+      <div class="compare-mid"><span>而這裡</span></div>
+
+      <div class="compare-col compare-live">
+        <span class="compare-tag">活生生的經驗</span>
+        <h3>每次被用到，就長大一點</h3>
+        <p>越用越厚。</p>
+        <ul>
+          <li>被拿出來用的每一次，都是一次檢驗</li>
+          <li>讀的人就是有權修的人 —— 發現不對，當場就改</li>
+          <li>誰改了什麼、什麼時候改的，全部留在版本歷程上</li>
+          <li>新人問不出答案的地方，就是下一個該補的洞</li>
+          <li>維護不靠某個人的責任感，靠使用本身</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout mt-40">
+      <h4>機制上的差別，只有一句話</h4>
+      <p class="mb-0">
+        內部資料庫的讀者沒有修改的權力，也沒有修改的動機 ——
+        所以維護永遠是某個人的額外工作，而額外工作總會被排到最後。
+        開源知識庫剛好相反：<strong>讀它的人天生就是可以改它的人，使用即維護。</strong>
+        這不是紀律問題，是結構問題。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3. 這是什麼 ═══ -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">這是什麼</p>
+      <h2>一份給人讀，一份給 AI 讀</h2>
+      <p class="lead">
+        每個知識主題產出兩份文件。理解這件事，你就理解了整個知識庫的結構。
+      </p>
+    </div>
     <div class="code-block">
       排煙窗法規檢討/<br>
       ├── <strong>domain.md</strong>　← 人看的：使用情境、法規條文、實務應用<br>
       └── smoke-exhaust-review/<br>
       &nbsp;&nbsp;&nbsp;&nbsp;└── <strong>SKILL.md</strong>　← AI 讀的：步驟、技術規格、MCP 工具呼叫
     </div>
-    <p style="margin-top:16px;font-size:0.875rem;color:#888">
-      理解這個就夠了。其他可以直接到分類瀏覽。
+    <p class="small muted">
+      <code>SKILL.md</code> 採用 Agent Skills 開放格式，Claude Code、OpenCode、Cursor 等支援 skills 的
+      agent 都能直接載入 —— 不綁任何一家廠商。
+    </p>
+
+    <div class="grid grid-2 mt-40">
+      <a class="card card-link" href="kb/index.html">
+        <span class="tag">瀏覽</span>
+        <h3>知識庫索引</h3>
+        <p>85 個技能模組，可搜尋、可依分類與待補標記篩選。</p>
+        <span class="card-arrow">開始瀏覽 →</span>
+      </a>
+      <a class="card card-link" href="kb/index.html#status">
+        <span class="tag">透明度</span>
+        <h3>資料狀況一覽</h3>
+        <p>哪些分類還空著、哪些說明只有骨架、哪些欄位缺著 —— 數字全部攤開，包含難看的。</p>
+        <span class="card-arrow">看體檢報告 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4. 分眾路由 ═══ -->
+<section class="tinted">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">從這裡開始</p>
+      <h2>你是哪一種人？</h2>
+      <p class="lead">
+        這裡沒有「資深捐給資淺」這種單向關係。
+        <strong>新人和老鳥都同時是貢獻者，也都同時是受益者</strong> ——
+        沒有人是全領域的老鳥，你在容積是老手，在機電就是新手；
+        而新人卡住的地方，正是老鳥早就忘掉、最該被寫下來的那一段。
+      </p>
+    </div>
+    <div class="grid grid-4">
+      <a class="card card-link" href="why/index.html">
+        <span class="tag">經營者／主管</span>
+        <p>新人 onboarding 從兩週變兩天，資深時間解放，知識變成公司資產而不是個人抽屜。但你會先想問：憑什麼是開源？</p>
+        <span class="card-arrow">看完整論述 →</span>
+      </a>
+      <a class="card card-link" href="contribute/index.html">
+        <span class="tag">資深建築師／技師</span>
+        <p>不用再回答第 87 次使照流程 —— 你寫一次，全公司的 AI 都會了。而在你不熟的那些領域，你也是這個庫的受益者。</p>
+        <span class="card-arrow">看怎麼貢獻 →</span>
+      </a>
+      <a class="card card-link" href="kb/index.html">
+        <span class="tag">新人／學生</span>
+        <p>不用怕問笨問題 —— 你問不出答案的地方就是這個庫的缺口，講出來就是貢獻。老鳥早就忘了自己當年卡在哪。</p>
+        <span class="card-arrow">直接翻知識庫 →</span>
+      </a>
+      <a class="card card-link" href="quality/index.html">
+        <span class="tag">想用 AI 做 AEC 的人</span>
+        <p>受不了 AI 拿美國規範回答台灣案子。這裡是台灣本位的 agent skills，格式開放、來源可追。</p>
+        <span class="card-arrow">看格式與免責 →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5. 誠實：這東西還很不完整 ═══ -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">先說清楚</p>
+      <h2>這個庫還很不完整，而我們不打算藏</h2>
+      <p class="lead">
+        這裡的東西講錯會出事，所以在你決定要不要信任它之前，這些話得先說：
+      </p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>內容未經技師簽證</h3>
+        <p>部分內容由 AI 輔助整理。引用任何數值、法規或計算前，請自行向主管機關或依法登記之專業技師／建築師查證。</p>
+      </div>
+      <div class="card">
+        <h3>成熟度差很多</h3>
+        <p>有些技能寫得很厚，有些還只是個開頭。哪一篇厚、哪一篇薄、哪一篇久沒更新，<a href="kb/index.html#status">狀況頁</a>上一筆一筆列給你看。</p>
+      </div>
+      <div class="card">
+        <h3>有兩個分類是空的</h3>
+        <p>專案管理與經營管理目前還沒有內容。我們沒有把空目錄藏起來 —— 那是給人認領的位置。</p>
+      </div>
+    </div>
+    <p class="small muted mt-32">
+      我們相信一份標明了「哪裡還沒完成」的知識，比一份假裝完整的知識有用得多。
+      詳細的免責邊界與錯誤回報方式，見 <a href="quality/index.html">品質與免責</a>。
     </p>
   </div>
 </section>
 
-<!-- ═══ 快速開始 ═══ -->
-<section class="loop kg-wrap" id="sec-start">
+<!-- ═══ 6. CTA ═══ -->
+<section class="dark">
   <div class="container">
-    <h2>三分鐘開始使用</h2>
-    <p class="lead" style="color:rgba(255,255,255,0.7)">不用安裝，不用註冊。三條路，選一條。</p>
-    <div class="start-grid">
-      <div class="start-card">
-        <div class="start-icon">⌨️</div>
-        <h3>終端機 AI</h3>
-        <p>把儲存庫網址交給支援 skills 的 AI agent（Claude Code、OpenCode、Cursor 等），AI 會自動載入技能模組，在對話中直接回答你的法規或實務問題。</p>
-        <div class="start-code">git clone https://github.com/h30190/HJPLUS_Taiwan_Architect_KB.git</div>
-        <p style="font-size:0.8125rem;color:rgba(255,255,255,0.4);margin-top:8px">然後把目錄路徑餵給 agent，或使用 OpenCode 自動發現。</p>
-      </div>
-      <div class="start-card">
-        <div class="start-icon">🌐</div>
-        <h3>網頁版 AI</h3>
-        <p>在 Claude.ai、ChatGPT 等網頁版 AI 中貼上這個 repo 連結，或把 domain.md 內容當成 project knowledge 匯入。AI 就能根據知識庫內容回答你的問題。</p>
-        <div class="start-code">https://github.com/h30190/HJPLUS_Taiwan_Architect_KB</div>
-        <p style="font-size:0.8125rem;color:rgba(255,255,255,0.4);margin-top:8px">支援上傳文件功能的平台，也可以直接拖入 domain.md 檔案。</p>
-      </div>
-      <div class="start-card">
-        <div class="start-icon">🔧</div>
-        <h3>Clone 發展</h3>
-        <p>git clone 下來，瀏覽 <code>raw/</code> 目錄下的分類內容。想新增技能或修正錯誤，直接改完發 PR。改一個錯字也算貢獻。</p>
-        <div class="start-code">git clone https://github.com/h30190/HJPLUS_Taiwan_Architect_KB.git<br>cd HJPLUS_Taiwan_Architect_KB/raw</div>
-      </div>
+    <div id="eventList"></div>
+
+    <div class="section-head mt-40">
+      <h2>你已經看到這裡了。</h2>
+      <p class="lead">
+        代表你也覺得這件事有意義。不用一次交一篇大作 —— 改一個錯字、補一段實務經驗、
+        更新一個過期的條文，都是貢獻。不會用 GitHub 也沒關係，用講的投稿就好。
+      </p>
     </div>
-  </div>
-</section>
-
-<!-- ═══ CTA（含近期活動） ═══ -->
-<section class="cta" id="sec-cta">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div class="container">
-    <div id="eventList">
-      <div class="event-card" style="border-color:rgba(255,255,255,0.06)"><div class="event-info"><div class="event-meta" style="color:rgba(255,255,255,0.2);font-size:0.9375rem;margin:0">讀取中…</div></div></div>
-    </div>
-
-    <h2 style="margin-top:48px">你已經看到這裡了。</h2>
-    <p class="cta-sub">代表你也覺得這件事有意義。不用一次交一篇大作 — 改一個錯字、補一段說明、更新一個法規條文，都是貢獻。</p>
-
-    <div class="cta-stats">
-      <div class="cta-stat"><div class="num" data-to="82">82</div><div class="label">commits</div></div>
-      <div class="cta-stat"><div class="num" data-to="11">11</div><div class="label">merged PRs</div></div>
-      <div class="cta-stat"><div class="num" data-to="8">8</div><div class="label">contributors</div></div>
-      <div class="cta-stat"><div class="num" data-to="39">39<span style="font-size:1.5rem;font-weight:800;color:#fff">+</span></div><div class="label">skills</div></div>
-    </div>
-
     <div>
-      <a class="btn btn-primary" href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank">前往 GitHub 開始貢獻</a>
-      <a class="btn btn-secondary" href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/blob/main/CONTRIBUTING.md" target="_blank">貢獻指南</a>
+      <a class="btn btn-primary" href="contribute/index.html">看怎麼開始</a>
+      <a class="btn btn-outline" href="kb/index.html#status">哪裡最需要人手</a>
     </div>
-    <a class="tertiary" href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank">或直接瀏覽知識庫內容 →</a>
 
-    <div class="cta-logo">
-      <a href="https://www.hjplusdesign.com/" target="_blank">
-        <img src="images/hjplus-logo.png" alt="HJPLUS.DESIGN">
-      </a>
-      <p class="cta-logo-caption">台灣 AEC 知識庫 · 由 HJPLUS.DESIGN 發起</p>
+    <div class="mt-40">
+      <h3>目前的維護者與貢獻者</h3>
+      <div class="contributors" id="contributorList"></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer>
+</main>
+<footer class="site-footer">
   <div class="container">
-    <div class="footer-logo">
-      <a href="https://www.hjplusdesign.com/" target="_blank">
-        <img src="images/hjplus-logo.png" alt="HJPLUS.DESIGN">
-      </a>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="https://www.hjplusdesign.com/" target="_blank" rel="noopener">
+          <img src="images/hjplus-logo.png" alt="HJPLUS.DESIGN" loading="lazy">
+        </a>
+        <p>台灣 AEC 產業的公共知識基礎設施。<br>由加號設計數位工程有限公司 徐灝發起，社群共同維護。</p>
+      </div>
+      <div class="footer-col">
+        <h4>知識庫</h4>
+        <a href="kb/index.html">瀏覽全部技能</a>
+        <a href="kb/index.html#status">資料狀況</a>
+        <a href="quality/index.html">品質與免責</a>
+      </div>
+      <div class="footer-col">
+        <h4>參與</h4>
+        <a href="contribute/index.html">怎麼開始貢獻</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/issues/new?template=knowledge.yml" target="_blank" rel="noopener">用講的投稿（免 Git）</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">貢獻指南</a>
+        <a href="community/index.html">社群與活動</a>
+      </div>
+      <div class="footer-col">
+        <h4>關於</h4>
+        <a href="why/index.html">為什麼要開源</a>
+        <a href="https://github.com/h30190/HJPLUS_Taiwan_Architect_KB" target="_blank" rel="noopener">GitHub 儲存庫</a>
+        <a href="https://github.com/shuotao/REVIT_MCP_study" target="_blank" rel="noopener">關聯專案 REVIT_MCP_study</a>
+        <a href="https://www.hjplusdesign.com/" target="_blank" rel="noopener">業務委託 HJPLUS.DESIGN</a>
+      </div>
     </div>
-    <p style="margin:0 0 6px">業務委託請洽 <a href="https://www.hjplusdesign.com/" target="_blank">HJPLUS.DESIGN</a></p>
-    <p style="margin:0">文字內容 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hant">CC BY-SA 4.0</a> ｜ 程式碼 <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a></p>
+    <div class="footer-bottom">
+      <p class="footer-disclaimer">
+        本知識庫內容僅供參考與教育用途，<strong>不構成專業工程、法律或建築設計建議</strong>，且未經技師簽證。
+        引用任何數值或法規前請自行查證 — <a href="quality/index.html">我們如何處理正確性</a>。
+      </p>
+      <p class="footer-legal">
+        文字內容 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">CC BY-SA 4.0</a>
+        ｜ 程式碼 <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener">Apache 2.0</a>
+      </p>
+    </div>
   </div>
 </footer>
 
-<script>
-// ── live stats from GitHub API (cached in sessionStorage) ──
-(function() {
-  const BASE = 'https://api.github.com/repos/h30190/HJPLUS_Taiwan_Architect_KB';
-  function parseLink(link) {
-    if (!link) return null;
-    var m = link.match(/page=(\d+)>; rel="last"/);
-    return m ? parseInt(m[1]) : null;
-  }
-  function apply(stats) {
-    window.__ghStatsApplied = true;
-    // hero counters (data-to)
-    var h = document.querySelectorAll('.hero-stats .h-counter');
-    var hVals = [stats.c, stats.pr || 0, stats.cat, stats.s, stats.con];
-    for (var i = 0; i < h.length; i++) h[i].dataset.to = hVals[i];
-    // CTA stat nums (data-to)
-    var c = document.querySelectorAll('.cta-stat .num');
-    if (c[0]) c[0].dataset.to = stats.c;
-    if (c[1]) c[1].dataset.to = stats.pr || 0;
-    if (c[2]) c[2].dataset.to = stats.con;
-    if (c[3]) c[3].dataset.to = stats.s;
-    // contributor list
-    if (stats.conList) {
-      var cl = document.getElementById('contribList');
-      if (cl) {
-        cl.innerHTML = '';
-        stats.conList.forEach(function(name) {
-          var s = document.createElement('span');
-          s.className = 'contributor';
-          s.textContent = name;
-          cl.appendChild(s);
-        });
-      }
-    }
-    // contributor count
-    var cc = document.getElementById('contribCount');
-    if (cc) cc.textContent = stats.con;
-  }
-
-  var cached = sessionStorage.getItem('gh-stats');
-  if (cached) { var s = JSON.parse(cached); if (s.conList) { apply(s); return; } }
-
-  fetch(BASE + '/commits?per_page=1').then(function(r) {
-    var c = parseLink(r.headers.get('Link')) || 82;
-    return Promise.all([
-      c,
-      fetch(BASE + '/contributors?per_page=30').then(function(r) {
-        return Promise.all([parseLink(r.headers.get('Link')), r.json()]);
-      }).then(function(a) {
-        return { count: a[0] || a[1].length, names: a[1].map(function(u) { return u.name || u.login; }) };
-      }),
-      fetch(BASE + '/contents/raw').then(function(r) { return r.json(); }).then(function(d) {
-        return Array.isArray(d) ? d.filter(function(i) { return i.type === 'dir'; }).length : 10;
-      }),
-      fetch(BASE + '/git/trees/main?recursive=1').then(function(r) { return r.json(); }).then(function(d) {
-        return d.tree ? d.tree.filter(function(i) { return i.path.endsWith('SKILL.md'); }).length : 39;
-      }),
-      fetch('https://api.github.com/search/issues?q=repo:h30190/HJPLUS_Taiwan_Architect_KB+type:pr+is:merged').then(function(r) { return r.json(); }).then(function(d) { return d.total_count || 11; })
-    ]);
-  }).then(function(a) {
-    var stats = { c: a[0], con: a[1].count, cat: a[2], s: a[3], pr: a[4], conList: a[1].names };
-    sessionStorage.setItem('gh-stats', JSON.stringify(stats));
-    apply(stats);
-  }).catch(function() { /* keep hardcoded */ });
-})();
-
-// ── build-time data（docs/data.json，由 scripts/update_landing_page.py 自動產生）──
-window.__kbDataPromise = fetch('data.json')
-  .then(function(r) { return r.ok ? r.json() : null; })
-  .catch(function() { return null; });
-window.__kbDataPromise.then(function(d) {
-  if (!d) return;
-  // 最新更新
-  if (d.updates && d.updates.length) {
-    var ul = document.getElementById('updatesList');
-    if (ul) {
-      ul.innerHTML = '';
-      d.updates.forEach(function(u) {
-        var li = document.createElement('li');
-        var sp = document.createElement('span');
-        sp.className = 'date';
-        sp.textContent = u.date;
-        li.appendChild(sp);
-        li.appendChild(document.createTextNode(u.text));
-        ul.appendChild(li);
-      });
-    }
-  }
-  // 主題 tags（raw/ 分類目錄名）
-  if (d.tags && d.tags.length) {
-    var tl = document.getElementById('tagList');
-    if (tl) {
-      tl.innerHTML = '';
-      d.tags.concat(['…等你開新主題']).forEach(function(t) {
-        var s = document.createElement('span');
-        s.className = 'tag';
-        s.textContent = t;
-        tl.appendChild(s);
-      });
-    }
-  }
-  // 統計與貢獻者：GitHub API 已套用（更即時）就跳過，這裡只當基準值
-  if (window.__ghStatsApplied) return;
-  if (d.stats) {
-    var st = d.stats;
-    var h = document.querySelectorAll('.hero-stats .h-counter');
-    var hVals = [st.commits, st.mergedPRs, st.categories, st.skills, st.contributors];
-    for (var i = 0; i < h.length; i++) if (hVals[i]) h[i].dataset.to = hVals[i];
-    var c = document.querySelectorAll('.cta-stat .num');
-    var cVals = [st.commits, st.mergedPRs, st.contributors, st.skills];
-    for (var j = 0; j < c.length; j++) if (cVals[j]) c[j].dataset.to = cVals[j];
-    var cc = document.getElementById('contribCount');
-    if (cc && st.contributors) cc.textContent = st.contributors;
-  }
-  if (d.contributors && d.contributors.length) {
-    var cl = document.getElementById('contribList');
-    if (cl) {
-      cl.innerHTML = '';
-      d.contributors.forEach(function(name) {
-        var s = document.createElement('span');
-        s.className = 'contributor';
-        s.textContent = name;
-        cl.appendChild(s);
-      });
-    }
-  }
-});
-// ── dot nav builder ──
-const sections = [
-  { id: 'sec-hero',    label: '首頁' },
-  { id: 'sec-pain',    label: '痛點' },
-  { id: 'sec-loop',    label: '雙贏迴圈' },
-  { id: 'sec-benefit', label: '好處' },
-  { id: 'sec-evidence',label: '證據' },
-  { id: 'sec-arch',    label: '架構' },
-  { id: 'sec-start',  label: '開始' },
-  { id: 'sec-cta',     label: '行動' },
-];
-
-const dotNav = document.getElementById('dotNav');
-sections.forEach(s => {
-  const a = document.createElement('a');
-  a.href = '#' + s.id;
-  a.dataset.label = s.label;
-  a.dataset.target = s.id;
-  dotNav.appendChild(a);
-});
-
-// ── active dot tracking ──
-const dots = dotNav.querySelectorAll('a');
-const allSnap = document.querySelectorAll('section[id]');
-
-const darkSections = ['sec-hero','sec-loop','sec-evidence','sec-start','sec-cta'];
-const sectionOrder = ['sec-hero','sec-pain','sec-loop','sec-benefit','sec-evidence','sec-arch','sec-start','sec-cta'];
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      dots.forEach(d => d.classList.toggle('active', d.dataset.target === entry.target.id));
-      dotNav.classList.toggle('dark-bg', darkSections.includes(entry.target.id));
-    }
-  });
-}, { threshold: 0.5 });
-allSnap.forEach(el => observer.observe(el));
-
-// ── auto-scroll (slideshow) ──
-let autoTimer = null;
-let autoActive = true;
-
-function startAuto() {
-  stopAuto();
-  autoTimer = setInterval(() => {
-    if (!autoActive) return;
-    const cur = document.querySelector('.dot-nav a.active');
-    if (!cur) return;
-    const idx = sectionOrder.indexOf(cur.dataset.target);
-    if (idx === -1 || idx >= sectionOrder.length - 1) return;
-    document.getElementById(sectionOrder[idx + 1]).scrollIntoView({ behavior: 'smooth' });
-  }, 5000);
-}
-function stopAuto() {
-  if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
-}
-
-// user interaction → stops auto forever
-window.addEventListener('wheel',  () => { autoActive = false; stopAuto(); }, { passive: true });
-window.addEventListener('touchstart', () => { autoActive = false; stopAuto(); }, { passive: true });
-window.addEventListener('keydown', e => {
-  if (['ArrowUp','ArrowDown','PageUp','PageDown','Space'].includes(e.key)) {
-    autoActive = false; stopAuto();
-  }
-});
-// dot click → stop too
-dotNav.addEventListener('click', () => { autoActive = false; stopAuto(); });
-
-// start after 4s delay to let user settle
-setTimeout(startAuto, 4000);
-
-// ── hero reveal ──
-requestAnimationFrame(() => {
-  document.querySelector('.hero').classList.add('loaded');
-});
-
-// ── hero counter (starts after reveal finishes) ──
-setTimeout(() => {
-  document.querySelectorAll('.hero-stats .h-counter').forEach(el => {
-    const target = parseInt(el.dataset.to);
-    const dur = 1200;
-    const start = performance.now();
-    function tick(now) {
-      const t = Math.min((now - start) / dur, 1);
-      el.textContent = Math.round((1 - Math.pow(1 - t, 3)) * target);
-      if (t < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  });
-}, 3500);
-
-// ── CTA counter animation ──
-(function() {
-  var ctaSec = document.getElementById('sec-cta');
-  if (!ctaSec) return;
-  var nums = ctaSec.querySelectorAll('.cta-stat .num');
-
-  // reset to 0
-  nums.forEach(function(el) { el.textContent = '0'; });
-
-  var animated = false;
-  var obs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting && !animated) {
-        animated = true;
-        nums.forEach(function(el) {
-          var target = parseInt(el.dataset.to);
-          if (!target) return;
-          var dur = 1600;
-          var start = performance.now();
-          function tick(now) {
-            var t = Math.min((now - start) / dur, 1);
-            el.textContent = Math.round((1 - Math.pow(1 - t, 3)) * target);
-            if (t < 1) requestAnimationFrame(tick);
-          }
-          requestAnimationFrame(tick);
-        });
-        obs.unobserve(ctaSec);
-      }
-    });
-  }, { threshold: 0.5 });
-  obs.observe(ctaSec);
-})();
-
-// ── upcoming events ──
-(function() {
-  var list = document.getElementById('eventList');
-  if (!list) return;
-  var cached = sessionStorage.getItem('gh-events');
-  if (cached) { render(JSON.parse(cached)); return; }
-
-  fetch('https://api.github.com/repos/h30190/HJPLUS_Taiwan_Architect_KB/issues?labels=event&state=open&per_page=5')
-    .then(function(r) { return r.json(); })
-    .then(function(issues) {
-      if (!Array.isArray(issues) || issues.length === 0) {
-        list.innerHTML = '<div class="event-card" style="border-color:rgba(255,255,255,0.08)"><div class="event-info"><div class="event-meta" style="color:rgba(255,255,255,0.3);font-size:0.9375rem;margin:0">活動資訊尚未公布，敬請持續關注。</div></div></div>';
-        return;
-      }
-      sessionStorage.setItem('gh-events', JSON.stringify(issues));
-      render(issues);
-    })
-    .catch(function() {
-      list.innerHTML = '<div class="event-card" style="border-color:rgba(255,255,255,0.08)"><div class="event-info"><div class="event-meta" style="color:rgba(255,255,255,0.3);font-size:0.9375rem;margin:0">活動資訊尚未公布，敬請持續關注。</div></div></div>';
-    });
-
-  function render(issues) {
-    var html = '';
-    issues.forEach(function(issue) {
-      var t = issue.title.replace(/^\[活動\]\s*/, '');
-      var body = issue.body || '';
-
-      // extract field after emoji header (handles both "📅 value" and "### 📅 \n\n value")
-      function getField(emoji) {
-        var lines = body.split('\n');
-        for (var i = 0; i < lines.length; i++) {
-          if (lines[i].indexOf(emoji) === -1) continue;
-          // same line after 「」 or ： or : or blank
-          var m = lines[i].match(new RegExp('[：:）)\\]]\\s*(.+)'));
-          if (m) return m[1].trim();
-          // next non-empty line that isn't another header
-          for (var j = i + 1; j < lines.length && j <= i + 3; j++) {
-            var l = lines[j].trim();
-            if (l && l.indexOf('### ') !== 0) return l;
-          }
-        }
-        return '';
-      }
-
-      var dateStr = getField('📅');
-      var formatStr = getField('📍');
-      var link = getField('🔗') || issue.html_url;
-      var desc = getField('📝');
-
-      // skip if event date is past (client-side safeguard)
-      var dateOnly = dateStr.match(/(\d{4}-\d{2}-\d{2})/);
-      if (dateOnly && new Date(dateOnly[1]) < new Date(new Date().toDateString())) return;
-
-      html += '<div class="event-card">' +
-        '<div class="event-info">' +
-        '<div class="event-meta">' +
-        (dateStr ? '<strong>' + dateStr + '</strong>' : '') +
-        (formatStr ? ' · ' + formatStr : '') +
-        '</div>' +
-        '<h3>' + t + '</h3>' +
-        (desc ? '<p>' + desc + '</p>' : '') +
-        '</div>' +
-        (link ? '<div class="event-action"><a class="btn btn-primary" href="' + link + '" target="_blank" style="font-size:0.875rem;padding:10px 24px">報名</a></div>' : '') +
-        '</div>';
-    });
-    list.innerHTML = html || '<div class="event-card" style="border-color:rgba(255,255,255,0.08)"><div class="event-info"><div class="event-meta" style="color:rgba(255,255,255,0.3);font-size:0.9375rem;margin:0">活動資訊尚未公布，敬請持續關注。</div></div></div>';
-  }
-})();
-
-// ── knowledge graph background ──
-// tree 來自 data.json（scripts/update_landing_page.py 掃 raw/ 自動產生）
-function initKnowledgeGraph(tree) {
-  var containers = document.querySelectorAll('.kg-wrap');
-  if (!containers.length) return;
-
-  containers.forEach(function(wrap) {
-    var canvas = document.createElement('canvas');
-    canvas.className = 'kg-canvas';
-    wrap.insertBefore(canvas, wrap.firstChild);
-
-    // detect light/dark background
-    var bg = getComputedStyle(wrap).backgroundColor;
-    var isDark = true;
-    if (bg && bg !== 'transparent') {
-      var m = bg.match(/\d+/g);
-      if (m && m.length >= 3) {
-        var alpha = m.length >= 4 ? +m[3] : 1;
-        if (alpha === 0) { isDark = false; }
-        else {
-          var lum = 0.299 * +m[0] + 0.587 * +m[1] + 0.114 * +m[2];
-          isDark = lum < 128;
-        }
-      }
-    } else {
-      // transparent = no explicit bg → body bg is white
-      isDark = false;
-    }
-    var fg = isDark ? '255,255,255' : '160,160,160';
-    var fgDim = isDark ? '255,255,255' : '190,190,190';
-    var aMul = isDark ? 1 : 1.2;
-    canvas.style.opacity = isDark ? '0.65' : '0.6';
-
-    var ctx = canvas.getContext('2d');
-    var W, H;
-    var allNodes = [];
-    var mx = -9999, my = -9999;
-    function dist(a,b) { return Math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y)); }
-
-    wrap.addEventListener('mousemove', function(e) {
-      var r = canvas.getBoundingClientRect();
-      mx = e.clientX - r.left;
-      my = e.clientY - r.top;
-    });
-    wrap.addEventListener('mouseleave', function() {
-      mx = -9999; my = -9999;
-    });
-
-    function resize() {
-      var rect = wrap.getBoundingClientRect();
-      W = canvas.width = rect.width;
-      H = canvas.height = rect.height;
-      build();
-    }
-
-    function build() {
-      allNodes = [];
-      var pad = 60;
-      function randPos() { return { x: pad + Math.random() * (W - pad * 2), y: pad + Math.random() * (H - pad * 2) }; }
-
-      tree.forEach(function(cat) {
-        var p, ok = false, tries = 0;
-        while (!ok && tries < 300) { p = randPos(); ok = true; tries++; for (var i=0;i<allNodes.length;i++) if (dist(p,allNodes[i])<90) { ok=false; break; } }
-        var cn = { name: cat.name, x: p.x, y: p.y, ox: p.x, oy: p.y, level: 0, r: 8, children: [] };
-        allNodes.push(cn);
-
-        (cat.children || []).forEach(function(sub) {
-          var sp, sok = false, stries = 0;
-          while (!sok && stries < 150) {
-            sp = { x: p.x + (Math.random()-0.5)*160, y: p.y + (Math.random()-0.5)*160 };
-            sok = true; stries++;
-            if (sp.x<pad||sp.x>W-pad||sp.y<pad||sp.y>H-pad) { sok=false; continue; }
-            for (var i=0;i<allNodes.length;i++) if (dist(sp,allNodes[i])<40) { sok=false; break; }
-          }
-          var sn = { name: sub.name, x: sp.x, y: sp.y, ox: sp.x, oy: sp.y, level: 1, r: 5, parent: cn };
-          allNodes.push(sn);
-          cn.children.push(sn);
-
-          (sub.skills || []).forEach(function(skill) {
-            var skp, skok = false, sktries = 0;
-            while (!skok && sktries < 80) {
-              skp = { x: sp.x + (Math.random()-0.5)*80, y: sp.y + (Math.random()-0.5)*80 };
-              skok = true; sktries++;
-              if (skp.x<pad||skp.x>W-pad||skp.y<pad||skp.y>H-pad) { skok=false; continue; }
-              for (var i=0;i<allNodes.length;i++) if (dist(skp,allNodes[i])<25) { skok=false; break; }
-            }
-            var skn = { name: skill, x: skp.x, y: skp.y, ox: skp.x, oy: skp.y, level: 2, r: 3, parent: sn };
-            allNodes.push(skn);
-            sn.children = sn.children || [];
-            sn.children.push(skn);
-          });
-        });
-      });
-    }
-
-    var time = 0;
-    var visible = true;  // ponytail: toggled by IntersectionObserver below
-    var rafId = null;
-
-    function draw() {
-      if (!visible) { rafId = null; return; }
-      time += 0.02;
-
-      // global slow rotation
-      var cx = W / 2, cy = H / 2;
-      var angle = time * 0.015;
-      var cosA = Math.cos(angle), sinA = Math.sin(angle);
-      function globalPos(n) {
-        var dx = n.x - cx, dy = n.y - cy;
-        return { x: cx + dx * cosA - dy * sinA, y: cy + dx * sinA + dy * cosA, r: n.r, level: n.level, name: n.name, parent: n.parent };
-      }
-
-      ctx.clearRect(0, 0, W, H);
-
-      // drift + mouse (local physics, no rotation)
-      allNodes.forEach(function(n) {
-        var speed = 1 - n.level * 0.3;
-        var amp = 11 - n.level * 2;
-        n._dx = n.ox - n.x + Math.sin(time * speed + n.oy * 0.003) * amp;
-        n._dy = n.oy - n.y + Math.cos(time * speed * 1.2 + n.ox * 0.003) * amp;
-
-        var mdx = mx - n.x, mdy = my - n.y;
-        var mdist = Math.sqrt(mdx*mdx + mdy*mdy);
-        if (mdist < 100 && mdist > 1) {
-          n._dx += mdx/mdist * (100-mdist)/100 * 2.25;
-          n._dy += mdy/mdist * (100-mdist)/100 * 2.25;
-        }
-        n.x += n._dx * 0.11;
-        n.y += n._dy * 0.11;
-      });
-
-      // lines
-      ctx.lineWidth = 0.5;
-      allNodes.forEach(function(n) {
-        var gp = globalPos(n);
-        if (n.parent) {
-          var pp = globalPos(n.parent);
-          ctx.strokeStyle = 'rgba(' + fgDim + ',' + (0.07 * aMul) + ')';
-          ctx.beginPath(); ctx.moveTo(pp.x, pp.y); ctx.lineTo(gp.x, gp.y); ctx.stroke();
-        }
-      });
-      // level0 ⟷ level0
-      for (var i=0; i<allNodes.length; i++) {
-        if (allNodes[i].level !== 0) continue;
-        for (var j=i+1; j<allNodes.length; j++) {
-          if (allNodes[j].level !== 0) continue;
-          var a = globalPos(allNodes[i]), b = globalPos(allNodes[j]);
-          var d = Math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));
-          if (d < 280) {
-            ctx.strokeStyle = 'rgba(' + fgDim + ',' + (0.03 * aMul) + ')';
-            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-          }
-        }
-      }
-
-      // draw
-      allNodes.forEach(function(n) {
-        var gp = globalPos(n);
-        var pulse = 1 + Math.sin(time * 4 + n.ox * 0.1) * 0.15;
-        var br = n.r * pulse;
-        var glowR = br * (n.level < 2 ? 5 : 4);
-        var alpha = (0.12 + n.level * 0.07) * aMul;
-
-        // mouse glow (use raw n for physics position vs mouse)
-        var mdist = Math.sqrt((mx-n.x)*(mx-n.x)+(my-n.y)*(my-n.y));
-        if (mdist < 100) alpha += (100-mdist)/100 * 0.5 * aMul;
-        if (alpha > 1) alpha = 1;
-
-        // glow
-        var grad = ctx.createRadialGradient(gp.x, gp.y, 0, gp.x, gp.y, glowR);
-        grad.addColorStop(0, 'rgba(' + fg + ',' + alpha + ')');
-        grad.addColorStop(1, 'rgba(' + fg + ',0)');
-        ctx.fillStyle = grad;
-        ctx.beginPath(); ctx.arc(gp.x, gp.y, glowR, 0, Math.PI*2); ctx.fill();
-
-        // dot
-        ctx.fillStyle = 'rgba(' + fg + ',' + ((0.12 + n.level * 0.08) * aMul) + ')';
-        ctx.beginPath(); ctx.arc(gp.x, gp.y, br, 0, Math.PI*2); ctx.fill();
-
-        // text
-        if (n.level === 0) {
-          ctx.font = '11px -apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif';
-          ctx.fillStyle = 'rgba(' + fgDim + ',' + (0.2 * aMul) + ')';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'top';
-          ctx.fillText(n.name, gp.x, gp.y + br + 4);
-        }
-      });
-
-      rafId = requestAnimationFrame(draw);
-    }
-
-    // ponytail: only draw when section is visible
-    var obs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        visible = entry.isIntersecting;
-        if (visible && !rafId) { rafId = requestAnimationFrame(draw); }
-        else if (!visible && rafId) { cancelAnimationFrame(rafId); rafId = null; }
-      });
-    }, { threshold: 0.05 });
-    obs.observe(wrap);
-
-    resize();
-    rafId = requestAnimationFrame(draw);
-    window.addEventListener('resize', resize);
-  });
-}
-
-// data.json 讀不到時（例如以 file:// 開啟），退回只有分類骨架的圖譜
-(window.__kbDataPromise || Promise.resolve(null)).then(function(d) {
-  var fallback = ['建築顧問方法論','建築法規','建築執照','建築性能','建築設計與規劃','建築施工與材料','專業複委託','公共工程','專案管理','經營管理','設計軟體與工具'].map(function(n) { return { name: n, children: [] }; });
-  initKnowledgeGraph(d && d.tree && d.tree.length ? d.tree : fallback);
-});
-</script>
+<script>window.SITE_ROOT = ""; window.SITE_REPO = "https://github.com/h30190/HJPLUS_Taiwan_Architect_KB";</script>
+<script src="assets/site.js"></script>
+<script src="assets/kg.js"></script>
 
 </body>
 </html>

@@ -1,9 +1,9 @@
 ---
 type: Knowledge Entry
-title: "Building Envelope Domain Knowledge"
+title: "建築皮殼"
 ---
 
-# Building Envelope Domain Knowledge
+# 建築皮殼
 
 ## 定義
 建築皮殼（Building Envelope）是分隔建築室內外環境的封閉系統，包括外牆、屋頂、外窗、樓板等構件。

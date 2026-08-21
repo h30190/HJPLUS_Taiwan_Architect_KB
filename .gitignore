@@ -8,6 +8,8 @@ node_modules/
 opencode.json
 opencode.jsonc
 AGENT.md
+__pycache__/
+*.pyc
 
 # Skills-Architects reference repo (not tracked)
 Skills-Architects/
@@ -20,8 +22,11 @@ Skills-Architects/
 wiki/
 outputs/
 
-# 自動產生檔：CI 於部署時經 scripts/update_landing_page.py 重產，不追蹤於 repo
+# 自動產生檔：CI 於部署時重產，不追蹤於 repo
+# data.json  <- scripts/update_landing_page.py
+# kb.json    <- scripts/kb_index.py
 docs/data.json
+docs/kb.json
 
 # Python 位元碼快取（執行技能腳本時會自動產生）
 __pycache__/

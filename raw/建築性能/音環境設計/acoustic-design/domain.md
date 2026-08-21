@@ -1,9 +1,9 @@
 ---
 type: Knowledge Entry
-title: "Acoustic Design Domain Knowledge"
+title: "建築聲學設計"
 ---
 
-# Acoustic Design Domain Knowledge
+# 建築聲學設計
 
 ## 定義
 建築聲學設計是通過空間形狀、材料選擇與構造設計，創造舒適聲環境並控制噪音干擾。

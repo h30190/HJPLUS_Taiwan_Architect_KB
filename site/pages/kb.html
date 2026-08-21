@@ -1,0 +1,89 @@
+<!--meta
+title: 知識庫 — 台灣AEC(建築x工程x營造)產業技能開源知識庫
+description: 瀏覽全部技能模組，並看得見每一筆資料的分類、待補欄位、篇幅與最後更新時間。
+nav: kb
+bodyclass: doc
+extrajs: <script src="../assets/kb.js"></script>
+-->
+
+<div class="page-head no-kg">
+  <div class="container container-wide">
+    <p class="eyebrow">知識庫</p>
+    <h1>找資料，也看得見資料的狀況</h1>
+    <p class="lead">
+      這裡列出知識庫裡的每一個技能模組。除了搜尋與篩選，每一筆都標示它
+      <strong>缺哪些後設資料、中文說明多厚、多久沒有人動過</strong> ——
+      讓你知道自己讀到的是一篇成熟的內容，還是一個剛開的坑。
+    </p>
+    <p class="small muted mb-0">
+      資料由 <code>scripts/kb_index.py</code> 每次部署時掃描 <code>raw/</code> 產生，不是人工維護的清單。
+      點任何一筆都會連到 GitHub 上的原始檔。
+    </p>
+  </div>
+</div>
+
+<section class="tight no-kg">
+  <div class="container container-wide">
+    <div class="kb-toolbar">
+      <div class="kb-search-row">
+        <div class="kb-search" id="kbSearchBox">
+          <span class="kb-search-icon" aria-hidden="true">⌕</span>
+          <input id="kbSearch" type="search" placeholder="搜尋技能名稱、說明、分類…（空白分隔可多關鍵字）" aria-label="搜尋技能">
+          <button id="kbClear" type="button" aria-label="清除搜尋">×</button>
+        </div>
+        <select class="kb-sort" id="kbSort" aria-label="排序方式">
+          <option value="category">依分類</option>
+          <option value="title">依名稱</option>
+          <option value="updated">最近更新</option>
+          <option value="stale">最久沒更新</option>
+          <option value="thin">中文說明最薄</option>
+        </select>
+        <div class="kb-view-toggle" role="group" aria-label="檢視方式">
+          <button id="kbViewCard" type="button" class="active">卡片</button>
+          <button id="kbViewTable" type="button">表格</button>
+        </div>
+        <button type="button" class="kb-filter-toggle" id="kbFilterToggle"
+                aria-expanded="false" aria-controls="kbFilters">篩選</button>
+      </div>
+      <div class="kb-filters" id="kbFilters"></div>
+    </div>
+
+    <div class="kb-resultbar">
+      <div id="kbCount">讀取中…</div>
+      <div class="small muted">按「表格」可以一次看到缺少的欄位與說明篇幅</div>
+    </div>
+
+    <div id="kbResults">
+      <div class="kb-empty"><p class="muted">讀取知識庫索引中…</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="tinted no-kg" id="status">
+  <div class="container container-wide">
+    <div class="section-head">
+      <p class="eyebrow">資料狀況</p>
+      <h2>這個知識庫現在的體檢報告</h2>
+      <p class="lead">
+        我們選擇把數字攤開，包含難看的那些。
+        <strong>缺口不是失敗，是待辦清單</strong> —— 每一個沒填滿的欄位、每一篇久未更新的內容，
+        都是一件範圍明確、有人可以認領的具體工作。
+      </p>
+    </div>
+    <div id="kbDash"></div>
+
+    <div class="callout mt-40">
+      <h4>這些數字怎麼來的？</h4>
+      <p class="mb-0">
+        全部由 <code>scripts/kb_index.py</code> 直接讀 <code>raw/</code> 底下每個 <code>SKILL.md</code> 的
+        OKF frontmatter 與 <code>domain.md</code> 內容算出來，沒有人工填寫的環節，所以不會有「報表好看但實情不同」的空間。
+        想知道我們怎麼看待內容的正確性與免責邊界，看 <a href="../quality/index.html">品質與免責</a>。
+      </p>
+    </div>
+
+    <div class="center mt-40">
+      <a class="btn btn-primary" href="../contribute/index.html">我想認領一項來補</a>
+      <a class="btn btn-outline" href="../quality/index.html">先了解免責邊界</a>
+    </div>
+  </div>
+</section>

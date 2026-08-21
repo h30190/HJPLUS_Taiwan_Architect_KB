@@ -9,3 +9,4 @@
 * [taiwan-plumbing-design-codes](taiwan-plumbing-design-codes/SKILL.md) - This skill should be used when verifying indoor plumbing designs in Taiwan, including water tank capacities, pipe sizing, trap seals, drainage slopes, and ventilation pipes.
 * [taiwan-telecom-design-codes](taiwan-telecom-design-codes/SKILL.md) - This skill should be used when checking indoor/outdoor telecommunication equipment setups, including telecom room sizes, lead-in conduits, shafts, and distribution boxes.
 * [taiwan-water-meter-installation](taiwan-water-meter-installation/SKILL.md) - This skill should be used when planning, designing, or reviewing the water meter installation locations, types, and configurations for buildings in Taiwan.
+* [tw-mep-spec-wiki](台灣機電物料百科/tw-mep-spec-wiki/SKILL.md) - This skill should be used to search, query, verify, and recommend commercial MEP (Mechanical, Electrical, and Plumbing) materials and specifications in Taiwan.
