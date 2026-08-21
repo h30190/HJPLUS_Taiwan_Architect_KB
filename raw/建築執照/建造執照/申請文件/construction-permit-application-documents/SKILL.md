@@ -17,6 +17,8 @@ metadata:
 
 This skill provides comprehensive information about the standard building permit application documents required in Taiwan. It covers document types, formatting requirements, submission guidelines, and template specifications.
 
+**Division of labor**: this skill holds the *nationwide, municipality-agnostic* view — what categories of document a 建造執照 application consists of. It deliberately does **not** carry any single city's checklist composition, portal file-naming codes, or guild procedures. For a Taipei City submission, load [taipei-permit-drawing-standards](../圖面要求/臺北市建照圖說繪製與圖冊編排/taipei-permit-drawing-standards/SKILL.md) alongside this skill: it owns the A101–A7 sheet index, the 44-item Taipei checklist, the N-prefix portal names, and the peer-review stamping / 對副本 sequence.
+
 ## Technical Specifications
 
 ### Document Types
@@ -56,3 +58,9 @@ taiwan-building-code_search_building_interpretations(query="文件格式")
 pcc-downloader_download_specification(chapter="09", keyword="申請文件", format="pdf")
 pcc-downloader_download_specification(chapter="09", keyword="設計圖說", format="pdf")
 ```
+
+## Related Skills
+
+- [taipei-permit-drawing-standards](../圖面要求/臺北市建照圖說繪製與圖冊編排/taipei-permit-drawing-standards/SKILL.md) — Taipei City packaging of the same application: A101–A7 sheet index, 44-item checklist, N-prefix portal file names, 對副本 SOP
+- [construction-permit-application-process](../../申辦流程/construction-permit-application-process/SKILL.md) — the application workflow these documents move through
+- [design-change-filing](../../變更設計報備/design-change-filing/SKILL.md) — post-issuance design-change report-filing (建築法 §39)

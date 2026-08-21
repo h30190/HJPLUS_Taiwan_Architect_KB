@@ -131,5 +131,6 @@ taiwan-building-code_search_building_code(query: "臺北市都市設計及土地
 
 ## Related Skills
 
+- [taipei-permit-drawing-standards](../../申請文件/圖面要求/臺北市建照圖說繪製與圖冊編排/taipei-permit-drawing-standards/SKILL.md) — Taipei City permit drawing set standards (A101–A7), N-prefix file naming, 44-item checklist, and peer-review stamping SOP
 - [建造執照/申辦流程](../../申辦流程/construction-permit-application-process/SKILL.md) — initial building permit application (distinct from post-issuance report-filing covered here)
 - [建造執照/相關法規](../../相關法規/construction-permit-related-regulations/SKILL.md) — general building-permit regulatory framework
