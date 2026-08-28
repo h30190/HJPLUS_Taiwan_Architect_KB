@@ -13,7 +13,7 @@ title: "Revit AI 目標判定與安全執行"
 
 ## 0.8.1 帶來的計畫修正
 
-BIM Personal Agent v0.8.1 新增唯讀 Element Lens、明確的目標來源與單一目標安全自動追查。這個案例顯示，只談 Transaction、Undo 與執行後驗證仍不完整；安全流程必須把「目標是否已被證明」放在任何模型寫入之前。[BIM Personal Agent v0.8.1](https://github.com/NicheSam/BIM-personal-agent/releases/tag/v0.8.1)
+BIM Personal Agent 是本文貢獻者自行開發的個人研究專案；其 v0.8.1 新增唯讀 Element Lens、明確的目標來源與單一目標安全自動追查。這個案例顯示，只談 Transaction、Undo 與執行後驗證仍不完整；安全流程必須把「目標是否已被證明」放在任何模型寫入之前。[BIM Personal Agent v0.8.1](https://github.com/NicheSam/BIM-personal-agent/releases/tag/v0.8.1)
 
 本篇只抽取可重用的工作方法。Element Lens、工具數量、Gateway 名稱與內部狀態值屬於該專案的實作，不是 Autodesk Revit 的官方規範，也不是其他 Revit Agent 必須照搬的介面。
 
@@ -92,7 +92,7 @@ Autodesk Revit 2024 API 文件指出，模型變更必須發生在有效的 Tran
 ## 證據與版本邊界
 
 - Autodesk 官方文件證明 Revit API context、Transaction、Rollback、TransactionGroup 與 Undo 的產品行為。
-- BIM Personal Agent v0.8.1 是「唯讀檢查＋目標政策＋執行證據」的公開實作案例，不是 Revit 官方標準。
+- BIM Personal Agent v0.8.1 是本文貢獻者個人研究專案中的公開實作案例，不是獨立第三方驗證，也不是 Revit 官方標準。
 - 自動測試能證明政策分支與資料投影符合程式設計；部署成功只證明檔案與設定到位；真實模型結果仍需要當次 Revit 文件的實機讀回。
 - 公開證據不得包含業主名稱、專案路徑、模型檔名、憑證或可識別的專案內容。
 

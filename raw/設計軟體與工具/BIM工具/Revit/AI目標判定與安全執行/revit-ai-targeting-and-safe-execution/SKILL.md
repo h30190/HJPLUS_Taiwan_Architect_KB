@@ -36,7 +36,7 @@ Use this skill for any live Revit task where an AI-controlled workflow may inspe
 
 > read current state → prove targets → inspect only what is needed → preview risk and scope → execute through Revit → read back independently → report evidence and recovery
 
-This is a workflow skill, not an installation guide, product API, or claim that one tool makes arbitrary Revit automation safe. Autodesk documentation is authoritative for Revit API context and transaction behavior. BIM Personal Agent v0.8.1 is cited only as a public implementation example of read-only element inspection, explicit target sources, and conservative single-target auto-follow.[^bim-personal-agent-v081]
+This is a workflow skill, not an installation guide, product API, or claim that one tool makes arbitrary Revit automation safe. Autodesk documentation is authoritative for Revit API context and transaction behavior. BIM Personal Agent is the contributor's personal research project; v0.8.1 is cited only as a public implementation example of read-only element inspection, explicit target sources, and conservative single-target auto-follow.[^bim-personal-agent-v081]
 
 No existing Revit skill in this knowledge base covers this workflow. The cross-linked uncertainty skill governs source confidence; this skill governs live-model targeting, execution, and readback.
 
@@ -228,4 +228,4 @@ If the call times out after dispatch, do not send the same write again. Re-read 
 [^autodesk-revit-2024-transactions]: Autodesk, [Revit 2024 API Developers Guide — Transactions](https://help.autodesk.com/cloudhelp/2024/ENU/Revit-API/files/Revit_API_Developers_Guide/Basic_Interaction_with_Revit_Elements/Revit_API_Revit_API_Developers_Guide_Basic_Interaction_with_Revit_Elements_Transactions_html.html).
 [^autodesk-revit-2024-transaction-classes]: Autodesk, [Revit 2024 API Developers Guide — Transaction Classes](https://help.autodesk.com/cloudhelp/2024/ENU/Revit-API/files/Revit_API_Developers_Guide/Basic_Interaction_with_Revit_Elements/Transactions/Revit_API_Revit_API_Developers_Guide_Basic_Interaction_with_Revit_Elements_Transactions_Transaction_Classes_html.html).
 [^autodesk-revit-2024-external-events]: Autodesk, [Revit 2024 API Developers Guide — External Events](https://help.autodesk.com/cloudhelp/2024/ENU/Revit-API/files/Revit_API_Developers_Guide/Advanced_Topics/Revit_API_Revit_API_Developers_Guide_Advanced_Topics_External_Events_html.html).
-[^bim-personal-agent-v081]: [BIM Personal Agent v0.8.1 release](https://github.com/NicheSam/BIM-personal-agent/releases/tag/v0.8.1), a public implementation example; its project-specific policies are not Autodesk requirements.
+[^bim-personal-agent-v081]: [BIM Personal Agent v0.8.1 release](https://github.com/NicheSam/BIM-personal-agent/releases/tag/v0.8.1), a public personal research project developed by the contributor and used here only as an implementation example; its project-specific policies are not Autodesk requirements.
