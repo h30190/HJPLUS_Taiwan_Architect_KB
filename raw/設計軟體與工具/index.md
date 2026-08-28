@@ -6,10 +6,10 @@
 * [BIM工具 — Archicad 範本設定](BIM工具/Archicad/archicad-template-setup/SKILL.md) - Setting up Archicad templates for Taiwan architectural practice
 * [BIM工具 — Archicad 文件產出](BIM工具/Archicad/archicad-documentation/SKILL.md) - Archicad documentation and drawing production workflows
 * [BIM工具 — Archicad IFC 協調](BIM工具/Archicad/archicad-ifc-coordination/SKILL.md) - IFC-based coordination workflows in Archicad
+* [BIM工具 — Revit AI 目標判定與安全執行](BIM工具/Revit/AI目標判定與安全執行/revit-ai-targeting-and-safe-execution/SKILL.md) - Revit AI 任務的目標證明、分級唯讀檢查、安全執行、獨立讀回與證據回報
 
 ## Planned
 
-* [BIM工具 — Revit](BIM工具/Revit/) - Revit 相關技能（籌備中）
 * [CAD繪圖工具](CAD繪圖工具/) - AutoCAD 等 CAD 工具（籌備中）
 * [渲染與即時視覺化工具](渲染與即時視覺化工具/) - Enscape, Lumion, Twinmotion 等（籌備中）
 * [三維建模與視覺化工具](三維建模與視覺化工具/) - SketchUp, Blender, 3ds Max 等（籌備中）
