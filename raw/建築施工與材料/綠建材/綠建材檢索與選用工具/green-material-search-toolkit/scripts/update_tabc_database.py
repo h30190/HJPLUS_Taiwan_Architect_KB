@@ -17,9 +17,11 @@ cnsSpec/testItems/qualifiedItems/productSpecFull/specList/specs/keywords 這些
 產生（見 SKILL.md「資料真實性」說明）。新增或有異動的記錄會重新套用模板；
 未變動的既有記錄維持原樣，不覆寫既有欄位。
 
-更新完成後，會同步重寫 ../assets/green-material-toolkit.html 內嵌的
-`const tabcDatabase = [...]` 靜態陣列，讓網頁離線快取跟 tabc_master_database.json
-保持一致（此陣列不是即時 fetch）。
+更新完成後，會讀取 ../assets/green-material-toolkit.template.html（進版控的乾淨
+UI 模板，`const tabcDatabase = [];` 為空陣列），把合併後的資料庫填入該陣列標記，
+輸出成 ../assets/green-material-toolkit.html（gitignored 的產物，網頁實際使用的
+檔案），讓網頁離線快取跟 tabc_master_database.json 保持一致（此陣列不是即時
+fetch）。模板本身永遠不會被這支腳本改到。
 
 用法：
     python update_tabc_database.py            # 執行更新（列表頁抓取 + 合併 + 回寫）
@@ -42,6 +44,7 @@ import urllib.request
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ASSETS_DIR = os.path.join(SCRIPT_DIR, "..", "assets")
 DB_PATH = os.path.join(ASSETS_DIR, "tabc_master_database.json")
+SHOWCASE_TEMPLATE = os.path.join(ASSETS_DIR, "green-material-toolkit.template.html")
 SHOWCASE_PATH = os.path.join(ASSETS_DIR, "green-material-toolkit.html")
 
 TABC_SEARCH_URL = "https://tabcmgr.hopto.org/mgr/SearchCaseAction.aspx"
@@ -255,11 +258,13 @@ def merge_database(existing: list, fetched: dict) -> tuple:
 
 
 def _sync_showcase_html(merged: list) -> bool:
-    """把最新的 merged 資料庫重寫進 assets/green-material-toolkit.html 內嵌的
-    `const tabcDatabase = [...]` 靜態陣列，避免網頁離線快取跟 tabc_master_database.json 脫鉤。"""
-    if not os.path.exists(SHOWCASE_PATH):
+    """讀取進版控的乾淨 UI 模板（assets/green-material-toolkit.template.html，
+    `const tabcDatabase = [];` 為空陣列），把最新的 merged 資料庫填入該陣列標記，
+    輸出成 assets/green-material-toolkit.html（gitignored 產物）。模板本身不會被
+    這支函式改到，避免使用者每次爬完資料，被追蹤的模板也一起被改髒。"""
+    if not os.path.exists(SHOWCASE_TEMPLATE):
         return False
-    with open(SHOWCASE_PATH, "r", encoding="utf-8") as f:
+    with open(SHOWCASE_TEMPLATE, "r", encoding="utf-8") as f:
         html = f.read()
 
     start_idx = html.find(TABC_DATABASE_MARKER_START)
