@@ -1067,12 +1067,16 @@
         const entries = Object.entries(imported);
         if (entries.length === 0) throw new Error('檔案內沒有任何材料 Set');
 
+        // items 以外的欄位若不是字串，畫面上會顯示成 [object Object] 之類的東西，
+        // 一併擋掉，讓格式錯誤在匯入當下就講清楚
+        const TEXT_FIELDS = ['name', 'createdAt', 'purpose', 'plannedActions', 'planStatus'];
         const invalidNames = entries.filter(([key, setObj]) =>
           !key.trim() || !setObj || typeof setObj !== 'object' || Array.isArray(setObj) ||
-          !Array.isArray(setObj.items) || setObj.items.some(item => typeof item !== 'string')
+          !Array.isArray(setObj.items) || setObj.items.some(item => typeof item !== 'string') ||
+          TEXT_FIELDS.some(f => setObj[f] !== undefined && typeof setObj[f] !== 'string')
         ).map(([key]) => key || '(空白名稱)');
         if (invalidNames.length > 0) {
-          throw new Error(`下列 Set 格式錯誤：${invalidNames.join('、')}；每個 Set 必須包含字串陣列 items`);
+          throw new Error(`下列 Set 格式錯誤：${invalidNames.join('、')}；每個 Set 的 items 必須是字串陣列，name／createdAt／purpose／plannedActions／planStatus 若有提供必須是字串`);
         }
 
         const conflicts = entries.map(([key]) => key).filter(key => materialSets[key]);
@@ -1114,6 +1118,17 @@
   let currentEditSetKey = null;
   let currentPushSetKey = null;
 
+  // 材料 Set 的名稱與計畫欄位可能來自匯入的外部專案檔，插進 innerHTML 或 HTML
+  // 屬性前一律轉義。單引號與雙引號都要轉，因為同一個值也會用在屬性值裡。
+  function escapeHtml(value) {
+    return String(value === null || value === undefined ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function renderSetsList() {
     const container = document.getElementById('setsListContainer');
     const keys = Object.keys(materialSets);
@@ -1136,8 +1151,8 @@
         const found = tabcDatabase.find(d => d.licno === lic);
         const titleStr = found ? found.title : '綠建材';
         return `<span class="set-item-chip" style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px;">
-          <span>${lic} - ${titleStr}</span>
-          <button onclick="event.stopPropagation(); removeItemFromSet('${key}', '${lic}')" title="從此 Set 移除這項材料" style="background:rgba(239, 68, 68, 0.2); border:none; color:#ef4444; font-weight:bold; cursor:pointer; font-size:11px; width:16px; height:16px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; line-height:1;">✕</button>
+          <span>${escapeHtml(lic)} - ${escapeHtml(titleStr)}</span>
+          <button data-set-key="${escapeHtml(key)}" data-lic="${escapeHtml(lic)}" onclick="event.stopPropagation(); removeItemFromSet(this.dataset.setKey, this.dataset.lic)" title="從此 Set 移除這項材料" style="background:rgba(239, 68, 68, 0.2); border:none; color:#ef4444; font-weight:bold; cursor:pointer; font-size:11px; width:16px; height:16px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; line-height:1;">✕</button>
         </span>`;
       }).join('');
 
@@ -1151,23 +1166,23 @@
           <div class="set-card-header">
             <div>
               <div style="display:flex; align-items:center; gap:8px;">
-                <div class="set-title">📦 ${setObj.name}</div>
+                <div class="set-title">📦 ${escapeHtml(setObj.name)}</div>
                 ${statusBadge}
               </div>
-              <div class="set-meta" style="margin-top:4px;">建立時間: ${setObj.createdAt} ｜ 共 ${setObj.items.length} 項綠建材</div>
+              <div class="set-meta" style="margin-top:4px;">建立時間: ${escapeHtml(setObj.createdAt)} ｜ 共 ${setObj.items.length} 項綠建材</div>
             </div>
           </div>
 
           <div style="background:rgba(9, 13, 22, 0.6); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:10px 12px; margin-bottom:12px; font-size:12px; display:flex; flex-direction:column; gap:8px;">
-            <div><strong style="color:#38bdf8;">📌 專案用途：</strong><span style="color:#F3F4F6;">${setObj.purpose || '尚未設定用途 (請在 AGENT 輸入 /GMimport 對齊)'}</span></div>
+            <div><strong style="color:#38bdf8;">📌 專案用途：</strong><span style="color:#F3F4F6;">${escapeHtml(setObj.purpose || '尚未設定用途 (請在 AGENT 輸入 /GMimport 對齊)')}</span></div>
             <div>
               <strong style="color:#10B981;">🚀 預備執行的動作：</strong>
               ${(() => {
                 const actions = setObj.plannedActions;
                 if (!actions) return '<span style="color:#6B7280;">待 Agent 擬訂計畫</span>';
                 const lines = actions.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-                if (lines.length <= 1) return `<span style="color:#E2E8F0;">${actions}</span>`;
-                const items = lines.map(l => `<li style="color:#E2E8F0; margin-bottom:3px;">${l}</li>`).join('');
+                if (lines.length <= 1) return `<span style="color:#E2E8F0;">${escapeHtml(actions)}</span>`;
+                const items = lines.map(l => `<li style="color:#E2E8F0; margin-bottom:3px;">${escapeHtml(l)}</li>`).join('');
                 return `<ul style="margin:6px 0 0 4px; padding:0; list-style:none; line-height:1.7;">${items}</ul>`;
               })()}
             </div>
@@ -1175,10 +1190,10 @@
 
           <div class="set-items-list">${chips}</div>
           <div class="set-card-actions">
-            <button class="btn-apply-set" onclick="applySet('${key}')">勾選載入此 Set</button>
-            <button class="btn-push-revit" onclick="syncSetToAgent('${key}')">🤖 與 Agent 同步</button>
-            <button class="btn-edit-plan" onclick="openEditSetPlanModal('${key}')" style="background:rgba(139, 92, 246, 0.2); color:#a78bfa; border:1px solid rgba(139, 92, 246, 0.4); padding:6px 14px; border-radius:var(--radius-sm); font-size:12px; font-weight:600; cursor:pointer;">✏️ 修改</button>
-            <button class="btn-delete-set" onclick="deleteSet('${key}')">刪除</button>
+            <button class="btn-apply-set" data-set-key="${escapeHtml(key)}" onclick="applySet(this.dataset.setKey)">勾選載入此 Set</button>
+            <button class="btn-push-revit" data-set-key="${escapeHtml(key)}" onclick="syncSetToAgent(this.dataset.setKey)">🤖 與 Agent 同步</button>
+            <button class="btn-edit-plan" data-set-key="${escapeHtml(key)}" onclick="openEditSetPlanModal(this.dataset.setKey)" style="background:rgba(139, 92, 246, 0.2); color:#a78bfa; border:1px solid rgba(139, 92, 246, 0.4); padding:6px 14px; border-radius:var(--radius-sm); font-size:12px; font-weight:600; cursor:pointer;">✏️ 修改</button>
+            <button class="btn-delete-set" data-set-key="${escapeHtml(key)}" onclick="deleteSet(this.dataset.setKey)">刪除</button>
           </div>
         </div>
       `;
