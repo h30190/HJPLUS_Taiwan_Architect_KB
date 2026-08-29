@@ -25,6 +25,7 @@
 <details>
 <summary>點開查看近期已合併的 PR（感謝所有貢獻者！）</summary>
 
+- **2026-08-29** 🤖 新增 Revit AI 目標判定與安全執行工作流程（本庫第一個完整 Revit 知識入口：證明目標集合、分級唯讀檢查、風險預覽、獨立讀回與證據契約）([#70](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/70) by @NicheSam)
 - **2026-08-29** 📐 新增臺北市建照圖說繪製與圖冊編排技能（A101–A7 標準編排、44 項建照申請書圖檢核、無紙化系統 N 系列檔名前綴與公會對副本校對 SOP；僅適用臺北市）([#69](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/69) by @ray92chiu-png)
 - **2026-08-29** 🛣️ 新增市區道路及附屬工程設計規範三技能（總則位階與用詞規則、人行空間與無障礙、道路景觀與植栽；標準與規範文字不一致處並列標位階）([#63](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/63) by @deartotoro)
 - **2026-08-29** 📝 24 個技能 description 補中文觸發詞與分工聲明，機電物料尺寸範圍勘誤、EEWH 誤植更正、6 個 domain.md 斷鏈清理 ([#56](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/56) by @Rumi-3653；英制管徑下限於 [#72](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/72) 更正)
@@ -121,7 +122,7 @@ Archicad、Revit 等 BIM 及設計工具技能
 ## 技能分類說明
 
 <!-- COUNT:summary -->
-| **A 類通用技能** | 10 個 | 國際通用標準，無需台灣適配 | AI + 人類直接使用 |
+| **A 類通用技能** | 11 個 | 國際通用標準，無需台灣適配 | AI + 人類直接使用 |
 | **B 類適配技能** | 10 個 | 國際規範→台灣適配，保留 TODO 注記 | 國際→台灣雙向支援 |
 | **C 類台灣法規技能** | 69 個 | 完全台灣法規，MCP 工具對接 | 台灣法規本位，官方對接 |
 
