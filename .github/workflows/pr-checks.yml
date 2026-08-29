@@ -1,0 +1,74 @@
+name: PR checks
+
+# 對 PR 執行內容品質檢查。三項檢查與貢獻者本機可跑的
+# `python scripts/check_content.py` 完全相同，不會有「本機過、CI 不過」的落差。
+#
+# 檢查什麼：
+#   1. OKF schema（scripts/validate_okf.py）
+#   2. 相對連結可解析、去識別化（scripts/check_content.py）
+#   3. 是否改到 README 的自動維護區塊 —— 只提醒不擋
+#
+# 刻意不檢查的：README 技能計數。計數由 update-readme-counts workflow 在合併後
+# 重算，貢獻者無須也不應自行修改；若在 PR 階段檢查，反而會逼貢獻者去改那個
+# 最容易衝突的檔案。
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  content-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # check_content.py 需要與 base 比對變動檔案
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: OKF schema 驗證
+        run: python scripts/validate_okf.py
+
+      - name: 相對連結與去識別化檢查
+        run: python scripts/check_content.py --base "origin/${{ github.base_ref }}"
+
+  readme-guard:
+    # README 的計數與「最近更新」由維護者／CI 維護。貢獻者改動這兩個區塊，
+    # 在等待審查期間 main 一前進就會衝突（#69 即為此例）。這裡只提醒，不擋合併。
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 檢查是否改動 README 自動維護區塊
+        id: guard
+        env:
+          BASE: origin/${{ github.base_ref }}
+        run: |
+          if git diff --quiet "$BASE...HEAD" -- README.md; then
+            echo "touched=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          DIFF=$(git diff "$BASE...HEAD" -- README.md)
+          if echo "$DIFF" | grep -qE '^[+-].*(類通用技能|類適配技能|類台灣法規技能|COUNT:summary)'; then
+            echo "touched=true" >> "$GITHUB_OUTPUT"
+          elif echo "$DIFF" | grep -qE '^[+-]- \*\*[0-9]{4}-[0-9]{2}-[0-9]{2}\*\*'; then
+            echo "touched=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "touched=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 留言提醒
+        if: steps.guard.outputs.touched == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: gh pr comment "$PR" --body-file .github/readme-guard-comment.md

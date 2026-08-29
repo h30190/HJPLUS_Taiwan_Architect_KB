@@ -1,0 +1,79 @@
+name: Update README counts
+
+# 合併到 main 之後重算 README 的技能分類計數，讓貢獻者完全不需要碰 README。
+#
+# 為什麼要有這支：
+#   計數若由貢獻者手動維護，PR 送出後只要 main 又合併了別的 PR，計數就會對不上
+#   而產生衝突（#69 即為此例：8/21 送出時算的 65→66 完全正確，等到 8/29 要合併時
+#   main 已經前進到 68）。把計數移交給 CI，貢獻者就算落後幾十個 commit 也不會衝突。
+#
+# 分支保護：
+#   main 目前要求 1 個 approving review，GITHUB_TOKEN 預設無法直接推。
+#   因此採雙路徑——先嘗試直接推，被擋就改開 PR。若希望一律直接推，可在
+#   Settings → Branches → main 的保護規則中，將 github-actions[bot] 加入
+#   "Allow specified actors to bypass required pull requests"。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'raw/**/SKILL.md'      # 只有技能增減才會影響計數
+      - 'scripts/update_readme_counts.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-readme-counts
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 重算計數
+        id: recount
+        run: |
+          python scripts/update_readme_counts.py
+          if git diff --quiet -- README.md; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "計數已是最新，無須更動。"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "計數有變動："
+            git diff -- README.md | grep -E '^[+-]\|' || true
+          fi
+
+      - name: 設定 git 身分
+        if: steps.recount.outputs.changed == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs(README): 依 raw/ 實際內容重算技能分類計數" -m "由 update-readme-counts workflow 自動產生。計數改由 CI 維護後，貢獻者無須也不應在 PR 中修改 README 的計數區塊。"
+
+      - name: 直接推送（若分支保護允許）
+        if: steps.recount.outputs.changed == 'true'
+        id: direct
+        continue-on-error: true
+        run: git push origin HEAD:main
+
+      - name: 推送被擋時改開 PR
+        if: steps.recount.outputs.changed == 'true' && steps.direct.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: chore/readme-counts-${{ github.run_id }}
+        run: |
+          git checkout -b "$BRANCH"
+          git push origin "$BRANCH"
+          gh pr create --base main --head "$BRANCH" \
+            --title "docs(README): 依 raw/ 實際內容重算技能分類計數" \
+            --body-file .github/readme-counts-pr-body.md
