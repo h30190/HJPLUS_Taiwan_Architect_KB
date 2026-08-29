@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: taiwan-stair-railing-ramp
-description: "This skill should be used when checking stair dimensional compliance for buildings in Taiwan — minimum stair-and-landing width, riser height, tread depth by building-use category, and the critical handrail-encroachment rule (clear width must remain >= 75 cm regardless of handrails), per Taiwan Building Technical Regulations (Design & Construction) Article 33, Chapter 2 Section 7 (Stairs, Railings, Ramps, Articles 33-39). Railings (Art. 38), handrails (Art. 37) and ramps (Art. 39) are stubbed for later completion."
+description: "This skill should be used when checking stair dimensional compliance for buildings in Taiwan — minimum stair-and-landing width, riser height, tread depth by building-use category, and the critical handrail-encroachment rule (clear width must remain >= 75 cm regardless of handrails), per Taiwan Building Technical Regulations (Design & Construction) Article 33, Chapter 2 Section 7 (Stairs, Railings, Ramps, Articles 33-39). Railings (Art. 38), handrails (Art. 37) and ramps (Art. 39) are stubbed for later completion. 不涵蓋無障礙設施設計規範之無障礙樓梯/坡道(本庫尚無該專職skill)。Trigger words: 樓梯淨寬、級高級深、欄杆扶手、坡道。"
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
 metadata:
@@ -118,7 +118,7 @@ side (90 − 10 = 80 >= 75). The real test is always "clear width after handrail
 
 ## Cross-references
 
-- Accessible stairs / accessible handrails → `taiwan-accessibility`
+- Accessible stairs / accessible handrails → no installed skill covers this yet (the referenced `taiwan-accessibility` does not exist in this KB); consult the Accessible Facilities Design Specification directly — do NOT substitute the general-building Art.33 values here
   (`raw/建築法規/無障礙設計/`). Do not duplicate here; link there.
 - Means-of-egress stairs (直通樓梯 / 特別安全梯) and evacuation →
   `raw/建築法規/消防安全/`.

@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: cns-spec-query
-description: "This skill should be used when verifying CNS (Chinese National Standards) on public engineering drawings or querying PCC (Public Construction Commission) guide specifications."
+description: "This skill should be used when verifying CNS (Chinese National Standards) on public engineering drawings or querying PCC (Public Construction Commission) guide specifications. Trigger words: 國家標準、施工綱要規範、工程會規範查詢、圖說CNS核對。"
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
 metadata:

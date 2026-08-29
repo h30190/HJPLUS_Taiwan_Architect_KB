@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>臺灣 TABC 全量綠建材採購指南與 Revit BIM 材料 Set 管理平台</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-main: #0B0F19;
+    --bg-card: #151C2C;
+    --bg-card-hover: #1C263B;
+    --bg-glass: rgba(21, 28, 44, 0.85);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(74, 222, 128, 0.35);
+
+    --text-primary: #F3F4F6;
+    --text-secondary: #9CA3AF;
+    --text-muted: #6B7280;
+
+    --accent-green: #10B981;
+    --accent-green-glow: rgba(16, 185, 129, 0.25);
+    --accent-blue: #3B82F6;
+    --accent-yellow: #F59E0B;
+    --accent-purple: #8B5CF6;
+    --accent-red: #EF4444;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: 120px;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(16px);
+    background: var(--bg-glass);
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, #10B981, #059669);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    color: #fff;
+    box-shadow: 0 0 16px var(--accent-green-glow);
+  }
+
+  .logo-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: linear-gradient(to right, #ffffff, #9CA3AF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .status-tag {
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--accent-green);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    box-shadow: 0 0 8px var(--accent-green);
+  }
+
+  .manage-set-btn {
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    color: var(--accent-purple);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+
+  .manage-set-btn:hover {
+    background: var(--accent-purple);
+    color: #fff;
+    box-shadow: 0 0 16px rgba(139, 92, 246, 0.4);
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 32px auto;
+    padding: 0 24px;
+  }
+
+  .query-notice-banner {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.15));
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .query-notice-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .query-notice-highlight {
+    color: var(--accent-green);
+    font-weight: 800;
+  }
+
+  .hero-section {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-sub {
+    color: var(--text-secondary);
+    font-size: 14px;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .search-filter-bar {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-bottom: 32px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  .search-input-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .search-input {
+    flex: 1;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px 20px;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .search-input:focus {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 12px var(--accent-green-glow);
+  }
+
+  .quick-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .pill-btn:hover, .pill-btn.active {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+  }
+
+  .materials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 24px;
+  }
+
+  .material-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .material-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-accent);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .card-image-wrap {
+    height: 200px;
+    width: 100%;
+    background: #0f1523;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.92;
+    transition: transform 0.4s ease;
+  }
+
+  .material-card:hover .card-image {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    backdrop-filter: blur(8px);
+    z-index: 5;
+  }
+
+  .badge-health { background: rgba(16, 185, 129, 0.9); color: #fff; }
+  .badge-performance { background: rgba(59, 130, 246, 0.9); color: #fff; }
+  .badge-recycle { background: rgba(245, 158, 11, 0.9); color: #fff; }
+  .badge-eco { background: rgba(139, 92, 246, 0.9); color: #fff; }
+
+  .checkbox-overlay {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+  }
+
+  .custom-checkbox {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .custom-checkbox.checked {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+  }
+
+  .custom-checkbox.checked::after {
+    content: "✓";
+    color: #fff;
+    font-weight: 900;
+    font-size: 14px;
+  }
+
+  .card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-licno {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-green);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .card-company {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+
+  .spec-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .spec-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+  }
+
+  .spec-highlight {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-green);
+    border-color: rgba(16, 185, 129, 0.25);
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .action-btn {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--accent-blue);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .action-btn:hover {
+    background: var(--accent-blue);
+    color: #fff;
+  }
+
+  .sticky-action-bar {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(21, 28, 44, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-accent);
+    padding: 12px 28px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    z-index: 90;
+  }
+
+  .selected-count {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .selected-count span {
+    color: var(--accent-green);
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .btn-save-set {
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    color: var(--accent-yellow);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-save-set:hover {
+    background: var(--accent-yellow);
+    color: #000;
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+  }
+
+  .revit-import-btn {
+    background: linear-gradient(135deg, #10B981, #059669);
+    color: #fff;
+    border: none;
+    padding: 9px 22px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 0 20px var(--accent-green-glow);
+    transition: all 0.2s;
+  }
+
+  .revit-import-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 28px rgba(16, 185, 129, 0.4);
+  }
+
+  /* Modal Base */
+  .modal-backdrop {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(10px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 28px;
+    position: relative;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: none; border: none;
+    color: var(--text-muted); font-size: 20px; cursor: pointer;
+  }
+
+  .param-table {
+    width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px;
+  }
+
+  .param-table th, .param-table td {
+    padding: 10px 14px; border: 1px solid var(--border-color); text-align: left;
+  }
+
+  .param-table th { background: rgba(255, 255, 255, 0.03); color: var(--text-secondary); width: 38%; }
+  .param-table td { color: var(--text-primary); }
+
+  /* Set Card Styles */
+  .set-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+  }
+
+  .set-card:hover {
+    border-color: var(--accent-purple);
+    background: rgba(139, 92, 246, 0.05);
+  }
+
+  .set-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .set-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .set-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .set-items-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .set-item-chip {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--accent-green);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+  }
+
+  .set-card-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .btn-push-revit {
+    background: linear-gradient(135deg, #10B981, #059669);
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .btn-apply-set {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--accent-blue);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .btn-delete-set {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--accent-red);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-group">
+    <div class="logo-badge">GB</div>
+    <div>
+      <div class="logo-title">臺灣 TABC 全量綠建材採購指南與 Revit BIM 材料 Set 管理平台</div>
+      <div style="font-size: 11px; color: var(--text-muted);">Material Set Management & Revit MCP Direct Sync</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="manage-set-btn" onclick="openSetManager()">
+      📁 材料組合管理 (<span id="setHeaderCount">0</span>)
+    </button>
+    <div class="status-tag">
+      <span class="status-dot"></span>地端 Master 庫：1141 項建材
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="query-notice-banner">
+    <div class="query-notice-text">
+      ⚡ 超高速地端檢索與 Set 管理：已為您比對出 <span class="query-notice-highlight" id="matchCount">0</span> 項合格案件！可將勾選建材打包儲存為專案 Set。
+    </div>
+    <div style="font-size: 12px; color: var(--text-muted);">線上檢索位址：tabcmgr.hopto.org</div>
+  </div>
+
+  <div class="hero-section">
+    <h1 class="hero-title">TABC 全量綠建材地端檢索與 Revit BIM 對接平台</h1>
+    <p class="hero-sub">已將 TABC 官方採購指南 1,141 筆全量建材預載至地端 Master 快取。支援將多項勾選綠建材打包為「專案材料組合 (Material Set)」，可自訂 Set 名稱並一鍵批次推送到 Revit 模型與共享參數。</p>
+  </div>
+
+  <div class="search-filter-bar">
+    <div class="search-input-group">
+      <input type="text" id="searchInput" class="search-input" value="" placeholder="🔍 輸入任意關鍵字（如：塗料、地板、木地板、矽酸鈣板、隔音、天花板、石膏磚...）" oninput="filterMaterials()">
+    </div>
+    <div class="quick-pills">
+      <button class="pill-btn" onclick="setSearch('塗料')">🎨 塗料漆類</button>
+      <button class="pill-btn" onclick="setSearch('地板')">🪵 地板地坪</button>
+      <button class="pill-btn" onclick="setSearch('牆')">🧱 牆面板材</button>
+      <button class="pill-btn" onclick="setSearch('天花板')">☁️ 天花吸音</button>
+      <button class="pill-btn" onclick="setSearch('隔音')">🔇 隔音緩衝</button>
+      <button class="pill-btn" onclick="setSearch('透水')">💧 透水鋪面</button>
+      <button class="pill-btn" onclick="setSearch('混凝土')">🏗️ 綠混凝土</button>
+      <button class="pill-btn active" onclick="setSearch('')">🌐 全部 1141 項建材</button>
+    </div>
+  </div>
+
+  <div class="materials-grid" id="materialsGrid"></div>
+</div>
+
+<div class="sticky-action-bar">
+  <div class="selected-count">已勾選 <span id="selectedCount">0</span> 項建材</div>
+  <button class="btn-clear-selection" onclick="clearAllSelections()" style="background:rgba(239, 68, 68, 0.15); color:#ef4444; border:1px solid rgba(239, 68, 68, 0.3); padding:8px 14px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;">🧹 清除全部勾選</button>
+  <button class="btn-save-set" onclick="promptSaveSet()">💾 儲存為材料 Set</button>
+  <button class="manage-set-btn" onclick="openSetManager()">📁 開啟 Set 管理器</button>
+  <button class="revit-import-btn" onclick="syncSelectedToAgent()">🤖 與 Agent 同步</button>
+</div>
+
+<!-- Modal 1: Detail View -->
+<div class="modal-backdrop" id="detailModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- Modal 2: Set Manager Drawer -->
+<div class="modal-backdrop" id="setManagerModal">
+  <div class="modal-content" style="max-width: 820px;">
+    <button class="modal-close" onclick="closeModal('setManagerModal')">✕</button>
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+      <h2 style="font-size:22px;font-weight:800;color:#fff;margin:0;">📁 綠建材 Set 專案材料組合管理器</h2>
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end;">
+        <button onclick="refreshSetsFromServer()" id="refreshSetsBtn" title="從 Agent 同步最新計畫並重新整理" style="background:rgba(59,130,246,0.15); color:#38bdf8; border:1px solid rgba(59,130,246,0.4); padding:7px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap;">🔄 重新整理</button>
+        <button onclick="exportSetsToAgent()" title="下載 exported_material_sets.json 供 Agent 讀取" style="background:rgba(16,185,129,0.15); color:#10B981; border:1px solid rgba(16,185,129,0.4); padding:7px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap;">📤 匯出至 Agent</button>
+        <button onclick="exportAllMaterialSets()" title="將管理器內全部 Set 下載為 JSON 專案檔" style="background:rgba(139,92,246,0.15); color:#a78bfa; border:1px solid rgba(139,92,246,0.4); padding:7px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap;">💾 匯出專案</button>
+        <button onclick="openMaterialSetImport()" title="從外部 JSON 專案檔匯入 Set" style="background:rgba(245,158,11,0.15); color:#F59E0B; border:1px solid rgba(245,158,11,0.4); padding:7px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap;">📥 匯入專案</button>
+        <input type="file" id="materialSetImportInput" accept="application/json,.json" onchange="importMaterialSetsFromFile(event)" style="display:none;">
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px;">以下為您在地端儲存的所有材料組合（Material Sets）。您可以查看對應之專案用途、預備執行動作，隨時選取套用、修改計畫或與 Agent 同步。</p>
+    <div style="font-size:11.5px; color:#F59E0B; background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.25); border-radius:6px; padding:7px 12px; margin-bottom:16px;">
+      ⚠️ 每次使用 <code style="color:#10B981;">/GMimport</code> 前，請先點擊「📤 匯出至 Agent」，讓 Agent 讀取您最新的材料清單。
+    </div>
+    <div id="setsListContainer"></div>
+  </div>
+</div>
+
+<!-- Modal 3: Custom Push Trigger Modal (Replaces Native Alert) -->
+<div class="modal-backdrop" id="pushNoticeModal">
+  <div class="modal-content" style="max-width: 620px; border: 1px solid rgba(16, 185, 129, 0.4);">
+    <button class="modal-close" onclick="closeModal('pushNoticeModal')">✕</button>
+    <div style="font-size:18px; font-weight:800; color:#10B981; margin-bottom:14px; display:flex; align-items:center; gap:8px;">
+      <span>🤖 請在 AGENT 輸入 "/GMimport"</span>
+    </div>
+
+    <div style="font-size:14px; line-height:1.6; color:#F3F4F6; background:rgba(9, 13, 22, 0.6); padding:16px; border-radius:10px; border:1px solid rgba(255,255,255,0.05); margin-bottom:16px;">
+      <div style="font-weight:700; color:#38bdf8; margin-bottom:8px;" id="pushNoticeSetTitle">已成功打包材料 Set！</div>
+      <div style="margin-bottom:12px; color:#9CA3AF; font-size:13px;">複製以下指令貼到 AI Agent 對話框，Agent 將自動讀取此 Set 的材料清單，擬訂 <strong style="color:#10B981;">Revit 共享參數寫入計畫</strong>，與您確認後回傳管理器並執行。</div>
+      <div style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-radius:8px; padding:10px 14px; font-family:var(--font-code); font-size:13px; color:#10B981; word-break:break-all;" id="pushNoticeCmdPreview">/GMimport 請為材料 Set 【...】 擬訂 Revit 綠建材寫入計畫</div>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; gap:10px;">
+      <button onclick="copyGMImportPrompt()" style="background:rgba(59, 130, 246, 0.2); color:#38bdf8; border:1px solid rgba(59, 130, 246, 0.4); padding:8px 16px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;">📋 複製指令</button>
+      <button onclick="closeModal('pushNoticeModal')" style="background:#10B981; color:#000; border:none; padding:8px 20px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">確定</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal 4: Edit Plan Modal -->
+<div class="modal-backdrop" id="editSetPlanModal">
+  <div class="modal-content" style="max-width: 640px; border: 1px solid rgba(139, 92, 246, 0.4);">
+    <button class="modal-close" onclick="closeModal('editSetPlanModal')">✕</button>
+    <h2 style="font-size:20px; font-weight:800; color:#a78bfa; margin-bottom:14px; display:flex; align-items:center; gap:8px;">
+      <span>✏️ 修改材料 Set 用途與預備執行的動作</span>
+    </h2>
+
+    <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:16px;">
+      <div>
+        <label style="font-size:12px; font-weight:700; color:var(--text-secondary); display:block; margin-bottom:6px;">專案材料 Set 名稱：</label>
+        <input type="text" id="editSetNameInput" style="width:100%; background:rgba(9,13,22,0.6); border:1px solid var(--border-color); border-radius:8px; padding:10px; color:#fff; font-size:14px;" readonly>
+      </div>
+
+      <div>
+        <label style="font-size:12px; font-weight:700; color:#38bdf8; display:block; margin-bottom:6px;">📌 專案用途 (Purpose / Intent)：</label>
+        <textarea id="editSetPurposeInput" rows="3" style="width:100%; background:rgba(9,13,22,0.6); border:1px solid var(--border-color); border-radius:8px; padding:10px; color:#fff; font-size:13px; font-family:var(--font-main);" placeholder="例：A棟標準客房牆面裝修健康綠建材率 45% 評定"></textarea>
+      </div>
+
+      <div>
+        <label style="font-size:12px; font-weight:700; color:#10B981; display:block; margin-bottom:6px;">🚀 預備執行的動作 (Planned Actions)：</label>
+        <textarea id="editSetActionsInput" rows="3" style="width:100%; background:rgba(9,13,22,0.6); border:1px solid var(--border-color); border-radius:8px; padding:10px; color:#fff; font-size:13px; font-family:var(--font-main);" placeholder="例：1. 寫入 OST_Walls 16個共享參數&#10;2. 動態計算牆面綠建材面積與45%門檻&#10;3. 生成綠建材審查報表"></textarea>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <button onclick="reDiscussWithAgent()" style="background:rgba(245, 158, 11, 0.15); color:#F59E0B; border:1px solid rgba(245, 158, 11, 0.3); padding:8px 14px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer;">🤖 回到 Agent 重新討論 (/GMimport)</button>
+      <div style="display:flex; gap:10px;">
+        <button onclick="closeModal('editSetPlanModal')" style="background:transparent; color:var(--text-muted); border:1px solid var(--border-color); padding:8px 14px; border-radius:8px; font-size:13px; cursor:pointer;">取消</button>
+        <button onclick="saveSetPlan()" style="background:#8B5CF6; color:#fff; border:none; padding:8px 20px; border-radius:8px; font-size:13px; font-weight:700; cursor:pointer;">💾 儲存並同步至 Set 管理器</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 此為進版控的乾淨 UI 模板，資料陣列留空；實際資料由
+  // scripts/update_tabc_database.py 填入後輸出成 green-material-toolkit.html。
+  const tabcDatabase = [
+];
+
+  const selectedItems = new Set();
+  const defaultSets = {
+    "室內牆": {
+      name: "室內牆",
+      createdAt: new Date().toLocaleDateString('zh-TW'),
+      items: ["GBM0104204", "GBM0104194"],
+      purpose: "室內牆面粉刷與地坪綠建材裝修 — 健康綠建材面積率 45% 法規評定與 16 個共享參數寫入",
+      plannedActions: "1. 注入 16 個共享參數至 OST_Walls / OST_Floors\n2. 填入 CNS16082 TVOC (0.08) 與甲醛 (0.01) 數據\n3. 動態計算牆面綠建材面積比例 (45%)\n4. 自動生成 Revit 明細表與 Excel 計算書",
+      planStatus: "已經 Agent 對齊計畫"
+    }
+  };
+  let materialSets = JSON.parse(localStorage.getItem('tabc_material_sets') || 'null') || defaultSets;
+
+  function updateSetCountBadge() {
+    const count = Object.keys(materialSets).length;
+    document.getElementById('setHeaderCount').innerText = count;
+  }
+
+  function setSearch(kw) {
+    document.getElementById('searchInput').value = kw;
+    document.querySelectorAll('.pill-btn').forEach(btn => btn.classList.remove('active'));
+    if (typeof event !== 'undefined' && event && event.target) event.target.classList.add('active');
+    filterMaterials();
+  }
+
+  function filterMaterials() {
+    const rawQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+    const grid = document.getElementById('materialsGrid');
+    grid.innerHTML = '';
+
+    let matchCount = 0;
+
+    tabcDatabase.forEach(data => {
+      const haystack = `${data.licno} ${data.title} ${data.company} ${data.category} ${data.subCategory} ${data.specs}`.toLowerCase();
+      const kwMatch = data.keywords ? data.keywords.some(k => k.toLowerCase().includes(rawQuery) || rawQuery.includes(k.toLowerCase())) : false;
+
+      if (!rawQuery || haystack.includes(rawQuery) || kwMatch) {
+        matchCount++;
+        const isChecked = selectedItems.has(data.licno) ? 'checked' : '';
+        let badgeTag = '🌿 健康綠建材';
+        let badgeCls = 'badge-health';
+
+        if (data.category === '高性能') { badgeTag = '⚡ 高性能綠建材'; badgeCls = 'badge-performance'; }
+        else if (data.category === '再生') { badgeTag = '♻️ 再生綠建材'; badgeCls = 'badge-recycle'; }
+        else if (data.category === '生態') { badgeTag = '🪵 生態綠建材'; badgeCls = 'badge-eco'; }
+
+        const cardHtml = `
+          <div class="material-card" data-licno="${data.licno}">
+            <div class="card-image-wrap">
+              <img src="${data.img}" class="card-image" alt="${data.title}" onerror="handleImgError(this)">
+              <div class="card-badge ${badgeCls}">${badgeTag}</div>
+              <div class="checkbox-overlay">
+                <div class="custom-checkbox ${isChecked}" onclick="toggleSelect(this, '${data.licno}')"></div>
+              </div>
+            </div>
+            <div class="card-content">
+              <div>
+                <div class="card-licno">${data.licno}</div>
+                <div class="card-title">${data.title}</div>
+                <div class="card-company">🏢 ${data.company}</div>
+                <div class="spec-tags">
+                  <span class="spec-tag spec-highlight">TABC 地端 Master 認證</span>
+                  <span class="spec-tag">${data.subCategory}</span>
+                </div>
+                <!-- 產品規格與性能 (對照原網頁 UI) -->
+                <div style="background: rgba(9, 13, 22, 0.65); border: 1px solid rgba(255, 91, 87, 0.3); border-radius: 8px; padding: 10px 12px; margin-top: 10px;">
+                  <div style="color: #FF5B57; font-weight: 700; font-size: 13px; margin-bottom: 4px;">產品規格與性能</div>
+                  <div style="font-size: 12px; line-height: 1.5; color: #F3F4F6;">${data.cnsSpec || '依 CNS3090 試驗，符合規定。'}</div>
+                  <div style="font-size: 12px; line-height: 1.5; color: #F3F4F6;"><strong style="color:#9CA3AF;">合格項目：</strong> ${data.qualifiedItems || '綠建材評定合格'}</div>
+                  <div style="font-size: 12px; line-height: 1.5; color: #F3F4F6;"><strong style="color:#9CA3AF;">試驗項目：</strong> ${data.testItems || '① 28天抗壓強度：343kgf/cm2。② 56天氯離子滲透電量：942庫倫。'}</div>
+                  <div style="font-size: 11px; line-height: 1.4; color: #FBBF24; margin-top: 6px;">⚠️ 推估值，需向 TABC 或原廠證書查證</div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <span>有效期限: ${data.period}</span>
+                <button class="action-btn" onclick="openDetail('${data.licno}')">查看 Revit 參數</button>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.insertAdjacentHTML('beforeend', cardHtml);
+      }
+    });
+    document.getElementById('matchCount').innerText = matchCount;
+  }
+
+  function handleImgError(imgEl) {
+    const parent = imgEl.parentElement;
+    imgEl.style.display = 'none';
+    const fallbackDiv = document.createElement('div');
+    fallbackDiv.style.cssText = "width:100%;height:100%;background:linear-gradient(135deg, #1e293b, #0f172a);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;";
+    fallbackDiv.innerHTML = `<span style="font-size:48px;margin-bottom:4px;">🌿</span><span style="font-size:13px;color:rgba(255,255,255,0.85);font-weight:700;">TABC 綠建材認證</span>`;
+    parent.appendChild(fallbackDiv);
+  }
+
+  function toggleSelect(el, licno) {
+    el.classList.toggle('checked');
+    if (el.classList.contains('checked')) selectedItems.add(licno);
+    else selectedItems.delete(licno);
+    document.getElementById('selectedCount').innerText = selectedItems.size;
+  }
+
+  function promptSaveSet() {
+    if (selectedItems.size === 0) {
+      alert('請先在卡片右上角勾選至少一項綠建材，再點擊儲存為 Set！');
+      return;
+    }
+    const setName = prompt(`請輸入此材料組合 (Set) 的名稱：
+（例如：A棟標準客房裝修Set、外牆隔熱防水Set、B1防潮Set）`);
+    if (!setName || !setName.trim()) return;
+
+    const trimmedName = setName.trim();
+    const itemsArray = Array.from(selectedItems);
+
+    materialSets[trimmedName] = {
+      name: trimmedName,
+      createdAt: new Date().toLocaleString('zh-TW'),
+      items: itemsArray
+    };
+
+    localStorage.setItem('tabc_material_sets', JSON.stringify(materialSets));
+    updateSetCountBadge();
+    alert(`🎉 成功建立材料組合 【${trimmedName}】！包含 ${itemsArray.length} 項綠建材。`);
+  }
+
+  function openSetManager() {
+    renderSetsList();
+    document.getElementById('setManagerModal').style.display = 'flex';
+  }
+
+  function refreshSetsFromServer() {
+    const btn = document.getElementById('refreshSetsBtn');
+    if (btn) { btn.textContent = '⏳ 同步中...'; btn.disabled = true; }
+
+    fetch('http://localhost:8888/api/get-sets', { method: 'GET' })
+      .then(res => res.ok ? res.json() : null)
+      .then(serverSets => {
+        if (serverSets && typeof serverSets === 'object' && Object.keys(serverSets).length > 0) {
+          Object.keys(serverSets).forEach(key => {
+            materialSets[key] = Object.assign(materialSets[key] || {}, serverSets[key]);
+          });
+          localStorage.setItem('tabc_material_sets', JSON.stringify(materialSets));
+          showAutoSaveToast('✅ 已從 Agent 同步最新計畫！');
+        } else {
+          showAutoSaveToast('ℹ️ 伺服器無資料，顯示本地資料');
+        }
+        renderSetsList();
+        updateSetCountBadge();
+        if (btn) { btn.textContent = '🔄 重新整理'; btn.disabled = false; }
+      })
+      .catch(() => {
+        if (btn) { btn.textContent = '🔄 重新整理'; btn.disabled = false; }
+        showAutoSaveToast('⚠️ 伺服器未連線，顯示本地資料');
+        renderSetsList();
+      });
+  }
+
+  function exportSetsToAgent() {
+    const exportPayload = {};
+    Object.keys(materialSets).forEach(key => {
+      const s = materialSets[key];
+      exportPayload[key] = {
+        name: s.name,
+        createdAt: s.createdAt,
+        items: s.items || [],
+        purpose: s.purpose || '',
+        plannedActions: s.plannedActions || '',
+        planStatus: s.planStatus || '待 Agent 需求對齊',
+        exportedAt: new Date().toISOString()
+      };
+    });
+
+    const jsonStr = JSON.stringify(exportPayload, null, 2);
+
+    fetch('http://localhost:8888/api/save-sets', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: jsonStr
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        const setNames = Object.keys(exportPayload).join('、');
+        showAutoSaveToast('✅ 已自動同步至 Agent！共 ' + Object.keys(exportPayload).length + ' 個 Set：' + setNames);
+      } else {
+        fallbackDownload(jsonStr);
+      }
+    })
+    .catch(() => {
+      fallbackDownload(jsonStr);
+    });
+  }
+
+  function showAutoSaveToast(msg) {
+    let toast = document.getElementById('autoSaveToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'autoSaveToast';
+      toast.style.cssText = 'position:fixed;bottom:32px;right:32px;z-index:9999;background:rgba(16,185,129,0.97);color:#000;font-weight:700;font-size:14px;padding:14px 22px;border-radius:12px;box-shadow:0 8px 32px rgba(16,185,129,0.4);white-space:pre-line;max-width:360px;line-height:1.5;transition:opacity 0.3s;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => { toast.style.opacity = '0'; }, 4000);
+  }
+
+  function fallbackDownload(jsonStr) {
+    const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'exported_material_sets.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    alert(`📥 已下載 exported_material_sets.json
+
+提示：若要讓匯出完全自動化，請執行 local_server.py！`);
+  }
+
+  function buildMaterialSetExportPayload() {
+    const exportPayload = {};
+    Object.keys(materialSets).forEach(key => {
+      const setObj = materialSets[key];
+      exportPayload[key] = {
+        name: setObj.name || key,
+        createdAt: setObj.createdAt || '',
+        items: Array.isArray(setObj.items) ? setObj.items : [],
+        purpose: setObj.purpose || '',
+        plannedActions: setObj.plannedActions || '',
+        planStatus: setObj.planStatus || '待 Agent 需求對齊',
+        exportedAt: new Date().toISOString()
+      };
+    });
+    return exportPayload;
+  }
+
+  async function exportAllMaterialSets() {
+    const exportPayload = buildMaterialSetExportPayload();
+    const setCount = Object.keys(exportPayload).length;
+    if (setCount === 0) {
+      alert('目前沒有可匯出的材料 Set。');
+      return;
+    }
+
+    const jsonContent = JSON.stringify(exportPayload, null, 2);
+    const dateStamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const suggestedName = `green-material-project-${dateStamp}.json`;
+
+    if ('showSaveFilePicker' in window) {
+      try {
+        const fileHandle = await window.showSaveFilePicker({
+          suggestedName,
+          types: [{
+            description: '綠建材 Set 專案檔',
+            accept: { 'application/json': ['.json'] }
+          }]
+        });
+        const writable = await fileHandle.createWritable();
+        await writable.write(jsonContent);
+        await writable.close();
+        showAutoSaveToast(`💾 已將 ${setCount} 個材料 Set 匯出為專案檔`);
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          alert(`匯出失敗：${error.message}`);
+        }
+      }
+      return;
+    }
+
+    const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = suggestedName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    showAutoSaveToast(`💾 瀏覽器不支援路徑選擇，已下載 ${setCount} 個材料 Set`);
+  }
+
+  function openMaterialSetImport() {
+    const input = document.getElementById('materialSetImportInput');
+    input.value = '';
+    input.click();
+  }
+
+  function importMaterialSetsFromFile(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const imported = JSON.parse(reader.result);
+        if (!imported || typeof imported !== 'object' || Array.isArray(imported)) {
+          throw new Error('根節點必須是以 Set 名稱為鍵值的 JSON 物件');
+        }
+
+        const entries = Object.entries(imported);
+        if (entries.length === 0) throw new Error('檔案內沒有任何材料 Set');
+
+        // items 以外的欄位若不是字串，畫面上會顯示成 [object Object] 之類的東西，
+        // 一併擋掉，讓格式錯誤在匯入當下就講清楚
+        const TEXT_FIELDS = ['name', 'createdAt', 'purpose', 'plannedActions', 'planStatus'];
+        const invalidNames = entries.filter(([key, setObj]) =>
+          !key.trim() || !setObj || typeof setObj !== 'object' || Array.isArray(setObj) ||
+          !Array.isArray(setObj.items) || setObj.items.some(item => typeof item !== 'string') ||
+          TEXT_FIELDS.some(f => setObj[f] !== undefined && typeof setObj[f] !== 'string')
+        ).map(([key]) => key || '(空白名稱)');
+        if (invalidNames.length > 0) {
+          throw new Error(`下列 Set 格式錯誤：${invalidNames.join('、')}；每個 Set 的 items 必須是字串陣列，name／createdAt／purpose／plannedActions／planStatus 若有提供必須是字串`);
+        }
+
+        const conflicts = entries.map(([key]) => key).filter(key => materialSets[key]);
+        if (conflicts.length > 0 && !confirm(`以下 ${conflicts.length} 個同名 Set 已存在：\n\n${conflicts.join('、')}\n\n是否以匯入檔內容覆蓋？`)) {
+          showAutoSaveToast('ℹ️ 已取消匯入，現有 Set 未變更');
+          return;
+        }
+
+        entries.forEach(([key, setObj]) => {
+          materialSets[key] = {
+            name: setObj.name || key,
+            createdAt: setObj.createdAt || new Date().toLocaleString('zh-TW'),
+            items: [...setObj.items],
+            purpose: setObj.purpose || '',
+            plannedActions: setObj.plannedActions || '',
+            planStatus: setObj.planStatus || '待 Agent 需求對齊'
+          };
+        });
+
+        localStorage.setItem('tabc_material_sets', JSON.stringify(materialSets));
+        updateSetCountBadge();
+        renderSetsList();
+
+        fetch('http://localhost:8888/api/save-sets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(buildMaterialSetExportPayload(), null, 2)
+        }).catch(() => {});
+
+        showAutoSaveToast(`📥 已匯入 ${entries.length} 個材料 Set`);
+      } catch (error) {
+        alert(`匯入失敗：${error.message}`);
+      }
+    };
+    reader.onerror = () => alert('匯入失敗：無法讀取所選檔案。');
+    reader.readAsText(file, 'utf-8');
+  }
+
+  let currentEditSetKey = null;
+  let currentPushSetKey = null;
+
+  // 材料 Set 的名稱與計畫欄位可能來自匯入的外部專案檔，插進 innerHTML 或 HTML
+  // 屬性前一律轉義。單引號與雙引號都要轉，因為同一個值也會用在屬性值裡。
+  function escapeHtml(value) {
+    return String(value === null || value === undefined ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function renderSetsList() {
+    const container = document.getElementById('setsListContainer');
+    const keys = Object.keys(materialSets);
+
+    if (keys.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center;padding:40px 20px;color:var(--text-muted);">
+          <div style="font-size:48px;margin-bottom:12px;">📁</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text-secondary);">目前尚未儲存任何材料 Set</div>
+          <div style="font-size:13px;margin-top:6px;">請在首頁勾選材料後，點擊下方「💾 儲存為材料 Set」</div>
+        </div>
+      `;
+      return;
+    }
+
+    let html = '';
+    keys.forEach(key => {
+      const setObj = materialSets[key];
+      const chips = setObj.items.map(lic => {
+        const found = tabcDatabase.find(d => d.licno === lic);
+        const titleStr = found ? found.title : '綠建材';
+        return `<span class="set-item-chip" style="display:inline-flex; align-items:center; gap:6px; padding:4px 10px;">
+          <span>${escapeHtml(lic)} - ${escapeHtml(titleStr)}</span>
+          <button data-set-key="${escapeHtml(key)}" data-lic="${escapeHtml(lic)}" onclick="event.stopPropagation(); removeItemFromSet(this.dataset.setKey, this.dataset.lic)" title="從此 Set 移除這項材料" style="background:rgba(239, 68, 68, 0.2); border:none; color:#ef4444; font-weight:bold; cursor:pointer; font-size:11px; width:16px; height:16px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; line-height:1;">✕</button>
+        </span>`;
+      }).join('');
+
+      const hasPlan = !!setObj.purpose;
+      const statusBadge = hasPlan ?
+        `<span style="font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px; background:rgba(16,185,129,0.2); color:#10B981; border:1px solid rgba(16,185,129,0.3);">🟢 已對齊 Agent 計畫</span>` :
+        `<span style="font-size:11px; font-weight:700; padding:2px 8px; border-radius:4px; background:rgba(245,158,11,0.2); color:#F59E0B; border:1px solid rgba(245,158,11,0.3);">🟡 待 Agent 對齊 (/GMimport)</span>`;
+
+      html += `
+        <div class="set-card">
+          <div class="set-card-header">
+            <div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div class="set-title">📦 ${escapeHtml(setObj.name)}</div>
+                ${statusBadge}
+              </div>
+              <div class="set-meta" style="margin-top:4px;">建立時間: ${escapeHtml(setObj.createdAt)} ｜ 共 ${setObj.items.length} 項綠建材</div>
+            </div>
+          </div>
+
+          <div style="background:rgba(9, 13, 22, 0.6); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:10px 12px; margin-bottom:12px; font-size:12px; display:flex; flex-direction:column; gap:8px;">
+            <div><strong style="color:#38bdf8;">📌 專案用途：</strong><span style="color:#F3F4F6;">${escapeHtml(setObj.purpose || '尚未設定用途 (請在 AGENT 輸入 /GMimport 對齊)')}</span></div>
+            <div>
+              <strong style="color:#10B981;">🚀 預備執行的動作：</strong>
+              ${(() => {
+                const actions = setObj.plannedActions;
+                if (!actions) return '<span style="color:#6B7280;">待 Agent 擬訂計畫</span>';
+                const lines = actions.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                if (lines.length <= 1) return `<span style="color:#E2E8F0;">${escapeHtml(actions)}</span>`;
+                const items = lines.map(l => `<li style="color:#E2E8F0; margin-bottom:3px;">${escapeHtml(l)}</li>`).join('');
+                return `<ul style="margin:6px 0 0 4px; padding:0; list-style:none; line-height:1.7;">${items}</ul>`;
+              })()}
+            </div>
+          </div>
+
+          <div class="set-items-list">${chips}</div>
+          <div class="set-card-actions">
+            <button class="btn-apply-set" data-set-key="${escapeHtml(key)}" onclick="applySet(this.dataset.setKey)">勾選載入此 Set</button>
+            <button class="btn-push-revit" data-set-key="${escapeHtml(key)}" onclick="syncSetToAgent(this.dataset.setKey)">🤖 與 Agent 同步</button>
+            <button class="btn-edit-plan" data-set-key="${escapeHtml(key)}" onclick="openEditSetPlanModal(this.dataset.setKey)" style="background:rgba(139, 92, 246, 0.2); color:#a78bfa; border:1px solid rgba(139, 92, 246, 0.4); padding:6px 14px; border-radius:var(--radius-sm); font-size:12px; font-weight:600; cursor:pointer;">✏️ 修改</button>
+            <button class="btn-delete-set" data-set-key="${escapeHtml(key)}" onclick="deleteSet(this.dataset.setKey)">刪除</button>
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+  }
+
+  function clearAllSelections() {
+    if (selectedItems.size === 0) {
+      showAutoSaveToast('ℹ️ 目前尚未勾選任何建材');
+      return;
+    }
+    selectedItems.clear();
+    document.getElementById('selectedCount').innerText = 0;
+    document.querySelectorAll('.card-checkbox').forEach(cb => cb.classList.remove('checked'));
+    filterMaterials();
+    showAutoSaveToast('🧹 已清除全部勾選！');
+  }
+
+  function removeItemFromSet(key, licno) {
+    const setObj = materialSets[key];
+    if (!setObj) return;
+
+    const idx = setObj.items.indexOf(licno);
+    if (idx !== -1) {
+      setObj.items.splice(idx, 1);
+
+      if (setObj.items.length === 0) {
+        if (confirm(`Set 【${setObj.name}】 已無任何材料，是否要刪除整個 Set？`)) {
+          delete materialSets[key];
+        }
+      }
+
+      localStorage.setItem('tabc_material_sets', JSON.stringify(materialSets));
+
+      fetch('http://localhost:8888/api/save-sets', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(materialSets)
+      }).catch(() => {});
+
+      updateSetCountBadge();
+      renderSetsList();
+      showAutoSaveToast(`🗑️ 已從 【${setObj.name}】 移除材料 ${licno}`);
+    }
+  }
+
+  function applySet(key) {
+    const setObj = materialSets[key];
+    if (!setObj) return;
+
+    selectedItems.clear();
+    setObj.items.forEach(lic => selectedItems.add(lic));
+    document.getElementById('selectedCount').innerText = selectedItems.size;
+    filterMaterials();
+    closeModal('setManagerModal');
+    alert(`已順利套用 Set 【${setObj.name}】！已勾選裡面的 ${selectedItems.size} 項建材。`);
+  }
+
+  function deleteSet(key) {
+    if (confirm(`確定要刪除材料組合 【${key}】 嗎？`)) {
+      delete materialSets[key];
+      localStorage.setItem('tabc_material_sets', JSON.stringify(materialSets));
+      updateSetCountBadge();
+      renderSetsList();
+    }
+  }
+
+  function syncSetToAgent(key) {
+    const setObj = materialSets[key];
+    if (!setObj) return;
+    localStorage.setItem('tabc_material_sets', JSON.stringify(materialSets));
+    exportSetsToAgent();
+    showAutoSaveToast(`🤖 正在將材料 Set【${setObj.name}】與 Agent 同步…`);
+  }
+
+  function copyGMImportPrompt() {
+    const setObj = materialSets[currentPushSetKey] || { name: '專案綠建材Set', items: [] };
+    const licListStr = setObj.items && setObj.items.length > 0 ? ` (${setObj.items.join(', ')})` : '';
+    const textToCopy = `/GMimport 請為材料 Set 【${setObj.name}】${licListStr} 擬訂 Revit 綠建材寫入計畫`;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      alert(`✅ 已複製指令：\n\n${textToCopy}\n\n請回到 AI Agent 貼上傳送！`);
+    }).catch(() => {
+      prompt("請複製以下指令並傳送給 Agent：", textToCopy);
+    });
+  }
+
+  function openEditSetPlanModal(key) {
+    const setObj = materialSets[key];
+    if (!setObj) return;
+    currentEditSetKey = key;
+    document.getElementById('editSetNameInput').value = setObj.name;
+    document.getElementById('editSetPurposeInput').value = setObj.purpose || '';
+    document.getElementById('editSetActionsInput').value = setObj.plannedActions || '';
+    document.getElementById('editSetPlanModal').style.display = 'flex';
+  }
+
+  function saveSetPlan() {
+    if (!currentEditSetKey || !materialSets[currentEditSetKey]) return;
+    const setObj = materialSets[currentEditSetKey];
+    setObj.purpose = document.getElementById('editSetPurposeInput').value.trim();
+    setObj.plannedActions = document.getElementById('editSetActionsInput').value.trim();
+    setObj.planStatus = setObj.purpose ? "已經 Agent 對齊計畫" : "待 Agent 需求對齊";
+
+    localStorage.setItem('tabc_material_sets', JSON.stringify(materialSets));
+    renderSetsList();
+    closeModal('editSetPlanModal');
+    alert(`已成功儲存並同步材料 Set 【${setObj.name}】 之專案用途與預備執行動作！`);
+  }
+
+  function reDiscussWithAgent() {
+    const setObj = materialSets[currentEditSetKey] || { name: '材料Set', items: [] };
+    const licListStr = setObj.items && setObj.items.length > 0 ? ` (${setObj.items.join(', ')})` : '';
+    const textToCopy = `/GMimport 我需要重新討論並修改材料 Set 【${setObj.name}】${licListStr} 的專案用途與 Revit 執行動作`;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      alert(`已成功複製重新討論指令：\n\n${textToCopy}\n\n請回到 Agent 對話框貼上，即可重新對齊需求！`);
+    }).catch(() => {
+      prompt("請複製以下指令：", textToCopy);
+    });
+  }
+
+  function openDetail(licno) {
+    const data = tabcDatabase.find(d => d.licno === licno);
+    if (!data) return;
+
+    const imgBlock = data.img ? `
+      <div style="background: rgba(9, 13, 22, 0.9); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; margin-bottom: 20px; text-align: center;">
+        <div style="font-size: 13px; font-weight: 700; color: var(--accent-green); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center; gap: 6px;">
+          <span>🖼️ 原網頁產品圖全貌 (Full Product Picture)</span>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.5); border-radius: 8px; padding: 12px; border: 1px solid rgba(255,255,255,0.05);">
+          <img src="${data.img}" alt="${data.title}" style="max-width: 100%; max-height: 460px; object-fit: contain; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);" onerror="this.parentElement.innerHTML='<span style=\'color:var(--text-muted);font-size:13px;padding:20px;\'>無原網頁照片或照片無法載入</span>'">
+        </div>
+      </div>
+    ` : '';
+
+    const html = `
+      <h2 style="font-size:20px;font-weight:700;color:#fff;margin-bottom:6px;">${data.title}</h2>
+      <div style="color:var(--accent-green);font-size:13px;font-weight:700;margin-bottom:16px;">TABC 核定編號：${data.licno} ｜ 廠商：${data.company}</div>
+
+      ${imgBlock}
+
+      <!-- 產品規格與性能 (對照原網頁 100% 復刻 UI) -->
+      <div style="background: rgba(9, 13, 22, 0.8); border: 1px solid rgba(255, 91, 87, 0.4); border-radius: 10px; padding: 16px; margin-bottom: 20px;">
+        <div style="color: #FF5B57; font-weight: 700; font-size: 16px; margin-bottom: 8px;">產品規格與性能</div>
+        <div style="font-size: 14px; line-height: 1.6; color: #F3F4F6; margin-bottom: 4px;">${data.cnsSpec || '依 CNS3090 試驗，符合規定。'}</div>
+        <div style="font-size: 14px; line-height: 1.6; color: #F3F4F6; margin-bottom: 4px;"><strong style="color:#9CA3AF;">合格項目：</strong> <span style="color:#10B981;font-weight:700;">${data.qualifiedItems || '再生綠建材'}</span></div>
+        <div style="font-size: 14px; line-height: 1.6; color: #F3F4F6;"><strong style="color:#9CA3AF;">試驗項目：</strong> ${data.testItems || '① 28天抗壓強度：343kgf/cm2。② 56天氯離子滲透電量：942庫倫。'}</div>
+        <div style="font-size: 12px; line-height: 1.5; color: #FBBF24; margin-top: 8px; border-top: 1px dashed rgba(251,191,36,0.35); padding-top: 8px;">⚠️ 推估值，非逐筆從 TABC 詳細頁面查得，正式送審前請向 TABC 或原廠證書查證</div>
+      </div>
+
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">根據 <code>domain/green-material-parameter-schema.md</code>，此建材將匯入以下 Revit 共享參數 Schema (GreenMaterial_SharedParams.txt)：</p>
+
+      <table class="param-table">
+        <tr><th>Revit 共享參數名稱</th><th>對應寫入值 (Value)</th></tr>
+        <tr><th>GreenMaterial_CertNo</th><td>${data.licno}</td></tr>
+        <tr><th>GreenMaterial_Category</th><td>${data.category}綠建材</td></tr>
+        <tr><th>GreenMaterial_SubCategory</th><td>${data.subCategory}</td></tr>
+        <tr><th>GreenMaterial_Applicant</th><td>${data.company}</td></tr>
+        <tr><th>GreenMaterial_ValidUntil</th><td>${data.period}</td></tr>
+        <tr><th>GreenMaterial_CNSSpec ⚠️</th><td style="color:#38bdf8;font-weight:600;">${data.cnsSpec || '依 CNS3090 試驗'}</td></tr>
+        <tr><th>GreenMaterial_QualifiedItems ⚠️</th><td style="color:#10B981;font-weight:600;">${data.qualifiedItems || '綠建材評定合格'}</td></tr>
+        <tr><th>GreenMaterial_TestItems ⚠️</th><td>${data.testItems || '試驗項目實測數據'}</td></tr>
+        <tr><th>GreenMaterial_SpecsSummary ⚠️</th><td>${data.specs}</td></tr>
+        <tr><td colspan="2" style="font-size:11px;color:#FBBF24;padding-top:2px;">⚠️ 標記欄位為關鍵字規則推估值，非逐筆從 TABC 詳細頁面查得，正式送審前請向 TABC 或原廠證書查證</td></tr>
+        <tr><th>GBM_SourceUrl</th><td><a href="${data.url}" target="_blank" style="color:var(--accent-blue);">TABC 採購指南原網頁系統 ↗</a></td></tr>
+      </table>
+    `;
+
+    document.getElementById('modalBody').innerHTML = html;
+    document.getElementById('detailModal').style.display = 'flex';
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  function syncSelectedToAgent() {
+    if (selectedItems.size === 0) {
+      alert('請先在上方卡片右上角勾選欲與 Agent 同步的綠建材品項！');
+      return;
+    }
+
+    const setName = prompt(`請輸入要與 Agent 同步的材料 Set 名稱：
+（例如：A棟標準客房裝修Set、外牆隔熱防水Set、B1防潮Set）`);
+    if (!setName || !setName.trim()) return;
+
+    const trimmedName = setName.trim();
+    const itemsArray = Array.from(selectedItems);
+    const existingSet = materialSets[trimmedName] || {};
+    materialSets[trimmedName] = Object.assign(existingSet, {
+      name: trimmedName,
+      createdAt: existingSet.createdAt || new Date().toLocaleString('zh-TW'),
+      items: itemsArray,
+      planStatus: existingSet.planStatus || '待 Agent 需求對齊'
+    });
+
+    localStorage.setItem('tabc_material_sets', JSON.stringify(materialSets));
+    updateSetCountBadge();
+    exportSetsToAgent();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // 若本機伺服器運行中，優先從 /api/get-sets 同步最新 Agent 回傳的計畫至 materialSets
+    fetch('http://localhost:8888/api/get-sets', { method: 'GET' })
+      .then(res => res.ok ? res.json() : null)
+      .then(serverSets => {
+        if (serverSets && typeof serverSets === 'object' && Object.keys(serverSets).length > 0) {
+          // 深度合併：server 的欄位覆蓋 localStorage，但保留 localStorage 獨有的 Set
+          Object.keys(serverSets).forEach(key => {
+            materialSets[key] = Object.assign(materialSets[key] || {}, serverSets[key]);
+          });
+          localStorage.setItem('tabc_material_sets', JSON.stringify(materialSets));
+        }
+        updateSetCountBadge();
+        filterMaterials();
+      })
+      .catch(() => {
+        // 伺服器未啟動，直接使用 localStorage 資料
+        updateSetCountBadge();
+        filterMaterials();
+      });
+  });
+</script>
+</body>
+</html>
