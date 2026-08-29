@@ -14,7 +14,7 @@
 
 | 技能名稱 | 類型 | skill.md (AI) | domain.md (人類) |
 |---------|---|-----|-----|-|-|
-| [acoustic-design](聲環境設計/acoustic-design/) | B 類適配 | ✅ | ✅ |
+| [acoustic-design](音環境設計/acoustic-design/) | B 類適配 | ✅ | ✅ |
 
 ### 永續建築
 
@@ -79,7 +79,7 @@
 
 ## 相關資源
 
-- **[總索引](../../README.md)**：查看完整 10 大分類架構
-- **[Skills-Architectors](../Skills-Architects/)**：國際技能模組參考
+- **[總索引](../../README.md)**：查看完整 11 大分類架構
+- **Skills-Architects**：國際技能模組參考（原始資料夾已自本庫移除，僅留出處註記）
 - 內政部建築研究所：https://www.abri.gov.tw/
 - 台灣建築中心：https://gb.tabc.org.tw/
