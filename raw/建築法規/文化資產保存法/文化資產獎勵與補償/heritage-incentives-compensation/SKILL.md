@@ -1,7 +1,7 @@
 ---
 type: Skill
 name: heritage-incentives-compensation
-description: "This skill should be used when advising on the financial incentives and compensations available to owners of cultural heritage properties in Taiwan, including Transfer of Development Rights (TDR) and tax exemptions."
+description: "This skill should be used as an OVERVIEW for comparing the financial incentives and compensations available to owners of cultural heritage properties in Taiwan (文資獎勵與補償總覽比較) — helping an owner decide which route to take. For detailed TDR assessment and processing use heritage-tdr (容積移轉); for land value tax and house tax exemption details use heritage-tax-exemption (稅賦減免). Trigger only when comparing or surveying incentive options, not when computing a specific one."
 license: CC-BY-SA-4.0
 compatibility: claude-code,opencode,agent-skills
 metadata:

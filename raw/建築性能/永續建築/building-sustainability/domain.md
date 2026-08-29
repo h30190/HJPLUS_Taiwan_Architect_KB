@@ -14,7 +14,7 @@ title: "綠建築與永續設計"
 - **LEED**: Leadership in Energy and Environmental Design
 - **BREEAM**: Building Research Establishment Environmental Assessment Method
 - **WELL**: 健康建築標準
-- **EEARD**: 台灣綠建築評估體系
+- **EEWH**: 台灣綠建築評估體系（⚠️ 本檔原誤植為「EEARD」）
 
 ### 永續策略
 - **節能降低負載**
@@ -25,7 +25,9 @@ title: "綠建築與永續設計"
 
 ## 台灣特別注意事項
 
-### 1. 台灣綠建築評估體系 (EEARD)
+### 1. 台灣綠建築評估體系 (EEWH)
+
+> ⚠️ 本節指標數與分級分數與本庫 green-building-label 所載 EEWH 正式制度矛盾（正確為九大指標、合格~鑽石依 13~32 分分級），查證前勿引用本節數字，以 green-building-label 為準。
 
 #### 7 大指標 20 大項目
 
