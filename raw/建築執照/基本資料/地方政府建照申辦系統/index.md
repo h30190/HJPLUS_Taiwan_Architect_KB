@@ -11,4 +11,4 @@
 * [桃園市](桃園市/) - Taoyuan City building permit online system
 * [臺南市](臺南市/) - Tainan City building permit online system
 * [高雄市](高雄市/) - Kaohsiung City building permit online system
-* [其他縣市](其他縣市/) - Remaining 16 counties/cities
+* 其他縣市 - Remaining 16 counties/cities（籌備中）
