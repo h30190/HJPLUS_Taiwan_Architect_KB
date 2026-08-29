@@ -4,6 +4,10 @@
 `README.md` 的「最近更新」區塊是同一份歷史的人類閱讀版本。
 兩者都由維護者在合併 PR 後更新，日期標題必須是 ISO 8601 `YYYY-MM-DD`，最新在最上面。
 
+## 2026-08-21
+
+- **Creation**: 新增 `建築執照/建造執照/申請文件/圖面要求/臺北市建照圖說繪製與圖冊編排` (taipei-permit-drawing-standards)——臺北市建造執照標準圖冊編排（A101–A7）、44 項建照申請書圖檢核清單、無紙化系統 N 系列檔名前綴編碼規則、結構外審線上壓章與公會對副本校對 SOP。
+
 ## 2026-08-13
 
 - **Update**: 統一 24 份 `domain.md` 的顯示標題（[#58](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/58)，解決 [#40](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/issues/40)）。7 個英文 H1 中文化、混凝土「版」改「板」、建築執照四類帶執照別；`title` 與 H1 同步修正，`validate_okf.py` 的重複標題警告由 12 降為 0。
