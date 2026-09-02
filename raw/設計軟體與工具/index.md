@@ -2,6 +2,7 @@
 
 ## Skills
 
+* [建管資料交換工具](建管資料交換工具/) - 舊式建管案件交換格式、書表資料對照、代碼快照與保真儲存模型
 * [BIM工具 — Archicad 工作流程](BIM工具/Archicad/archicad-basic-workflow/SKILL.md) - Understanding Archicad project setup, BIM modeling workflow, view organization, drawing production, and publishing processes
 * [BIM工具 — Archicad 範本設定](BIM工具/Archicad/archicad-template-setup/SKILL.md) - Setting up Archicad templates for Taiwan architectural practice
 * [BIM工具 — Archicad 文件產出](BIM工具/Archicad/archicad-documentation/SKILL.md) - Archicad documentation and drawing production workflows
