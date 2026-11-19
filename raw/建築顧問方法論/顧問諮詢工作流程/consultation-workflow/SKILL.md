@@ -39,6 +39,7 @@ Discover skills via `raw/index.md` (per this repo's OKF convention) and frontmat
 | Question smells like… | Load together (cluster) |
 |---|---|
 | 容積免計 / 陽台 / 梯廳 / §162 | `floor-area-exemption-pitfalls` **+** `balcony-lobby-far-recalculation`（建築法規/容積率與建蔽率計算） |
+| 採光 / 通風 / 無窗戶居室 / §41-44 | `daylight-ventilation-review`（建築法規/建築技術規則）**+** `smoke-exhaust-review` when a room may be 無窗戶居室 |
 | 排煙 / 防火避難 | `smoke-exhaust-review` + fire-related 機電 skills（專業複委託/機電）— dual-track domain |
 | 無障礙 | `accessible-door-clear-width` + `accessible-elevator-shaft-dimensions`（vendor data — currency check mandatory） |
 | RC 結構檢核 | `concrete-general-requirements` first, then the member skill (beam/column/slab/wall) |

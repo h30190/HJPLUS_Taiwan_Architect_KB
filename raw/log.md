@@ -4,6 +4,11 @@
 `README.md` 的「最近更新」區塊是同一份歷史的人類閱讀版本。
 兩者都由維護者在合併 PR 後更新，日期標題必須是 ISO 8601 `YYYY-MM-DD`，最新在最上面。
 
+## 2026-10-06
+
+- **Creation**: 新增 `建築法規/建築技術規則/建築設計施工編/採光通風檢討/daylight-ventilation-review`——建築技術規則採光通風檢討（[#78](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/78)）。涵蓋設計施工編 §1(35) 無窗戶居室、§39-1～§45 採光通風，以及建築設備編 §100～§106 機械通風。合併前維護者已對照全國法規資料庫核對 §41（1/5、1/8、75 公分）與 §43（5%、1/10、0.8 m²）五項數值，均相符；§42 附件圖、未列分區、有效通風面積定義等六項仍在該技能的 To Verify 清單中。
+- **Creation**: 新增 `設計軟體與工具/建管資料交換工具/` 四技能（[#77](https://github.com/h30190/HJPLUS_Taiwan_Architect_KB/pull/77)）——`legacy-permit-data-interchange`（舊式案件交換格式）、`permit-data-fidelity-model`（保真資料儲存模型）、`permit-report-data-mapping`（書表與資料群組對照，含 `references/report-matrix.md`）、`permit-codebook-snapshot-governance`（代碼字典快照治理）。PR 已同步 `scripts/update_readme_counts.py` 的 `SECTION_CLASS`，但未重跑計數；合併後由維護者執行 `update_readme_counts.py`，C 類由 69 更新為 74。
+
 ## 2026-08-21
 
 - **Creation**: 新增 `建築執照/建造執照/申請文件/圖面要求/臺北市建照圖說繪製與圖冊編排` (taipei-permit-drawing-standards)——臺北市建造執照標準圖冊編排（A101–A7）、44 項建照申請書圖檢核清單、無紙化系統 N 系列檔名前綴編碼規則、結構外審線上壓章與公會對副本校對 SOP。

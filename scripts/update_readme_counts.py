@@ -58,7 +58,12 @@ SECTION_CLASS = {
     "建築施工與材料":  {"default": "C"},
     "建築執照":        {"default": "C"},
     "公共工程":        {"default": "C"},
-    "設計軟體與工具":  {"default": "A"},
+    "設計軟體與工具":  {"default": "A", "overrides": {
+        "設計軟體與工具/建管資料交換工具/舊式案件交換格式/legacy-permit-data-interchange": "C",
+        "設計軟體與工具/建管資料交換工具/書表與資料群組對照/permit-report-data-mapping": "C",
+        "設計軟體與工具/建管資料交換工具/代碼字典快照治理/permit-codebook-snapshot-governance": "C",
+        "設計軟體與工具/建管資料交換工具/保真資料儲存模型/permit-data-fidelity-model": "C",
+    }},
     "室內裝修":        {"default": "C"},
 }
 
@@ -114,7 +119,7 @@ def main():
             out.append(line)  # keep marker
             i += 1
 
-            # Scan backwards to find the section link: [名稱](dir/)
+            # Scan backwards to find the preceding Markdown section link.
             section_name = None
             for j in range(len(out) - 1, max(len(out) - 6, -1), -1):
                 m = re.search(r'\[([^\]]+)\]\(([^)]+)/\)', out[j])
